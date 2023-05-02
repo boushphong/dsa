@@ -64,6 +64,24 @@ Checking Mid index of (2 + 2)// 2 = 2
 Mid Value of index 2: 15
 """
 
+
+binary_search_in_details(array1, 41)
+"""
+Array Length: 9
+First Value of index 0: 11
+Last Value of index 8: 55
+---
+Mid Value of index 4: 29
+Mid value smaller than 41, checking from left index of 5 to 8
+Checking Mid index of (5 + 8)// 2 = 6
+---
+Mid Value of index 6: 40
+Mid value smaller than 41, checking from left index of 7 to 8
+Checking Mid index of (7 + 8)// 2 = 7
+---
+Mid Value of index 7: 41
+"""
+
 binary_search_in_details(array1, 17)
 """
 Array Length: 9
