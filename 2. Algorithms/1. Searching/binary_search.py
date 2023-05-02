@@ -37,13 +37,12 @@ def binary_search_in_details(arr, target):
         elif arr[mid] < target:
             left = mid + 1
             print(f"Mid value smaller than {target}, checking from left index of {left} to {right}")
-            print(f"Checking Mid index of {left} + {right} = {(left + right) // 2}")
-            print("---")
         else:
             right = mid - 1
             print(f"Mid value larger than {target}, checking from left index of {left} to {right}")
-            print(f"Checking Mid index of {left} + {right} = {(left + right) // 2}")
-            print("---")
+        
+        print(f"Checking Mid index of {left} + {right} = {(left + right) // 2}")
+        print("---")
 
     return -1
 
