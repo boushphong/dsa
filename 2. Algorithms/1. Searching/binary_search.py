@@ -47,6 +47,23 @@ def binary_search_in_details(arr, target):
     return -1
 
 
+binary_search_in_details(array, 15)
+"""
+Array Length: 8
+First Value of index 0: 11
+Last Value of index 7: 41
+---
+Mid Value of index 3: 17
+Mid value larger than 15, checking from left index of 0 to 2
+Checking Mid index of (0 + 2)// 2 = 1
+---
+Mid Value of index 1: 13
+Mid value smaller than 15, checking from left index of 2 to 2
+Checking Mid index of (2 + 2)// 2 = 2
+---
+Mid Value of index 2: 15
+"""
+
 binary_search_in_details(array1, 17)
 """
 Array Length: 9
