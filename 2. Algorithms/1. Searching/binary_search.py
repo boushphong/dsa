@@ -56,15 +56,15 @@ Last Value of index 8: 55
 ---
 Mid Value of index 4: 29
 Mid value larger than 17, checking from left index of 0 to 3
-Checking Mid index of 0 + 3 = 1
+Checking Mid index of (0 + 3)// 2 = 1
 ---
 Mid Value of index 1: 13
 Mid value smaller than 17, checking from left index of 2 to 3
-Checking Mid index of 2 + 3 = 2
+Checking Mid index of (2 + 3)// 2 = 2
 ---
 Mid Value of index 2: 15
 Mid value smaller than 17, checking from left index of 3 to 3
-Checking Mid index of 3 + 3 = 3
+Checking Mid index of (3 + 3)// 2 = 3
 ---
 Mid Value of index 3: 17
 """
@@ -77,11 +77,11 @@ Last Value of index 8: 55
 ---
 Mid Value of index 4: 29
 Mid value larger than 15, checking from left index of 0 to 3
-Checking Mid index of 0 + 3 = 1
+Checking Mid index of (0 + 3)// 2 = 1
 ---
 Mid Value of index 1: 13
 Mid value smaller than 15, checking from left index of 2 to 3
-Checking Mid index of 2 + 3 = 2
+Checking Mid index of (2 + 3)// 2 = 2
 ---
 Mid Value of index 2: 15
 """
