@@ -1,7 +1,7 @@
 # Read List
 - [Substring](https://leetcode.com/problems/minimum-window-substring/solutions/26808/Here-is-a-10-line-template-that-can-solve-most-'substring'-problems/)
 - [Dynamic Programming](https://leetcode.com/discuss/study-guide/458695/Dynamic-Programming-Patterns)
-- [Backtracking](https://leetcode.com/problems/permutations/solutions/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning)
+- [Backtracking](https://leetcode.com/problems/permutations/solutions/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning))
 - [Two pointers](https://leetcode.com/discuss/study-guide/1688903/Solved-all-two-pointers-problems-in-100-days)
 - [Binary Search](https://leetcode.com/discuss/study-guide/786126/Python-Powerful-Ultimate-Binary-Search-Template.-Solved-many-problems)
 - [Sliding Windows](https://leetcode.com/problems/frequency-of-the-most-frequent-element/solutions/1175088/C++-Maximum-Sliding-Window-Cheatsheet-Template/)
@@ -28,7 +28,7 @@ We measure complexity by how the amount of operations/memory needed by the algor
 - O(logN) : No Constant
 - O(N\*M) : No Constant
 
-Example: 
+Example:
 - **O(2^N + N^2 - 500N) = O(2^N)** because as N tends to Infinity, 2^N completely dominates the other two terms
 
 ![image](https://user-images.githubusercontent.com/59940078/235910304-7c9bef41-5d6c-4a3d-bd03-9192cea0aee3.png)
