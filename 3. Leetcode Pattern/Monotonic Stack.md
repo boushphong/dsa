@@ -19,6 +19,7 @@ def maxWidthRamp(nums: List[int]) -> int:
 print(maxWidthRamp([9, 10, 6, 1, 2, 1, 7]))
 ```
 
+## [Find 132 Pattern](https://leetcode.com/problems/132-pattern/)
 ```python
 def find132pattern(nums):
     """
@@ -59,4 +60,31 @@ def find132pattern(nums):
 
 
 print(find132pattern([0, 4, 2, 1, 5, 1]))
+
+
+def find132pattern(nums):
+    first_min = [None] * len(nums)
+    minimum = float('inf')
+
+    for i in range(len(nums)):
+        if nums[i] > minimum:
+            first_min[i] = minimum
+        else:
+            minimum = nums[i]
+
+    stack = []
+    for i, num in enumerate(nums):
+        if first_min[i] is None:
+            continue
+        while stack and num >= stack[-1][1]:
+            stack.pop()
+        if stack and first_min[stack[-1][0]] < num < stack[-1][1]:
+            return True
+
+        stack.append((i, num))
+
+    return False
+
+
+print(find132pattern([3, 5, 0, 5, 4, 7, 4]))
 ```
