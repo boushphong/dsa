@@ -72,6 +72,8 @@ def find132pattern(nums):
         else:
             minimum = nums[i]
 
+    # if an element doesn't have first min, it means that the element is not worth considering
+    # because it won't be greater than the "1" part, hence we skip.
     stack = []
     for i, num in enumerate(nums):
         if first_min[i] is None:
@@ -86,5 +88,6 @@ def find132pattern(nums):
     return False
 
 
-print(find132pattern([3, 5, 0, 5, 4, 7, 4]))
+print(find132pattern([3, 5, 0, 3, 2]))
+print(find132pattern([3, 5, 0, 3, 4]))
 ```
