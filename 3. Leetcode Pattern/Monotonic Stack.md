@@ -32,7 +32,7 @@ Finding next greater and previous greater elements require building a monotone d
 ### Problems
 **Decreasing Stack Example:**
 ```python
-def find_next_greater_indexes(arr):
+def find_next_greater_indexes(arr: List[int]) -> List[int]:
     stack = []
     next_greater = [-1] * len(arr)
     
@@ -70,7 +70,7 @@ We need more information about the current array before creating the stack and d
 ### [Find 132 Pattern](https://leetcode.com/problems/132-pattern/)
 
 ```python
-def find132pattern(nums):
+def find132pattern(nums: List[int]) -> bool:
     """
     We find the last min element (From right to left) for every element in the array.
     If an element doesn't have first min, it means that the element is not worth considering
@@ -105,7 +105,7 @@ print(find132pattern([3, 5, 0, 3, 4]))
 
 ### [Beautiful Towers I](https://leetcode.com/problems/beautiful-towers-i)
 ```python
-def maximumSumOfHeights(maxHeights):
+def maximumSumOfHeights(maxHeights: List[int]) -> int:
     stack = []
     prev_smaller = [-1] * len(maxHeights)
     for i, num in enumerate(maxHeights):
@@ -169,4 +169,22 @@ def maxWidthRamp(nums: List[int]) -> int:
     return ans
 
 print(maxWidthRamp([9, 10, 6, 1, 2, 1, 7]))
+```
+
+## Sorting
+Sort the sequece before proceeding
+
+### [Car Fleet](https://leetcode.com/problems/car-fleet/)
+```python
+def carFleet(target: int, position: List[int], speed: List[int]) -> int:
+    cars_list = list(zip(position, speed))
+    cars_list = sorted(cars_list, key=lambda x: x[0], reverse=True)
+    stack = []
+
+    for pos, spe in cars_list:
+        till_finish_line = (target - pos) / spe
+        if stack and till_finish_line <= stack[-1]:
+            continue
+        stack.append(till_finish_line)
+    return len(stack)
 ```
