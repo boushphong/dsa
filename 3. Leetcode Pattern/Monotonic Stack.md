@@ -2,6 +2,7 @@
 ```python
 def find132pattern(nums):
     """
+    We find the last min element (From right to left) for every element in the array.
     If an element doesn't have first min, it means that the element is not worth considering
     because it won't be greater than the "1" part, hence we skip.
     """
@@ -36,8 +37,10 @@ print(find132pattern([3, 5, 0, 3, 4]))
 ```python
 def maxWidthRamp(nums: List[int]) -> int:
     """
-    Maintaining stack in decreasing order we don't push 10 into the stack because it's not necessary to do so 
-    Since 9 < 10. pushing 10 into the stack would be an over-estimation
+    Maintaining stack in decreasing order, because if the next element is larger the previous element, we can omit it
+    because adding it would be an over-estimation since the previous number is already small, hence it would provide
+    larger width. We don't push 10 into the stack because it's not necessary to do so Since 9 < 10. pushing 10 into
+    the stack would be an over-estimation
     """
     stack = []
     n = len(nums)
