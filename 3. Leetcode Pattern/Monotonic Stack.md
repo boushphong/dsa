@@ -1,4 +1,74 @@
-## [Find 132 Pattern](https://leetcode.com/problems/132-pattern/)
+# Monotonic Stack
+Monotonic stacks are generally used for solving questions of the type - next greater element, next smaller element, previous greater element and previous smaller element.
+
+## What is monotonic stack?
+
+There could be four types of monotonic stacks.
+- **Strictly increasing** - every element of the stack is strictly greater than the previous element. Example - [1, 4, 5, 8, 9]
+- **Non-decreasing** - every element of the stack is greater than or equal to the previous element. Example - [1, 4, 5, 5, 8, 9, 9]
+- **Strictly decreasing** - every element of the stack is strictly smaller than the previous element - [9, 8, 5, 4, 1]
+- **Non-increasing** - every element of the stack is smaller than or equal to the previous element. - [9, 9, 8, 5, 5, 4, 1]
+
+## A Generic Template
+```python
+def solveMonoStack(arr):
+    stack = []
+    for i in stack:
+        while stack and (condition operation on the top of stack) ... stack[-1]:
+            # If previous condition is satisfied, we pop the top element
+            tmp = stack.pop()
+            # Do something
+            
+    if len(stack):
+        # if stack has some elements left
+        # Do something with the stack top here.
+
+    # Push the current index to the stack at the end
+    stack.append(i)
+```
+
+Finding next greater and previous greater elements require building a monotone decreasing stack. For finding next smaller and previous smaller requires building a monotone increasing stack. To help you remember this, think of this as an inverse relation - **Greater requires Decreasing**, **Smaller requires Increasing stacks.**
+
+### Problems
+**Decreasing Stack Example:**
+```python
+def find_next_greater_indexes(arr):
+    stack = []
+    next_greater = [-1] * len(arr)
+    
+    for i in range(len(arr)):
+        while stack and arr[stack[-1]] < arr[i]:
+            stack_top = stack.pop()
+            next_greater[stack_top] = i
+        
+        stack.append(i)
+    
+    return next_greater
+```
+
+```python
+def find_previous_greater_indexes(arr):
+    stack = []
+    previous_greater = [-1] * len(arr)
+    
+    for i in range(len(arr)):
+        while stack and arr[stack[-1]] <= arr[i]:
+            stack.pop()
+        
+        if stack:
+            previous_greater[i] = stack[-1]
+        
+        stack.append(i)
+    
+    return previous_greater
+```
+
+# Patterns
+## Prefix Patterns
+We need more information about the current array before creating the stack and do a final iteration.
+
+### [Find 132 Pattern](https://leetcode.com/problems/132-pattern/)
+
 ```python
 def find132pattern(nums):
     """
@@ -33,7 +103,50 @@ print(find132pattern([3, 5, 0, 3, 2]))
 print(find132pattern([3, 5, 0, 3, 4]))
 ```
 
-## [Maximum Width Ramp](https://leetcode.com/problems/maximum-width-ramp/)
+### [Beautiful Towers I](https://leetcode.com/problems/beautiful-towers-i)
+```python
+def maximumSumOfHeights(maxHeights):
+    stack = []
+    prev_smaller = [-1] * len(maxHeights)
+    for i, num in enumerate(maxHeights):
+        while stack and num <= stack[-1][1]:
+            stack.pop()
+        if stack:  # and num > stack[-1][1]:
+            prev_smaller[i] = stack[-1][0]
+        stack.append((i, num))
+
+    stack.clear()
+
+    next_smaller = [-1] * len(maxHeights)
+    for i, num in enumerate(maxHeights):
+        while stack and num < stack[-1][1]:
+            next_smaller[stack.pop()[0]] = i
+        stack.append((i, num))
+
+    prefix_sum = [0] * len(maxHeights)
+    for i, num in enumerate(maxHeights):
+        if prev_smaller[i] == -1:
+            prefix_sum[i] = num * (i + 1)
+        else:
+            prefix_sum[i] = num * (i - prev_smaller[i]) + prefix_sum[prev_smaller[i]]
+
+    suffix_sum = [0] * len(maxHeights)
+    for i, num in zip(range(len(maxHeights) - 1, -1, -1), reversed(maxHeights)):
+        if next_smaller[i] == -1:
+            suffix_sum[i] = num * (len(maxHeights) - i)
+        else:
+            suffix_sum[i] = num * (next_smaller[i] - i) + suffix_sum[next_smaller[i]]
+
+    maximum = 0
+    for i, num in enumerate(maxHeights):
+        maximum = max(prefix_sum[i] + suffix_sum[i] - num, maximum)
+    return maximum
+```
+
+## Over-estimation 
+Don't push everything in the stack unless we really have to.
+
+### [Maximum Width Ramp](https://leetcode.com/problems/maximum-width-ramp/)
 ```python
 def maxWidthRamp(nums: List[int]) -> int:
     """
