@@ -235,6 +235,7 @@ def print_tri_back(r, c=0):
 print_tri_back(3)
 ```
 
+### Print Triangle (Backward Execution)
 ```python
 # *
 # **
