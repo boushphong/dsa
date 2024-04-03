@@ -307,6 +307,8 @@ print_tri(3)
 ![image](https://github.com/boushphong/Recursion/assets/59940078/67551972-85ee-49d5-b06a-1a9f926025bb)
 
 ```python
+s = "baccad"
+
 def skipAChar(s, remove, l=0):
     if l == len(s):
         return ""
