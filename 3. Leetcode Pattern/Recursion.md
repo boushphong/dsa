@@ -217,7 +217,6 @@ def linear_search_all_without_num_param(array, target, index=0):
 ```
 
 ## Multiple Arguments (with Multiple Arguments Modification)
-### Print Triangle
 ```python
 # ***
 # **
@@ -235,23 +234,21 @@ def print_tri_back(r, c=0):
 print_tri_back(3)
 ```
 
-### Print Triangle (Backward Execution)
 ```python
-# *
-# **
-# ***
-def print_tri(r, c=0):
-    if r == 0:
-        return
-    if c < r:
-        print_tri(r, c+1)
-        print("*", end="")
-    else:
-        print_tri(r-1, 0)
-        print()
+s = "baccad"
 
-print_tri(3)
-```  
+def skipAChar(s, remove, l=0):
+    if l == len(s):
+        return ""
+    if s[l] == remove:
+        return skipAChar(s, remove, l+1)
+    else:
+        return s[l] + skipAChar(s, remove, l+1)
+
+print(skipAChar(s, "a")) # bccd
+
+```
+
 ![image](https://github.com/boushphong/Recursion/assets/59940078/67551972-85ee-49d5-b06a-1a9f926025bb)
 
 ### Bubble Sort
@@ -285,6 +282,40 @@ def selection(arr, r, l=0, max=0):
     else:
         arr[r], arr[max] = arr[max], arr[r]
         selection(arr, r - 1)
+
+arr = [3,2,4]
+selection(arr, len(arr) - 1)
+```
+
+## Multiple Arguments (with Multiple Arguments Modification) (Backward Execution)
+```python
+# *
+# **
+# ***
+def print_tri(r, c=0):
+    if r == 0:
+        return
+    if c < r:
+        print_tri(r, c+1)
+        print("*", end="")
+    else:
+        print_tri(r-1, 0)
+        print()
+
+print_tri(3)
+```
+
+```python
+def skipAChar(s, remove, l=0):
+    if l == len(s):
+        return ""
+    st = skipAChar(s, remove, l+1)
+    if s[l] == remove:
+        return st
+    else:
+        return s[l] + st
+
+print(skipAChar(s, "a")) # bccd
 ```
 
 ### Merge Sort
@@ -355,8 +386,3 @@ def merge(arr, start, mid, end):
             start2 += 1
 ```
 ![image](https://github.com/boushphong/Recursion/assets/59940078/f62e6119-b3e0-4e99-9df1-153c01485837)
-
-
-
-
-
