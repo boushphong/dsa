@@ -408,7 +408,31 @@ def subset_string(subset="", string=""):
 print(subset_string(string="abc"))  # ['abc', 'ab', 'ac', 'a', 'bc', 'b', 'c']
 ```
 ![image](https://github.com/boushphong/Recursion/assets/59940078/a5637c3e-96a8-404e-9ee2-a049555ae38f)
-
+```python
+subset_string("", "abc")  # 15
+├── subset_string("a", "bc")  # 7
+│   ├── subset_string("ab", "c")  # 3
+│   │   ├── subset_string("abc", "")
+│   │   │   └── ["abc"]  # 1
+│   │   └── subset_string("ab", "")
+│   │       └── ["ab"]   # 2
+│   └── subset_string("a", "c")  # 6
+│       ├── subset_string("ac", "")
+│       │   └── ["ac"]  # 4
+│       └── subset_string("a", "")
+│           └── ["a"]   # 5
+└── subset_string("", "bc")  # 14
+    ├── subset_string("b", "c")  # 10
+    │   ├── subset_string("bc", "")
+    │   │   └── ["bc"]  # 8
+    │   └── subset_string("b", "")
+    │       └── ["b"]   # 9
+    └── subset_string("", "c")  # 13
+        ├── subset_string("c", "")
+        │   └── ["c"]  # 11
+        └── subset_string("", "")
+            └── []  # 12
+```
 ### Subset String (Iterative Solution)
 ```python
 def subset_string_iterative(string):
