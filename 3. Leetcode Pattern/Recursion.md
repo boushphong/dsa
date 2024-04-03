@@ -323,20 +323,6 @@ def skipAChar(s, remove, l=0):
 print(skipAChar(s, "a")) # bccd
 ```
 
-```python
-def skipAString(string, skip_string):
-    if len(skip_string) > len(string):
-        return string
-
-    if string[0:len(skip_string)] == skip_string:
-        return skipAString(string[len(skip_string):], skip_string)
-    else:
-        return string[0] + skipAString(string[1:], skip_string)
-
-
-print(skipAString("abadapple", "apple")) # abad
-print(skipAString("abadappleapplez", "apple")) # abadz
-```
 ### Merge Sort
 ```python
 def mergeSort(array):
