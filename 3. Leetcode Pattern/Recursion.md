@@ -287,6 +287,8 @@ selection(arr, len(arr) - 1)
 ```
 
 ## Multiple Arguments (with Multiple Arguments Modification) (Backward Execution)
+Backward Execution is when you enter another nested recursion in the middle of the current function.
+
 ```python
 # *
 # **
