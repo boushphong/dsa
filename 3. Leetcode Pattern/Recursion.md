@@ -1,1 +1,222 @@
+# Recursion
+## How to detect if a problem can be solved with recursion or not?
+- When a problem can be divided to smaller problems.
+
+**Hint:**
+- Break it down to smaller problems.
+- The base condition is represented by answer we already have
+  - In the fibonacci problem, the answers we already have are:
+  ```python
+  fib(0) = 0
+  fib(1) = 1
+  ```
+- Figure out out the recursive tree
+
+```python
+def fib(n):
+    if n < 2:
+        return n
+    else:
+        return fib(n-2) + fib(n-1)
+
+                    fib(4)
+                /           \
+           fib(3)         fib(2)
+         /       \       /       \
+     fib(2)    fib(1)   fib(1)  fib(0)
+    /      \
+fib(1)   fib(0)
+```
+
+**Stack Trace: (From bottom to top)**
+| Stack | Removal Order | Execution Order |
+| --- | --- | --- |
+| f(0) | 7th | 9th |
+| f(1) | 6th | 8th |
+| f(2) | 8th | 7th |
+| f(1) | 4th | 6th |
+| f(0) | 2nd | 5th |
+| f(1) | 1st | 4th |
+| f(2) | 3th | 3rd |
+| f(3) | 5th | 2nd |
+| f(4) | 9th | 1st |
+    
+## How to approach a recursion problem step by step?
+1. Identify if you can break down problem into smaller problems
+2. Write the recurrence relation
+  - `F(n) = F(n-2) - F(n-1)` (Fibonacci)
+3. Draw the recursive tree
+4. Inspect the tree
+  - See the flow of functions
+  - How each function gets into the stack
+  - Identify and focus on the left tree call then right tree call
+  - Use the debugger to see the flow (or write it down with pen and paper)
+5. See how the value is returned at each step and see where the function call will come out.
+
+## Type of recurrence relation
+1. Linear (Fibonacci)
+2. Divide and Conquer (Binary Search)
+
+## Binary Search with Recursion
+Binary Search with Recursion is a Divide and Conquer problem. With recursion:
+1. Compare the middle number with the target number. Constant time O(1)
+2. Divide the array into 2 halfs and search one half recursively, discard the other half.
+
+The recurrence relation would be.
+- `F(N) = O(1) + F(N/2)` (Binary Search)
+  - F(N): represents the time complexity of binary search on an array of size N
+  - O(1): Comparision
+  - F(N/2): Dividing the array into 2 halfs
+
+**TIP:** Determine the variable of the:
+1. Return type
+2. Arguments: `low` and `high`, variables that are put in the function's argument will go the next recursive function call.
+  - Put these variables (needed to go the next function call) to the function's argument 
+4. Body of the function: `mid`, variable that are valuable in the function call only and you don't need to pass it to future recursive function.
+  - You don't pass `mid` to the next function call, it is most useful to compare the `target` number. However, the `mid` variable does have its role to manipulate the parameter that will be passed to the next function call. 
+
+```python
+def binary_search_recursive(arr, target, low, high):
+    if low > high:
+        return -1  # Base case: target not found
+
+    mid = (low + high) // 2
+    if arr[mid] == target:
+        return mid  # Base case: target found at index mid
+    elif arr[mid] > target:
+        return binary_search_recursive(arr, target, low, mid - 1)  # Search in the left half
+    else:
+        return binary_search_recursive(arr, target, mid + 1, high)  # Search in the right half
+```
+
+**NOTE:** We will `return` recursively to the parent function. It's the same as:
+```python
+def f1():
+    return f2()
+
+def f2():
+    return f3()
+
+def f3():
+    return 3
+
+f1() # return 3
+```
+
+# Patterns
+## Single Argument 
+```python3
+# 123 -> 6
+def sum_a_number(n):
+    if n == 0:
+        return 0
+    else:
+        return (n % 10) + sum_a_number(n // 10)
+```
+
+```python
+from math import floor, log10, pow
+
+# 12345 -> 54321
+def reverse_a_number(n):
+    if n // 10 == n:
+        return n
+    else:
+        return int((n % 10) * pow(10, floor(log10(n)))) + reverse_a_number(n // 10)
+```
+
+```python
+# 301200 -> 3
+def count_zero_in_number(n):
+    if n < 10:
+        return 0
+    else:
+        return (1 if n % 10 == 0 else 0) + count_zero_in_number(n // 10)
+```
+
+```python
+# 12321 -> True
+# 1221 -> True
+# 1211 -> False
+def is_palindrome(number):
+    # Base case: if the number has 0 or 1 digit, it is a palindrome
+    if number < 10:
+        return True
+
+    # Get the number of digits in the number
+    num_digits = floor(log10(number)) + 1
+
+    # Extract the first and last digits
+    first_digit = number // (10 ** (num_digits - 1))
+    last_digit = number % 10
+
+    # Check if the first and last digits are equal
+    if first_digit == last_digit:
+        # Recursively check the number without the first and last digits
+        new_number = (number % (10 ** (num_digits - 1))) // 10
+        return is_palindrome(new_number)
+    else:
+        return False
+```
+
+## Multiple Arguments 
+```python
+def check_sorted(array, i=0) -> bool:
+    if i == len(array) - 1:
+        return True
+    else:
+        return array[i] <= array[i + 1] and check_sorted(array, i+1)
+```
+
+```python
+def linear_search(array, target, index=0):
+    if array[index] == target:
+        return index
+    elif index == len(array) - 1:
+        return -1
+    else:
+        return linear_search(array, target, index + 1)
+```
+
+```python
+def binary_search_recursive(nums, target, l, r):
+    if r < l:
+        return -1
+    m = (l + r) // 2
+    if nums[m] == target:
+        return m
+    elif nums[m] < target:
+        return binary_search_recursive(nums, target, m + 1, r)
+    else:
+        return binary_search_recursive(nums, target, l, m - 1)
+```
+
+## Multiple Arguments (with Carrying Argument) 
+```python
+def linear_search_all(array, target, index=0, nums=[]):
+    if array[index] == target:
+        nums.append(index)
+    if index == len(array) - 1:
+        return nums
+    return linear_search_all(array, target, index + 1, nums)
+```
+
+## Multiple Arguments (with Result Carrying Variable) 
+```python
+def linear_search_all_without_num_param(array, target, index=0):
+    nums = []
+    if index == len(array):
+        return nums
+    if array[index] == target:
+        nums.append(index)
+
+    carry_nums = linear_search_all_without_num_param(array, target, index + 1)
+    nums.extend(carry_nums)
+
+    return nums
+```
+
+
+
+
 
