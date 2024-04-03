@@ -249,8 +249,6 @@ print(skipAChar(s, "a")) # bccd
 
 ```
 
-![image](https://github.com/boushphong/Recursion/assets/59940078/67551972-85ee-49d5-b06a-1a9f926025bb)
-
 ### Bubble Sort
 ```python
 array = [1, 5, 3, 2]
@@ -305,6 +303,8 @@ def print_tri(r, c=0):
 
 print_tri(3)
 ```
+
+![image](https://github.com/boushphong/Recursion/assets/59940078/67551972-85ee-49d5-b06a-1a9f926025bb)
 
 ```python
 def skipAChar(s, remove, l=0):
