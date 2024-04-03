@@ -216,6 +216,145 @@ def linear_search_all_without_num_param(array, target, index=0):
     return nums
 ```
 
+## Multiple Arguments (with Multiple Arguments Modification)
+### Print Triangle
+```python
+# ***
+# **
+# *
+def print_tri_back(r, c=0):
+    if r == 0:
+        return
+    if c < r:
+        print("*", end="")
+        print_tri_back(r, c+1)
+    else:
+        print()
+        print_tri_back(r-1, 0)
+
+print_tri_back(3)
+```
+
+```python
+# *
+# **
+# ***
+def print_tri(r, c=0):
+    if r == 0:
+        return
+    if c < r:
+        print_tri(r, c+1)
+        print("*", end="")
+    else:
+        print_tri(r-1, 0)
+        print()
+
+print_tri(3)
+```  
+![image](https://github.com/boushphong/Recursion/assets/59940078/67551972-85ee-49d5-b06a-1a9f926025bb)
+
+### Bubble Sort
+```python
+array = [1, 5, 3, 2]
+
+def bubble(arr, r, l=0):
+    if r == 0:
+        return
+    if l < r:
+        if arr[l] > arr[l + 1]:
+            arr[l], arr[l + 1] = arr[l + 1], arr[l]
+        bubble(arr, r, l + 1)
+    else:
+        bubble(arr, r - 1)
+
+bubble(array, len(array) - 1)
+print(array)
+```
+
+### Selection Sort
+```python
+def selection(arr, r, l=0, max=0):
+    if r == 0:
+        return
+    if l <= r:
+        if arr[l] > arr[max]:
+            selection(arr, r, l + 1, l)
+        else:
+            selection(arr, r, l + 1, max)
+    else:
+        arr[r], arr[max] = arr[max], arr[r]
+        selection(arr, r - 1)
+```
+
+### Merge Sort
+```python
+def mergeSort(array):
+    if len(array) == 1:
+        return array
+
+    m = len(array) // 2
+
+    l = array[:m]
+    r = array[m:]
+
+    lp = mergeSort(l)
+    rp = mergeSort(r)
+
+    return merge(lp, rp)
+
+def merge(lp, rp):
+    result = []
+    i = j = 0
+    while i < len(lp) and j < len(rp):
+        if lp[i] < rp[j]: 
+            result.append(lp[i])
+            i += 1
+        else:
+            result.append(rp[j])
+            j += 1
+
+    result += lp[i:]
+    result += rp[j:]
+
+    return result
+```
+
+### Merge Sort In Place
+```python
+def mergeSort(arr, l, r):
+    if l < r:
+        m = l + (r - l) // 2
+
+        mergeSort(arr, l, m)
+        mergeSort(arr, m + 1, r)
+
+        merge(arr, l, m, r)
+
+def merge(arr, start, mid, end):
+    start2 = mid + 1
+
+    if arr[mid] <= arr[start2]:
+        return
+
+    while start <= mid and start2 <= end:
+        if arr[start] <= arr[start2]:
+            start += 1
+        else:
+            value = arr[start2]
+            index = start2
+
+            while index != start:
+                arr[index] = arr[index - 1]
+                index -= 1
+
+            arr[start] = value
+
+            start += 1
+            mid += 1
+            start2 += 1
+```
+![image](https://github.com/boushphong/Recursion/assets/59940078/f62e6119-b3e0-4e99-9df1-153c01485837)
+
 
 
 
