@@ -63,6 +63,9 @@ print(subset_string_iterative("abc"))  # ['a', 'ab', 'b', 'ac', 'abc', 'bc', 'c'
 ![image](https://github.com/boushphong/Recursion/assets/59940078/16a9a3e4-7131-4ff9-8856-2549c3c0f0a1)
 
 ## Permutation
+**Time Complexity:** `N!`
+
+**Space Complexity:** `N!`
 ### Permutation String
 
 **Solution 1:**
