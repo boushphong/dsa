@@ -391,3 +391,33 @@ def merge(arr, start, mid, end):
             start2 += 1
 ```
 ![image](https://github.com/boushphong/Recursion/assets/59940078/f62e6119-b3e0-4e99-9df1-153c01485837)
+
+# Complexity Analysis
+## [Pascal's Triangle](https://leetcode.com/problems/pascals-triangle/)
+**Base Case**: F(i, 0) =  F(i, i) = 1 (Leftest and Rightest block will always be 1)
+
+**Recurrence Relation**: F(i - 1, j - 1) + F(i - 1, j)
+
+**TC**: O(N^2). 
+
+Assuming numRows is N, at row i (by index) there are i + 1 blocks and There are N rows. At the last row at N - 1 (by index). 
+We have to calculate: `(N) + (N - 1) + (N - 2) + ... + 1 = N * (N + 1)/2 = N^2` elements.
+
+**SC**: O(N^2).
+Since we store the result for every `(i, j)`.
+
+We have to store: `(N) + (N - 1) + (N - 2) + ... + 1 = N * (N + 1)/2 = N^2` elements.
+```python
+def gernerate(numRows):
+    def F(i, j):
+        if j == 0 or j == i:
+            return 1
+        return F(i - 1, j - 1) + F(i - 1, j)
+
+    ans = []
+    for i in range(numRows):
+        ans.append([])
+        for j in range(i + 1):
+            ans[-1].append(F(i, j))
+    return ans
+```
