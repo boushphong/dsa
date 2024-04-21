@@ -17,17 +17,6 @@ print(subset_string(string="abc"))  # ['abc', 'ab', 'ac', 'a', 'bc', 'b', 'c']
 
 ![image](https://github.com/boushphong/Recursion/assets/59940078/a5637c3e-96a8-404e-9ee2-a049555ae38f)
 
-**Time Complexity**: `2^N`
-
-Since every function call would recursive call 2 recursive calls (just like fibbonacci)
-
-**Space Complexity**: `2^N`
-
-`2^N` if we calculate the SC based on the `sub_left` + `sub_right` variable
-
-`Len(string) ^ N` if we calculate the SC based on space of the input arguments of `string + subset`
-
-
 ```python
 subset_string("", "abc")                # 15
 ├── subset_string("a", "bc")            # 7
@@ -53,6 +42,17 @@ subset_string("", "abc")                # 15
         └── subset_string("", "")
             └── []                      # 12
 ```
+
+**Time Complexity**: `2^N`
+
+Since every function call would recursive call 2 recursive calls (just like fibbonacci)
+
+**Space Complexity**: `2^N`
+
+`2^N` if we calculate the SC based on the `sub_left` + `sub_right` variable
+
+`Len(string) ^ N` if we calculate the SC based on space of the input arguments of `string + subset`
+
 ### Subset String (Iterative Solution)
 ```python
 def subset_string_iterative(string):
