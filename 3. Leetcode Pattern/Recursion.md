@@ -409,6 +409,7 @@ Since we store the result for every `(i, j)`.
 We have to store: `(N) + (N - 1) + (N - 2) + ... + 1 = N * (N + 1)/2 = N^2` elements.
 ```python
 def gernerate(numRows):
+    @lru_cache(None)
     def F(i, j):
         if j == 0 or j == i:
             return 1
@@ -420,4 +421,20 @@ def gernerate(numRows):
         for j in range(i + 1):
             ans[-1].append(F(i, j))
     return ans
+```
+
+## [Fibonacci Number](https://leetcode.com/problems/fibonacci-number)
+**TC**: O(N)
+At the first calculation `fib(n-1)`, we already cache all the result from `n - 1` to `1`. Any subsequents right call `fib(n - 2)` will access the cached result instantly. Hence the O(N) TC
+
+**SC**: O(N)
+At the first calculation `fib(n-1)`, we already cache all the result from `n - 1` to `1`. Hence we need to store `(n - 1)` results. Hence the O(N) SC
+
+```python
+@lru_cache(None)
+def fib(n):
+    if n == 0 or n == 1:
+        return n
+    else:
+        return fib(n - 1) + fib(n - 2)
 ```
