@@ -14,6 +14,17 @@ def subset_string(subset="", string=""):
 
 print(subset_string(string="abc"))  # ['abc', 'ab', 'ac', 'a', 'bc', 'b', 'c']
 ```
+
+**Time Complexity**: `2^N`
+
+Since every function call would recursive call 2 recursive calls (just like fibbonacci)
+
+**Space Complexity**: `2^N`
+
+`2^N` if we calculate the SC based on the `sub_left` + `sub_right` variable
+
+`Len(string) ^ N` if we calculate the SC based on space of the input arguments of `string + subset`
+
 ![image](https://github.com/boushphong/Recursion/assets/59940078/a5637c3e-96a8-404e-9ee2-a049555ae38f)
 ```python
 subset_string("", "abc")                # 15
@@ -56,16 +67,24 @@ print(subset_string_iterative("abc"))  # ['a', 'ab', 'b', 'ac', 'abc', 'bc', 'c'
 ```
 **Logic**: Explore all the possible values at each iteration.
 
-**Time Complexity**: `N * 2^N`
-- `N`: Time it takes at each level.
-- `2^N`: Number of subsets that would be created.
-
 ![image](https://github.com/boushphong/Recursion/assets/59940078/16a9a3e4-7131-4ff9-8856-2549c3c0f0a1)
 
 ## Permutation
-**Time Complexity:** `N!`
+**Time Complexity**: `N!`
 
-**Space Complexity:** `N!`
+Iteration over Characters: The function iterates over each character in the input string string. The loop runs for each character in the string, resulting in a time complexity of O(N), where N is the length of the input string.
+
+Recursion: For each character in the input string, the function recursively generates permutations of the remaining characters. Each recursive call reduces the size of the input string by 1. Therefore, for each character in the input string, there are N - 1 recursive calls (one for each remaining character after removing the current character). Since there are N characters in total, the total number of recursive calls is N * (N - 1) * ... * 1, which is N!.
+
+Combining these factors, the overall time complexity is O(N!).
+
+**Space Complexity**: `N!`
+
+Permutation List: The algorithm maintains a list (permutation) to store all generated permutations. In the worst case, there can be N! permutations (where N is the length of the input string), so the space complexity for this part is O(N!).
+
+Recursion Stack: As the function is recursive, there is additional space used on the call stack to keep track of function calls and their local variables. The maximum depth of recursion is equal to the length of the input string N.
+
+Combining these factors, the overall space complexity remains O(N!) for the permutations list and O(N) for the recursion stack.
 ### Permutation String
 
 **Solution 1:**
