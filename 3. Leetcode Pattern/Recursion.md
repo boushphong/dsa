@@ -427,12 +427,12 @@ def gernerate(numRows):
 **TC**: O(N)
 At the first calculation `fib(n-1)`, we already cache all the result from `n - 1` to `1`. Any subsequents right call `fib(n - 2)` will access the cached result instantly. Hence the `O(N)` TC
 
-`Recursive solution TC`: `O(N^2)`
+**Recursive solution TC**: `O(N^2)`
 
 **SC**: O(N)
 At the first calculation `fib(n-1)`, we already cache all the result from `n - 1` to `1`. Hence we need to store `(n - 1)` results. Hence the `O(N)` SC
 
-`Recursive solution SC`: `O(N)`
+**Recursive solution SC**: `O(N)`
 
 ```python
 @lru_cache(None)
