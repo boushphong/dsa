@@ -15,8 +15,6 @@ def subset_string(subset="", string=""):
 print(subset_string(string="abc"))  # ['abc', 'ab', 'ac', 'a', 'bc', 'b', 'c']
 ```
 
-![image](https://github.com/boushphong/Recursion/assets/59940078/a5637c3e-96a8-404e-9ee2-a049555ae38f)
-
 ```python
 subset_string("", "abc")                # 15
 ├── subset_string("a", "bc")            # 7
