@@ -94,4 +94,27 @@ def getMazePathsAllDirections():
     return res
 ```
 
+## [Combination Sum](https://leetcode.com/problems/combination-sum)
+```python
+def combinationSum(candidates, target):
+    candidates.sort()
+    res = []
+    stack = []
 
+    def doRecursion(start=0, total=0):
+        if total == target:
+            return res.extend([stack.copy()])
+
+        for idx in range(start, len(candidates)):
+            new_total = total + candidates[idx]
+            if new_total > target:
+                break
+            stack.append(candidates[idx])
+            doRecursion(idx, total=new_total)
+            stack.pop()
+
+    doRecursion()
+    return res
+
+print(combinationSum([2, 3, 6, 7], 7))
+```
