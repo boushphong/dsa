@@ -48,3 +48,50 @@ print(getMazePathsAllDirections(0, 0))
 # ['DDRR', 'DDRURD', 'DDRUURDD', 'DRDR', 'DRRD', 'DRURDD', 'RDDR', 'RDRD', 'RDLDRR', 'RRDD', 'RRDLDR', 'RRDLLDRR']
 
 ```
+
+```python
+def getMazePathsAllDirections():
+    maze = [
+        [True, True, True],
+        [True, True, True],
+        [True, True, True]
+    ]
+    stack = []
+    res = []
+
+    def doRecursion(row=0, col=0):
+        if not maze[row][col]:
+            return None
+
+        if row == len(maze) - 1 and col == len(maze) - 1:
+            return res.append("".join(stack))
+
+        maze[row][col] = False
+
+        if row < len(maze) - 1:
+            stack.append("D")
+            doRecursion(row + 1, col)
+            stack.pop()
+
+        if col < len(maze) - 1:
+            stack.append("R")
+            doRecursion(row, col + 1)
+            stack.pop()
+
+        if row > 0:
+            stack.append("U")
+            doRecursion(row - 1, col)
+            stack.pop()
+
+        if col > 0:
+            stack.append("L")
+            doRecursion(row, col - 1)
+            stack.pop()
+
+        maze[row][col] = True
+
+    doRecursion()
+    return res
+```
+
+
