@@ -129,6 +129,7 @@ def solveNQueens(n: int):
             row += 1
             col -= 1
 
+    # Start Here
     chessBoard = [[True] * n for _ in range(n)]
     res = []
 
@@ -149,4 +150,24 @@ def solveNQueens(n: int):
 
 
 print(solveNQueens(4))
+```
+**With Carrying Argument**
+```python
+def solveNQueens(n: int):
+    ...
+    # Start here
+    res = []
+
+    def doRecursion(row=0, chessBoard=[[True] * n for _ in range(n)]):
+        if row == n:
+            return res.extend([[''.join(['Q' if item else '.' for item in inner_list]) for inner_list in chessBoard]])
+
+        for col in range(n):
+            if chessBoard[row][col]:
+                chess_board_copy = deepcopy(chessBoard)
+                markSlots(row, col, chess_board_copy)
+                doRecursion(row + 1, chess_board_copy)
+
+    doRecursion()
+    return res
 ```
