@@ -171,3 +171,74 @@ def solveNQueens(n: int):
     doRecursion()
     return res
 ```
+
+## Skipping Duplicates and Index Shifting 
+```python
+def combinationSum2(candidates, target):
+
+    candidates.sort()
+    res = []
+    stack = []
+
+    def doRecursion(idx=0, cur_total=0):
+        if cur_total == target:
+            return res.append(stack.copy())
+
+        if idx == len(candidates) or cur_total + candidates[idx] > target:
+            return
+
+        cur = candidates[idx]
+        stack.append(cur)
+        doRecursion(idx + 1, cur_total + candidates[idx])
+        stack.pop()
+
+        while candidates[idx] == cur:
+            idx += 1
+            if idx == len(candidates):
+                break
+
+        doRecursion(idx, cur_total)
+
+    doRecursion()
+    return res
+
+
+print(combinationSum2([10, 1, 2, 7, 6, 1, 5], 8))
+print(combinationSum2([2, 5, 2, 1, 2], 5))
+```
+
+```python
+doRecursion
+├── 1
+│   ├── 1
+│   │   ├── 2
+│   │   │   ├── 5 (PRUNE)
+│   │   │   └── X (PRUNE)
+│   │   └── X
+│   │       ├── 5
+│   │       │   ├── 6 (PRUNE)
+│   │       │   └── X (PRUNE)
+│   │       └── X
+│   │           ├── 6 (GET)
+│   │           └── X (PRUNE)
+│   └── X
+│       ├── 2
+│       │   ├── 5 (GET)
+│       │   └── X (PRUNE)
+│       └── X
+│           ├── 5
+│           │   ├── 6 (PRUNE)
+│           │   └── X (PRUNE)
+│           └── X
+│               ├── 6
+│               │   ├── 7 (PRUNE)
+│               │   └── X (PRUNE)
+│               └── X
+│                   ├── 7 (GET)
+│                   └── X (PRUNE)
+├── 1 SKIPPED
+│
+├── 2
+│   ├── ...
+...
+```
