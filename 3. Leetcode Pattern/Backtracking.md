@@ -236,7 +236,7 @@ doRecursion
 │               └── X
 │                   ├── 7 (GET)
 │                   └── X (PRUNE)
-├── 1 SKIPPED
+├── 1 (SKIPPED)
 │
 ├── 2
 │   ├── ...
@@ -280,13 +280,13 @@ doRecursion
 │   │   ├── 2 (GET)
 │   │   └── X (GET)
 │   └── X
-│       ├── 2 (PRUNE)
+│       ├── 2 (SKIPPED)
 │       └── X (GET)
 └── X
     ├── 2
     │   ├── 2 (GET)
     │   └── X (GET)
     └── X
-        ├── 2 (PRUNE)
+        ├── 2 (SKIPPED)
         └── X (GET)
 ```
