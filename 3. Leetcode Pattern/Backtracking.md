@@ -4,7 +4,9 @@
 
 In the Maze Problems (All directions) below, we constantly make changes to the global `maze` variable, but once a recursion call is finished, we will change the `maze` variable again to the original parent recursion call's `maze` variable state so the parent recursion call would be valid for other child recursion call.
 
-## Backtracking the Maze Problems (All directions)
+# Patterns
+## Undoing the Global Variable
+### Maze Problems
 ```python
 def getMazePathsAllDirections(r, c, p=''):
     if r == len(maze) - 1 and c == len(maze[0]) - 1:
@@ -94,7 +96,7 @@ def getMazePathsAllDirections():
     return res
 ```
 
-## [Combination Sum](https://leetcode.com/problems/combination-sum)
+### [Combination Sum](https://leetcode.com/problems/combination-sum)
 ```python
 def combinationSum(candidates, target):
     candidates.sort()
@@ -117,4 +119,77 @@ def combinationSum(candidates, target):
     return res
 
 print(combinationSum([2, 3, 6, 7], 7))
+```
+
+## Copying the Global Variable
+### [N-Queens](https://leetcode.com/problems/n-queens)
+```python
+def solveNQueens(n: int):
+    def markSlots(r, c, board):
+        board_length = len(board)
+
+        # Mark right direction
+        for col in range(c + 1, board_length):
+            board[r][col] = False
+
+        # Mark down direction
+        for row in range(r + 1, board_length):
+            board[row][c] = False
+
+        # Mark left direction
+        for col in range(c - 1, -1, -1):
+            board[r][col] = False
+
+        # Mark up direction
+        for row in range(r - 1, -1, -1):
+            board[row][c] = False
+
+        # Mark right diagonal
+        row, col = r - 1, c + 1
+        while row >= 0 and col < board_length:
+            board[row][col] = False
+            row -= 1
+            col += 1
+
+        # Mark left diagonal
+        row, col = r - 1, c - 1
+        while row >= 0 and col >= 0:
+            board[row][col] = False
+            row -= 1
+            col -= 1
+
+        # Mark right-up diagonal
+        row, col = r + 1, c + 1
+        while row < board_length and col < board_length:
+            board[row][col] = False
+            row += 1
+            col += 1
+
+        # Mark left-up diagonal
+        row, col = r + 1, c - 1
+        while row < board_length and col >= 0:
+            board[row][col] = False
+            row += 1
+            col -= 1
+
+    chessBoard = [[True] * n for _ in range(n)]
+    res = []
+
+    def doRecursion(row=0):
+        nonlocal chessBoard
+        if row == n:
+            return res.extend([[''.join(['Q' if item else '.' for item in inner_list]) for inner_list in chessBoard]])
+
+        for col in range(n):
+            if chessBoard[row][col]:
+                chess_board_copy = deepcopy(chessBoard)
+                markSlots(row, col, chessBoard)
+                doRecursion(row + 1)
+                chessBoard = chess_board_copy
+
+    doRecursion()
+    return res
+
+
+print(solveNQueens(4))
 ```
