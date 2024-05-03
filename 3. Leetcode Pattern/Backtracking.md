@@ -175,7 +175,6 @@ def solveNQueens(n: int):
 ## Skipping Duplicates and Index Shifting 
 ```python
 def combinationSum2(candidates, target):
-
     candidates.sort()
     res = []
     stack = []
