@@ -173,6 +173,7 @@ def solveNQueens(n: int):
 ```
 
 ## Skipping Duplicates and Index Shifting 
+### Combination Sum II
 ```python
 def combinationSum2(candidates, target):
     candidates.sort()
@@ -240,4 +241,52 @@ doRecursion
 ├── 2
 │   ├── ...
 ...
+```
+
+### Subset II
+```python
+def subsetsWithDup(nums):
+    nums.sort()
+    res = []
+    subset = []
+
+    def doRecursion(idx=0):
+        if idx == len(nums):
+            return res.append(subset.copy())
+
+        cur = nums[idx]
+        subset.append(cur)
+        doRecursion(idx + 1)
+        subset.pop()
+
+        while idx < len(nums) and nums[idx] == cur:
+            idx += 1
+            if idx == len(nums):
+                break
+
+        doRecursion(idx)
+
+    doRecursion()
+    return res
+
+
+print(subsetsWithDup([1, 2, 2]))
+```
+
+```python
+doRecursion
+├── 1
+│   ├── 2
+│   │   ├── 2 (GET)
+│   │   └── X (GET)
+│   └── X
+│       ├── 2 (PRUNE)
+│       └── X (GET)
+└── X
+    ├── 2
+    │   ├── 2 (GET)
+    │   └── X (GET)
+    └── X
+        ├── 2 (PRUNE)
+        └── X (GET)
 ```
