@@ -173,7 +173,7 @@ def solveNQueens(n: int):
 ```
 
 ## Skipping Duplicates and Index Shifting 
-### Combination Sum II
+### [Combination Sum II](https://leetcode.com/problems/combination-sum-ii/)
 ```python
 def combinationSum2(candidates, target):
     candidates.sort()
@@ -243,7 +243,7 @@ doRecursion
 ...
 ```
 
-### Subset II
+### [Subsets II](https://leetcode.com/problems/subsets-ii/)
 ```python
 def subsetsWithDup(nums):
     nums.sort()
