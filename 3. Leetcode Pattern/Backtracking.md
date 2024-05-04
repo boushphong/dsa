@@ -259,7 +259,7 @@ def subsetsWithDup(nums):
         doRecursion(idx + 1)
         subset.pop()
 
-        while idx < len(nums) and nums[idx] == cur:
+        while nums[idx] == cur:
             idx += 1
             if idx == len(nums):
                 break
