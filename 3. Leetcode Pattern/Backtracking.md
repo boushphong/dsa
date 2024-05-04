@@ -327,8 +327,7 @@ print(partition("aabb"))
 doRecursion(aba)
 └── "a"
     ├── "a" "a"
-    │   ├── "a" "a" "b"
-    │
+    │   ├── "a" "a" "b" (GET)
     │   └── "a" "ab" (PRUNE)
     └── "ab"
         ├── "ab" "a" (PRUNE)
