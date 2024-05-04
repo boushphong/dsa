@@ -291,7 +291,7 @@ doRecursion
         └── X (GET)
 ```
 
-## Early Branch Pruning
+## Early Branch Pruning (Without Pruning in the Base Case)
 ### [Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/)
 ```python
     def is_palindrome(subset):
