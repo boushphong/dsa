@@ -290,3 +290,60 @@ doRecursion
         ├── 2 (SKIPPED)
         └── X (GET)
 ```
+
+## Early Branch Pruning
+### [Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/)
+```python
+    def is_palindrome(subset):
+        return subset == subset[::-1]
+
+    res = []
+    stack = []
+
+    def doRecursion(idx=0):
+        if idx == len(s):
+            return res.append(stack.copy())
+
+        if not stack or is_palindrome(stack[-1]):
+            stack.append(s[idx])
+            doRecursion(idx + 1)
+            stack.pop()
+
+        if stack:
+            stack[-1] += s[idx]
+            if not is_palindrome(stack[-1]) and idx + 1 == len(s):
+                return
+            doRecursion(idx + 1)
+
+    doRecursion()
+    return res
+
+
+print(partition("aba"))
+print(partition("aabb"))
+```
+
+```python
+doRecursion(aba)
+└── "a"
+    ├── "a" "a"
+    │   ├── "a" "a" "b"
+    │
+    │   └── "a" "ab" (PRUNE)
+    └── "ab"
+        ├── "ab" "a" (PRUNE)
+        └── "aba" (GET)
+
+doRecursion(aabb)
+└── "a"
+    ├── "a" "a"
+    │   ├── "a" "a" "b"
+    │   │   ├── "a" "a" "b" "b" (GET)
+    │   │   └── "a" "a" "bb" (GET)
+    │   └── "a" "ab" (PRUNE)
+    └── "aa"
+        ├── "aa" "b"
+        │   ├── "aa" "b" "b" (GET)
+        │   └── "aa" "bb" (GET)
+        └── "aab" (PRUNE)
+```
