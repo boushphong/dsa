@@ -325,24 +325,26 @@ print(partition("aabb"))
 
 ```python
 doRecursion(aba)
-└── "a"
-    ├── "a" "a"
-    │   ├── "a" "a" "b" (GET)
-    │   └── "a" "ab" (PRUNE)
-    └── "ab"
-        ├── "ab" "a" (PRUNE)
-        └── "aba" (GET)
+├── "a"
+│   ├── "a" "a"
+│   │   ├── "a" "a" "b" (GET)
+│   │   └── "a" "ab" (PRUNE)
+│   └── "ab"
+│       ├── "ab" "a" (PRUNE)
+│       └── "aba" (GET)
+└── stack empty (SKIPPED)
 
 doRecursion(aabb)
-└── "a"
-    ├── "a" "a"
-    │   ├── "a" "a" "b"
-    │   │   ├── "a" "a" "b" "b" (GET)
-    │   │   └── "a" "a" "bb" (GET)
-    │   └── "a" "ab" (PRUNE)
-    └── "aa"
-        ├── "aa" "b"
-        │   ├── "aa" "b" "b" (GET)
-        │   └── "aa" "bb" (GET)
-        └── "aab" (PRUNE)
+├── "a"
+│   ├── "a" "a"
+│   │   ├── "a" "a" "b"
+│   │   │   ├── "a" "a" "b" "b" (GET)
+│   │   │   └── "a" "a" "bb" (GET)
+│   │   └── "a" "ab" (PRUNE)
+│   └── "aa"
+│       ├── "aa" "b"
+│       │   ├── "aa" "b" "b" (GET)
+│       │   └── "aa" "bb" (GET)
+│       └── "aab" (PRUNE)
+└── stack empty (SKIPPED)
 ```
