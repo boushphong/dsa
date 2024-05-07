@@ -294,6 +294,7 @@ doRecursion
 ## Early Branch Pruning (Without Pruning in the Base Case)
 ### [Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/)
 ```python
+def partition(s):
     def is_palindrome(subset):
         return subset == subset[::-1]
 
