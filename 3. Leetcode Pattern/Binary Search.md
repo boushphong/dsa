@@ -1,7 +1,7 @@
 # Binary Search
 **Binary search** is an efficient algorithm used for finding the position of a target value within a sorted array. It works by repeatedly dividing in half the portion of the list that could contain the target value, thereby reducing the search area by half each time. Binary search operates on the principle of divide and conquer.
 
-- `TC`: `n * (1/2)^x = 1` -> `x = log2(n)` -> `O(LogN)`
+- `TC`: `n * (1/2)^x = 1` > `x = log2(n)` > `O(LogN)`
 - `SC`: `1`
 
 **Searching a target**
@@ -82,3 +82,55 @@ def upperBound(nums, target):
             left = mid + 1
     return ans
 ```
+
+## Identifying a possible Binary Search solution
+More often than not, there are situations where the search space and search target are not so readily available.
+- If we can discover some kind of monotonicity, for example, if `condition(k)` is True then `condition(k + 1)` might be True as well, then we can consider binary search.
+
+### [Sqrt(x)](https://leetcode.com/problems/sqrtx/)
+```python
+def mySqrt(x: int):
+    l = 0
+    r = x // 2 if x != 1 else 1
+    ans = None
+
+    while l <= r:
+        m = l + (r - l) // 2
+        if m * m <= x:
+            ans = m
+            l = m + 1
+        else:
+            r = m - 1
+
+    return ans
+
+print(mySqrt(10))
+"""
+10
+0 1 2 3 4 5
+l = 0
+r = 5
+
+m = 2 (index 2)
+update answer = 2 (4 <= 9)
+...
+
+3 4 5
+l = 3
+r = 5
+
+m = 4 (index 4)
+continue since (16 > 9)
+...
+
+3
+3
+m = 3 (index 3)
+update answer = 3 (9 <= 9)
+...
+
+End of iteration
+"""
+```
+
+In the example above, in the first iteration, we discover a possible answer which is `2`, but there might possible answer as well hence we keep searching for the closest answer.
