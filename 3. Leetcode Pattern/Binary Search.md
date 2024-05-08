@@ -134,3 +134,57 @@ End of iteration
 ```
 
 In the example above, in the first iteration, we discover a possible answer which is `2`, but there might possible answer as well hence we keep searching for the closest answer.
+
+### [First Bad Version](https://leetcode.com/problems/first-bad-version/)
+```python
+def firstBadVersion(n: int) -> int:
+    l, r = 1, n
+    while l < r:
+        m = (l + r) // 2
+        if isBadVersion(m):
+            r = m
+        else:
+            l = m + 1
+    return r
+
+"""
+Assuming the first bad version is 1, and there are n (4) versions.
+
+n = 4
+1 2 3 4
+l = 0, r = 3
+m = 1 (value = 2)
+isBadVersion(True)
+
+1 2
+l = 0, r = 1
+m = 0 (value = 1)
+isBadVersion(True)
+
+1
+l = 0, r = 0
+Break iteration
+
+Return r
+
+-----------------------------------------------------------------
+Assuming the first bad version is 4, and there are n (4) versions.
+
+n = 4
+1 2 3 4
+l = 0, r = 3
+m = 1 (value = 2)
+isBadVersion(False)
+
+3 4
+l = 2, r = 3
+m = 2 (value = 3)
+isBadVersion(False)
+
+4
+l = 3, r = 3
+Break iteration
+
+Return r
+"""
+```
