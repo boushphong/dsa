@@ -23,6 +23,10 @@ def binary_search(nums, target):
 **Bisecting**, in the context of computer science and mathematics, refers to the method of dividing a range or dataset into two parts (halves) to quickly locate a specific value or the insertion point for a new value, ensuring that the dataset remains sorted.
 
 **Bisecting in Python**
+- `bisect_left(a, x)`: Finds the index where `x` should be inserted in the list `a` to maintain sorted order. If `x` is already present, the function returns the index before which `x` can be inserted to maintain the sorted order (leftmost insertion point).
+- `bisect_right(a, x)` or `bisect(a, x)`: Similar to `bisect_left`, but if `x` is already present, it returns the index after which `x` can be inserted (rightmost insertion point).
+
+### Bisect Left (Lower Bound)
 ```python
 from bisect import bisect_left
 
@@ -43,6 +47,35 @@ def lowerBound(nums, target):
     while left <= right:
         mid = (left + right) // 2
         if nums[mid] >= target:
+            ans = mid
+            right = mid - 1
+        else:
+            left = mid + 1
+    return ans
+```
+
+### Bisect Right (Upper Bound)
+
+```python
+from bisect import bisect_right
+
+array = [1,2,4,4,7]
+
+# Insert a value into a sorted array. What would the new element index would be?
+bisect_right(array, 4)  # 4
+bisect_right(array, 3)  # 2
+bisect_right(array, 0)  # 0
+bisect_right(array, 8)  # 5
+```
+
+**Underlying implementation of Upper Bound bisect_right**
+```python
+def upperBound(nums, target):
+    left, right = 0, len(nums) - 1
+    ans = len(nums)
+    while left <= right:
+        mid = (left + right) // 2
+        if nums[mid] > target:  # While Lower Bound uses >=
             ans = mid
             right = mid - 1
         else:
