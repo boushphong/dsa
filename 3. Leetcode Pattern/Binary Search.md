@@ -34,3 +34,18 @@ bisect_left(array, 3)  # 2 since 3 > 2
 bisect_left(array, 8)  # 5 since 8 > 7 (the last element)
 bisect_left(array, 4)  # 2 since 4 already exists, it will insert into the place of the first occurance of number 4. 
 ```
+
+**Underlying implementation of Lower Bound bisect_left**
+```python
+def lowerBound(nums, target):
+    left, right = 0, len(nums) - 1
+    ans = len(nums)
+    while left <= right:
+        mid = (left + right) // 2
+        if nums[mid] >= target:
+            ans = mid
+            right = mid - 1
+        else:
+            left = mid + 1
+    return ans
+```
