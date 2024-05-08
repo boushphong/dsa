@@ -86,6 +86,7 @@ def upperBound(nums, target):
 ## Identifying a possible Binary Search solution
 More often than not, there are situations where the search space and search target are not so readily available.
 - If we can discover some kind of monotonicity, for example, if `condition(k)` is True then `condition(k + 1)` might be True as well, then we can consider binary search.
+- What makes binary search work is that there exists a **function** that can map elements in left half to True, and the other half to False, or vice versa. If we can find such a function, we can apply binary search to find the boundary.
 
 ### [Sqrt(x)](https://leetcode.com/problems/sqrtx/)
 ```python
