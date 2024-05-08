@@ -18,3 +18,19 @@ def binary_search(nums, target):
             right = mid - 1
     return -1
 ```
+
+## Bisecting
+**Bisecting**, in the context of computer science and mathematics, refers to the method of dividing a range or dataset into two parts (halves) to quickly locate a specific value or the insertion point for a new value, ensuring that the dataset remains sorted.
+
+**Bisecting in Python**
+```python
+from bisect import bisect_left
+
+array = [1,2,4,4,7]
+
+# Insert a value into a sorted array. What would the new element index would be?
+bisect_left(array, 0)  # 0 since 0 < 1 (the first element)
+bisect_left(array, 3)  # 2 since 3 > 2
+bisect_left(array, 8)  # 5 since 8 > 7 (the last element)
+bisect_left(array, 4)  # 2 since 4 already exists, it will insert into the place of the first occurance of number 4. 
+```
