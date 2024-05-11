@@ -189,3 +189,43 @@ Break iteration
 Return r
 """
 ```
+
+# Patterns
+## Rotated Array Search
+### [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array)
+```python
+def search(nums, target) -> int:
+    l = 0
+    r = len(nums) - 1
+    while l <= r:
+        m = l + (r - l) // 2
+        if nums[m] == target:
+            return m
+
+        if nums[l] <= nums[m]:
+            if target > nums[m] or target < nums[l]:
+                l = m + 1
+            else:
+                r = m - 1
+        else:
+            if target < nums[m] or target > nums[r]:
+                r = m - 1
+            else:
+                l = m + 1
+
+    return -1
+
+
+print(search([2, 3, 4, 5, 1], 5))  # nums[l] <= nums[m] and target > nums[m]
+print(search([2, 3, 4, 5, 1], 1))  # nums[l] <= nums[m] and target < nums[l]
+print(search([2, 3, 4, 5, 1], 3))  # else
+
+print(search([5, 1, 2, 3, 4], 1))  # nums[l] < nums[m] and target < nums[m]
+print(search([5, 1, 2, 3, 4], 5))  # nums[l] < nums[m] and target > nums[r]
+print(search([5, 1, 2, 3, 4], 4))  # else
+
+# Handle the case where nums[l] <= nums[m] and the search element is the second index (index 1) 
+# in a two element search space
+print(search([0, 1], 1))  # target > nums[m]
+print(search([5, 1], 1))  # target < nums[l]
+```
