@@ -202,7 +202,7 @@ def search(nums, target) -> int:
         if nums[m] == target:
             return m
 
-        if nums[l] <= nums[m]:
+        if nums[l] <= nums[m]:  # Use <= instead of < here to handle the case where search element is the second index (index 1) in a two element search space
             if target > nums[m] or target < nums[l]:
                 l = m + 1
             else:
