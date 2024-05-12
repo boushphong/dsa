@@ -264,8 +264,10 @@ def arrangeCoins(n):
     ...
 ```
 
-## Identifying BS (Monoticity by Index)
+## Identifying BS (Out of Range Search)
+### [Minimum Number of Days to Make m Bouquets](https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets)
 Monoticity: More days needed to wait hence more bouquets
+Intuition: We search non-existant day regardless, as long as it reaches the value within the `bloomDay`
 
 ```python
 def minDays(bloomDay, m, k):
@@ -304,3 +306,32 @@ Bouquets 2 at 7 12 7
 ```
 - **TC** = `O(N(Find min max) + (Log MAX BloomDay * N(from calcBouquets))) = O(Log MAX BloomDay * N)`
 - **SC** = `O(1)`
+
+### [Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days)
+```python
+def shipWithinDays(weights, days):
+    def feasible(capacity):
+        tmp_weight = 0
+        ship_within_days = 1
+        for weight in weights:
+            tmp_weight += weight
+            if tmp_weight > capacity:
+                tmp_weight = 0
+                ship_within_days += 1
+                if ship_within_days > days:
+                    return False
+                tmp_weight += weight
+        return True
+
+    left, right = max(weights), sum(weights)
+    while left <= right:
+        mid = left + (right - left) // 2
+        if feasible(mid):
+            right = mid - 1
+        else:
+            left = mid + 1
+    return left
+
+
+print(shipWithinDays([3, 2, 2, 4, 1, 4], 3))  # 6
+```
