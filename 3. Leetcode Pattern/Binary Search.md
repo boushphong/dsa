@@ -299,7 +299,7 @@ def minDays(bloomDay, m, k):
     return ans
 
 
-print(minDays([7, 7, 7, 7, 12, 7, 7], 2, 3))
+print(minDays([7, 7, 7, 7, 12, 7, 7], 2, 3))  # 12
 """
 Bouquets 1 at 7 7 7
 Bouquets 2 at 7 12 7
