@@ -250,8 +250,8 @@ def arrangeCoins(n):
             ans = m
     return ans
 ```
-- **TC** = O(LogN)
-- **SC** = O(1)
+- **TC** = `O(LogN)`
+- **SC** = `O(1)`
 However, the TC could be a bit more optimized since we can estimate the upper bound of `r` (current `r` equals to `nRows` hence unnecessary iterartion).
 - Since `(nRow * (nRow + 1)) // 2` equals to the number of coins needed to build `nRow`
 - `(nRow ** 2) + nRow ~ 2*n`, discarding the `nRow` by itself because of insignificancy.
@@ -264,3 +264,43 @@ def arrangeCoins(n):
     ...
 ```
 
+## Identifying BS (Monoticity by Index)
+Monoticity: More days needed to wait hence more bouquets
+
+```python
+def minDays(bloomDay, m, k):
+    left, right = min(bloomDay), max(bloomDay)
+    ans = -1
+
+    def calcBouquets(dayAt):
+        countAdjFlowers = 0
+        countBouquets = 0
+
+        for day in bloomDay:
+            if day <= dayAt:
+                countAdjFlowers += 1
+            else:
+                countBouquets += countAdjFlowers // k
+                countAdjFlowers = 0
+
+        countBouquets += countAdjFlowers // k
+        return countBouquets
+
+    while left <= right:
+        mid = (left + right) // 2
+        if calcBouquets(mid) >= m:
+            ans = mid
+            right = mid - 1
+        else:
+            left = mid + 1
+    return ans
+
+
+print(minDays([7, 7, 7, 7, 12, 7, 7], 2, 3))
+"""
+Bouquets 1 at 7 7 7
+Bouquets 2 at 7 12 7
+"""
+```
+- **TC** = `O(N(Find min max) + (Log MAX BloomDay * N(from calcBouquets))) = O(Log MAX BloomDay * N)`
+- **SC** = `O(1)`
