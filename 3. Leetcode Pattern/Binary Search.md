@@ -229,3 +229,24 @@ print(search([5, 1, 2, 3, 4], 4))  # else
 print(search([0, 1], 1))  # target > nums[m]
 print(search([5, 1], 1))  # target < nums[l]
 ```
+
+## Identifying BS (Monoticity)
+### [Arranging Coins](https://leetcode.com/problems/arranging-coins)
+Monoticity: More coins hence more rows, less coins hence less rows and vice versa.
+```python
+def arrangeCoins(n):
+    def calCoinsByRows(row):
+        return (row * (row + 1)) // 2
+
+    ans = 0
+    l, r = 1, n
+    while l <= r:
+        m = (l + r) // 2
+        coins = calCoinsByRows(m)
+        if coins > n:
+            r = m - 1
+        else:
+            l = m + 1
+            ans = m
+    return ans
+```
