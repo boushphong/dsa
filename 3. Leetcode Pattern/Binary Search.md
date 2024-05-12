@@ -264,11 +264,11 @@ def arrangeCoins(n):
     ...
 ```
 
-## Identifying BS (Out of Range Search)
+## Identifying BS (Exclusive Search and Inclusive Search)
 ### [Minimum Number of Days to Make m Bouquets](https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets)
-**Monoticity**: More days needed to wait hence more bouquets
+**Monoticity**: More days needed to wait hence more bouquets.
 
-**Intuition**: We search non-existant day regardless, as long as it reaches the value within the `bloomDay`
+**Intuition**: We search non-existant day regardless, as long as it reaches the value within the `bloomDay`. we might search days that are not within `bloomDay` (**Exclusive Search**).
 
 ```python
 def minDays(bloomDay, m, k):
@@ -309,9 +309,9 @@ Bouquets 2 at 7 12 7
 - **SC** = `O(1)`
 
 ### [Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days)
-**Monoticity**: More weight hence lower required days to ship.
+**Monoticity**: More weight hence lower required days to ship. 
 
-**Intuition**: We search for minium weight without looking into a specific combination that sums up to the minium weight within `weights`.
+**Intuition**: We search for minium weight without looking into a specific combination that sums up to the minium weight within `weights`. We search from range of `max(weights)` to `sum(weights)` because `max(weights)` will return `len(weights)` days (might be invalid) and `sum(weights)` will return 1 days (**Inclusive Search**)
 
 ```python
 def shipWithinDays(weights, days):
