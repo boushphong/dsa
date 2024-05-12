@@ -250,3 +250,17 @@ def arrangeCoins(n):
             ans = m
     return ans
 ```
+- **TC** = O(LogN)
+- **SC** = O(1)
+However, the TC could be a bit more optimized since we can estimate the upper bound of `r` (current `r` equals to `nRows` hence unnecessary iterartion).
+- Since `(nRow * (nRow + 1)) // 2` equals to the number of coins needed to build `nRow`
+- `(nRow ** 2) + nRow ~ 2*n`, discarding the `nRow` by itself because of insignificancy.
+- We got `nRow ** 2 ~ 2*n`, hence `nRow = ceil(sqrt(2*n))`
+
+```python
+def arrangeCoins(n):
+    ...
+    l, r = 1, ceil(sqrt(n ** 2))
+    ...
+```
+
