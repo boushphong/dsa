@@ -308,6 +308,8 @@ Bouquets 2 at 7 12 7
 - **TC** = `O(N(Find min max) + (Log MAX BloomDay * N(from calcBouquets))) = O(Log MAX BloomDay * N)`
 - **SC** = `O(1)`
 
+In this example, even when we search `9` in our first iteration, which will return a valid answer but not within the `bloomDay` list. It will reach `7` because we have specified `left, right = 7, 12` hence if `9` is a valid answer, `7` will be reached and also provide a valid answer.
+
 ### [Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days)
 **Monoticity**: More weight hence lower required days to ship. 
 
