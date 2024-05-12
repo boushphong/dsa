@@ -328,14 +328,16 @@ def shipWithinDays(weights, days):
                 tmp_weight += weight
         return True
 
+    ans = 0
     left, right = max(weights), sum(weights)
     while left <= right:
         mid = left + (right - left) // 2
         if feasible(mid):
+            ans = mid
             right = mid - 1
         else:
             left = mid + 1
-    return left
+    return ans
 
 
 print(shipWithinDays([3, 2, 2, 4, 1, 4], 3))  # 6
