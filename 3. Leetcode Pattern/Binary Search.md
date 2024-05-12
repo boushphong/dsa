@@ -309,7 +309,7 @@ Bouquets 2 at 7 12 7
 - **SC** = `O(1)`
 
 ### [Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days)
-**Monoticity**: More days needed to wait hence more bouquets
+**Monoticity**: More weight hence lower required days to ship.
 
 **Intuition**: We search for minium weight without looking into a specific combination that sums up to the minium weight within `weights`.
 
