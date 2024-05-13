@@ -230,6 +230,29 @@ print(search([0, 1], 1))  # target > nums[m]
 print(search([5, 1], 1))  # target < nums[l]
 ```
 
+### [Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array)
+```python
+def findMin(nums):
+    res = float("inf")
+    l = 0
+    r = len(nums) - 1
+
+    while l <= r:
+        m = l + (r - l) // 2
+        res = min(res, nums[m])
+        if nums[l] <= nums[m]:
+            res = min(res, nums[l])
+            l = m + 1
+        else:
+            r = m - 1
+    return res
+
+
+print(findMin([3, 4, 5, 1, 2]))
+print(findMin([5, 1, 2, 3, 4]))
+print(findMin([3, 1, 2]))
+```
+
 ## Identifying BS (Monoticity)
 ### [Arranging Coins](https://leetcode.com/problems/arranging-coins)
 Monoticity: More coins hence more rows, less coins hence less rows and vice versa.
