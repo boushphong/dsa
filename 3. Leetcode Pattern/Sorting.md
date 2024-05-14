@@ -31,3 +31,30 @@ def pancakeSort(arr):
 print(pancakeSort([3, 4, 2, 1]))
 
 ```
+
+## Borrowing Idea from Merge Sort
+### [Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array)
+```python
+def merge(nums1, m, nums2, n):
+    """
+    Do not return anything, modify nums1 in-place instead.
+    """
+    i, j = m - 1, n - 1
+    last_item = len(nums1) - 1
+
+    while j >= 0 and i >= 0:
+        if nums2[j] >= nums1[i]:
+            nums1[last_item] = nums2[j]
+            last_item -= 1
+            j -= 1
+        else:
+            nums1[last_item] = nums1[i]
+            last_item -= 1
+            i -= 1
+
+    for i in range(j + 1):
+        nums1[i] = nums2[i]
+
+
+print(merge(nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3))
+```
