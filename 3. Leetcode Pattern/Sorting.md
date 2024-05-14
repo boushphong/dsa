@@ -3,29 +3,6 @@ Sorting problems usually can be solved by borrowing ideas from sort algorithms
 
 ## Implementing Merge Sort
 ```python
-
-def mergeSort(arr):
-    if len(arr) <= 1:
-        return arr
-
-    m = (len(arr)) // 2
-    left_portion = mergeSort(arr[:m])
-    right_portion = mergeSort(arr[m:])
-
-
-
-    merged_portion = merge(left_portion, right_portion)
-
-    return merged_portion
-
-
-print(mergeSort([11, 5, 2, 6, 7, 9, 13]))
-```
-
-# Patterns
-## Borrowing Idea from Selection Sort
-### [Pancake Sorting](https://leetcode.com/problems/pancake-sorting)
-```python
 def merge(left, right):
     result = []
     i = j = 0
@@ -55,6 +32,37 @@ def mergeSort(arr):
 
 
 print(mergeSort([11, 5, 2, 6, 7, 9, 13]))
+```
+
+# Patterns
+## Borrowing Idea from Selection Sort
+### [Pancake Sorting](https://leetcode.com/problems/pancake-sorting)
+```python
+def pancakeSort(arr):
+    ans = []
+
+    ans = []
+
+    def flip(rIdx, lIdx=0):
+        ans.append(rIdx + 1)
+        while lIdx < rIdx:
+            arr[lIdx], arr[rIdx] = arr[rIdx], arr[lIdx]
+            lIdx += 1
+            rIdx -= 1
+
+    r = len(arr)
+    while r > 1:
+        curMaxIndex = 0
+        for i, num in enumerate(arr[1:r], 1):
+            if num > arr[curMaxIndex]:
+                curMaxIndex = i
+        flip(curMaxIndex)
+        flip(r - 1)
+        r -= 1
+
+    return ans
+
+print(pancakeSort([3,2,4,1]))
 ```
 
 ## Borrowing Idea from Merge Sort
