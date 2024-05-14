@@ -22,7 +22,7 @@ def mergeSort(arr):
     if len(arr) <= 1:
         return arr
 
-    m = (len(arr)) // 2
+    m = len(arr) // 2
     left_portion = mergeSort(arr[:m])
     right_portion = mergeSort(arr[m:])
 
