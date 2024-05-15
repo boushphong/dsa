@@ -204,6 +204,11 @@ def letterCombinations(digits: str):
 
     choose(0)
     return ans
+
+
+print(letterCombinations("23"))
+#  Input: digits = "23"
+#  Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
 ```
 
 **TC**: `O(4^N)`
