@@ -233,4 +233,4 @@ Combining these factors, the space complexity of the algorithm is:
     O(4^N) for the ans list.
     O(N) for the recursion stack.
 
-So, the overall space complexity is `O(4^N + N +N)`. Hence `O(4^N)` SC
+So, the overall space complexity is `O(4^N + N + N)`. Hence `O(4^N)` SC
