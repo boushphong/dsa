@@ -34,6 +34,22 @@ def mergeSort(arr):
 print(mergeSort([11, 5, 2, 6, 7, 9, 13]))
 ```
 
+- **TC:** `O(N * Log(N))`
+  - `Log(N)` is the depth of the recursive stack call. At each level, `N` operations are performed
+- **SC:** `O(3N)` > `O(N)`
+  - `3N` SC occurs at the last recursive stack call of the last branch and until the recursive call finishes.
+```
+  16
+  / \
+ 8   8
+    / \
+   4   4
+      / \
+     2   2
+        / \
+       1   1
+```
+
 # Patterns
 ## Borrowing Idea from Selection Sort
 ### [Pancake Sorting](https://leetcode.com/problems/pancake-sorting)
