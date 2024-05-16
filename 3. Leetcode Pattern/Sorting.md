@@ -53,6 +53,7 @@ print(mergeSort([11, 5, 2, 6, 7, 9, 13]))
 # Patterns
 ## Borrowing Idea from Selection Sort
 ### [Pancake Sorting](https://leetcode.com/problems/pancake-sorting)
+- We continuously look for the largest element and throw it to the end of the array.
 ```python
 def pancakeSort(arr):
     ans = []
@@ -108,3 +109,37 @@ print(merge(nums1=[1, 2, 3, 0, 0, 0], m=3, nums2=[2, 5, 6], n=3))
 print(merge(nums1=[1, 2, 3, 0, 0, 0], m=3, nums2=[0, 0, 0], n=3))
 # For at the end to hand the case where nums1 = [1,2,3,1,2,3]
 ```
+
+## Borrowing Idea from Quick Sort
+### [Sort Colors](https://leetcode.com/problems/sort-colors/)
+- We throw every element less than 1 (equals to 0 in this case) to it's desired index first, then we do the same with 1
+```python
+def sortColors(nums):
+    l = 0
+
+    for r in range(1, len(nums)):
+        if nums[r] == 0:
+            while nums[l] == 0 and l < r:
+                l += 1
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+
+    while l != len(nums) and nums[l] == 0:
+        l += 1
+
+    for r in range(l, len(nums)):
+        if nums[r] == 1:
+            while nums[l] == 1 and l < r:
+                l += 1
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+
+    return nums
+
+
+print(sortColors([2, 0, 2, 1, 1, 0]))
+print(sortColors([0, 0, 0, 1, 1, 0]))
+print(sortColors([0, 1]))
+print(sortColors([0]))
+```
+
