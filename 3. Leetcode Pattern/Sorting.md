@@ -41,8 +41,6 @@ print(mergeSort([11, 5, 2, 6, 7, 9, 13]))
 def pancakeSort(arr):
     ans = []
 
-    ans = []
-
     def flip(rIdx, lIdx=0):
         ans.append(rIdx + 1)
         while lIdx < rIdx:
