@@ -146,27 +146,28 @@ print(sortColors([0]))
 ## Borrowing Idea from Bucket Sort
 ### [Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/)
 ```python
-from collections import Counter
-
-
 def frequencySort(s):
-    cnt = Counter(s)
-    Counter({'a': 1, 'b': 1, 'c': 1, 'd': 1, 'e': 1, 'f': 1})
+    cur_max = 0
+    mapper = {}
+    for letter in s:
+        new_increment = 1 + mapper.get(letter, 0)
+        cur_max = max(cur_max, new_increment)
+        mapper[letter] = new_increment
 
-    n = len(s)
-    bucket = [[] for _ in range(n + 1)]
+    # {'a': 1, 'b': 1, 'c': 1, 'd': 1, 'e': 1, 'f': 1}
+
+    bucket = [[] for _ in range(cur_max + 1)]
     # [[], [], [], [], [], [], []]
 
-    for c, freq in cnt.items():
+    for c, freq in mapper.items():
         bucket[freq].append(c)
     # [[], ['a', 'b', 'c', 'd', 'e', 'f'], [], [], [], [], []]
 
     ans = []
     for freq in reversed(bucket):
         for letter in freq:
-            ans.append(letter * cnt[letter])
+            ans.append(letter * mapper[letter])
     return "".join(ans)
-
 
 print(frequencySort("abcdef"))
 # Will do at most O(2N) operations to iterate through bucket
