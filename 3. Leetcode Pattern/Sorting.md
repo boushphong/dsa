@@ -143,6 +143,35 @@ print(sortColors([0, 1]))
 print(sortColors([0]))
 ```
 
+## Borrowing Idea from Bucket Sort
+### [Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/)
+```python
+from collections import Counter
+
+
+def frequencySort(s):
+    cnt = Counter(s)
+    Counter({'a': 1, 'b': 1, 'c': 1, 'd': 1, 'e': 1, 'f': 1})
+
+    n = len(s)
+    bucket = [[] for _ in range(n + 1)]
+    # [[], [], [], [], [], [], []]
+
+    for c, freq in cnt.items():
+        bucket[freq].append(c)
+    # [[], ['a', 'b', 'c', 'd', 'e', 'f'], [], [], [], [], []]
+
+    ans = []
+    for freq in reversed(bucket):
+        for letter in freq:
+            ans.append(letter * cnt[letter])
+    return "".join(ans)
+
+
+print(frequencySort("abcdef"))
+# Will do at most O(2N) operations to iterate through bucket
+```
+
 ## Implementing a Custom Comparator
 ### [Largest Number](https://leetcode.com/problems/largest-number/)
 ```python
