@@ -143,3 +143,25 @@ print(sortColors([0, 1]))
 print(sortColors([0]))
 ```
 
+## Implementing a Custom Comparator
+### [Largest Number](https://leetcode.com/problems/largest-number/)
+```python
+def largestNumber(nums):
+    if min(nums) == 0 and max(nums) == 0:
+        return "0"
+
+    # Custom Comparator
+    def compare(a, b):
+        return str(a) + str(b) > str(b) + str(a)
+
+    # Bubble Sort
+    start = len(nums) - 1
+    while start > 0:
+        for i in range(start):
+            if compare(nums[i], nums[i + 1]):
+                nums[i], nums[i + 1] = nums[i + 1], nums[i]
+        start -= 1
+
+    return "".join([str(num) for num in reversed(nums)])
+```
+
