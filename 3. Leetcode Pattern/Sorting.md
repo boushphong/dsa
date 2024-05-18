@@ -180,6 +180,7 @@ def countInversions(arr):
 
 
 print(countInversions([1, 3, 5, 2, 4, 6]))  # 3
+# (3,2), (5,2), (5,4)
 ```
 
 This utilizes the **Divide and Conquer** technique in **Merge Sort**. 
