@@ -110,6 +110,80 @@ print(merge(nums1=[1, 2, 3, 0, 0, 0], m=3, nums2=[0, 0, 0], n=3))
 # For at the end to hand the case where nums1 = [1,2,3,1,2,3]
 ```
 
+### Count Inversions
+Given an array of distinct integers, count the number of inversion pairs in the array.
+
+An inversion pair (𝑖,𝑗) is defined as a pair of indices 𝑖,𝑗 such that:
+- `0 ≤ i < j < n`
+- `a[i] > a[j]`
+
+For example:
+Given the array: `a=[3,5,2,1,6]`
+The result is `5` and the inversion pairs are
+- `(3,2), (3,1), (5,2), (5,1), (2,1)`
+
+```python
+inv_count = 0
+
+
+def merge_and_count(arr):
+    global inv_count
+    temp_arr = [0] * len(arr)
+    left = 0  # Starting index for left subarray
+    right = len(arr) - 1
+    right_start = len(arr) // 2  # Starting index for right subarray
+    left_end = right_start - 1
+    cur_tmp_idx = left  # Starting index to be sorted in temp_arr
+
+    # Merge the two portions of the array and count inversions
+    while left <= left_end and right_start <= right:
+        if arr[left] <= arr[right_start]:
+            temp_arr[cur_tmp_idx] = arr[left]
+            left += 1
+        else:
+            # arr[left] > arr[right_start] indicates inversions
+            temp_arr[cur_tmp_idx] = arr[right_start]
+            inv_count += (left_end - left) + 1  # Count inversions
+            right_start += 1
+        cur_tmp_idx += 1
+
+    # Copy the remaining elements of left subarray, if any
+    while left <= left_end:
+        temp_arr[cur_tmp_idx] = arr[left]
+        left += 1
+        cur_tmp_idx += 1
+
+    # Copy the remaining elements of right subarray, if any
+    while right_start <= right:
+        temp_arr[cur_tmp_idx] = arr[right_start]
+        right_start += 1
+        cur_tmp_idx += 1
+
+    return temp_arr
+
+
+def mergeSort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    mid = len(arr) // 2
+    left_portion = mergeSort(arr[:mid])
+    right_portion = mergeSort(arr[mid:])
+
+    merged_portion = merge_and_count(left_portion + right_portion)
+    return merged_portion
+
+
+def countInversions(arr):
+    mergeSort(arr)
+    return inv_count
+
+
+print(countInversions([1, 3, 5, 2, 4, 6]))  # 3
+```
+
+This utilizes the Divide and Conquer technique by Merge Sort idea. When we split the portion into left and right portions, we already know that indices from the left portion are smaller than indices from the right portion. We recursively divide the array by half at each step, and increment the `inv_count` if there is any when we do `merge_and_count` and then sort the array. Once a side is sorted, there won't be any inversion pairs from that portion. Then we escape the current function and return the result of the sorted array for the lower depth function call.
+
 ## Borrowing Idea from Quick Sort
 ### [Sort Colors](https://leetcode.com/problems/sort-colors/)
 - We throw every element less than 1 (equals to 0 in this case) to it's desired index first, then we do the same with 1
