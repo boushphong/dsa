@@ -191,6 +191,32 @@ Return r
 ```
 
 # Patterns
+## Bisecting
+### [Heaters](https://leetcode.com/problems/heaters/)
+```python
+def findRadius(houses, heaters):
+    houses.sort()
+    radius = -1
+
+    for house in houses:
+        pos = bisect_right(heaters, house)
+        if pos == 0:
+            radius = max(radius, heaters[pos] - house)
+        elif pos == len(heaters):
+            radius = max(radius, house - heaters[pos - 1])
+        else:
+            left_radius = house - heaters[pos - 1]
+            right_radius = heaters[pos] - house
+            min_between_radius = min(left_radius, right_radius)
+            radius = max(radius, min_between_radius)
+
+    return radius
+
+
+print(findRadius([1, 2, 3], [2])
+print(findRadius([1, 2, 3, 4], [1, 4])
+```
+
 ## Rotated Array Search
 ### [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array)
 ```python
