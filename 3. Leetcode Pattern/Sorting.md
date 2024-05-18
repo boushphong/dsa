@@ -182,7 +182,10 @@ def countInversions(arr):
 print(countInversions([1, 3, 5, 2, 4, 6]))  # 3
 ```
 
-This utilizes the Divide and Conquer technique by Merge Sort idea. When we split the portion into left and right portions, we already know that indices from the left portion are smaller than indices from the right portion. We recursively divide the array by half at each step, and increment the `inv_count` if there is any when we do `merge_and_count` and then sort the array. Once a side is sorted, there won't be any inversion pairs from that portion. Then we escape the current function and return the result of the sorted array for the lower depth function call.
+This utilizes the **Divide and Conquer** technique in **Merge Sort**. 
+- When we split the portion into **left** and **right** portions, we already know that indices from the **left** portion are smaller than indices from the **right** portion.
+- We recursively divide the array by half at each step, and increment the `inv_count` if there is any when we do `merge_and_count` and then sort the array.
+-  Once a side is sorted, there won't be any inversion pairs from that portion. Then we escape the current function and return the result of the sorted array for the lower depth function call.
 
 ## Borrowing Idea from Quick Sort
 ### [Sort Colors](https://leetcode.com/problems/sort-colors/)
