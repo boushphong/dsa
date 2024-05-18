@@ -280,6 +280,41 @@ def frequencySort(s):
 print(frequencySort("abcdef"))
 ```
 
+### [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
+```python
+from collections import Counter
+
+
+def findKthLargest(nums, k):
+    minimum = min(nums)
+    absolute = (abs(minimum) + 1)
+    if minimum < 0:
+        nums = [num + absolute for num in nums]
+
+    maximum = max(nums)
+
+    cnt = Counter(nums)
+    buckets = [None] * (maximum + 1)
+
+    for item in cnt:
+        buckets[item] = cnt.get(item)
+
+    largest = 0
+    for idx, count in zip(range(maximum, -1, -1), reversed(buckets)):
+        if not count:
+            continue
+
+        largest += count
+        if largest >= k:
+            break
+
+    return idx - absolute if minimum < 0 else idx
+
+
+print(findKthLargest([-1, -1], 2))
+print(findKthLargest([6, 5, 3, 3, 5, 2, 1, 2], 4))  # [1, 2, 2, 3, 3, 5, 5, 6] -> 3
+```
+
 ## Implementing a Custom Comparator
 ### [Largest Number](https://leetcode.com/problems/largest-number/)
 ```python
