@@ -1,5 +1,5 @@
 # Monotonic Stack
-Monotonic stacks are generally used for solving questions of the type - next greater element, next smaller element, previous greater element and previous smaller element.
+Monotonic stacks are generally used for solving questions of the type - **next greater element**, **next smaller element**, **previous greater element** and **previous smaller element**.
 
 ## What is monotonic stack?
 
