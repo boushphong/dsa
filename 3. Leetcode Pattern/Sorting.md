@@ -381,23 +381,26 @@ def largestNumber(nums):
 ## Quick Select
 ### [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
 ```python
+from random import choice
+
+
 def findKthLargest(nums, k):
-    if not nums: 
+    if not nums:
         return
-    pivot = random.choice(nums)
-    greater =  [x for x in nums if x > pivot]
-    equal  =  [x for x in nums if x == pivot]
+    pivot = choice(nums)
+    greater = [x for x in nums if x > pivot]
+    equal = [x for x in nums if x == pivot]
     smaller = [x for x in nums if x < pivot]
-    
+
     lenGreater, lenSmaller = len(greater), len(smaller)
-    
+
     if k <= lenGreater:
-        return self.findKthLargest(greater, k)
+        return findKthLargest(greater, k)
     elif k > lenSmaller + lenGreater:
-        return self.findKthLargest(smaller, k - lenGreater - lenSmaller)
+        return findKthLargest(smaller, k - lenGreater - lenSmaller)
     else:
-        return mid[0]
+        return equal[0]
 
 
-print(findKthLargest([0,1,1,1,1,1,1,1,2,3,1]), 1))
+print(findKthLargest([0, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1], 1))
 ```
