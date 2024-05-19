@@ -143,6 +143,28 @@ def maximumSumOfHeights(maxHeights: List[int]) -> int:
     return maximum
 ```
 
+### [Maximum Subarray](https://leetcode.com/problems/maximum-subarray)
+```python
+def maxSubArray(nums):
+    preSum = [0] + list(accumulate(nums))
+    ans = float("-inf")
+
+    stack = []
+    for num in preSum:
+        if stack and num < stack[-1]:
+            ans = max(ans, num - stack.pop())
+        if stack:
+            ans = max(ans, num - stack[-1])
+        if not stack or num < stack[-1]:
+            stack.append(num)
+
+    return ans
+
+print(maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
+```
+
+For Maximum Subarray optimal solution, refer **Kadane’s Algorithm**.
+
 ## Over-estimation 
 Don't push everything in the stack unless we really have to.
 
