@@ -84,8 +84,8 @@ print(quick_select([15, 10, 4, 3, 20, 7], 0, 5, 3))  # 10
 # The array after modification: [4, 3, 7, 10, 15, 20]
 ```
 
-- **TC (Average):** `O(N * Log(N))`
-  - `Log(N)` is the depth of the recursive stack call. At each level, `N` operations are performed
+- **TC (Average):** `O(2N)` - > `O(N)`
+  - `O(2N)` every step, the array is divided in half hence `N/16 + N/8 + N/4 ... N/1 ~ 2N`.
 - **TC (Worst):** `O(N**2))`
   - `O(N**2))` happens when the array is already sorted, hence selecting the last element always yield `pivot = r` and the next recursive call won't halve the arr but only decrement the pivot to 1 by `pivot = pivot - 1`.
 - **SC:** `O(LogN)`
