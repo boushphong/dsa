@@ -356,6 +356,35 @@ print(findKthLargest([-1, -1], 2))
 print(findKthLargest([6, 5, 3, 3, 5, 2, 1, 2], 4))  # [1, 2, 2, 3, 3, 5, 5, 6] -> 3
 ```
 
+
+## Borrowing Idea from Quick Select (Quick Sort)
+### [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
+```python
+from random import choice
+
+
+def findKthLargest(nums, k):
+    if not nums:
+        return
+    pivot = choice(nums)
+    greater = [x for x in nums if x > pivot]
+    equal = [x for x in nums if x == pivot]
+    smaller = [x for x in nums if x < pivot]
+
+    lenGreater, lenEqual = len(greater), len(equal)
+
+    if k <= lenGreater:
+        return findKthLargest(greater, k)
+    elif k > lenEqual + lenGreater:
+        return findKthLargest(smaller, k - lenGreater - lenEqual)
+    else:
+        return equal[0]
+
+
+print(findKthLargest([0, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1], 1))
+```
+**TC** and **SC** are `O(2N)` > `O(N)`
+
 ## Implementing a Custom Comparator
 ### [Largest Number](https://leetcode.com/problems/largest-number/)
 ```python
@@ -376,31 +405,4 @@ def largestNumber(nums):
         start -= 1
 
     return "".join([str(num) for num in reversed(nums)])
-```
-
-## Quick Select
-### [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
-```python
-from random import choice
-
-
-def findKthLargest(nums, k):
-    if not nums:
-        return
-    pivot = choice(nums)
-    greater = [x for x in nums if x > pivot]
-    equal = [x for x in nums if x == pivot]
-    smaller = [x for x in nums if x < pivot]
-
-    lenGreater, lenEqual = len(greater), len(equal)
-
-    if k <= lenGreater:
-        return findKthLargest(greater, k)
-    elif k > lenSmaller + lenGreater:
-        return findKthLargest(smaller, k - lenGreater - lenSmaller)
-    else:
-        return equal[0]
-
-
-print(findKthLargest([0, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1], 1))
 ```
