@@ -392,7 +392,7 @@ def findKthLargest(nums, k):
     equal = [x for x in nums if x == pivot]
     smaller = [x for x in nums if x < pivot]
 
-    lenGreater, lenSmaller = len(greater), len(smaller)
+    lenGreater, lenEqual = len(greater), len(equal)
 
     if k <= lenGreater:
         return findKthLargest(greater, k)
