@@ -50,9 +50,11 @@ print(mergeSort([11, 5, 2, 6, 7, 9, 13]))
        1   1
 ```
 
-## Implementing Quick Select 
+## Implementing Quick Select
+- Move the **last element** of the array to its desired index (when sorted), with every element to the left smaller than the selected element and every element to the right larger than the selected element. Once done, return the index of the selected element.
+
+**Choosing a fixed index**
 ```python
-# Move the last element of the array to its desired index (when sorted), with every element to the left smaller than the selected element and every element to the right larger than the selected element. Once done, return the index of the selected element.
 def partition(arr, l, r):
     pivot = arr[r]
     i = l
@@ -65,8 +67,33 @@ def partition(arr, l, r):
 
 print(partition([15, 10, 4, 3, 20, 7], 0, 5))  # 2
 # The array after modification: [4, 3, 7, 10, 20, 15]
+```
+
+- Move a **random element** of the array to its desired index (when sorted), with every element to the left smaller than the selected element and every element to the right larger than the selected element. Once done, return the index of the selected element.
+
+**Choosing a random index**
+```python
+from random import randint
 
 
+def partition(arr, l, r):
+    # Choose a random pivot index and swap with the end
+    pivot_index = randint(l, r)
+    arr[pivot_index], arr[r] = arr[r], arr[pivot_index]
+
+    pivot = arr[r]
+    i = l
+    for j in range(l, r):
+        if arr[j] < pivot:
+            arr[i], arr[j] = arr[j], arr[i]
+            i += 1
+    arr[i], arr[r] = arr[r], arr[i]
+    return i
+```
+
+**Implemntation**
+
+```python
 def quick_select(arr, l, r, k):
     if l == r:
         return arr[l]
