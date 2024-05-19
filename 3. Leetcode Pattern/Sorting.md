@@ -50,6 +50,40 @@ print(mergeSort([11, 5, 2, 6, 7, 9, 13]))
        1   1
 ```
 
+## Implementing Quick Select 
+```python
+# Move the last element of the array to its desired index (when sorted), with every element to the left smaller than the selected element and every element to the right larger than the selected element. Once done, return the index of the selected element.
+def partition(arr, l, r):
+    pivot = arr[r]
+    i = l
+    for j in range(l, r):
+        if arr[j] < pivot:
+            arr[i], arr[j] = arr[j], arr[i]
+            i += 1
+    arr[i], arr[r] = arr[r], arr[i]
+    return i
+
+print(partition([15, 10, 4, 3, 20, 7], 0, 5))  # 2
+# The array after modification: [4, 3, 7, 10, 20, 15]
+
+
+def quick_select(arr, l, r, k):
+    if l == r:
+        return arr[l]
+
+    pivot = partition(arr, l, r)
+    if pivot == k:
+        return arr[pivot]
+    elif pivot < k:
+        return quick_select(arr, pivot + 1, r, k)
+    else:
+        return quick_select(arr, l, pivot - 1, k)
+
+
+print(quick_select([15, 10, 4, 3, 20, 7], 0, 5, 3))  # 10
+# The array after modification: [4, 3, 7, 10, 15, 20]
+```
+
 # Patterns
 ## Borrowing Idea from Selection Sort
 ### [Pancake Sorting](https://leetcode.com/problems/pancake-sorting)
