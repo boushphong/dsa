@@ -84,6 +84,13 @@ print(quick_select([15, 10, 4, 3, 20, 7], 0, 5, 3))  # 10
 # The array after modification: [4, 3, 7, 10, 15, 20]
 ```
 
+- **TC (Average):** `O(N * Log(N))`
+  - `Log(N)` is the depth of the recursive stack call. At each level, `N` operations are performed
+- **TC (Worst):** `O(N**2))`
+  - `O(N**2))` happens when the array is already sorted, hence selecting the last element always yield `pivot = r` and the next recursive call won't halve the arr but only decrement the pivot to 1 by `pivot = pivot - 1`.
+- **SC:** `O(LogN)`
+  - `O(LogN)` because the algorithm modifies the array in place, hence the depth of the recursion is the space.
+
 # Patterns
 ## Borrowing Idea from Selection Sort
 ### [Pancake Sorting](https://leetcode.com/problems/pancake-sorting)
