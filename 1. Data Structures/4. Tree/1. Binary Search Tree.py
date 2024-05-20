@@ -208,17 +208,16 @@ if __name__ == "__main__":
     # Removing node with two children....
     # Removing a node with single left child...
 
-    bst1.traverse_in()
-    # -5
-    # 0
-    # 1
-    # 4
-    # 5
-    # 10
-
     bst1.remove(4)
     # Removing a node with single right child...
 
+    """
+        1
+       /  \
+     -5    5
+       \    \
+        0   10
+    """
     bst1.traverse_in()
     # -5
     # 0
