@@ -1,3 +1,6 @@
+from collections import deque
+
+
 class Node:
     def __init__(self, data, parent):
         self.data = data
@@ -152,17 +155,16 @@ class BinarySearchTree:
     def traverse_level(self):
         if self.root is not None:
             self.traverse_level_order(self.root)
-            print(self.root.data)
 
-    def traverse_level_order(self, node):
-        if node.left_node:
-            self.traverse_level_order(node.left_node)
-        if node.right_node:
-            self.traverse_level_order(node.right_node)
-        if node.left_node:
-            print(node.left_node.data)
-        if node.right_node:
-            print(node.right_node.data)
+    def traverse_level_order(self, root):
+        queue = deque([root])
+        while queue:
+            node = queue.popleft()
+            print(node.data)
+            if node.left_node:
+                queue.append(node.left_node)
+            if node.right_node:
+                queue.append(node.right_node)
 
 
 class TreeComparator:
@@ -240,8 +242,8 @@ if __name__ == "__main__":
     # 1
 
     bst1.traverse_level()
-    # 0
-    # 10
+    # 1
     # -5
     # 5
-    # 1
+    # 0
+    # 10
