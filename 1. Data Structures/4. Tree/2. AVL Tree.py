@@ -25,7 +25,13 @@ class AVLTree:
             else:
                 node.left_node = Node(data, node)  # Base
                 # Recursive call to calculate node height during insertion
-                node.height = max(self.calc_height(node.left_node), self.calc_height(node.right_node)) + 1
+                node.height = (
+                    max(
+                        self.calc_height(node.left_node),
+                        self.calc_height(node.right_node),
+                    )
+                    + 1
+                )
                 # we have to visit the right subtree
         else:
             if node.right_node:
@@ -33,7 +39,13 @@ class AVLTree:
             else:
                 node.right_node = Node(data, node)  # Base
                 # Recursive call to calculate node height during insertion
-                node.height = max(self.calc_height(node.left_node), self.calc_height(node.right_node)) + 1
+                node.height = (
+                    max(
+                        self.calc_height(node.left_node),
+                        self.calc_height(node.right_node),
+                    )
+                    + 1
+                )
 
                 # after every insertion we have to check whether the AVL properties are violated
         self.handle_violation(node)
@@ -65,7 +77,6 @@ class AVLTree:
                     self.root = None
                 del node
                 self.handle_violation(parent)
-
 
             elif node.left_node is None and node.right_node is not None:
                 print("Removing a node with single right child...")
@@ -101,7 +112,7 @@ class AVLTree:
                 self.handle_violation(parent)
 
             else:
-                print('Removing node with two children....')
+                print("Removing node with two children....")
                 predecessor = self.get_predecessor(node.left_node)
                 # Swap data then remove the leaf node
                 temp = predecessor.data
@@ -118,8 +129,10 @@ class AVLTree:
     def handle_violation(self, node):
         # check the nodes from the node we have inserted up to root node
         while node is not None:
-            node.height = max(self.calc_height(node.left_node),
-                              self.calc_height(node.right_node)) + 1
+            node.height = (
+                max(self.calc_height(node.left_node), self.calc_height(node.right_node))
+                + 1
+            )
 
             self.violation_helper(node)
             # whenever we settle a violation (rotations) it may happen that it
@@ -166,20 +179,28 @@ class AVLTree:
         node.parent = temp_left_node
         temp_left_node.parent = temp_parent
 
-        if temp_left_node.parent is not None and temp_left_node.parent.left_node == node:
+        if (
+            temp_left_node.parent is not None
+            and temp_left_node.parent.left_node == node
+        ):
             temp_left_node.parent.left_node = temp_left_node
 
-        if temp_left_node.parent is not None and temp_left_node.parent.right_node == node:
+        if (
+            temp_left_node.parent is not None
+            and temp_left_node.parent.right_node == node
+        ):
             temp_left_node.parent.right_node = temp_left_node
 
         if node == self.root:
             self.root = temp_left_node
 
-        node.height = max(self.calc_height(node.left_node),
-                          self.calc_height(node.right_node)) + 1
+        node.height = (
+            max(self.calc_height(node.left_node), self.calc_height(node.right_node)) + 1
+        )
 
-        temp_left_node.height = max(self.calc_height(node.left_node),
-                                    self.calc_height(node.right_node)) + 1
+        temp_left_node.height = (
+            max(self.calc_height(node.left_node), self.calc_height(node.right_node)) + 1
+        )
 
     # O(1) running time complexity
     def rotate_left(self, node):
@@ -198,25 +219,33 @@ class AVLTree:
         node.parent = temp_right_node
         temp_right_node.parent = temp_parent
 
-        if temp_right_node.parent is not None and temp_right_node.parent.left_node == node:
+        if (
+            temp_right_node.parent is not None
+            and temp_right_node.parent.left_node == node
+        ):
             temp_right_node.parent.left_node = temp_right_node
 
-        if temp_right_node.parent is not None and temp_right_node.parent.right_node == node:
+        if (
+            temp_right_node.parent is not None
+            and temp_right_node.parent.right_node == node
+        ):
             temp_right_node.parent.right_node = temp_right_node
 
         if node == self.root:
             self.root = temp_right_node
 
-        node.height = max(self.calc_height(node.left_node),
-                          self.calc_height(node.right_node)) + 1
+        node.height = (
+            max(self.calc_height(node.left_node), self.calc_height(node.right_node)) + 1
+        )
 
-        temp_right_node.height = max(self.calc_height(node.left_node),
-                                     self.calc_height(node.right_node)) + 1
+        temp_right_node.height = (
+            max(self.calc_height(node.left_node), self.calc_height(node.right_node)) + 1
+        )
 
     def calc_height(self, node):
         # this is when the node is a Null
         if node is None:
-            return - 1
+            return -1
         return node.height
 
     def calculate_balance(self, node):
@@ -261,7 +290,7 @@ class AVLTree:
         print(node.data)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     avl = AVLTree()
     avl.insert(5)
     avl.insert(6)

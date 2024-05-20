@@ -80,7 +80,7 @@ class BinarySearchTree:
                 del node
 
             else:
-                print('Removing node with two children....')
+                print("Removing node with two children....")
                 predecessor = self.get_predecessor(node.left_node)
                 # Swap data then remove the leaf node
                 temp = predecessor.data
@@ -161,11 +161,12 @@ class TreeComparator:
         if node1.data is not node2.data:
             return False
         # check all the left and right subtrees (children) recursively
-        return self.compare(node1.left_node, node2.left_node) and \
-            self.compare(node1.right_node, node2.right_node)
+        return self.compare(node1.left_node, node2.left_node) and self.compare(
+            node1.right_node, node2.right_node
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     bst1 = BinarySearchTree()
     bst1.insert(3)
     bst1.insert(1)
@@ -223,4 +224,3 @@ if __name__ == '__main__':
     # 10
     # 5
     # 1
-

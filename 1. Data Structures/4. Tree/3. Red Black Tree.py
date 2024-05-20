@@ -63,10 +63,16 @@ class RedBlackTree:
         node.parent = temp_left_node
         temp_left_node.parent = temp_parent
 
-        if temp_left_node.parent is not None and temp_left_node.parent.left_node == node:
+        if (
+            temp_left_node.parent is not None
+            and temp_left_node.parent.left_node == node
+        ):
             temp_left_node.parent.left_node = temp_left_node
 
-        if temp_left_node.parent is not None and temp_left_node.parent.right_node == node:
+        if (
+            temp_left_node.parent is not None
+            and temp_left_node.parent.right_node == node
+        ):
             temp_left_node.parent.right_node = temp_left_node
 
         if node == self.root:
@@ -87,10 +93,16 @@ class RedBlackTree:
         node.parent = temp_right_node
         temp_right_node.parent = temp_parent
 
-        if temp_right_node.parent is not None and temp_right_node.parent.left_node == node:
+        if (
+            temp_right_node.parent is not None
+            and temp_right_node.parent.left_node == node
+        ):
             temp_right_node.parent.left_node = temp_right_node
 
-        if temp_right_node.parent is not None and temp_right_node.parent.right_node == node:
+        if (
+            temp_right_node.parent is not None
+            and temp_right_node.parent.right_node == node
+        ):
             temp_right_node.parent.right_node = temp_right_node
 
         if node == self.root:
@@ -160,7 +172,7 @@ class RedBlackTree:
         return node.color == Color.RED
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     tree = RedBlackTree()
 
     tree.insert(32)
