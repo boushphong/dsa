@@ -149,6 +149,21 @@ class BinarySearchTree:
             self.traverse_post_order(node.right_node)
         print(node.data)
 
+    def traverse_level(self):
+        if self.root is not None:
+            self.traverse_level_order(self.root)
+            print(self.root.data)
+
+    def traverse_level_order(self, node):
+        if node.left_node:
+            self.traverse_level_order(node.left_node)
+        if node.right_node:
+            self.traverse_level_order(node.right_node)
+        if node.left_node:
+            print(node.left_node.data)
+        if node.right_node:
+            print(node.right_node.data)
+
 
 class TreeComparator:
     def compare(self, node1, node2):
@@ -222,5 +237,12 @@ if __name__ == "__main__":
     # 0
     # -5
     # 10
+    # 5
+    # 1
+
+    bst1.traverse_level()
+    # 0
+    # 10
+    # -5
     # 5
     # 1
