@@ -212,7 +212,9 @@ queue 1 2 15 7
         - `2**H - 2**(H-2)` -> `2**H - 2**H/2**(H-2)` -> `(1 * 2**H) - (1/4 * 2**H)` ->  `(1 - 1/4) * 2**H` -> `0.75H`
       - Since `N = 2**H - 1` -> `N = 2**H`
       - Hence `2**H - 2**(H-2)` -> `1N - 0.25N = 0.75N` -> `N`
-   
+
+
+## [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view)
 ```python
 from collections import deque
 
