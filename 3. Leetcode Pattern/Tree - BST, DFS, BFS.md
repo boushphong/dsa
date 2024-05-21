@@ -50,12 +50,12 @@ A   D   I
    / \   \
   C   E   H
 ```
-| Name         | Priority Order       | Technique | Example    |
-|--------------|----------------------|-----------|------------|
-| In-Order      | Left > Parent > Right| DFS       | ABCDEFGHI  |
-| Pre-Order     | Parent > Left > Right| DFS       | FBADCEGIH  |
-| Post-Order    | Left > Right > Parent| DFS       | ACEDBHIGF  |
-| Level-Order  | Top to bottom, left to right | BFS | FBGADICEH |
+| Name         | Priority Order       | Technique | Example    | Applications |
+|--------------|----------------------|-----------|------------|--------------|
+| In-Order      | Left > Parent > Right| DFS       | ABCDEFGHI  | Explore nodes in ascending order (smallest to largest) in **BST**. Parents are visited between the subtrees (starting left > parent > right |
+| Pre-Order     | Parent > Left > Right| DFS       | FBADCEGIH  | Explore parents nodes first then leaf nodes |
+| Post-Order    | Left > Right > Parent| DFS       | ACEDBHIGF  | Explore leaf nodes before visiting parent nodes |
+| Level-Order  | Top to bottom, left to right | BFS | FBGADICEH | Explore nodes at every depth first |
 
 **Sample Code**
 
