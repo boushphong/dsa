@@ -52,10 +52,10 @@ A   D   I
 ```
 | Name         | Priority Order       | Technique | Example    |
 |--------------|----------------------|-----------|------------|
-| Inorder      | Left > Parent > Right| DFS       | ABCDEFGHI  |
-| Preorder     | Parent > Left > Right| DFS       | FBADCEGIH  |
-| Postorder    | Left > Right > Parent| DFS       | ACEDBHIGF  |
-| Level-order  | Top to bottom, left to right | BFS | FBGADICEH |
+| In-Order      | Left > Parent > Right| DFS       | ABCDEFGHI  |
+| Pre-Order     | Parent > Left > Right| DFS       | FBADCEGIH  |
+| Post-Order    | Left > Right > Parent| DFS       | ACEDBHIGF  |
+| Level-Order  | Top to bottom, left to right | BFS | FBGADICEH |
 
 **Sample Code**
 
