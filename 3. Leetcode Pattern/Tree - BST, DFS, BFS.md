@@ -104,3 +104,112 @@ def traverse_level_order(root):
         if node.right_node:
             queue.append(node.right_node)
 ```
+
+# Patterns
+## Level-Order
+```python
+from collections import deque
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+    def __repr__(self):
+        return f"TreeNode({self.val})"
+
+
+def levelOrder(root):
+    if not root:
+        return []
+
+    cur_depth = 0
+    queue = deque([(root, cur_depth)])
+    result = []
+    level = []
+    while queue:
+        node, node_depth = queue.popleft()
+        if node_depth > cur_depth:
+            result.append(level.copy())
+            cur_depth += 1
+            level.clear()
+        if node.left:
+            queue.append((node.left, node_depth + 1))
+        if node.right:
+            queue.append((node.right, node_depth + 1))
+
+        level.append(node.val)
+
+    if level:
+        result.append(level)
+
+    return result
+
+# Alternative Solution
+def levelOrder(root):
+    if not root:
+        return []
+
+    queue = deque([root])
+    result = []
+    while queue:
+        level = []
+        for _ in range(len(queue)):
+            node = queue.popleft()
+            level.append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        result.append(level)
+    return result
+
+
+root = TreeNode(4)
+root2 = TreeNode(3)
+root.left = root2
+
+root2.left = TreeNode(9)
+root2.right = TreeNode(20)
+
+root2.left.left = TreeNode(1)
+root2.left.right = TreeNode(2)
+root2.right.left = TreeNode(15)
+root2.right.right = TreeNode(7)
+
+"""
+4 pop end iteration
+queue 3
+
+3 pop end iteration
+queue 9 20
+
+9 pop 
+add 1 2
+20 pop
+add 15 7
+end iteration
+
+queue 1 2 15 7
+1 pop no children add queue
+2 pop no children add queue
+15 pop no children add queue
+7 pop no children add queue
+"""
+```
+- `TC`: `O(N)`
+  - Iterate through every nodes
+- `SC`: `O(1)` (Best Case)
+  - Best case when the binary tree is degenerated
+- `SC`: `O(N)` (Worst Case)
+  - Best case when the binary tree is not degenerated, and well balanced
+  - Since maximum space we have to store is the total of `Height + (Height - 1)` (the last depth and second last depth)
+  - Hence the `SC` would be `O(2**H - 1 - 2**(H-2) - 1)`. (`O(2**H - 1)` is used to approximately calculate the total nodes in a well-balanced tree, given `H` is the height.
+      - This simplifies: `2**H - 2**(H-2) - 2` -> `2**H - 2**(H-2)`
+      - The upper portion `2**(H-2)` is always approximately 25% (`2**(H-2) / 2**H`) when `H` grows. Hence the `2**H - 2**(H-2)` is 75%.
+        - `2**N / 2**(N+2)` = `2**(N - (N + 2))` = `2**(N - N - 2)` = `2**-2` = `1/4` = 25%
+        - `2**(N-2) / 2**(N)` = `2**((N - 2) - N)` = `2**(N - 2 - N)` = `2**(N - N - 2)` = `2**(N - N - 2)` = `2**-2` = `1/4` = 25%
+      - Since `N = 2**H - 1` -> `N = 2**H`
+      - Hence `2**H - 2**(H-2)` -> `1N - 0.25N = 0.75N` -> 
