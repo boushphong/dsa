@@ -56,3 +56,51 @@ A   D   I
 | Preorder     | Parent > Left > Right| DFS       | FBADCEGIH  |
 | Postorder    | Left > Right > Parent| DFS       | ACEDBHIGF  |
 | Level-order  | Top to bottom, left to right | BFS | FBGADICEH |
+
+**Sample Code**
+
+**In-Order Traversal**
+```python
+def traverse_in_order(node):
+    if node.left_node:
+        self.traverse_in_order(node.left_node)
+    print(node.data)
+    if node.right_node:
+        self.traverse_in_order(node.right_node)
+```
+
+**Pre-Order Traversal**
+```python
+def traverse_pre_order(node):
+    print(node.data)
+    if node.left_node:
+        self.traverse_pre_order(node.left_node)
+    if node.right_node:
+        self.traverse_pre_order(node.right_node)
+```
+
+**Post-Order Traversal**
+```python
+def traverse_post_order(node):
+    if node.left_node:
+        self.traverse_post_order(node.left_node)
+    if node.right_node:
+        self.traverse_post_order(node.right_node)
+    print(node.data)
+```
+
+**Level-Order Traversal**
+```python
+from collections import deque
+
+
+def traverse_level_order(root):
+    queue = deque([root])
+    while queue:
+        node = queue.popleft()
+        print(node.data)
+        if node.left_node:
+            queue.append(node.left_node)
+        if node.right_node:
+            queue.append(node.right_node)
+```
