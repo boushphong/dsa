@@ -247,7 +247,7 @@ def rightSideView(root):
     return result
 ```
 
-
+## DFS (Pre-Order)
 ### [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view)
 ```python
 def levelOrder(root):
