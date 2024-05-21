@@ -41,6 +41,15 @@ node3.children = [node5, node6]
 ```
 
 # Traversal
+```
+    F
+   / \
+  B   G
+ / \   \
+A   D   I
+   / \   \
+  C   E   H
+```
 | Name         | Priority Order       | Technique | Example    |
 |--------------|----------------------|-----------|------------|
 | Inorder      | Left > Parent > Right| DFS       | ABCDEFGHI  |
