@@ -209,7 +209,7 @@ queue 1 2 15 7
   - Hence the `SC` would be `O(2**H - 1 - 2**(H-2) - 1)`. (`O(2**H - 1)` is used to approximately calculate the total nodes in a well-balanced tree, given `H` is the height.
       - This simplifies: `2**H - 2**(H-2) - 2` -> `2**H - 2**(H-2)`
       - The upper portion `2**(H-2)` is always approximately 25% (`2**(H-2) / 2**H`) when `H` grows. Hence the `2**H - 2**(H-2)` is 75%.
-        - `2**N / 2**(N+2)` = `2**(N - (N + 2))` = `2**(N - N - 2)` = `2**-2` = `1/4` = 25%
-        - `2**(N-2) / 2**(N)` = `2**((N - 2) - N)` = `2**(N - 2 - N)` = `2**(N - N - 2)` = `2**(N - N - 2)` = `2**-2` = `1/4` = 25%
+        - `2**(H-2) / 2**(H)` = `2**((H - 2) - H)` = `2**(H - 2 - H)` = `2**(H - H - 2)` = `2**(H - H - 2)` = `2**-2` = `1/4` = 25%
+        - `2**H / 2**(H+2)` = `2**(H - (H + 2))` = `2**(H - H - 2)` = `2**-2` = `1/4` = 25%
       - Since `N = 2**H - 1` -> `N = 2**H`
       - Hence `2**H - 2**(H-2)` -> `1N - 0.25N = 0.75N` -> 
