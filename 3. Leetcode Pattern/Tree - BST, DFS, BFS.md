@@ -209,7 +209,37 @@ queue 1 2 15 7
   - Hence the `SC` would be `O(2**H - 1 - 2**(H-2) - 1)`. (`O(2**H - 1)` is used to approximately calculate the total nodes in a well-balanced tree, given `H` is the height.
       - This simplifies: `2**H - 2**(H-2) - 2` -> `2**H - 2**(H-2)`
       - The upper portion `2**(H-2)` is always approximately 25% (`2**(H-2) / 2**H`) when `H` grows. Hence the `2**H - 2**(H-2)` is 75%.
-        - `2**(H-2) / 2**(H)` = `2**((H - 2) - H)` = `2**(H - 2 - H)` = `2**(H - H - 2)` = `2**(H - H - 2)` = `2**-2` = `1/4` = 25%
-        - `2**H / 2**(H+2)` = `2**(H - (H + 2))` = `2**(H - H - 2)` = `2**-2` = `1/4` = 25%
+        - `2**H - 2**(H-2)` -> `2**H - 2**H/2**(H-2)` -> `(1 * 2**H) - (1/4 * 2**H)` ->  `(1 - 1/4) * 2**H` -> `0.75H`
       - Since `N = 2**H - 1` -> `N = 2**H`
       - Hence `2**H - 2**(H-2)` -> `1N - 0.25N = 0.75N` -> `N`
+   
+```python
+from collections import deque
+
+
+def rightSideView(root):
+    if not root:
+        return []
+
+    cur_depth = 0
+    queue = deque([(root, cur_depth)])
+    result = []
+    level = None
+    while queue:
+        node, node_depth = queue.popleft()
+        if node_depth == cur_depth:
+            level = node.val
+        elif node_depth > cur_depth:
+            result.append(level)
+            cur_depth += 1
+            level = node.val
+
+        if node.left:
+            queue.append((node.left, node_depth + 1))
+        if node.right:
+            queue.append((node.right, node_depth + 1))
+
+    result.append(level)
+
+    return result
+```
