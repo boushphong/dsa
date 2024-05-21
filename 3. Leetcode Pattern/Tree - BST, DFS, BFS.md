@@ -52,22 +52,12 @@ A   D   I
 ```
 | Name         | Priority Order       | Technique | Example    | Applications | Note |
 |--------------|----------------------|-----------|------------|--------------|------|
-| In-Order      | Left > Parent > Right| DFS       | ABCDEFGHI  | Explore nodes in ascending order (smallest to largest) in **BST**. Parents are visited between the subtrees (starting left > parent > right) | Applicable only with Trees that have left and right node |
 | Pre-Order     | Parent > Left > Right| DFS       | FBADCEGIH  | Explore parents nodes first then leaf nodes | Applicable with all Trees |
+| In-Order      | Left > Parent > Right| DFS       | ABCDEFGHI  | Explore nodes in ascending order (smallest to largest) in **BST**. Parents are visited between the subtrees (starting left > parent > right) | Applicable only with Trees that have left and right node |
 | Post-Order    | Left > Right > Parent| DFS       | ACEDBHIGF  | Explore leaf nodes before visiting parent nodes | Applicable with all Trees |
 | Level-Order  | Top to bottom, left to right | BFS | FBGADICEH | Explore nodes at every depth first | Applicable with all Trees |
 
 **Sample Code**
-
-**In-Order Traversal**
-```python
-def traverse_in_order(node):
-    if node.left_node:
-        self.traverse_in_order(node.left_node)
-    print(node.data)
-    if node.right_node:
-        self.traverse_in_order(node.right_node)
-```
 
 **Pre-Order Traversal**
 ```python
@@ -77,6 +67,16 @@ def traverse_pre_order(node):
         self.traverse_pre_order(node.left_node)
     if node.right_node:
         self.traverse_pre_order(node.right_node)
+```
+
+**In-Order Traversal**
+```python
+def traverse_in_order(node):
+    if node.left_node:
+        self.traverse_in_order(node.left_node)
+    print(node.data)
+    if node.right_node:
+        self.traverse_in_order(node.right_node)
 ```
 
 **Post-Order Traversal**
@@ -107,6 +107,7 @@ def traverse_level_order(root):
 
 # Patterns
 ## Level-Order
+### [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal)
 ```python
 from collections import deque
 
@@ -214,7 +215,7 @@ queue 1 2 15 7
       - Hence `2**H - 2**(H-2)` -> `1N - 0.25N = 0.75N` -> `N`
 
 
-## [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view)
+### [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view)
 ```python
 from collections import deque
 
@@ -244,4 +245,27 @@ def rightSideView(root):
     result.append(level)
 
     return result
+```
+
+
+### [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view)
+```python
+def levelOrder(root):
+    if not root:
+        return []
+
+    ans = []
+
+    def dfs(node=root, depth=0):
+        if depth == len(ans):
+            ans.append(node.val)
+        else:
+            ans[depth] = node.val
+        if node.left:
+            dfs(node.left, depth + 1)
+        if node.right:
+            dfs(node.right, depth + 1)
+
+    dfs()
+    return ans
 ```
