@@ -106,6 +106,26 @@ def traverse_level_order(root):
 ```
 
 # Patterns
+## Tree Comparison
+### [Symmetric Tree](https://leetcode.com/problems/symmetric-tree)
+```python
+def isSymmetric(root):
+    def doRecursion(left=root.left, right=root.right):
+        if left is None:
+            return right is None
+        if right is None:
+            return False
+        if left.val != right.val:
+            return False
+
+        res1 = doRecursion(left.left, right.right)
+        res2 = doRecursion(left.right, right.left)
+
+        return res1 and res2
+
+    return doRecursion()
+```
+
 ## Level-Order
 ### [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal)
 ```python
