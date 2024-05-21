@@ -39,3 +39,11 @@ root.children = [node1, node2, node3]
 node1.children = [node4]
 node3.children = [node5, node6]
 ```
+
+# Traversal
+| Name         | Priority Order       | Technique | Example    |
+|--------------|----------------------|-----------|------------|
+| Inorder      | Left > Parent > Right| DFS       | ABCDEFGHI  |
+| Preorder     | Parent > Left > Right| DFS       | FBADCEGIH  |
+| Postorder    | Left > Right > Parent| DFS       | ACEDBHIGF  |
+| Level-order  | Top to bottom, left to right | BFS | FBGADICEH |
