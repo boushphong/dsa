@@ -1,4 +1,63 @@
 # Recursion (Advanced)
+## Extending Result Varible versus. Carrying Result Argument
+### Extending Result Varible
+In permutation problem, we usually initalize extending result variable at each recursive call. These extending result variables all contribute to the final result, it will be returned to the lower recursive call, so that the extending result variable of that lower recursive call can extend the returned result. Usually, this is used to return the **count** or a **list of result**.
+
+In subset problem, it works the same way we code like the following:
+```python
+def subset_string(subset="", string=""):
+    if not string:
+        return [subset] if subset else []
+
+    subsets = []  # extending result variable
+    sub_left = subset_string(subset + string[0], string[1:])
+    sub_right = subset_string(subset, string[1:])
+    subsets += sub_left + sub_right
+
+    return subsets
+```
+
+
+**NOTE:** Use extending result variable when we upper recursive call results can be re-used in lower recursive calls, and they all contribute to the final result
+
+### Carrying Result Argument
+When we cannot use extending result variable? 
+
+#### [Time Needed to Inform All Employees](https://leetcode.com/problems/time-needed-to-inform-all-employees)
+```python
+def numOfMinutes(n, headID, manager, informTime):
+    """
+    n = 6, headID = 2, 
+    manager = [2,2,-1,2,2,3], 
+    informTime = [0,0,1,4,0,0]
+    buckets = [[], [], [0,1,3,4],[5], [], []]
+    """
+    buckets = [[] for i in range(n)]
+
+    for i, man in enumerate(manager):
+        if man == -1:
+            continue
+        buckets[man].append(i)
+
+    ans = 0
+    def doRecursion(root=headID, inform=informTime[headID]):
+        nonlocal ans
+        if len(buckets[root]) == 0:
+            ans = max(inform, ans)
+            return inform
+
+        for man in buckets[root]:
+            sub_inform = informTime[man]
+            doRecursion(man, inform + sub_inform)
+
+        return ans
+
+    return doRecursion()
+
+print(numOfMinutes(n=6, headID=2, manager=[2, 0, -1, 2, 2, 3], informTime=[2, 0, 1, 4, 0, 0]))
+```
+
+
 ## Subset
 ### Subset String
 ```python
