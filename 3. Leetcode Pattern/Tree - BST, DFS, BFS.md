@@ -234,6 +234,37 @@ queue 1 2 15 7
       - Since `N = 2**H - 1` -> `N = 2**H`
       - Hence `2**H - 2**(H-2)` -> `1N - 0.25N = 0.75N` -> `N`
 
+### [Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
+```python
+def zigzagLevelOrder(root):
+    if not root:
+        return []
+
+    reverse = True
+    queue = deque([root])
+    result = []
+    while queue:
+        level = []
+        for _ in range(len(queue)):
+            if reverse:
+                node = queue.popleft()
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            else:
+                node = queue.pop()
+                if node.right:
+                    queue.appendleft(node.right)
+                if node.left:
+                    queue.appendleft(node.left)
+            
+            level.append(node.val)
+
+        reverse = not reverse
+        result.append(level)
+    return result
+```
 
 ### [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view)
 ```python
