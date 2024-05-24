@@ -17,8 +17,7 @@ def subset_string(subset="", string=""):
     return subsets
 ```
 
-
-**NOTE:** Use extending result variable when we upper recursive call results can be re-used in lower recursive calls, and they all contribute to the final result
+**NOTE:** Use extending result variable when we upper recursive call results can be re-used in lower recursive calls, and they all contribute to the final result. The final return result and the extending result variables must always be of the same type so that they can be extensible. In short, when each branch of the recursion contribute to the final result, we can use extending reuslt variable.
 
 ### Carrying Result Argument
 When we cannot use extending result variable? 
@@ -56,7 +55,34 @@ def numOfMinutes(n, headID, manager, informTime):
 
 print(numOfMinutes(n=6, headID=2, manager=[2, 0, -1, 2, 2, 3], informTime=[2, 0, 1, 4, 0, 0]))
 ```
+In some recursive and backtracking problems that ask us to find a specific branch of recursion that gives the best answer, usually finding the maximum or minimum from a combination of arguments, or a specific combinations that satisfies the result. In this case, each branch of recursion provides totally different result, hence we should not extending result variable in this case. 
 
+What we should do is we can either:
+- Return the nonlocal `answer` variable in the recursion call (Above example)
+- Return `answer` varible from outside of the actual recursion function. In this case, we don't care about returning anything from the recursion function (let it return `None` just for the sake of ending the base case), it only acts to update the nonlocal `answer` variable on every recursion branch. This is demonstrated from the code below:
+
+```python
+def numOfMinutes(n, headID, manager, informTime):
+    ...
+    cur_time = 0
+    ans = 0
+
+    def doRecursion(root=headID):
+        nonlocal cur_time, ans
+        if len(buckets[root]) == 0:
+            cur_time += informTime[root]
+            ans = max(ans, cur_time)
+            return
+
+        for man in buckets[root]:
+            cur_time += informTime[root]
+            doRecursion(man)
+            cur_time -= informTime[root]
+
+    doRecursion()  # We don't really care about the return of the recursion.
+
+    return ans
+```
 
 ## Subset
 ### Subset String
