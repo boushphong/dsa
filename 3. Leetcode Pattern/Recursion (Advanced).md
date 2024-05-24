@@ -59,7 +59,7 @@ In some recursive and backtracking problems that ask us to find a specific branc
 
 What we should do is we can either:
 - Return the nonlocal `answer` variable in the recursion call (Above example)
-- Return `answer` varible from outside of the actual recursion function. In this case, we don't care about returning anything from the recursion function (let it return `None` just for the sake of ending the base case), it only acts to update the nonlocal `answer` variable on every recursion branch. This is demonstrated from the code below:
+- Return `answer` varible from outside of the actual recursion function. In this case, we don't care about returning anything from the recursion function (let it return `None` just for the sake of ending the base case), it only acts to update the nonlocal `answer` variable on every recursion branch. This is demonstrated from the code below (Easier):
 
 ```python
 def numOfMinutes(n, headID, manager, informTime):
