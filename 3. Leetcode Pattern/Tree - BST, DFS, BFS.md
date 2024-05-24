@@ -289,3 +289,70 @@ def levelOrder(root):
     dfs()
     return ans
 ```
+
+### [Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree)
+```python
+def diameterOfBinaryTree(root):
+    if not root.left and not root.right:
+        return 0
+
+    ans = 0
+
+    def dfs(node=root):
+        nonlocal ans
+        if not node.left and not node.right:
+            return 1
+        left_len = 0
+        if node.left:
+            left_len = dfs(node.left)
+        right_len = 0
+        if node.right:
+            right_len = dfs(node.right)
+        ans = max(ans, left_len + right_len)
+        return max(left_len, right_len) + 1
+
+    dfs()
+
+    return ans
+```
+
+### [Count Univalue Subtrees](https://leetcode.com/problems/count-univalue-subtrees)
+```python
+def countUnivalSubtrees(root):
+    ans = 0
+    if not root:
+        return ans
+
+    def dfs(node=root):
+        nonlocal ans
+        if not node:
+            return False
+        if not node.right and not node.left:
+            ans += 1
+            return True
+
+        left = node.left
+        left_val = dfs(node.left)
+
+        right = node.right
+        right_val = dfs(node.right)
+
+        if right_val and left_val:
+            if right.val == left.val == node.val:
+                ans += 1
+                return node.val
+            else:
+                return False
+        elif right_val and not left_val:
+            if left:
+                return False
+            if node.val == right.val:
+                ans += 1
+                return node.val
+        elif left_val and not right_val:
+            if right:
+                return False
+            if node.val == left.val:
+                ans += 1
+                return node.val
+```
