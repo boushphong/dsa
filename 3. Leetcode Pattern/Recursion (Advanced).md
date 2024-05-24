@@ -27,9 +27,9 @@ When we cannot use extending result variable?
 def numOfMinutes(n, headID, manager, informTime):
     """
     n = 6, headID = 2, 
-    manager = [2,2,-1,2,2,3], 
-    informTime = [0,0,1,4,0,0]
-    buckets = [[], [], [0,1,3,4],[5], [], []]
+    manager = [2, 0, -1, 2, 2, 3]
+    informTime = [2, 0, 1, 4, 0, 0]
+    buckets = [[1], [], [0, 3, 4], [5], [], []]
     """
     buckets = [[] for i in range(n)]
 
