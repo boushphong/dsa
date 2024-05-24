@@ -340,7 +340,7 @@ def countUnivalSubtrees(root):
         if right_val and left_val:
             if right.val == left.val == node.val:
                 ans += 1
-                return node.val
+                return True
             else:
                 return False
         elif right_val and not left_val:
@@ -348,11 +348,11 @@ def countUnivalSubtrees(root):
                 return False
             if node.val == right.val:
                 ans += 1
-                return node.val
+                return True
         elif left_val and not right_val:
             if right:
                 return False
             if node.val == left.val:
                 ans += 1
-                return node.val
+                return True
 ```
