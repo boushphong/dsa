@@ -536,3 +536,61 @@ def findLeaves(root):
     # root = None (Only if being asked to actually remove the node one by one)
     return res
 ```
+
+## Binary Search Tree (BST)
+### [Path Sum](https://leetcode.com/problems/path-sum/)
+```python
+def hasPathSum(root, targetSum):
+    if not root:
+        return 0
+    def dfs(node=root, total=root.val):
+        if not node.left and not node.right:
+            if total == targetSum:
+                return True
+            else:
+                return False
+
+        left = False
+        if node.left:
+            left = dfs(node.left, total + node.left.val)
+
+        right = False
+        if node.right:
+            right = dfs(node.right, total + node.right.val)
+
+        return left or right
+
+    return dfs()
+```
+
+### [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+```python
+def isValidBST(root):
+    ans = True
+
+    def dfs(node):
+        nonlocal ans
+        if not node.left and not node.right:
+            return node.val, node.val
+
+        left_min, left_max = float('inf'), float('-inf')
+        if node.left:
+            left_min, left_max = dfs(node.left)
+            if left_max >= node.val:
+                ans = False
+
+        right_min, right_max = float('inf'), float('-inf')
+        if node.right:
+            right_min, right_max = dfs(node.right)
+            # 3, 6
+            if right_min <= node.val:
+                ans = False
+
+        min_val = min(left_min, node.val)
+        max_val = max(right_max, node.val)
+
+        return min_val, max_val
+
+    dfs(root)
+    return ans
+```
