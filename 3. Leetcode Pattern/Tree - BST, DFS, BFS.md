@@ -505,3 +505,34 @@ def lowestCommonAncestor(root, p, q):
     return node
 
 ```
+
+### [Find Leaves of Binary Tree](https://leetcode.com/problems/find-leaves-of-binary-tree)
+```python
+def findLeaves(root):
+    res = [[]]
+
+    def dfs(node=root):
+        if not node.left and not node.right:
+            res[0].append(node.val)
+            return 1
+
+        left_level = 0
+        if node.left:
+            left_level += dfs(node.left)
+
+        right_level = 0
+        if node.right:
+            right_level += dfs(node.right)
+
+        cur_level = max(left_level, right_level)
+        if len(res) < cur_level + 1:
+            res.append([])
+
+        # node.left, node.right = None, None (Only if being asked to actually remove the node one by one)
+        res[cur_level].append(node.val)
+        return cur_level + 1
+
+    dfs()
+    # root = None (Only if being asked to actually remove the node one by one)
+    return res
+```
