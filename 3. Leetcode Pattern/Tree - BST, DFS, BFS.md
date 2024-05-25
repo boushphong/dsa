@@ -582,7 +582,6 @@ def isValidBST(root):
         right_min, right_max = float('inf'), float('-inf')
         if node.right:
             right_min, right_max = dfs(node.right)
-            # 3, 6
             if right_min <= node.val:
                 ans = False
 
