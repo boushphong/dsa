@@ -592,4 +592,20 @@ def isValidBST(root):
 
     dfs(root)
     return ans
+
+"""
+     55
+   /    \
+  36     44
+ / \    /
+33  39 40
+"""
+root = TreeNode(55)
+root.left = TreeNode(36)
+root.right = TreeNode(44)
+root.left.left = TreeNode(33)
+root.left.right = TreeNode(39)
+root.right.left = TreeNode(40)
+
+print(isValidBST(root))
 ```
