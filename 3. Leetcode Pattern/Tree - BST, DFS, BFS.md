@@ -477,3 +477,31 @@ def countUnivalSubtrees(root):
     dfs()
     return ans
 ```
+
+### [Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree)
+Find P or Q node first, then immediately return, then we check the other side of the subtree, if P or Q is found there, we carry the return result. If P or Q is not found in the other subtree, then either P or Q is already the lower common ancestor. 
+```python
+def lowestCommonAncestor(root, p, q):
+    def dfs(node):
+        if node.val == p.val:
+            return p
+        elif node.val == q.val:
+            return q
+
+        left = None
+        if node.left:
+            left = dfs(node.left)
+
+        right = None
+        if node.right:
+            right = dfs(node.right)
+
+        if left and right:
+            return node
+
+        return left or right
+
+    node = dfs(root)
+    return node
+
+```
