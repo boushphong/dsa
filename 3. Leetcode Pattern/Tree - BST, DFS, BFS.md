@@ -126,7 +126,7 @@ def isSymmetric(root):
     return doRecursion()
 ```
 
-## Level-Order
+## BFS
 ### [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal)
 ```python
 from collections import deque
@@ -265,6 +265,63 @@ def zigzagLevelOrder(root):
         result.append(level)
     return result
 ```
+### [Time Needed to Inform All Employees](https://leetcode.com/problems/time-needed-to-inform-all-employees)
+```python
+def numOfMinutes(n, headID, manager, informTime):
+    """
+    n = 6, headID = 2, 
+    manager = [2,2,-1,2,2,3], 
+    informTime = [0,0,1,4,0,0]
+    buckets = [[], [], [0,1,3,4],[5], [], []]
+    
+    queue[(2, 0)] pop
+    add
+    queue[(0, 0 + 1)]
+    queue[(1, 0 + 1)]
+    queue[(3, 0 + 1)]
+    queue[(4, 0 + 1)]
+
+    queue[(0, 0 + 1)] pop
+    add [] None hence calculate max time max(0, 0 + 1)
+
+    queue[(1, 0 + 1)] pop
+    add [] None hence calculate max time max(0, 0 + 1)
+
+    queue[(3, 0 + 1)] pop
+    add [5] 
+
+    queue becomes
+    queue[(4, 0 + 1)]
+    queue[(5, 1 + 4)]
+    ...
+    Update max inform time when the len(subordinate list) of a manager is None
+
+    """
+    buckets = [[] for _ in range(n)]
+
+    for i, man in enumerate(manager):
+        if man == -1:
+            continue
+        buckets[man].append(i)
+
+    ans = 0
+
+    queue = deque([(headID, 0)])
+
+    while queue:
+        sub, cur_time = queue.popleft()
+        sub_list = buckets[sub]
+        if not sub_list:
+            ans = max(ans, cur_time)
+
+        for man in sub_list:
+            queue.append((man, cur_time + informTime[sub]))
+
+    return ans
+
+print(numOfMinutes(n=6, headID=2, manager=[2, 2, -1, 2, 2, 3], informTime=[0, 0, 1, 4, 0, 0]))
+```
+
 
 ### [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view)
 ```python
@@ -298,8 +355,9 @@ def rightSideView(root):
     return result
 ```
 
-## DFS (Pre-Order)
+## DFS
 ### [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view)
+All DFS techniques would technically work, but we are using pre-order in this case because the len of `ans` is used at each recursive call so that if a new depth is discovered, we want to add an element to the `ans` list immediately after seeing a new depth. And when if that depth is already discovered, we can modify the `ans` result.
 ```python
 def levelOrder(root):
     if not root:
@@ -319,6 +377,35 @@ def levelOrder(root):
 
     dfs()
     return ans
+```
+
+### [Time Needed to Inform All Employees](https://leetcode.com/problems/time-needed-to-inform-all-employees)
+```python
+def numOfMinutes(n, headID, manager, informTime):
+    buckets = [[] for i in range(n)]
+
+    for i, man in enumerate(manager):
+        if man == -1:
+            continue
+        buckets[man].append(i)
+
+    ans = 0
+
+    def doRecursion(root=headID, inform=informTime[headID]):
+        nonlocal ans
+        if len(buckets[root]) == 0:
+            ans = max(inform, ans)
+            return inform
+
+        for man in buckets[root]:
+            sub_inform = informTime[man]
+            doRecursion(man, inform + sub_inform)
+
+        return ans
+
+    return doRecursion()
+
+print(numOfMinutes(n=6, headID=2, manager=[2, 2, -1, 2, 2, 3], informTime=[0, 0, 1, 4, 0, 0]))
 ```
 
 ### [Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree)
