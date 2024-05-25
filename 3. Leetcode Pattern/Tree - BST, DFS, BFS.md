@@ -473,4 +473,7 @@ def countUnivalSubtrees(root):
             if node.val == left.val:
                 ans += 1
                 return True
+
+    dfs()
+    return ans
 ```
