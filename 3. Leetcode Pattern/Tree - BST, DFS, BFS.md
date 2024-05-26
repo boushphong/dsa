@@ -564,6 +564,7 @@ def hasPathSum(root, targetSum):
 ```
 
 ### [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+**Bottom Up Approach**
 ```python
 def isValidBST(root):
     ans = True
@@ -606,6 +607,56 @@ root.right = TreeNode(44)
 root.left.left = TreeNode(33)
 root.left.right = TreeNode(39)
 root.right.left = TreeNode(40)
+
+print(isValidBST(root))
+```
+
+**Top Down Approach**
+```python
+def isValidBST(root):
+    def dfs(node, lower, upper):
+        if not node:
+            return True
+
+        if node.val <= lower or node.val >= upper:
+            return False
+
+        left_val = dfs(node.left, lower, node.val)
+        if not left_val:
+            return False
+
+        right_val = dfs(node.right, node.val, upper)
+        if not right_val:
+            return False
+
+        return True
+
+    return dfs(root, float("-inf"), float("inf"))
+
+"""
+     10
+    /  \
+   5    20
+       /   \
+     15     30
+    /  \    / \
+  12   18  25 35
+ / \   / \
+11 13 17 19
+"""
+root = TreeNode(10)
+root.left = TreeNode(5)
+root.right = TreeNode(20)
+root.right.left = TreeNode(15)
+root.right.right = TreeNode(30)
+root.right.left.left = TreeNode(12)
+root.right.left.right = TreeNode(18)
+root.right.right.left = TreeNode(25)
+root.right.right.right = TreeNode(35)
+root.right.left.left.left = TreeNode(11)
+root.right.left.left.right = TreeNode(13)
+root.right.left.right.left = TreeNode(17)
+root.right.left.right.right = TreeNode(19)
 
 print(isValidBST(root))
 ```
