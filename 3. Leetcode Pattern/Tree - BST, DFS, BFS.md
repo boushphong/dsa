@@ -706,3 +706,58 @@ print(isValidBST(root))
 - The lower of a right node is the parent node (eg, lower of 13 is 12, lower of 18 is 15)
 - The upper of a right node is the first that takes the turn left (eg, upper of 13 is 15, upper of 19 is 20)
     - In case of no turning, upper is infinity (eg, upper of 35 is infinity, upper of 10 is infinity)
+
+## Binary Search Tree (BST) (Iteratively)
+### [Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal)
+```python
+def inorderTraversal(root):
+    """
+    Call add left most
+    add 7 3 4
+    pop 4 add res
+
+    pop 3 add res > 3 has right node
+    Call add left most on (3) node.right
+
+    queue 7 5 1
+    pop 1 add res
+
+    pop 5 add res > 5 has right node
+    Call add left most on (5) node.right
+
+    ...
+    """
+    res = []
+    if not root:
+        return res
+
+    stack = []
+
+    def _go_leftmost(node):
+        while node.left:
+            stack.append(node)
+            node = node.left
+        stack.append(node)
+
+    node = root
+    _go_leftmost(node)
+    while stack:
+        tmp_node = stack.pop()
+        res.append(tmp_node.val)
+
+        if tmp_node and tmp_node.right:
+            _go_leftmost(tmp_node.right)
+
+    return res
+
+
+root = TreeNode(7)
+root.left = TreeNode(3)
+root.right = TreeNode(2)
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(5)
+root.left.right.left = TreeNode(1)
+root.left.right.right = TreeNode(3)
+
+print(inorderTraversal(root))
+```
