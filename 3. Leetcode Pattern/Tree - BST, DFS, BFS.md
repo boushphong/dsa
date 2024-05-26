@@ -569,29 +569,28 @@ def hasPathSum(root, targetSum):
 def isValidBST(root):
     ans = True
 
-    def dfs(node):
+    def dfs(node=root):
         nonlocal ans
         if not node.left and not node.right:
             return node.val, node.val
 
-        left_min, left_max = float('inf'), float('-inf')
         if node.left:
             left_min, left_max = dfs(node.left)
             if left_max >= node.val:
                 ans = False
+        else:
+            left_min, left_max = node.val, node.val
 
-        right_min, right_max = float('inf'), float('-inf')
         if node.right:
             right_min, right_max = dfs(node.right)
             if right_min <= node.val:
                 ans = False
+        else:
+            right_min, right_max = node.val, node.val
 
-        min_val = min(left_min, node.val)
-        max_val = max(right_max, node.val)
+        return left_min, right_max
 
-        return min_val, max_val
-
-    dfs(root)
+    dfs()
     return ans
 
 """
