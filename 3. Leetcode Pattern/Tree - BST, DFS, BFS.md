@@ -624,6 +624,14 @@ print(isValidBST(root))
 - Check every subtree. For every subtree, we want to find the left maximum and right minimum. If left maximum of a node is greater than the subtree root node or the right minimum is smaller than the subtree root node, then we know that it's not a valid binary search tree.
     - Left Maximum of Node 15 is 13, if the node 13 was to be found greater (say 16) than 15, then it's not a valid BST.
     - Right Minimum of Node 15 is 17, if the node 17 was to be found smaller (say 14) than 15, then it's not a valid BST.
+ 
+- This is a bottom up approach because we check the bottom subtree whether it would be a valid BST first.
+    - For example we check if subtree root 12 is a valid BST. Then we can return the left maximum to subtree 15 so that it can check whether it would also be a valid subtree.
+    - At subtree root 20, we check left maximum 19 and and right minimum 25.
+    - We however carry on the value of 11 until node 10 because its the right minimum of node 10.
+ 
+- The reason why we're check left maximum and right minimum is because for example at subtree root 18, node.left of 18 could be 1 and it would still be a valid BST.
+    - But then when we carry on the 1 value. which is left maximum of node 18 and right minimum of node 15, we notice at node 15, it's no longer a valid BST because 15 is greater than 1, which doesn't satisfy the nature of BST (every node on right must be greater than that node) and vice versa.
 
 **Top Down Approach**
 ```python
