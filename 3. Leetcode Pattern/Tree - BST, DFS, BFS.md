@@ -634,6 +634,9 @@ print(isValidBST(root))
 - The reason why we're check left maximum and right minimum is because for example at subtree root 18, node.left of 18 could be 1 and it would still be a valid BST.
     - But then when we carry on the 1 value. which is left maximum of node 18 and right minimum of node 15, we notice at node 15, it's no longer a valid BST because 15 is greater than 1, which doesn't satisfy the nature of BST (every node on right must be greater than that node) and vice versa.
  
+- Another example, for example at subtree root 12, node.left of 12 could be 8 and it would still be a valid BST.
+    - But then when we carry on the 8 value. which is left maximum of node 12 and right minimum of node 10, we notice at node 10, it's no longer a valid BST because 10 is greater than 1, which doesn't satisfy the nature of BST (every node on right must be greater than that node) and vice versa.
+ 
 **NOTE:** 
 ```python
 """
