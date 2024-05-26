@@ -610,6 +610,13 @@ root.right.left = TreeNode(40)
 
 print(isValidBST(root))
 ```
+- Check every subtree.
+- In case of going left, check if that value is smaller than parent (if not smaller return False) and carry on that value to the first recursive call.
+    - Carry 33 to 36 so that check can be performed.
+    - Carry 40 to 55 so that check can be performed.
+- In case of going right, check if that value is greater than parent (if not greater return False) and carry on that value to the first recursive call.
+    - Carry 44 to 55 so that check can be performed
+    - Carry 39 to 36 so that check can be performed
 
 **Top Down Approach**
 ```python
@@ -633,17 +640,6 @@ def isValidBST(root):
 
     return dfs(root, float("-inf"), float("inf"))
 
-"""
-     10
-    /  \
-   5    20
-       /   \
-     15     30
-    /  \    / \
-  12   18  25 35
- / \   / \
-11 13 17 19
-"""
 root = TreeNode(10)
 root.left = TreeNode(5)
 root.right = TreeNode(20)
@@ -659,4 +655,22 @@ root.right.left.right.left = TreeNode(17)
 root.right.left.right.right = TreeNode(19)
 
 print(isValidBST(root))
+"""
+     10
+    /  \
+   5    20
+       /   \
+     15     30
+    /  \    / \
+  12   18  25 35
+ / \   / \
+11 13 17 19
+"""
 ```
+- The lower of a left node is the first node that takes the turn right (eg, lower of 11,12,15 is 10, lower of 25 is 20)
+    - In case of no turning, lower is -infinity (eg, lower of 5 is -infinity, lower of 10 is -infinity)
+- The upper of a left node is the parent node (eg, lower of 11 is 12, lower of 15 is 20)
+
+- The lower of a right node is the parent node (eg, lower of 13 is 12, lower of 18 is 15)
+- The upper of a right node is the first that takes the turn left (eg, upper of 13 is 15, upper of 19 is 20)
+    - In case of no turning, upper is infinity (eg, upper of 35 is infinity, upper of 10 is infinity)
