@@ -602,9 +602,11 @@ root.right.right = TreeNode(30)
 root.right.left.left = TreeNode(12)
 root.right.left.right = TreeNode(18)
 root.right.right.right = TreeNode(35)
+root.right.right.left = TreeNode(25)
 root.right.left.left.left = TreeNode(11)
 root.right.left.left.right = TreeNode(13)
 root.right.left.right.left = TreeNode(17)
+root.right.left.right.right = TreeNode(19)
 
 
 print(isValidBST(root))
@@ -614,10 +616,10 @@ print(isValidBST(root))
    5    20
        /   \
      15     30
-    /  \      \
-  12   18      35
- / \   / 
-11 13 17 
+    /  \    / \
+  12   18 25   35
+ / \   / \
+11 13 17 19
 """
 ```
 - Check every subtree. For every subtree, we want to find the left maximum and right minimum. If left maximum of a node is greater than the subtree root node or the right minimum is smaller than the subtree root node, then we know that it's not a valid binary search tree.
@@ -633,6 +635,19 @@ print(isValidBST(root))
     - But then when we carry on the 1 value. which is left maximum of node 18 and right minimum of node 15, we notice at node 15, it's no longer a valid BST because 15 is greater than 1, which doesn't satisfy the nature of BST (every node on right must be greater than that node) and vice versa.
  
 **NOTE:** 
+```python
+"""
+     10
+    /  \
+   5    20
+       /   \
+     15     30
+    /  \      \
+  12   18      35
+ / \   / 
+11 13 17 
+"""
+```
 - At node where there are no children nodes, left maximum == right minimum. (13, 13, 17 ...)
 - At node where there is no left node but right node, right minimum is the node itself (right minimum of 18 is 18, left maximum of 18 is 17)
 - At node where there is left node but not right node, left minimum is the node itself (right minimum of 30 is 35, left maximum of 30 is 30)
@@ -662,6 +677,7 @@ root.right.right = TreeNode(30)
 root.right.left.left = TreeNode(12)
 root.right.left.right = TreeNode(18)
 root.right.right.right = TreeNode(35)
+root.right.right.left = TreeNode(25)
 root.right.left.left.left = TreeNode(11)
 root.right.left.left.right = TreeNode(13)
 root.right.left.right.left = TreeNode(17)
@@ -674,10 +690,10 @@ print(isValidBST(root))
    5    20
        /   \
      15     30
-    /  \      \
-  12   18     35
- / \   / 
-11 13 17 
+    /  \    / \
+  12   18 25   35
+ / \   / \
+11 13 17 19
 """
 ```
 - The lower of a left node is the first node that takes the turn right (eg, lower of 11,12,15 is 10, lower of 25 is 20)
