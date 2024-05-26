@@ -593,29 +593,37 @@ def isValidBST(root):
     dfs()
     return ans
 
-"""
-     55
-   /    \
-  36     44
- / \    /
-33  39 40
-"""
-root = TreeNode(55)
-root.left = TreeNode(36)
-root.right = TreeNode(44)
-root.left.left = TreeNode(33)
-root.left.right = TreeNode(39)
-root.right.left = TreeNode(40)
+
+root = TreeNode(10)
+root.left = TreeNode(5)
+root.right = TreeNode(20)
+root.right.left = TreeNode(15)
+root.right.right = TreeNode(30)
+root.right.left.left = TreeNode(12)
+root.right.left.right = TreeNode(18)
+root.right.right.left = TreeNode(25)
+root.right.right.right = TreeNode(35)
+root.right.left.left.left = TreeNode(11)
+root.right.left.left.right = TreeNode(13)
+root.right.left.right.left = TreeNode(17)
+root.right.left.right.right = TreeNode(19)
 
 print(isValidBST(root))
+"""
+     10
+    /  \
+   5    20
+       /   \
+     15     30
+    /  \    / \
+  12   18  25 35
+ / \   / \
+11 13 17 19
+"""
 ```
-- Check every subtree.
-- In case of going left, check if that value is smaller than parent (if not smaller return False) and carry on that value to the first recursive call.
-    - Carry 33 to 36 so that check can be performed.
-    - Carry 40 to 55 so that check can be performed.
-- In case of going right, check if that value is greater than parent (if not greater return False) and carry on that value to the first recursive call.
-    - Carry 44 to 55 so that check can be performed
-    - Carry 39 to 36 so that check can be performed
+- Check every subtree. For every subtree, we want to find the left maximum and right minimum. If left maximum of a node is greater than the subtree root node or the right minimum is smaller than the subtree root node, then we know that it's not a valid binary search tree.
+    - Left Maximum of Node 15 is 13, if the node 13 was to be found greater (say 16) than 15, then it's not a valid BST.
+    - Right Minimum of Node 15 is 17, if the node 17 was to be found smaller (say 14) than 15, then it's not a valid BST.
 
 **Top Down Approach**
 ```python
