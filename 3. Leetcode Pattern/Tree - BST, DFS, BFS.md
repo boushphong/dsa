@@ -621,24 +621,19 @@ print(isValidBST(root))
 **Top Down Approach**
 ```python
 def isValidBST(root):
-    def dfs(node, lower, upper):
+    def dfs(node=root, lower=float("-inf"), upper=float("inf")):
         if not node:
             return True
 
-        if node.val <= lower or node.val >= upper:
+        if node.val >= upper or node.val <= lower:
             return False
-
         left_val = dfs(node.left, lower, node.val)
-        if not left_val:
-            return False
 
         right_val = dfs(node.right, node.val, upper)
-        if not right_val:
-            return False
+        return left_val and right_val
 
-        return True
+    return dfs()
 
-    return dfs(root, float("-inf"), float("inf"))
 
 root = TreeNode(10)
 root.left = TreeNode(5)
