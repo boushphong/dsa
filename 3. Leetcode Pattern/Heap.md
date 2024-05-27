@@ -22,7 +22,7 @@ A **Heap** is a complete binary tree structure that satisfies the following prop
   4  2 1
 ```
 
-## Heap Structure (Array)
+# Heap Structure (Array)
 - If a heap has **N** elements:
   - Indices from **N//2 to N-1** are leaf nodes.
   - Indices from **0 to N//2-1** are internal nodes.
@@ -189,8 +189,6 @@ def heap_pop(arr: List[int]) -> int:
 
     return popped_value
 ```
-
-
  
 ## Some applications of Heap Data Structure
 - `Priority Queue`
