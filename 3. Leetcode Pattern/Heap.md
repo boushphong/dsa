@@ -1,5 +1,5 @@
 # Heap
-## What is a Heap?
+### What is a Heap?
 A **Heap** is a complete binary tree structure that satisfies the following properties:
 - In a **Min Heap**, the value of each node is smaller than or equal to the values of its children.
 - In a **Max Heap**, the value of each node is greater than or equal to the values of its children.
@@ -21,3 +21,9 @@ A **Heap** is a complete binary tree structure that satisfies the following prop
    / \ /
   4  2 1
 ```
+
+### Operations on Heap
+- `heapify(arr)`: Build a heap from an array; **O(N)**
+- `push(arr, x)`: Add an element `x` to the heap; **O(logN)**
+- `pop(arr)`: Remove the top element (smallest or largest) from the heap; **O(logN)**
+- `top(arr)`: Retrieve the top element (smallest or largest) of the heap; **O(1)**
