@@ -27,3 +27,9 @@ A **Heap** is a complete binary tree structure that satisfies the following prop
 - `push(arr, x)`: Add an element `x` to the heap; **O(logN)**
 - `pop(arr)`: Remove the top element (smallest or largest) from the heap; **O(logN)**
 - `top(arr)`: Retrieve the top element (smallest or largest) of the heap; **O(1)**
+
+### Some applications of Heap Data Structure
+- `Priority Queue`
+- `Dijkstra` and `A*` algorithms
+- `Heap Sort`
+- Find k largest or k smallest elements
