@@ -143,7 +143,7 @@ def heapify(arr: List[int]):
         heapify_down(arr, n, i)
 ```
 
-### Push
+### 2. Push
 ```python
 def heap_push(arr: List[int], x: int):
     arr.append(x)
@@ -152,6 +152,7 @@ def heap_push(arr: List[int], x: int):
 
 **Visual Representation of Pushing**
 ```python
+heap_push(arr, 1)
          4
        /   \
       9     5
@@ -169,6 +170,24 @@ def heap_push(arr: List[int], x: int):
       9     4
      / \   / \
    15  13 6   5
+```
+
+### 3. Pop
+```python
+def heap_pop(arr: List[int]) -> int:
+    if len(arr) == 0:
+        raise IndexError("pop from an empty heap")
+
+    # Swap the root and the last element
+    arr[0], arr[-1] = arr[-1], arr[0]
+
+    # Pop the last element (the previous root, which is the minimum)
+    popped_value = arr.pop()
+
+    # Heapify down to maintain the heap property
+    heapify_down(arr, 0)
+
+    return popped_value
 ```
 
 
