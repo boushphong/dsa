@@ -131,6 +131,17 @@ heapify_down(arr, 5, 0)  # (n) 5 is the length of array
      / \
     8   9
 ```
+
+**NOTE:** **Heapify Up** or **Down** can either be used to build either **Min Heap** or **Max Heap**
+
+#### Heapify into a Min Heap
+```python
+# n // 2 - 1 is the index of the last intermediate node (Since a heap is a complete binary tree)
+def heapify(arr: List[int]):
+    n = len(arr)
+    for i in range(n//2 - 1, -1, -1):
+        heapify_down(arr, n, i)
+```
  
 ## Some applications of Heap Data Structure
 - `Priority Queue`
