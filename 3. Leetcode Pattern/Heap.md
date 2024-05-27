@@ -47,12 +47,12 @@ Value:  1  3  6  5  9  8
 ```
 
 ## Operations on Heap
-- `heapify(arr)`: Build a heap from an array; **O(N)**
-- `push(arr, x)`: Add an element `x` to the heap; **O(logN)**
-- `pop(arr)`: Remove the top element (smallest or largest) from the heap; **O(logN)**
-- `top(arr)`: Retrieve the top element (smallest or largest) of the heap; **O(1)**
+1. `heapify(arr)`: Build a heap from an array; **O(N)**
+2. `push(arr, x)`: Add an element `x` to the heap; **O(logN)**
+3. `pop(arr)`: Remove the top element (smallest or largest) from the heap; **O(logN)**
+4. `top(arr)`: Retrieve the top element (smallest or largest) of the heap; **O(1)**
 
-### What is Heapify?
+### 1. Heapify
 - **Heapify** is a process that ensures a binary tree maintains the heap properties.
 - Heapify can be performed at any node to preserve the heap properties when there is a change in the node's value.
 - There are two common types of heapify:
@@ -142,6 +142,36 @@ def heapify(arr: List[int]):
     for i in range(n//2 - 1, -1, -1):
         heapify_down(arr, n, i)
 ```
+
+### Push
+```python
+def heap_push(arr: List[int], x: int):
+    arr.append(x)
+    heapify_up(arr, len(arr) - 1)
+```
+
+**Visual Representation of Pushing**
+```python
+         4
+       /   \
+      9     5
+     / \   / \
+   15  13 6   1  # Push 1 into the array
+
+         4
+       /   \
+      9     1
+     / \   / \
+   15  13 6   5
+
+         1
+       /   \
+      9     4
+     / \   / \
+   15  13 6   5
+```
+
+
  
 ## Some applications of Heap Data Structure
 - `Priority Queue`
