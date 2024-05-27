@@ -72,7 +72,7 @@ def heapify_up(arr: List[int], index: int):
 ```
 **Visual Representation of Heapify-Up:**
 ```python
-heapify(arr, 6)
+heapify_up(arr, 6)
         1      
        / \
       3   6
@@ -112,6 +112,7 @@ def heapify_down(arr: List[int], n: int, index: int):
 ```
 **Visual Representation of Heapify-Down:**
 ```python
+heapify_down(arr, 5, 0)  # (n) 5 is the length of array
         8
        / \
       3   6
