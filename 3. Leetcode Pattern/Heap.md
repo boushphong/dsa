@@ -130,8 +130,6 @@ def heapify_down(arr: List[int], n: int, index: int):
      / \
     8   9
 ```
-
-In this example, the value `0` is moved up in the heap to maintain the heap property, swapping places with its parent nodes as necessary.
  
 ## Some applications of Heap Data Structure
 - `Priority Queue`
