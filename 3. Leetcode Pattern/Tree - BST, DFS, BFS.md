@@ -48,6 +48,8 @@ node3.children = [node5, node6]
       ●   ●
      / \
     ●   ●
+   / \
+  ●   ●
 ```
 
 - A **Complete Binary Tree** is a binary tree in which every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible.
@@ -55,8 +57,8 @@ node3.children = [node5, node6]
          ●
        /   \
       ●     ●
-     / \   /
-    ●   ● ●
+     / \   
+    ●   ● 
 ```
 
 - A **Perfect Binary Tree** is a binary tree in which every internal node has exactly two child nodes and all leaf nodes are at the same level. A **Perfect Binary Tree** is also a **Complete Binary Tree**.
