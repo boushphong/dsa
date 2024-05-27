@@ -195,3 +195,19 @@ def heap_pop(arr: List[int]) -> int:
 - `Dijkstra` and `A*` algorithms
 - `Heap Sort`
 - Find k largest or k smallest elements
+
+### Heap Sort
+```python
+def heap_sort(arr: List[int]):
+    n = len(arr)
+
+    # Build a max-heap
+    for i in range(n // 2 - 1, -1, -1):
+        heapify_down(arr, n, i)
+
+    # Extract elements from the heap one by one
+    for i in range(n-1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]  # Swap max element with the last element of the heap.
+        heapify_down(arr, i, 0)  # Make sure the heap is valid
+```
+
