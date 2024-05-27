@@ -71,7 +71,6 @@ def heapify_up(arr: List[int], index: int):
             break
 ```
 **Visual Representation of Heapify-Up:**
-
 ```python
 heapify(arr, 6)
         1      
@@ -93,7 +92,44 @@ heapify(arr, 6)
     5  9 8  6
 ```
 
+#### Heapify-Down
+```python
+def heapify_down(arr: List[int], n: int, index: int):
+    while True:
+        smallest = index
+        left = 2 * index + 1
+        right = 2 * index + 2
 
+        if left < n and arr[left] < arr[smallest]:
+            smallest = left
+        if right < n and arr[right] < arr[smallest]:
+            smallest = right
+        if smallest != index:
+            arr[index], arr[smallest] = arr[smallest], arr[index]
+            index = smallest
+        else:
+            break
+```
+**Visual Representation of Heapify-Down:**
+```python
+        8
+       / \
+      3   6
+     / \
+    5   9
+
+        3
+       / \
+      8   6
+     / \
+    5   9
+
+        3
+       / \
+      5   6
+     / \
+    8   9
+```
 
 In this example, the value `0` is moved up in the heap to maintain the heap property, swapping places with its parent nodes as necessary.
  
