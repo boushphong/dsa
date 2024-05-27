@@ -1,4 +1,4 @@
-<img width="1653" alt="image" src="https://github.com/boushphong/dsa/assets/59940078/350f4b8a-8f56-4f2b-be3d-7bbca7b4d70a"># Heap
+# Heap
 ## What is a Heap?
 A **Heap** is a complete binary tree structure that satisfies the following properties:
 - In a **Min Heap**, the value of each node is smaller than or equal to the values of its children.
