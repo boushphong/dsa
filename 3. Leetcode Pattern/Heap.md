@@ -211,3 +211,16 @@ def heap_sort(arr: List[int]):
         heapify_down(arr, i, 0)  # Make sure the heap is valid
 ```
 
+# Patterns
+## Finding Kth largest element
+### [Kth Largest Element in an Array](https://www.geeksforgeeks.org/max-heap-in-python/)
+```python
+def findKthLargest(nums, k):
+  idx = len(nums) - k
+  heapify(nums)
+
+  for i in range(idx + 1):
+      val = heappop(nums)
+
+  return val
+```
