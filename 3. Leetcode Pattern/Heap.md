@@ -216,11 +216,34 @@ def heap_sort(arr: List[int]):
 ### [Kth Largest Element in an Array](https://www.geeksforgeeks.org/max-heap-in-python/)
 ```python
 def findKthLargest(nums, k):
-  idx = len(nums) - k
-  heapify(nums)
-
-  for i in range(idx + 1):
-      val = heappop(nums)
-
-  return val
+    idx = len(nums) - k
+    heapify(nums)
+    
+    for i in range(idx + 1):
+        val = heappop(nums)
+    
+    return val
 ```
+
+**TC** = `O((N - k) * LogN + N` (Average)
+**TC** = `O(NLogN) + N` (Worst)
+**SC** = `O(1)`
+
+**Alternative Solution**
+```python
+def findKthLargest(nums, k):
+    minHeap = []
+    for num in nums:
+        heappush(minHeap, num)
+        if len(minHeap) > k:
+            heappop(minHeap)
+
+    return minHeap[0]
+```
+
+**Idea:** Keep a MinHeap of `k` elements, whenever the Heap exceeds size of `k`, heap pop out the smallest element. That way we could keep k largest element in the array.
+
+**TC** = `O(NLogk)` (Average) - N from `nums` itertation and LogK from heapifying the MinHeap of `k` elements.
+**TC** = `O(NLogN)` (Worst) - when `k` equals to `N`.
+**SC** = `O(k)` (Average)
+**SC** = `O(N)` (Worst) - when `k` equals to `N`.
