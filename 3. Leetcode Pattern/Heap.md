@@ -247,3 +247,64 @@ def findKthLargest(nums, k):
 - **TC** = `O(NLogN)` (Worst) - when `k` equals to `N`.
 - **SC** = `O(k)` (Average)
 - **SC** = `O(N)` (Worst) - when `k` equals to `N`.
+
+## Greedy. Keeping Max (or Min) element to replace
+### [Furthest Building You Can Reach](https://leetcode.com/problems/furthest-building-you-can-reach/)
+```python
+def furthestBuilding(heights, bricks, ladders):
+    heap = []
+
+    for i in range(len(heights) - 1):
+        diff = heights[i + 1] - heights[i]
+        if diff <= 0:
+            continue
+        if diff <= bricks:
+            bricks -= diff
+            heappush(heap, -diff)
+        else:
+            if not ladders:
+                return i
+            ladders -= 1
+
+            if heap and -heap[0] > diff:
+                bricks += -heappop(heap) if heap else 0
+                bricks -= diff
+                heappush(heap, -diff)
+
+    return len(heights) - 1
+
+
+print(furthestBuilding([4, 12, 2, 7, 3, 18, 20, 3, 19], 10, 2))
+""" MAX HEAP
+[4, 12, 2, 7, 3, 18, 20, 3, 19]
+i = 0 (4)
+diff 8 (smaller than 10)> heap = [8]
+bricks = 2
+
+i = 1 (12)
+diff -10 > continue
+
+i = 2 (2)
+diff -5 (larger than bricks = 2) > stair -= 1
+pop the max heap, and push diff > heap = [5]
+bricks = 5
+
+i = 3 (7)
+diff -4 > continue
+
+i = 4 (3)
+diff -15 (larger than bricks = 5) > stair -= 1
+won't pop the max heap because don't have enough bricks (5 < 15)
+
+i = 5 (18)
+diff 2 (smaller than 5) > heap = [5, 2]
+bricks = 3
+
+i = 6 (20)
+diff -17 > continue
+
+i = 7 (3)
+diff 16 (larger than bricks = 3)
+return i since ladders = 0 
+"""
+```
