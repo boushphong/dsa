@@ -54,7 +54,7 @@ Value:  1  3  6  5  9  8
 
 ### 1. Heapify
 - **Heapify** is a process that ensures a binary tree maintains the heap properties.
-- Heapify can be performed at any node to preserve the heap properties when there is a change in the node's value.
+- **Heapify** can be performed at any node to preserve the heap properties when there is a change in the node's value.
 - There are two common types of heapify:
   - **Heapify-Up** (Bubble-Up, Sift-Up)
   - **Heapify-Down** (Bubble-Down, Sift-Down)
