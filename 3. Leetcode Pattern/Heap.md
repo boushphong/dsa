@@ -212,7 +212,7 @@ def heap_sort(arr: List[int]):
 ```
 
 # Patterns
-## Finding Kth largest element
+## Top K Pattern
 ### [Kth Largest Element in an Array](https://www.geeksforgeeks.org/max-heap-in-python/)
 ```python
 def findKthLargest(nums, k):
