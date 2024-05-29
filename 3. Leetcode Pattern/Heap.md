@@ -248,6 +248,19 @@ def findKthLargest(nums, k):
 - **SC** = `O(k)` (Average)
 - **SC** = `O(N)` (Worst) - when `k` equals to `N`.
 
+### [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements)
+```python
+def topKFrequent(nums, k):
+    c = Counter(nums)
+    items = [(v,k) for k,v in c.items()]
+
+    heapify(items)
+    while len(items) != k:
+        heappop(items)
+
+    return [v for k,v in items]
+```
+
 ## Greedy. Keeping Max (or Min) element to replace
 ### [Furthest Building You Can Reach](https://leetcode.com/problems/furthest-building-you-can-reach/)
 ```python
