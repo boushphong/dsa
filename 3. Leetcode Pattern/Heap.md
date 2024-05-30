@@ -261,6 +261,29 @@ def topKFrequent(nums, k):
     return [v for k,v in items]
 ```
 
+### [Reorganize String](https://leetcode.com/problems/reorganize-string)
+```python
+def reorganizeString(s):
+    count = Counter(s)
+    maxHeap = [[-v, k] for k, v in count.items()]
+    heapify(maxHeap)  # O(N)
+
+    result = ""
+    tmp = None
+    while maxHeap or tmp:
+        v, k = heappop(maxHeap) if maxHeap else tmp
+
+        if result and result[-1] == k:
+            return ""
+
+        result += k
+        if tmp:
+            heappush(maxHeap, tmp)
+        tmp = [v + 1, k] if v + 1 != 0 else None
+
+    return result
+```
+
 ## Greedy. Keeping Max (or Min) element to replace
 ### [Furthest Building You Can Reach](https://leetcode.com/problems/furthest-building-you-can-reach/)
 ```python
