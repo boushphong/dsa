@@ -284,6 +284,107 @@ def reorganizeString(s):
     return result
 ```
 
+### [Rearrange String k Distance Apart](https://leetcode.com/problems/rearrange-string-k-distance-apart)
+```python
+def rearrangeString(s, k):
+    heap = [[-value, key] for key, value in Counter(s).items()]
+    heapify(heap)
+    idx_map = {}
+    queue = deque()
+
+    res = ""
+
+    while heap or queue:
+        if queue and len(res) - idx_map[queue[0][1]] >= k:
+            value, key = queue.popleft()
+            heappush(heap, [value, key])
+
+        if not heap:
+            return ""
+        value, key = heappop(heap)
+
+        res += key
+        idx_map.update({key: len(res) - 1})
+        if value + 1 != 0:
+            queue.append([value + 1, key])
+
+    return res
+```
+
+## Merge K Sorted
+### [Find K Pairs with Smallest Sums](https://leetcode.com/problems/find-k-pairs-with-smallest-sums)
+```python
+def kSmallestPairs(nums1, nums2, k):
+    heap = [[nums1[0] + nums2[0], 0, 0]]
+
+    res = []
+    aSet = set()
+    while len(res) < k:
+        total, idx1, idx2 = heappop(heap)
+        if idx1 + 1 < len(nums1) and (idx1 + 1, idx2) not in aSet:
+            heappush(heap, [nums1[idx1 + 1] + nums2[idx2], idx1 + 1, idx2])
+            aSet.add((idx1 + 1, idx2))
+
+        if idx2 + 1 < len(nums2) and (idx1, idx2 + 1) not in aSet:
+            heappush(heap, [nums1[idx1] + nums2[idx2 + 1], idx1, idx2 + 1])
+            aSet.add((idx1, idx2 + 1))
+
+        res.append([nums1[idx1], nums2[idx2]])
+
+    return res
+
+print(kSmallestPairs(nums1=[1, 1, 2], nums2=[1, 2, 3], k=9))
+"""
+aSet: set()
+heap: []
+idx1: 1, idx2: 0
+idx1: 0, idx2: 1
+----
+aSet: {(1, 0), (0, 1)}
+heap: [[3, 0, 1]]
+idx1: 2, idx2: 0
+idx1: 1, idx2: 1
+----
+aSet: {(1, 0), (1, 1), (2, 0), (0, 1)}
+heap: [[3, 1, 1], [3, 2, 0]]
+idx1: 1, idx2: 1 Already in Set. Skipping
+idx1: 0, idx2: 2
+----
+aSet: {(0, 1), (1, 1), (2, 0), (0, 2), (1, 0)}
+heap: [[3, 2, 0], [4, 0, 2]]
+idx1: 2, idx2: 1
+idx1: 1, idx2: 2
+----
+aSet: {(0, 1), (1, 2), (2, 1), (1, 1), (2, 0), (0, 2), (1, 0)}
+heap: [[4, 0, 2], [4, 1, 2], [4, 2, 1]]
+idx1: 3, idx2: 0 Already in Set. Skipping
+idx1: 2, idx2: 1
+----
+aSet: {(0, 1), (1, 2), (2, 1), (1, 1), (2, 0), (0, 2), (1, 0)}
+heap: [[4, 1, 2], [4, 2, 1]]
+idx1: 1, idx2: 2 Already in Set. Skipping
+idx1: 0, idx2: 3
+----
+aSet: {(0, 1), (1, 2), (2, 1), (1, 1), (2, 0), (0, 2), (1, 0)}
+heap: [[4, 2, 1]]
+idx1: 2, idx2: 2
+idx1: 1, idx2: 3
+----
+aSet: {(0, 1), (1, 2), (2, 1), (1, 1), (2, 0), (0, 2), (2, 2), (1, 0)}
+heap: [[5, 2, 2]]
+idx1: 3, idx2: 1 Already in Set. Skipping
+idx1: 2, idx2: 2
+----
+aSet: {(0, 1), (1, 2), (2, 1), (1, 1), (2, 0), (0, 2), (2, 2), (1, 0)}
+heap: []
+idx1: 3, idx2: 2
+idx1: 2, idx2: 3
+----
+res = [[1, 1], [1, 1], [1, 2], [1, 2], [2, 1], [1, 3], [1, 3], [2, 2], [2, 3]]
+"""
+```
+
+
 ## Greedy. Keeping Max (or Min) element to replace
 ### [Furthest Building You Can Reach](https://leetcode.com/problems/furthest-building-you-can-reach/)
 ```python
