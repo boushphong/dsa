@@ -198,6 +198,10 @@ print(kthSmallest([[1, 3, 7],
 - Since each of the rows in matrix are already sorted, we can understand the problem as finding the kth smallest element from amongst `M` sorted rows.
 - We start the pointers to point to the beginning of each rows, then we iterate `k` times, for each time `ith`, the top of the `minHeap` is the `ith` smallest element in the matrix. We pop the top from the `minHeap` then add the next element which has the same row with that top to the `minHeap`.
 
+- **TC** = `O(k * logk)`
+- **SC** = `O(k)`
+
+
 ### [Merge K Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists)
 ```
 
@@ -233,7 +237,7 @@ def minMeetingRooms(intervals):
     meetingRooms = [intervals[0][1]]
     for v1, v2 in intervals[1:]:
         if v1 >= meetingRooms[0]:
-            heapreplace(meetingRooms, v2)
+            heapreplace(meetingRooms, v2)  # replace first element and bubble down
         else:
             heappush(meetingRooms, v2)
 
