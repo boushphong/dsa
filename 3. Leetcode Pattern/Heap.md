@@ -213,6 +213,7 @@ def heap_sort(arr: List[int]):
 
 # Patterns
 ## Top K Pattern
+Usually invoving heapifying the input array right away.
 ### [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array)
 ```python
 def findKthLargest(nums, k):
