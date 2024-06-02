@@ -176,23 +176,27 @@ idx1: 2, idx2: 3 (idx2 exceeds nums2's length. Skipping)
 ### [Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix)
 ```python
 def kthSmallest(matrix, k):
-    heap = []
+    minHeap = []  # val, r, c
+    for r in range(len(matrix)):
+        heappush(minHeap, (matrix[r][0], r, 0))  # 1 5 6
 
-    for rows in matrix:
-        for element in rows:
-            heappush(heap, -element)
-            if len(heap) > k:
-                heappop(heap)
+    ans = None
+    for i in range(k):
+        ans, r, c = heappop(minHeap)
+        if c + 1 < len(matrix):
+            heappush(minHeap, (matrix[r][c + 1], r, c + 1))
+    return ans
 
-    return -heap[0]
 
+print(kthSmallest([[1, 3, 7], 
+                   [5, 10, 12], 
+                   [6, 10, 15]], 
+                  4))
 
-print(kthSmallest([[1, 5, 9],
-                   [10, 11, 13],
-                   [2, 3, 4]], 2))
 ```
 
-Utilizing a Max Heap we want to keep k elements in the heap, if a new element is added to the heap we push the largest element out of the heap, hence the k smallest element after the iteration will always be the index 0 of the heap.
+- Since each of the rows in matrix are already sorted, we can understand the problem as finding the kth smallest element from amongst `M` sorted rows.
+- We start the pointers to point to the beginning of each rows, then we iterate `k` times, for each time `ith`, the top of the `minHeap` is the `ith` smallest element in the matrix. We pop the top from the `minHeap` then add the next element which has the same row with that top to the `minHeap`.
 
 ### [Merge K Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists)
 ```
