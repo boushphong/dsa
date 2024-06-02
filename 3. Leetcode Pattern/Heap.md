@@ -403,6 +403,8 @@ print(kthSmallest([[1, 5, 9],
                    [2, 3, 4]], 2))
 ```
 
+Utilizing a Max Heap we want to keep k elements in the heap, if a new element is added to the heap we push the largest element out of the heap, hence the k smallest element after the iteration will always be the index 0 of the heap.
+
 
 ## Greedy. Keeping Max (or Min) element to replace
 ### [Furthest Building You Can Reach](https://leetcode.com/problems/furthest-building-you-can-reach/)
