@@ -213,7 +213,7 @@ def heap_sort(arr: List[int]):
 
 # Patterns
 ## Top K Pattern
-### [Kth Largest Element in an Array](https://www.geeksforgeeks.org/max-heap-in-python/)
+### [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array)
 ```python
 def findKthLargest(nums, k):
     idx = len(nums) - k
@@ -228,25 +228,6 @@ def findKthLargest(nums, k):
 - **TC** = `O((N - k) * LogN + N` (Average)
 - **TC** = `O(NLogN) + N` (Worst)
 - **SC** = `O(1)`
-
-### Kth Largest Element in an Array (Alternative Solution)
-```python
-def findKthLargest(nums, k):
-    minHeap = []
-    for num in nums:
-        heappush(minHeap, num)
-        if len(minHeap) > k:
-            heappop(minHeap)
-
-    return minHeap[0]
-```
-
-**Idea:** Keep a MinHeap of `k` elements, whenever the Heap exceeds size of `k`, heap pop out the smallest element. That way we could keep k largest element in the array.
-
-- **TC** = `O(NLogk)` (Average) - N from `nums` itertation and LogK from heapifying the MinHeap of `k` elements.
-- **TC** = `O(NLogN)` (Worst) - when `k` equals to `N`.
-- **SC** = `O(k)` (Average)
-- **SC** = `O(N)` (Worst) - when `k` equals to `N`.
 
 ### [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements)
 ```python
@@ -413,7 +394,24 @@ Utilizing a Max Heap we want to keep k elements in the heap, if a new element is
 ## Minimum Number
 This pattern aims to create an external min heap variable (empty first) to track the minimum element and updating it gradually. It sometimes pairs up with sorting to solve specific problems
 
-### [Kth Largest Element section (Alternative Solution)](#kth-largest-element-in-an-array-alternative-solution)
+### [Kth Largest Element in an Array (Alternative Solution)](https://leetcode.com/problems/kth-largest-element-in-an-array)
+```python
+def findKthLargest(nums, k):
+    minHeap = []
+    for num in nums:
+        heappush(minHeap, num)
+        if len(minHeap) > k:
+            heappop(minHeap)
+
+    return minHeap[0]
+```
+
+**Idea:** Keep a MinHeap of `k` elements, whenever the Heap exceeds size of `k`, heap pop out the smallest element. That way we could keep k largest element in the array.
+
+- **TC** = `O(NLogk)` (Average) - N from `nums` itertation and LogK from heapifying the MinHeap of `k` elements.
+- **TC** = `O(NLogN)` (Worst) - when `k` equals to `N`.
+- **SC** = `O(k)` (Average)
+- **SC** = `O(N)` (Worst) - when `k` equals to `N`.
 
 ### [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii)
 ```python
