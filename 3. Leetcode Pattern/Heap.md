@@ -392,7 +392,7 @@ Utilizing a Max Heap we want to keep k elements in the heap, if a new element is
 ```
 
 ## Minimum Number
-This pattern aims to create an external min heap variable (empty first) to track the minimum element and updating it gradually. It sometimes pairs up with sorting to solve specific problems
+This pattern aims to create an external min heap variable (empty first) to track the minimum element and updating it gradually. It sometimes pairs up with sorting to solve specific problems.
 
 ### [Kth Largest Element in an Array (Alternative Solution)](https://leetcode.com/problems/kth-largest-element-in-an-array)
 ```python
