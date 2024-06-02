@@ -1,4 +1,25 @@
 # Recursion
+# Table of Contents
+* [Recursion](#recursion)
+   * [How to detect if a problem can be solved with recursion or not?](#how-to-detect-if-a-problem-can-be-solved-with-recursion-or-not)
+   * [How to approach a recursion problem step by step?](#how-to-approach-a-recursion-problem-step-by-step)
+   * [Type of recurrence relation](#type-of-recurrence-relation)
+   * [Binary Search with Recursion](#binary-search-with-recursion)
+* [Patterns](#patterns)
+   * [Single Argument](#single-argument)
+   * [Multiple Arguments](#multiple-arguments)
+   * [Multiple Arguments (with Carrying Argument)](#multiple-arguments-with-carrying-argument)
+   * [Multiple Arguments (with Result Carrying Variable)](#multiple-arguments-with-result-carrying-variable)
+   * [Multiple Arguments (with Multiple Arguments Modification)](#multiple-arguments-with-multiple-arguments-modification)
+      * [Bubble Sort](#bubble-sort)
+      * [Selection Sort](#selection-sort)
+   * [Multiple Arguments (with Multiple Arguments Modification) (Backward Execution)](#multiple-arguments-with-multiple-arguments-modification-backward-execution)
+      * [Merge Sort](#merge-sort)
+      * [Merge Sort In Place](#merge-sort-in-place)
+* [Complexity Analysis](#complexity-analysis)
+   * [<a href="https://leetcode.com/problems/pascals-triangle/" rel="nofollow">Pascal's Triangle</a>](https://leetcode.com/problems/pascals-triangle/)
+   * [<a href="https://leetcode.com/problems/fibonacci-number" rel="nofollow">Fibonacci Number</a>](https://leetcode.com/problems/fibonacci-number)
+
 ## How to detect if a problem can be solved with recursion or not?
 - When a problem can be divided to smaller problems.
 

@@ -1,4 +1,20 @@
 # Recursion (Advanced)
+# Table of Contents
+* [Recursion (Advanced)](#recursion-advanced)
+* [Table of Contents](#table-of-contents)
+   * [Extending Result Varible versus. Carrying Result Argument](#extending-result-varible-versus-carrying-result-argument)
+      * [Extending Result Varible](#extending-result-varible)
+      * [Carrying Result Argument](#carrying-result-argument)
+         * [<a href="https://leetcode.com/problems/time-needed-to-inform-all-employees" rel="nofollow">Time Needed to Inform All Employees</a>](https://leetcode.com/problems/time-needed-to-inform-all-employees)
+   * [Subset](#subset)
+      * [Subset String](#subset-string)
+      * [Subset String (Iterative Solution)](#subset-string-iterative-solution)
+* [Patterns](#patterns)
+   * [Permutation](#permutation)
+      * [Permutation String](#permutation-string)
+      * [Permutation String (Counting Number of Permutations)](#permutation-string-counting-number-of-permutations)
+      * [<a href="https://leetcode.com/problems/letter-combinations-of-a-phone-number/submissions/" rel="nofollow">Letter Combinations of a Phone Number</a>](https://leetcode.com/problems/letter-combinations-of-a-phone-number/submissions/)
+
 ## Extending Result Varible versus. Carrying Result Argument
 ### Extending Result Varible
 In permutation problem, we usually initalize extending result variable at each recursive call. These extending result variables all contribute to the final result, it will be returned to the lower recursive call, so that the extending result variable of that lower recursive call can extend the returned result. Usually, this is used to return the **count** or a **list of result**.
@@ -154,6 +170,7 @@ print(subset_string_iterative("abc"))  # ['a', 'ab', 'b', 'ac', 'abc', 'bc', 'c'
 
 ![image](https://github.com/boushphong/Recursion/assets/59940078/16a9a3e4-7131-4ff9-8856-2549c3c0f0a1)
 
+# Patterns
 ## Permutation
 **Time Complexity**: `N!`
 

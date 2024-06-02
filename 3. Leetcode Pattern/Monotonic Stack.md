@@ -1,6 +1,21 @@
 # Monotonic Stack
 Monotonic stacks are generally used for solving questions of the type - **next greater element**, **next smaller element**, **previous greater element** and **previous smaller element**.
 
+# Table of Contents
+* [Monotonic Stack](#monotonic-stack)
+   * [What is monotonic stack?](#what-is-monotonic-stack)
+   * [A Generic Template](#a-generic-template)
+      * [Problems](#problems)
+* [Patterns](#patterns)
+   * [Prefix Patterns](#prefix-patterns)
+      * [<a href="https://leetcode.com/problems/132-pattern/" rel="nofollow">Find 132 Pattern</a>](https://leetcode.com/problems/132-pattern/)
+      * [<a href="https://leetcode.com/problems/beautiful-towers-i" rel="nofollow">Beautiful Towers I</a>](https://leetcode.com/problems/beautiful-towers-i)
+      * [<a href="https://leetcode.com/problems/maximum-subarray" rel="nofollow">Maximum Subarray</a>](https://leetcode.com/problems/maximum-subarray)
+   * [Over-estimation](#over-estimation)
+      * [<a href="https://leetcode.com/problems/maximum-width-ramp/" rel="nofollow">Maximum Width Ramp</a>](https://leetcode.com/problems/maximum-width-ramp/)
+   * [Sorting](#sorting)
+      * [<a href="https://leetcode.com/problems/car-fleet/" rel="nofollow">Car Fleet</a>](https://leetcode.com/problems/car-fleet/)
+
 ## What is monotonic stack?
 
 There could be four types of monotonic stacks.

@@ -4,6 +4,21 @@
 
 In the Maze Problems (All directions) below, we constantly make changes to the global `maze` variable, but once a recursion call is finished, we will change the `maze` variable again to the original parent recursion call's `maze` variable state so the parent recursion call would be valid for other child recursion call.
 
+# Table of Contents
+* [Backtracking](#backtracking)
+* [Table of Contents](#table-of-contents)
+* [Patterns](#patterns)
+   * [Undoing the Global Variable](#undoing-the-global-variable)
+      * [Maze Problems](#maze-problems)
+      * [<a href="https://leetcode.com/problems/combination-sum" rel="nofollow">Combination Sum</a>](https://leetcode.com/problems/combination-sum)
+   * [Copying the Global Variable](#copying-the-global-variable)
+      * [<a href="https://leetcode.com/problems/n-queens" rel="nofollow">N-Queens</a>](https://leetcode.com/problems/n-queens)
+   * [Skipping Duplicates and Index Shifting](#skipping-duplicates-and-index-shifting)
+      * [<a href="https://leetcode.com/problems/combination-sum-ii/" rel="nofollow">Combination Sum II</a>](https://leetcode.com/problems/combination-sum-ii/)
+      * [<a href="https://leetcode.com/problems/subsets-ii/" rel="nofollow">Subsets II</a>](https://leetcode.com/problems/subsets-ii/)
+   * [Early Branch Pruning (Without Pruning in the Base Case)](#early-branch-pruning-without-pruning-in-the-base-case)
+      * [<a href="https://leetcode.com/problems/palindrome-partitioning/" rel="nofollow">Palindrome Partitioning</a>](https://leetcode.com/problems/palindrome-partitioning/)
+
 # Patterns
 ## Undoing the Global Variable
 ### Maze Problems
