@@ -6,7 +6,6 @@ In the Maze Problems (All directions) below, we constantly make changes to the g
 
 # Table of Contents
 * [Backtracking](#backtracking)
-* [Table of Contents](#table-of-contents)
 * [Patterns](#patterns)
    * [Undoing the Global Variable](#undoing-the-global-variable)
       * [Maze Problems](#maze-problems)

@@ -1,7 +1,6 @@
 # Tree
 # Table of Contents
 * [Tree](#tree)
-* [Table of Contents](#table-of-contents)
    * [A Representation of a Tree.](#a-representation-of-a-tree)
    * [Binary Tree](#binary-tree)
    * [Traversal](#traversal)

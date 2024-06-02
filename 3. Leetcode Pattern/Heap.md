@@ -1,7 +1,6 @@
 # Heap
 # Table of Contents
 * [Heap](#heap)
-* [Table of Contents](#table-of-contents)
 * [Patterns](#patterns)
    * [Top K Pattern](#top-k-pattern)
       * [<a href="https://leetcode.com/problems/kth-largest-element-in-an-array" rel="nofollow">Kth Largest Element in an Array</a>](https://leetcode.com/problems/kth-largest-element-in-an-array)

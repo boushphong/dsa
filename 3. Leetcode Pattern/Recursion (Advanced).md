@@ -1,7 +1,6 @@
 # Recursion (Advanced)
 # Table of Contents
 * [Recursion (Advanced)](#recursion-advanced)
-* [Table of Contents](#table-of-contents)
    * [Extending Result Varible versus. Carrying Result Argument](#extending-result-varible-versus-carrying-result-argument)
       * [Extending Result Varible](#extending-result-varible)
       * [Carrying Result Argument](#carrying-result-argument)
