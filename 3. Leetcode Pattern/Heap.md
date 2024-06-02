@@ -406,8 +406,64 @@ print(kthSmallest([[1, 5, 9],
 Utilizing a Max Heap we want to keep k elements in the heap, if a new element is added to the heap we push the largest element out of the heap, hence the k smallest element after the iteration will always be the index 0 of the heap.
 
 ### [Merge K Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists)
-```python
+```
 
+```
+
+## Minimum Number
+
+### [Minimum Cost to Connect Sticks](https://leetcode.com/problems/minimum-cost-to-connect-sticks)
+```python
+def connectSticks(sticks):
+    ans = 0
+    if len(sticks) == 1:
+        return ans
+
+    heapify(sticks)
+
+    while sticks:
+        new_stick = heappop(sticks) + heappop(sticks)
+        ans += new_stick
+        if sticks:
+            heappush(sticks, new_stick)
+
+    return ans
+```
+
+### [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii)
+```python
+def minMeetingRooms(intervals):
+    intervals.sort(key=lambda x: x[0])
+
+    meetingRooms = [intervals[0][1]]
+    for v1, v2 in intervals[1:]:
+        if v1 >= meetingRooms[0]:
+            heapreplace(meetingRooms, v2)
+        else:
+            heappush(meetingRooms, v2)
+
+    return len(meetingRooms)
+
+print(minMeetingRooms([[1, 10], [2, 7], [3, 19], [8, 12], [10, 20], [11, 30]]))
+"""
+meetingRooms: [10]
+----
+v1: 2, v2: 7
+meetingRooms: [7, 10]
+----
+v1: 3, v2: 19
+meetingRooms: [7, 10, 19]
+----
+v1: 8, v2: 12
+meetingRooms: [10, 12, 19]
+----
+v1: 10, v2: 20
+meetingRooms: [12, 20, 19]
+----
+v1: 11, v2: 30
+meetingRooms: [12, 20, 19, 30]
+----
+"""
 ```
 
 ## Two Heaps
