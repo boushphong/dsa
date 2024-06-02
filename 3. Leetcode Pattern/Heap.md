@@ -229,7 +229,7 @@ def findKthLargest(nums, k):
 - **TC** = `O(NLogN) + N` (Worst)
 - **SC** = `O(1)`
 
-**Alternative Solution**
+### Kth Largest Element in an Array (Alternative Solution)
 ```python
 def findKthLargest(nums, k):
     minHeap = []
@@ -411,25 +411,9 @@ Utilizing a Max Heap we want to keep k elements in the heap, if a new element is
 ```
 
 ## Minimum Number
+This pattern aims to create an external min heap variable (empty first) to track the minimum element and updating it gradually. It sometimes pairs up with sorting to solve specific problems
 
-### [Minimum Cost to Connect Sticks](https://leetcode.com/problems/minimum-cost-to-connect-sticks)
-```python
-def connectSticks(sticks):
-    ans = 0
-    if len(sticks) == 1:
-        return ans
-
-    heapify(sticks)
-
-    while sticks:
-        new_stick = heappop(sticks) + heappop(sticks)
-        ans += new_stick
-        if sticks:
-            heappush(sticks, new_stick)
-
-    return ans
-```
-
+### [Go back to the Kth Largest Element section](#kth-largest-element-in-an-array-alternative-solution)
 ### [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii)
 ```python
 def minMeetingRooms(intervals):
