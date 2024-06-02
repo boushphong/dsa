@@ -384,6 +384,25 @@ idx1: 2, idx2: 3 (idx2 exceeds nums2's length. Skipping)
 """
 ```
 
+### [Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix)
+```python
+def kthSmallest(matrix, k):
+    heap = []
+
+    for rows in matrix:
+        for element in rows:
+            heappush(heap, -element)
+            if len(heap) > k:
+                heappop(heap)
+
+    return -heap[0]
+
+
+print(kthSmallest([[1, 5, 9],
+                   [10, 11, 13],
+                   [12, 13, 15]], 5))
+```
+
 
 ## Greedy. Keeping Max (or Min) element to replace
 ### [Furthest Building You Can Reach](https://leetcode.com/problems/furthest-building-you-can-reach/)
