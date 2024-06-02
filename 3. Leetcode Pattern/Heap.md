@@ -413,7 +413,8 @@ Utilizing a Max Heap we want to keep k elements in the heap, if a new element is
 ## Minimum Number
 This pattern aims to create an external min heap variable (empty first) to track the minimum element and updating it gradually. It sometimes pairs up with sorting to solve specific problems
 
-### [Go back to the Kth Largest Element section](#kth-largest-element-in-an-array-alternative-solution)
+### [Kth Largest Element section (Alternative Solution)](#kth-largest-element-in-an-array-alternative-solution
+
 ### [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii)
 ```python
 def minMeetingRooms(intervals):
