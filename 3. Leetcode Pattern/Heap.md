@@ -3,21 +3,9 @@
 * [Heap](#heap)
 * [Patterns](#patterns)
    * [Top K Pattern](#top-k-pattern)
-      * [<a href="https://leetcode.com/problems/kth-largest-element-in-an-array" rel="nofollow">Kth Largest Element in an Array</a>](https://leetcode.com/problems/kth-largest-element-in-an-array)
-      * [<a href="https://leetcode.com/problems/top-k-frequent-elements" rel="nofollow">Top K Frequent Elements</a>](https://leetcode.com/problems/top-k-frequent-elements)
-      * [<a href="https://leetcode.com/problems/reorganize-string" rel="nofollow">Reorganize String</a>](https://leetcode.com/problems/reorganize-string)
-      * [<a href="https://leetcode.com/problems/rearrange-string-k-distance-apart" rel="nofollow">Rearrange String k Distance Apart</a>](https://leetcode.com/problems/rearrange-string-k-distance-apart)
    * [Merge K Sorted](#merge-k-sorted)
-      * [<a href="https://leetcode.com/problems/find-k-pairs-with-smallest-sums" rel="nofollow">Find K Pairs with Smallest Sums</a>](https://leetcode.com/problems/find-k-pairs-with-smallest-sums)
-      * [<a href="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix" rel="nofollow">Kth Smallest Element in a Sorted Matrix</a>](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix)
-      * [<a href="https://leetcode.com/problems/merge-k-sorted-lists" rel="nofollow">Merge K Sorted Lists</a>](https://leetcode.com/problems/merge-k-sorted-lists)
    * [Minimum Number](#minimum-number)
-      * [<a href="https://leetcode.com/problems/kth-largest-element-in-an-array" rel="nofollow">Kth Largest Element in an Array (Alternative Solution)</a>](https://leetcode.com/problems/kth-largest-element-in-an-array)
-      * [<a href="https://leetcode.com/problems/meeting-rooms-ii" rel="nofollow">Meeting Rooms II</a>](https://leetcode.com/problems/meeting-rooms-ii)
-   * [Two Heaps](#two-heaps)
-      * [<a href="https://leetcode.com/problems/sliding-window-median" rel="nofollow">Sliding Window Median</a>](https://leetcode.com/problems/sliding-window-median)
    * [Greedy. Keeping Max (or Min) element to replace](#greedy-keeping-max-or-min-element-to-replace)
-      * [<a href="https://leetcode.com/problems/furthest-building-you-can-reach/" rel="nofollow">Furthest Building You Can Reach</a>](https://leetcode.com/problems/furthest-building-you-can-reach/)
 
 ## Top K Pattern
 Usually invoving heapifying the input array right away.
@@ -264,6 +252,38 @@ meetingRooms: [12, 20, 19, 30]
 ----
 """
 ```
+
+### [Employee Free Time](https://leetcode.com/problems/employee-free-time)
+```python
+def employeeFreeTime(schedule):
+    # collect first events of all employees
+    heap = []
+    for i, employee in enumerate(schedule):
+        # (event.start, employee index, event index)
+        heappush(heap, (employee[0][0], i, 0))
+
+    res = []
+    _, i, j = heap[0]
+    prev_end = schedule[i][j][1]
+    while heap:
+        _, i, j = heappop(heap)
+        # check for next employee event and push it
+        if j + 1 < len(schedule[i]):
+            heappush(heap, (schedule[i][j + 1][0], i, j + 1))
+
+        event = schedule[i][j]
+        if event[0] > prev_end:
+            res.append([prev_end, event[0]])
+        prev_end = max(prev_end, event[1])
+    return res
+
+
+print(employeeFreeTime([[[1, 3], [6, 7]], [[2, 5], [9, 12]], [[2, 4]]]))
+# [[5, 6], [7, 9]]
+```
+
+- **TC** = `O(NLogk)` - We still iterate through `N` elements, but the heap only contains at max `k` elemnents at a time.
+- **SC** = `O(k)` Only keep `k` elements in the heap
 
 ## Two Heaps
 ### [Sliding Window Median](https://leetcode.com/problems/sliding-window-median)
