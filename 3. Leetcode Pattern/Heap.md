@@ -351,3 +351,28 @@ diff 16 (larger than bricks = 3)
 return i since ladders = 0 
 """
 ```
+
+### [Minimum Number of Refueling Stops](https://leetcode.com/problems/minimum-number-of-refueling-stops)
+```python
+def minRefuelStops(target, startFuel, stations):
+    heap = []
+    ans = 0
+    stations += [[target, 0]]
+    for i, [station, fuel] in enumerate(stations):
+        startFuel -= station - stations[i - 1][0] if i != 0 else station
+
+        while heap and startFuel < 0:
+            tmp_fuel = heappop(heap)
+            startFuel += -tmp_fuel
+            ans += 1
+
+        if startFuel < 0:
+            return -1
+
+        heappush(heap, -fuel)
+    return ans
+
+
+print(minRefuelStops(130, 20, [[10, 60], [30, 30], [40, 10], [60, 70]]))
+print(minRefuelStops(100, 1, [[10, 100]]))
+```
