@@ -192,7 +192,25 @@ print(kthSmallest([[1, 3, 7],
 
 ### [Merge K Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists)
 ```
+def mergeKLists(lists):
+    ListNode.__lt__ = lambda self, other: self.val < other.val
+    
+    heap = []
+    for _ in lists:
+        heappush(heap, [_.val, _])
 
+    dummy = head = ListNode()
+
+    while heap:
+        val, node = heappop(heap)
+        head.next = node
+        head = head.next
+        node = node.next
+
+        if node:
+            heappush(heap, [node.val, node])
+
+    return dummy.next
 ```
 
 ## Minimum Number
