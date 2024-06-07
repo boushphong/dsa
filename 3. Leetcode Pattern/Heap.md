@@ -191,7 +191,7 @@ print(kthSmallest([[1, 3, 7],
 
 
 ### [Merge K Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists)
-```
+```python
 def mergeKLists(lists):
     ListNode.__lt__ = lambda self, other: self.val < other.val
     
@@ -212,6 +212,8 @@ def mergeKLists(lists):
 
     return dummy.next
 ```
+- **TC** = `O(NLogk)`
+- **SC** = `O(k)`
 
 ## Minimum Number
 This pattern aims to create an external min heap variable (empty first) to track the minimum element and updating it gradually. It sometimes pairs up with sorting to solve specific problems.
