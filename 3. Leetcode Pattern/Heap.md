@@ -286,6 +286,11 @@ print(employeeFreeTime([[[1, 3], [6, 7]], [[2, 5], [9, 12]], [[2, 4]]]))
 - **SC** = `O(k)` Only keep `k` elements in the heap
 
 ## Two Heaps
+### [Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream)
+```python
+
+```
+
 ### [Sliding Window Median](https://leetcode.com/problems/sliding-window-median)
 ```python
 
