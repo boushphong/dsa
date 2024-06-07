@@ -194,21 +194,22 @@ print(kthSmallest([[1, 3, 7],
 ```python
 def mergeKLists(lists):
     ListNode.__lt__ = lambda self, other: self.val < other.val
-    
+
     heap = []
     for _ in lists:
-        heappush(heap, [_.val, _])
+        if _:
+            heappush(heap, _)
 
     dummy = head = ListNode()
 
     while heap:
-        val, node = heappop(heap)
+        node = heappop(heap)
         head.next = node
         head = head.next
         node = node.next
 
         if node:
-            heappush(heap, [node.val, node])
+            heappush(heap, node)
 
     return dummy.next
 ```
