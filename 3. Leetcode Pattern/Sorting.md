@@ -7,19 +7,11 @@ Sorting problems usually can be solved by borrowing ideas from sort algorithms
    * [Implementing Quick Select](#implementing-quick-select)
 * [Patterns](#patterns)
    * [Borrowing Idea from Selection Sort](#borrowing-idea-from-selection-sort)
-      * [<a href="https://leetcode.com/problems/pancake-sorting" rel="nofollow">Pancake Sorting</a>](https://leetcode.com/problems/pancake-sorting)
    * [Borrowing Idea from Merge Sort](#borrowing-idea-from-merge-sort)
-      * [<a href="https://leetcode.com/problems/merge-sorted-array" rel="nofollow">Merge Sorted Array</a>](https://leetcode.com/problems/merge-sorted-array)
-      * [Count Inversions](#count-inversions)
    * [Borrowing Idea from Quick Sort](#borrowing-idea-from-quick-sort)
-      * [<a href="https://leetcode.com/problems/sort-colors/" rel="nofollow">Sort Colors</a>](https://leetcode.com/problems/sort-colors/)
    * [Borrowing Idea from Bucket Sort](#borrowing-idea-from-bucket-sort)
-      * [<a href="https://leetcode.com/problems/sort-characters-by-frequency/" rel="nofollow">Sort Characters By Frequency</a>](https://leetcode.com/problems/sort-characters-by-frequency/)
-      * [<a href="https://leetcode.com/problems/kth-largest-element-in-an-array/" rel="nofollow">Kth Largest Element in an Array</a>](https://leetcode.com/problems/kth-largest-element-in-an-array/)
    * [Borrowing Idea from Quick Select (Quick Sort)](#borrowing-idea-from-quick-select-quick-sort)
-      * [<a href="https://leetcode.com/problems/kth-largest-element-in-an-array/" rel="nofollow">Kth Largest Element in an Array</a>](https://leetcode.com/problems/kth-largest-element-in-an-array/)
    * [Implementing a Custom Comparator](#implementing-a-custom-comparator)
-      * [<a href="https://leetcode.com/problems/largest-number/" rel="nofollow">Largest Number</a>](https://leetcode.com/problems/largest-number/)
 
 ## Implementing Merge Sort
 ```python
