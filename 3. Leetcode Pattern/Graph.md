@@ -1,4 +1,11 @@
 # Graph
+## Graph Operations
+| Node / Edge Management | Storage    | Add Vertex | Add Edge | Remove Vertex | Remove Edge | Query  |
+|------------------------|------------|------------|----------|---------------|-------------|--------|
+| Adjacency list         | O(\|V\|+\|E\|) | O(1)       | O(1)     | O(\|V\|+\|E\|)  | O(\|E\|)    | O(\|V\|) |
+| Incidence list         | O(\|V\|+\|E\|) | O(1)       | O(1)     | O(\|E\|)       | O(\|E\|)    | O(\|E\|) |
+| Adjacency matrix       | O(\|V\|^2)     | O(\|V\|^2) | O(1)     | O(\|V\|^2)     | O(1)        | O(1)    |
+| Incidence matrix       | O(\|V\| . \|E\|) | O(\|V\| . \|E\|) | O(\|V\| . \|E\|) | O(\|V\| . \|E\|) | O(\|E\|)    | O(\|E\|) |
 ## DFS
 ```
 6 - 4 - 3
