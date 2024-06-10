@@ -41,4 +41,13 @@ adj[6] = [4]
 print(allPaths(adj, 1, 6))
 ```
 
+- **TC**: **O(|E| + |V|)**
+    - **|E|** denotes the number of edges we have to traverse.
+    - **|V|** denotes the numbers of vertices we have to traverse. Even though if we don't have any edges, we still to travere through all the keys (vertices)
+- **SC**: **O(|V|)**
+    - **O(|V|)** from longest currentPath.
+    - **O(|V|)** from visited set
+    - **O(|V|)** from recursion stack trace.
+    - Hence **O(3|V|)** > **O(|V|)**
+
 ## BFS
