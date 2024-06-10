@@ -52,6 +52,36 @@ print(allPaths(adj, 1, 6))
     - Hence **O(3|V|)** > **O(|V|)**
 
 ## BFS
+```python
+from collections import deque
+
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    
+    visited.add(start)
+    while queue:
+        vertex = queue.popleft()
+        print(vertex, end=" ")  # Process the node
+        
+        # Add neighbors to the queue if not visited
+        for neighbor in graph[vertex]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+
+# Example usage
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+bfs(graph, 'A')
+```
 
 # Patterns
 ## DFS
