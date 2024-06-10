@@ -7,49 +7,28 @@
 ```
 
 ```python
-from collections import defaultdict
+visited = set()
 
 
-def allPaths(graph, fromNode, toNode):
-    currentPath = []
-    paths = []
-    visited = set()
+def dfs(graph, vertex):
+    visited.add(vertex)
+    print(vertex, end=" ")  # Process the node
 
-    def dfs(vertex=fromNode, destination=toNode):
-        if vertex == destination:
-            return paths.append(currentPath + [destination])
+    for neighbor in graph[vertex]:
+        if neighbor not in visited:
+            dfs(graph, neighbor)
 
-        currentPath.append(vertex)
-        visited.add(vertex)
-        for v in graph[vertex]:
-            if v not in visited:
-                dfs(v, destination)
-        visited.remove(vertex)
-        currentPath.pop()
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
 
-    dfs()
-    return paths
-
-
-adj = defaultdict(list)
-adj[1] = [2, 5]
-adj[2] = [1, 3, 5]
-adj[3] = [2, 4]
-adj[4] = [3, 5, 6]
-adj[5] = [1, 2, 4]
-adj[6] = [4]
-print(allPaths(adj, 1, 6))
-# [[1, 2, 3, 4, 6], [1, 2, 5, 4, 6], [1, 5, 2, 3, 4, 6], [1, 5, 4, 6]]
+dfs(graph, 'A')
 ```
-
-- **TC**: **O(|E| + |V|)**
-    - **|E|** denotes the number of edges we have to traverse. We might re-traverse an edge over and over
-    - **|V|** denotes the numbers of vertices we have to traverse. Even though if we don't have any edges, we still to travere through all the keys (vertices)
-- **SC**: **O(|V|)**
-    - **O(|V|)** from longest currentPath.
-    - **O(|V|)** from visited set
-    - **O(|V|)** from recursion stack trace.
-    - Hence **O(3|V|)** > **O(|V|)**
 
 ## BFS
 ```python
@@ -70,7 +49,6 @@ def bfs(graph, start):
                 visited.add(neighbor)
                 queue.append(neighbor)
 
-# Example usage
 graph = {
     'A': ['B', 'C'],
     'B': ['A', 'D', 'E'],
@@ -112,3 +90,11 @@ def allPathsSourceTarget(graph):
 
 print(allPathsSourceTarget([[1, 2], [3], [3], []]))
 ```
+- **TC**: **O(|E| + |V|)**
+    - **|E|** denotes the number of edges we have to traverse. We might re-traverse an edge over and over
+    - **|V|** denotes the numbers of vertices we have to traverse. Even though if we don't have any edges, we still to travere through all the keys (vertices)
+- **SC**: **O(|V|)**
+    - **O(|V|)** from longest currentPath.
+    - **O(|V|)** from visited set
+    - **O(|V|)** from recursion stack trace.
+    - Hence **O(3|V|)** > **O(|V|)**
