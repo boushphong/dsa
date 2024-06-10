@@ -11,21 +11,21 @@ from collections import defaultdict
 
 
 def allPaths(graph, fromNode, toNode):
-    path = []
+    currentPath = []
     paths = []
     visited = set()
 
     def dfs(vertex=fromNode, destination=toNode):
         if vertex == destination:
-            return paths.append(path + [destination])
+            return paths.append(currentPath + [destination])
 
-        path.append(vertex)
+        currentPath.append(vertex)
         visited.add(vertex)
         for v in graph[vertex]:
             if v not in visited:
                 dfs(v, destination)
         visited.remove(vertex)
-        path.pop()
+        currentPath.pop()
 
     dfs()
     return paths
@@ -40,3 +40,5 @@ adj[5] = [1, 2, 4]
 adj[6] = [4]
 print(allPaths(adj, 1, 6))
 ```
+
+## BFS
