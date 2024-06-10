@@ -43,7 +43,7 @@ print(allPaths(adj, 1, 6))
 ```
 
 - **TC**: **O(|E| + |V|)**
-    - **|E|** denotes the number of edges we have to traverse.
+    - **|E|** denotes the number of edges we have to traverse. We might re-traverse an edge over and over
     - **|V|** denotes the numbers of vertices we have to traverse. Even though if we don't have any edges, we still to travere through all the keys (vertices)
 - **SC**: **O(|V|)**
     - **O(|V|)** from longest currentPath.
@@ -52,3 +52,33 @@ print(allPaths(adj, 1, 6))
     - Hence **O(3|V|)** > **O(|V|)**
 
 ## BFS
+
+# Patterns
+## DFS
+### [All Paths From Source to Target](https://leetcode.com/problems/all-paths-from-source-to-target/)
+```python
+def allPathsSourceTarget(graph):
+    paths = []
+    path = []
+    visited = set()
+
+    def dfs(atVertex=0):
+        if atVertex == len(graph) - 1:
+            return paths.append(path + [atVertex])
+
+        path.append(atVertex)
+        visited.add(atVertex)
+
+        for vertex in graph[atVertex]:
+            if vertex not in visited:
+                dfs(vertex)
+
+        visited.remove(atVertex)
+        path.pop()
+
+    dfs()
+    return paths
+
+
+print(allPathsSourceTarget([[1, 2], [3], [3], []]))
+```
