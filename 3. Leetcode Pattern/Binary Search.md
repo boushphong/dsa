@@ -9,15 +9,9 @@
       * [<a href="https://leetcode.com/problems/first-bad-version/" rel="nofollow">First Bad Version</a>](https://leetcode.com/problems/first-bad-version/)
 * [Patterns](#patterns)
    * [Bisecting](#bisecting-1)
-      * [<a href="https://leetcode.com/problems/heaters/" rel="nofollow">Heaters</a>](https://leetcode.com/problems/heaters/)
    * [Rotated Array Search](#rotated-array-search)
-      * [<a href="https://leetcode.com/problems/search-in-rotated-sorted-array" rel="nofollow">Search in Rotated Sorted Array</a>](https://leetcode.com/problems/search-in-rotated-sorted-array)
-      * [<a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array" rel="nofollow">Find Minimum in Rotated Sorted Array</a>](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array)
    * [Identifying BS (Monoticity)](#identifying-bs-monoticity)
-      * [<a href="https://leetcode.com/problems/arranging-coins" rel="nofollow">Arranging Coins</a>](https://leetcode.com/problems/arranging-coins)
    * [Identifying BS (Exclusive Search and Inclusive Search)](#identifying-bs-exclusive-search-and-inclusive-search)
-      * [<a href="https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets" rel="nofollow">Minimum Number of Days to Make m Bouquets</a>](https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets)
-      * [<a href="https://leetcode.com/problems/capacity-to-ship-packages-within-d-days" rel="nofollow">Capacity To Ship Packages Within D Days</a>](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days)
 
 **Binary search** is an efficient algorithm used for finding the position of a target value within a sorted array. It works by repeatedly dividing in half the portion of the list that could contain the target value, thereby reducing the search area by half each time. Binary search operates on the principle of divide and conquer.
 
