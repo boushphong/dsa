@@ -150,10 +150,7 @@ def numIslands(grid):
     ans = 0
 
     def dfs(row, col):
-        if grid[row][col] == "1":
-            visited.add((row, col))
-        else:
-            return
+        visited.add((row, col))
 
         for (moveByRow, moveByCol) in directions:
             r, c = row + moveByRow, col + moveByCol
@@ -165,11 +162,12 @@ def numIslands(grid):
 
     for i in range(lengthRow):
         for j in range(lengthCol):
-            tmp_length = len(visited)
-            dfs(i, j)
-            ans += 1 if len(visited) > tmp_length else 0
+            if grid[i][j] == "1" and (i, j) not in visited:
+                dfs(i, j)
+                ans += 1
 
     return ans
+
 
 grid = [
     ["1", "1", "0", "0", "0"],
