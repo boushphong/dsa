@@ -106,6 +106,40 @@ print(allPathsSourceTarget([[1, 2], [3], [3], []]))
     - **O(|V|)** from recursion stack trace.
     - Hence **O(3|V|)** > **O(|V|)**
  
+## BFS (Adjacency list)
+### [Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite)
+```python
+def isBipartite(graph):
+    colors = [None] * len(graph)
+    queue = deque()
+
+    def coloring(start):
+        queue.append(start)
+        colors[start] = 1
+        while queue:
+            vertex = queue.popleft()
+
+            for neighbor in graph[vertex]:
+                if not colors[neighbor]:
+                    queue.append(neighbor)
+                tmp_color = colors[neighbor]
+                colors[neighbor] = colors[vertex] * -1
+                if tmp_color and tmp_color != colors[neighbor]:
+                    return False
+
+    for i in range(len(graph)):
+        if not colors[i]:
+            val = coloring(i)
+            if val is False:
+                return False
+
+    return True
+
+
+print(isBipartite([[1, 2, 3], [0, 2], [0, 1, 3], [0, 2]]))
+print(isBipartite([[1, 3], [0, 2], [1, 3], [0, 2]]))
+```
+ 
 ## BFS (Adjacency matrix)
 ### [Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix)
 ```python
