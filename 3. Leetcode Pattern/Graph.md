@@ -69,7 +69,7 @@ bfs(graph, 'A')
 ```
 
 # Patterns
-## DFS
+## DFS (Adjacency list)
 ### [All Paths From Source to Target](https://leetcode.com/problems/all-paths-from-source-to-target/)
 ```python
 def allPathsSourceTarget(graph):
@@ -105,3 +105,43 @@ print(allPathsSourceTarget([[1, 2], [3], [3], []]))
     - **O(|V|)** from visited set
     - **O(|V|)** from recursion stack trace.
     - Hence **O(3|V|)** > **O(|V|)**
+ 
+## BFS (Adjacency matrix)
+### [Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix)
+```python
+from collections import deque
+
+
+def shortestPathBinaryMatrix(grid):
+    if grid[0][0] == 1:
+        return -1
+    elif len(grid) == 1:
+        return 1
+    size = len(grid)
+    visited = {(0, 0)}
+    directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+    queue = deque([(0, 0, 1)])
+
+    while queue:
+        row, col, dist = queue.popleft()
+
+        for (moveByRow, moveByCol) in directions:
+            newRow, newCol = row + moveByRow, col + moveByCol
+            if newRow in {-1, size} or newCol in {-1, size} or grid[newRow][newCol] == 1 or (newRow, newCol) in visited:
+                continue
+            if (newRow, newCol) == (size - 1, size - 1):
+                return dist + 1
+
+            queue.append((newRow, newCol, dist + 1))
+            visited.add((newRow, newCol))
+    return -1
+
+
+grid = [
+    [1, 0, 0],
+    [1, 1, 0],
+    [1, 1, 0]
+]
+
+print(shortestPathBinaryMatrix(grid))
+```
