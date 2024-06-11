@@ -178,6 +178,46 @@ grid = [
 
 print(numIslands(grid))
 ```
+
+### [Surrounded Regions](https://leetcode.com/problems/surrounded-regions)
+```python
+def solve(board):
+    lengthRow, lengthCol = len(board), len(board[0])
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    visited = set()
+
+    def dfs(row, col):
+        visited.add((row, col))
+
+        for (moveByRow, moveByCol) in directions:
+            r, c = row + moveByRow, col + moveByCol
+            if r in {-1, lengthRow} or c in {-1, lengthCol} or (r, c) in visited or board[r][c] == "X":
+                continue
+
+            if board[r][c] == "O":
+                dfs(r, c)
+
+    for i in range(lengthRow):
+        for j in range(lengthCol):
+            if (i in {0, lengthRow - 1} or j in {0, lengthCol - 1}) and board[i][j] == "O":
+                dfs(i, j)
+
+    for i in range(lengthRow):
+        for j in range(lengthCol):
+            if (i, j) not in visited:
+                board[i][j] = "X"
+
+
+grid = [
+    ["X", "X", "X", "X"],
+    ["X", "X", "O", "X"],
+    ["X", "X", "X", "X"],
+    ["O", "O", "X", "X"],
+    ["X", "O", "X", "X"]
+]
+
+print(solve(grid))
+```
  
 ## BFS (Adjacency matrix)
 ### [Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix)
