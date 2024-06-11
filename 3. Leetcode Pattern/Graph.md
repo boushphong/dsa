@@ -139,6 +139,47 @@ def isBipartite(graph):
 print(isBipartite([[1, 2, 3], [0, 2], [0, 1, 3], [0, 2]]))
 print(isBipartite([[1, 3], [0, 2], [1, 3], [0, 2]]))
 ```
+
+## DFS (Adjacency matrix)
+### [Number of Islands](https://leetcode.com/problems/number-of-islands/)
+```python
+def numIslands(grid):
+    lengthRow, lengthCol = len(grid), len(grid[0])
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    visited = set()
+    ans = 0
+
+    def dfs(row, col):
+        if grid[row][col] == "1":
+            visited.add((row, col))
+        else:
+            return
+
+        for (moveByRow, moveByCol) in directions:
+            r, c = row + moveByRow, col + moveByCol
+            if r in {-1, lengthRow} or c in {-1, lengthCol} or (r, c) in visited or grid[r][c] == 0:
+                continue
+
+            if grid[r][c] == "1":
+                dfs(r, c)
+
+    for i in range(lengthRow):
+        for j in range(lengthCol):
+            tmp_length = len(visited)
+            dfs(i, j)
+            ans += 1 if len(visited) > tmp_length else 0
+
+    return ans
+
+grid = [
+    ["1", "1", "0", "0", "0"],
+    ["1", "1", "0", "0", "0"],
+    ["0", "0", "1", "0", "0"],
+    ["0", "0", "0", "1", "1"]
+]
+
+print(numIslands(grid))
+```
  
 ## BFS (Adjacency matrix)
 ### [Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix)
