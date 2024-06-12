@@ -1,4 +1,4 @@
-<img width="1369" alt="image" src="https://github.com/boushphong/dsa/assets/59940078/b67dc10c-5e9a-46d4-893a-c3c974570dec"># Dynamic Programming
+# Dynamic Programming
 ## What is Dynamic Programming?
 Dynamic Programming is a technique that breaks down a large problem into smaller subproblems, solving and storing the optimal results of these subproblems to reuse in finding the optimal solution for the initial problem.
 
@@ -95,3 +95,72 @@ def fib(n):
 ```
 - **TC**: `O(N)`
 - **SC**: `O(1)`
+
+## Top-Down DP vs Bottom-Up DP
+- Bottom-up DP usually performs better than Top-down DP because:
+  - It uses an array to cache memoization table or hash table (if Top-down DP also uses array, then this point is negated).
+  - It avoids the memory overhead of the recursion stack (recursion depth * stack frame size) and prevents `RecursionError: maximum recursion depth exceeded` (which can be fixed by increasing the recursion limit, Python default is 1000).
+  - Using Bottom-up DP can help optimize space complexity.
+- Top-down DP is only faster in scenarios where only a part of the subproblems need to be solved, and there is no need to solve all subproblems as in Bottom-up DP. For example, see: [https://www.spoj.com/problems/COINS/](https://www.spoj.com/problems/COINS/), where n <= 10^9.
+- Top-down solutions are easier to set up initially and focus on building sub-problems as needed, without being limited by array indices (as they can dynamically handle numbers >= the size of the array).
+
+# Patterns
+## Top-Down DP
+### [Decode Ways](https://leetcode.com/problems/decode-ways)
+```python
+def numDecodings(s):
+    n = len(s)
+    memo = {n: 1}
+
+    def dp(i):
+        if i in memo:
+            return memo[i]
+
+        ans = 0
+        if s[i] != '0':
+            ans += dp(i + 1)
+        else:
+            return ans
+
+        if i + 1 < n and 10 <= int(s[i:i + 2]) <= 26:
+            ans += dp(i + 2)
+
+        memo[i] = ans
+        return ans
+
+    res = dp(0)
+    return res
+
+
+print(numDecodings("10211"))
+print(numDecodings("1121"))
+```
+
+```python
+Example: 10211
+
+i = 0 (1)                                       (Step 8)
+    i = 1 (0) > invalid > return 0              (Step 1)
+
+    i = 2 (2) > 3 > cache 2: 3                  (Step 7)
+        i = 3 (1) > 2 cache 3: 2                (Step 5)
+            i = 4 (1) > 1 cache 4: 1            (Step 3)
+                i = 5 > (None) > return 1       (Step 2)
+            i = 5 > (None) > return 1           (Step 4)
+        i = 4 (1) > 1 > get from memo           (Step 6)
+
+i = 0 (1) = 0 + 3 = 3
+
+Example: 1121
+
+i = 0 (1)                                       (Step 8)
+    i = 1 (1) > 3 > cache 1: 3                  (Step 6)
+        i = 2 (2) > 2 > cache 2: 2              (Step 4)
+            i = 3 (1) > 1 > cache 3: 1          (Step 2)
+                i = 4 > (None) > return 1       (Step 1)
+            i = 4 > (None) > 1 > get from memo  (Step 3)
+        i = 3 (1) > 1 > get from memo           (Step 5)
+    i = 2 (2) > 2 > get from memo               (Step 7)
+
+i = 0 (1) = 3 + 2 = 5
+```
