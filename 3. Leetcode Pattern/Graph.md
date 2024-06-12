@@ -1,4 +1,15 @@
 # Graph
+# Tables of Contents
+* [Graph](#graph)
+   * [Graph Operations](#graph-operations)
+   * [DFS](#dfs)
+   * [BFS](#bfs)
+* [Patterns](#patterns)
+   * [DFS (Adjacency list)](#dfs-adjacency-list)
+   * [BFS (Adjacency list)](#bfs-adjacency-list)
+   * [DFS (Adjacency matrix)](#dfs-adjacency-matrix)
+   * [BFS (Adjacency matrix)](#bfs-adjacency-matrix)
+
 ## Graph Operations
 | Node / Edge Management | Storage    | Add Vertex | Add Edge | Remove Vertex | Remove Edge | Query  |
 |------------------------|------------|------------|----------|---------------|-------------|--------|

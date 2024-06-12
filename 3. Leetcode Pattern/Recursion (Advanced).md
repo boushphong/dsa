@@ -4,7 +4,6 @@
    * [Extending Result Varible versus. Carrying Result Argument](#extending-result-varible-versus-carrying-result-argument)
       * [Extending Result Varible](#extending-result-varible)
       * [Carrying Result Argument](#carrying-result-argument)
-         * [<a href="https://leetcode.com/problems/time-needed-to-inform-all-employees" rel="nofollow">Time Needed to Inform All Employees</a>](https://leetcode.com/problems/time-needed-to-inform-all-employees)
    * [Subset](#subset)
       * [Subset String](#subset-string)
       * [Subset String (Iterative Solution)](#subset-string-iterative-solution)
@@ -12,7 +11,6 @@
    * [Permutation](#permutation)
       * [Permutation String](#permutation-string)
       * [Permutation String (Counting Number of Permutations)](#permutation-string-counting-number-of-permutations)
-      * [<a href="https://leetcode.com/problems/letter-combinations-of-a-phone-number/submissions/" rel="nofollow">Letter Combinations of a Phone Number</a>](https://leetcode.com/problems/letter-combinations-of-a-phone-number/submissions/)
 
 ## Extending Result Varible versus. Carrying Result Argument
 ### Extending Result Varible
