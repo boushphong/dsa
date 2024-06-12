@@ -111,8 +111,10 @@ def fib(n):
 - Top-down solutions are easier to set up initially and focus on building sub-problems as needed, without being limited by array indices (as they can dynamically handle numbers >= the size of the array).
 
 # Patterns
-## Top-Down DP
+## Top-Down DP and Bottom-Up DP
 ### [Decode Ways](https://leetcode.com/problems/decode-ways)
+**Top-Down**
+
 ```python
 def numDecodings(s):
     n = len(s)
@@ -169,4 +171,53 @@ i = 0 (1)                                       (Step 8)
     i = 2 (2) > 2 > get from memo               (Step 7)
 
 i = 0 (1) = 3 + 2 = 5
+```
+
+**Bottom-Up**
+```python
+def numDecodings(s):
+    n = len(s)
+    dp = [0] * (n + 1)
+    dp[n] = 1
+    for i in range(n - 1, -1, -1):
+        if s[i] != '0':
+            dp[i] += dp[i+1]
+
+        if i + 1 < n and 10 <= int(s[i:i+2]) <= 26:
+            dp[i] += dp[i+2]
+
+    return dp[0]
+```
+
+```python
+def numDecodings(s):
+    n = len(s)
+    dp = [0, 1, 0]
+    for i in range(n - 1, -1, -1):
+        if s[i] != '0':
+            dp[0] += dp[1]
+
+        if i + 1 < n and 10 <= int(s[i:i+2]) <= 26:
+            dp[0] += dp[2]
+
+        dp[2] = dp[1]
+        dp[1] = dp[0]
+        dp[0] = 0
+    return dp[1]
+
+
+print(numDecodings("1121"))
+"""
+3 [0, 1, 1]
+2 [0, 2, 1]
+1 [0, 3, 2]
+0 [0, 5, 3]
+
+Possible combinations
+1 1 2 1
+1 12 1
+1 1 21
+11 2 1
+11 21
+"""
 ```
