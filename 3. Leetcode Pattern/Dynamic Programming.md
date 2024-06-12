@@ -39,8 +39,10 @@ fib(5)
     - At level 1, we perform 2^1 = 2 operations at `fib(4)` and `fib(3)`
     - There are a total of `N-1` levels (1 + 2 + 4 + 8 ...) hence TC is `O(2^N)`
 - **SC**: `O(N)`
+# Top-Down approach
+- Idea is to build `memo` as we get result from every recursion call. Hence later recursive calls can re-use the result from the `memo` that we have built.
 
-## Fibonacci Dynamic Programming (Top-Down approach) Memoization
+## Fibonacci Dynamic Programming (Memoization)
 ```python
 memo = {}
 
@@ -67,7 +69,11 @@ fib(5)
 - **TC**: `O(2*N)` > `O(N)`
 - **SC**: `O(2*N)` > `O(N)`
 
-## Fibonacci Dynamic Programming (Bottom-Up approach) Tabulation
+# Bottom-Up approach
+- Idea is to fills up the `DP table` iteratively. It starts from the smallest subproblems (which are the base cases) and uses these to solve slightly larger subproblems.
+- Each entry in the `DP table/array` is filled based on the previously computed values, ensuring that all the necessary information to solve a subproblem is already computed and stored.
+
+## Fibonacci Dynamic Programming (Tabulation)
 ```python
 def fib(n):
     dp = [0] * (n+1)
