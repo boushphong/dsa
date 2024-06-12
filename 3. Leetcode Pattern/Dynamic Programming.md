@@ -79,3 +79,19 @@ def fib(n):
 ```
 - **TC**: `O(N)`
 - **SC**: `O(N)`
+
+```python
+def fib(n):
+    prev_dp, next_dp, dp = 0, 1, 0
+    if n <= 1:
+        return n
+
+    for i in range(2, n + 1):
+        dp = prev_dp + next_dp
+        prev_dp = next_dp
+        next_dp = dp
+
+    return next_dp
+```
+- **TC**: `O(N)`
+- **SC**: `O(1)`
