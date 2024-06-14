@@ -221,3 +221,28 @@ Possible combinations
 11 21
 """
 ```
+
+### [Coin Change](https://leetcode.com/problems/coin-change)
+```python
+def coinChange(coins, amount):
+    dp = [float("inf")] * (amount + 1)
+    minimum = min(coins)
+    if amount < minimum:
+        return -1 if amount else 0
+
+    for i in range(0, amount + 1):
+        for c in coins:
+            if c == i:
+                dp[i] = 1
+                break
+
+            if i - c >= 0 and i - c >= minimum:
+                dp[i] = min(dp[i], dp[c] + dp[i - c])
+
+    return dp[amount] if dp[amount] != float("inf") else -1
+
+
+print(coinChange([2, 3, 5], 13))
+print(coinChange([1], 1))
+print(coinChange([1], 0))
+```
