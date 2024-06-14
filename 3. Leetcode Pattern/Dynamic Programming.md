@@ -246,3 +246,23 @@ print(coinChange([2, 3, 5], 13))
 print(coinChange([1], 1))
 print(coinChange([1], 0))
 ```
+
+### [Word Break](https://leetcode.com/problems/word-break/)
+```python
+def wordBreak(s, wordDict):
+    n = len(s)
+    dp = [False] * (n + 1)
+    dp[n] = True
+    for i in range(n, -1, -1):
+        for word in wordDict:
+            if i - len(word) < 0:
+                continue
+            
+            if not dp[i - len(word)] and word == s[i - len(word): i]:
+                dp[i - len(word)] = True and dp[i]
+
+    return dp[0]
+
+print(wordBreak("neetcodese", ["sez", "code", "neet"]))
+print(wordBreak("neetcodese", ["se", "code", "neet"]))
+```
