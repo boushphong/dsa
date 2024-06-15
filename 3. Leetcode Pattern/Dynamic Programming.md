@@ -284,3 +284,42 @@ def wordBreak(s, wordDict):
 
     return dp[-1]
 ```
+
+## Matrix Pattern
+### [Unique Paths](https://leetcode.com/problems/unique-paths)
+```python
+def uniquePaths(m, n):
+    dp = [1] * n
+
+    for i in range(m - 1):
+        tmp = 0
+        for num in range(n - 1, -1, -1):
+            dp[num] += tmp
+            tmp = dp[num]
+
+    return dp[0]
+```
+
+### [Unique Paths II](https://leetcode.com/problems/unique-paths-ii)
+```python
+def uniquePathsWithObstacles(obstacleGrid):
+    elements_each_row = len(obstacleGrid[0])
+    dp = obstacleGrid[-1].copy()
+
+    tmp = 1
+    for i in range(elements_each_row - 1, -1, -1):
+        if dp[i] == 1:
+            tmp = 0
+        dp[i] = tmp
+
+    for i in range(len(obstacleGrid) - 2, -1, -1):
+        tmp = 0
+        for j in range(elements_each_row - 1, -1, -1):
+            if obstacleGrid[i][j]:
+                dp[j] = 0
+                tmp = 0
+            dp[j] = dp[j] + tmp
+            tmp = dp[j]
+
+    return dp[0]
+```
