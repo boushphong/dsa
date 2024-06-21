@@ -323,3 +323,18 @@ def uniquePathsWithObstacles(obstacleGrid):
 
     return dp[0]
 ```
+
+### [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
+```python
+def lengthOfLIS(self, nums: List[int]) -> int:
+    dp = [1] * len(nums)
+    
+    for i, num in enumerate(nums):
+        maximum_LIS = dp[i]
+        for j in range(i - 1, -1, -1):
+            if num > nums[j]:
+                maximum_LIS = max(maximum_LIS, dp[j] + dp[i])
+        dp[i] = maximum_LIS
+    
+    return max(dp)
+```
