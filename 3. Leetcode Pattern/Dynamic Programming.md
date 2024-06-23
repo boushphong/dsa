@@ -313,6 +313,21 @@ def uniquePaths(m, n):
             tmp = dp[num]
 
     return dp[0]
+
+
+print(uniquePaths(3, 7))
+```
+
+
+Explanation
+```python
+m = 3
+n = 7
+"""
+28 21 15 10 6  3  1  
+7  6  5  4  3  2  1
+1  1  1  1  1  1  1
+"""
 ```
 
 ### [Unique Paths II](https://leetcode.com/problems/unique-paths-ii)
@@ -337,6 +352,19 @@ def uniquePathsWithObstacles(obstacleGrid):
             tmp = dp[j]
 
     return dp[0]
+```
+
+Explanation
+```python
+print(uniquePathsWithObstacles([[0, 0, 0, 0],
+                                [0, 1, 0, 0],
+                                [0, 0, 1, 0]]))
+
+"""
+2 2 2 1
+0 0 1 1    
+0 0 0 1
+"""
 ```
 
 ### [Largest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence)
