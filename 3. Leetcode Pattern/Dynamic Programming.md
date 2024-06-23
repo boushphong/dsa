@@ -355,5 +355,26 @@ def longestCommonSubsequence(text1, text2):
         dp = tmp
 
     return dp[-1]
+
+print(longestCommonSubsequence("abcdegace", "bace"))
 ```
 
+Explanation
+```python
+      b  a  c  e
+  [0, 0, 0, 0, 0]
+a [0, 0, 1, 1, 1]
+b [0, 1, 1, 1, 1]
+c [0, 1, 1, 2, 2]
+d [0, 1, 1, 2, 2]
+e [0, 1, 1, 2, 3]
+g [0, 1, 1, 2, 3]
+a [0, 1, 2, 2, 3] # Get element of index 1 (num = 1) in the previous array (left-up diagonal)
+c [0, 1, 2, 3, 3]
+e [0, 1, 2, 3, 4]
+
+"""
+Get element of index 1 (num = 1) in the previous array (left-up diagonal). When we encounter 'a' again, we check the previous letter 'b' in text2 to get it's longest common subsequence.
+We get the left-up diagonal element because we would like to check wether the longest common subsequence of the previous letter 
+"""
+```
