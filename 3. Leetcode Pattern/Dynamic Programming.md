@@ -287,7 +287,7 @@ def wordBreak(s, wordDict):
 
 ### [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
 ```python
-def lengthOfLIS(self, nums: List[int]) -> int:
+def lengthOfLIS(nums):
     dp = [1] * len(nums)
     
     for i, num in enumerate(nums):
@@ -337,5 +337,23 @@ def uniquePathsWithObstacles(obstacleGrid):
             tmp = dp[j]
 
     return dp[0]
+```
+
+### [Largest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence)
+```python
+def longestCommonSubsequence(text1, text2):
+    m, n = len(text1), len(text2)
+    dp = [0] * (n + 1)
+
+    for i in range(1, m + 1):
+        tmp = [0] * (n + 1)
+        for j in range(1, n + 1):
+            if text1[i - 1] == text2[j - 1]:
+                tmp[j] = 1 + dp[j - 1]
+            else:
+                tmp[j] = max(dp[j], tmp[j - 1])
+        dp = tmp
+
+    return dp[-1]
 ```
 
