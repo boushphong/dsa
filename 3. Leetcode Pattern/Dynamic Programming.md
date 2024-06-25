@@ -406,3 +406,42 @@ Get element of index 1 (num = 1) in the previous array (left-up diagonal). When 
 We get the left-up diagonal element because we would like to check wether the longest common subsequence of the previous letter 
 """
 ```
+
+
+### [Edit Distance](https://leetcode.com/problems/edit-distance)
+```python
+def minDistance(word1, word2):
+    """
+        r   o   s   '
+    h   3   3   4   5
+    o   3   2   3   4
+    r   2   2   2   3
+    s   3   2   1   2
+    e   3   2   1   1
+    '   3   2   1   0
+    """
+    dp = list(range(len(word2), -1, -1))
+
+    tmp = 0
+    for i in range(len(word1) - 1, -1, -1):
+        tmp_dp = [0] * (len(word2) + 1)
+        tmp += 1
+        tmp_dp[-1] = tmp
+
+        for j in range(len(word2) - 1, -1, -1):
+            right = tmp_dp[j + 1]
+            down = dp[j]
+            diag = dp[j + 1]
+            if word1[i] == word2[j]:
+                tmp_dp[j] = diag
+            else:
+                tmp_dp[j] = min(right, down, diag) + 1
+
+        dp = tmp_dp
+
+    return dp[0]
+
+
+print(minDistance("horse", "ros"))
+```
+
