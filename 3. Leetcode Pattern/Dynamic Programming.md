@@ -445,3 +445,32 @@ def minDistance(word1, word2):
 print(minDistance("horse", "ros"))
 ```
 
+### [0/1 Knapsack](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1)
+```python
+def knapsack01(values, weights, m):
+    """
+    m = 8
+    values = [2, 1, 4, 6]
+    weights = [1, 2, 3, 5]
+    v   w   0   1   2   3   4   5   6   7   8
+    0   0   0   0   0   0   0   0   0   0   0
+    2   1   0   2   2   2   2   2   2   2   2
+    1   2   0   2   2   3   3   3   3   3   3
+    4   3   0   2   2   4   6   6   7   7   7
+    6   5   0   2   2   4   6   6   8   8  10
+    """
+    dp = [0] * (m + 1)
+
+    for value, weight in zip(values, weights):
+        tmp_dp = [0] * (m + 1)
+        for i in range(1, len(tmp_dp)):
+            if i >= weight and dp[i - weight] >= 0:
+                tmp_dp[i] = max(dp[i], dp[i - weight] + value)
+            else:
+                tmp_dp[i] = dp[i]
+        dp = tmp_dp
+    return dp[-1]
+
+
+print(knapsack01([2, 1, 4, 6], [1, 2, 3, 5], 8))
+```
