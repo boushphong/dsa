@@ -464,7 +464,7 @@ def knapsack01(values, weights, m):
     for value, weight in zip(values, weights):
         tmp_dp = [0] * (m + 1)
         for i in range(1, len(tmp_dp)):
-            if i >= weight and dp[i - weight] >= 0:
+            if i >= weight:
                 tmp_dp[i] = max(dp[i], dp[i - weight] + value)
             else:
                 tmp_dp[i] = dp[i]
