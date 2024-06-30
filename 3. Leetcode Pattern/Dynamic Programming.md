@@ -499,4 +499,5 @@ def knapsack(values, weights, m):
 
 
 print(knapsack([1, 5, 7, 14], [1, 2, 3, 5], 9))
+# print(knapsack01([7, 1, 14, 5], [3, 1, 5, 2], 9))
 ```
