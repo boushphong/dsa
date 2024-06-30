@@ -236,7 +236,7 @@ def coinChange(coins, amount):
                 dp[i] = 1
                 break
 
-            if i - c >= 0 and i - c >= minimum:
+            if i - c >= minimum:
                 dp[i] = min(dp[i], dp[c] + dp[i - c])
 
     return dp[amount] if dp[amount] != float("inf") else -1
