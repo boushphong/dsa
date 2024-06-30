@@ -474,3 +474,29 @@ def knapsack01(values, weights, m):
 
 print(knapsack01([2, 1, 4, 6], [1, 2, 3, 5], 8))
 ```
+
+### [Unbounded Knapsack](https://www.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1)
+```python
+def knapsack(values, weights, m):
+    """
+    m = 9
+    values = [1, 5, 7, 14]
+    weights = [1, 2, 3, 5]
+    v   w   0   1   2   3   4   5   6   7   8   9
+    -   -   0   0   0   0   0   0   0   0   0   0
+    1   1   0   1   2   3   4   5   6   7   8   9
+    5   2   0   1   5   6  10  11  15  16  20  21
+    7   3   0   1   5   7  10  12  15  16  20  21
+    14  5   0   1   5   7  10  14  15  19  21  24
+    """
+    dp = [0] * (m + 1)
+
+    for i in range(len(values)):
+        for w in range(weights[i], m + 1):
+            dp[w] = max(dp[w], dp[w - weights[i]] + values[i])
+
+    return dp[-1]
+
+
+print(knapsack([1, 5, 7, 14], [1, 2, 3, 5], 9))
+```
