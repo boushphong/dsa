@@ -411,15 +411,6 @@ We get the left-up diagonal element because we would like to check wether the lo
 ### [Edit Distance](https://leetcode.com/problems/edit-distance)
 ```python
 def minDistance(word1, word2):
-    """
-        r   o   s   '
-    h   3   3   4   5
-    o   3   2   3   4
-    r   2   2   2   3
-    s   3   2   1   2
-    e   3   2   1   1
-    '   3   2   1   0
-    """
     dp = list(range(len(word2), -1, -1))
 
     tmp = 0
@@ -443,6 +434,40 @@ def minDistance(word1, word2):
 
 
 print(minDistance("horse", "ros"))
+```
+
+Explanation
+```python
+    r   o   s   '
+h   3   3   4   5    < string horse takes 5 operation to make it become '' (remove 5 times)
+o   3   2   3   4
+r   2   2   2   3
+s   3   2   1   2    ...
+e   3   2   1   1    < string e takes 1 operation to make it become '' (remove)
+'   3   2   1   0    < 2 empty string takes 0 operation to make them equal. 
+            ^
+            empty string takes 1 operation to become 's' insert
+
+"""
+- Down means deletion (i + 1, j)
+- Diag means replacement (i + 1, j + 1)
+- Right means insertion (i, j + 1)
+
+First Row:
+- We start from the bottom at string 'e' and 's'. They are not equal, hence it took 1 replacement (by going diagonally and +1 operation)
+- Then we look at string 'e' and 'os'. We know that the previous step took 1 replacement, hence we can either
+    - Go down (2 + 1) = 3 operations. delete 'e' then add 'o' and 's'.
+    - Go right (1 + 1) = 2 operations. right of the previous step (already calculated) is replacement. hence replace 'e' to 's' then insert 'o' anywhere. (Reuse 1)
+    - Go diag (1 + 1) = 2 operations. replace 'e' to 'o' then insert 's'. (Reuse 2)
+...
+
+Second Row:
+- We start from the bottom at string 'se' and 's'. Matching 's', we take the diag operations = 1 operations. delete 'e'
+- Then we look at string 'se' and 'os'.
+    - go down (2 + 1) = 3 operations. delete 's', which becomes 'e' and 'os'. Reuse the step above (go right or go diag, Reuse 1 or 2)
+    ...
+
+"""
 ```
 
 ### [0/1 Knapsack](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1)
