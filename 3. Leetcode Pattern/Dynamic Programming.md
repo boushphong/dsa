@@ -438,13 +438,13 @@ print(minDistance("horse", "ros"))
 
 Explanation
 ```python
-    r   o   s   '
+    r   o   s  ''
 h   3   3   4   5    < string horse takes 5 operation to make it become '' (remove 5 times)
 o   3   2   3   4
 r   2   2   2   3
 s   3   2   1   2    ...
 e   3   2   1   1    < string e takes 1 operation to make it become '' (remove)
-'   3   2   1   0    < 2 empty string takes 0 operation to make them equal. 
+''  3   2   1   0    < 2 empty string takes 0 operation to make them equal. 
             ^
             empty string takes 1 operation to become 's' insert
 
