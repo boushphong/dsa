@@ -288,6 +288,16 @@ def wordBreak(s, wordDict):
 ### [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
 ```python
 def lengthOfLIS(nums):
+    """
+    0: [1, 1, 1, 1, 1, 1, 1, 1]
+    1: [1, 1, 1, 1, 1, 1, 1, 1]
+    2: [1, 1, 1, 1, 1, 1, 1, 1]
+    3: [1, 1, 1, 2, 1, 1, 1, 1]
+    4: [1, 1, 1, 2, 2, 1, 1, 1]
+    5: [1, 1, 1, 2, 2, 3, 1, 1]
+    6: [1, 1, 1, 2, 2, 3, 4, 1]
+    7: [1, 1, 1, 2, 2, 3, 4, 4]
+    """
     dp = [1] * len(nums)
     
     for i, num in enumerate(nums):
@@ -298,6 +308,9 @@ def lengthOfLIS(nums):
         dp[i] = maximum_LIS
     
     return max(dp)
+
+
+print(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]))
 ```
 
 ## Matrix Pattern
