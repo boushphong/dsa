@@ -473,17 +473,6 @@ Second Row:
 ### [0/1 Knapsack](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1)
 ```python
 def knapsack01(values, weights, m):
-    """
-    m = 8
-    values = [2, 1, 4, 6]
-    weights = [1, 2, 3, 5]
-    v   w   0   1   2   3   4   5   6   7   8
-    -   -   0   0   0   0   0   0   0   0   0
-    2   1   0   2   2   2   2   2   2   2   2
-    1   2   0   2   2   3   3   3   3   3   3
-    4   3   0   2   2   4   6   6   7   7   7
-    6   5   0   2   2   4   6   6   8   8  10
-    """
     dp = [0] * (m + 1)
 
     for value, weight in zip(values, weights):
@@ -498,6 +487,30 @@ def knapsack01(values, weights, m):
 
 
 print(knapsack01([2, 1, 4, 6], [1, 2, 3, 5], 8))
+```
+
+Explanation
+```python
+m = 8
+values = [2, 1, 4, 6]
+weights = [1, 2, 3, 5]
+v   w   0   1   2   3   4   5   6   7   8
+-   -   0   0   0   0   0   0   0   0   0
+2   1   0   2   2   2   2   2   2   2   2
+1   2   0   2   2   3   3   3   3   3   3
+4   3   0   2   2   4   6   6   7   7   7
+6   5   0   2   2   4   6   6   8   8  10
+
+"""
+At every iteration of a pair of (value and weight), we consider if there is a posible answer by looking the best answer of the previous pair.
+- At the first iteration, we look at a pair of (value = 0, weight = 0)
+    - At weight i = 1, we get the best answer from previous dp (dp[1] = 0).
+    - Compare it with the possible best answer dp[i - weight] + value = dp[1 - 1] + 2 = 2
+    - Hence, we get 2.
+- We do this to determine the best possible value at weight = 1.
+    - At first item iteration (value = 2, weight = 1) and at i = 1. If we want to know the best possible value by including this item, we need to know the best possible value of at weight (1 - 1 = 0). At weight 0, the best possible value is 0.
+...
+"""
 ```
 
 ### [Unbounded Knapsack](https://www.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1)
