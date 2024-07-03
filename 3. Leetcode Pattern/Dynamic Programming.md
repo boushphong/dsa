@@ -313,6 +313,111 @@ def lengthOfLIS(nums):
 print(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]))
 ```
 
+### [Count Number of Teams](https://leetcode.com/problems/count-number-of-teams)
+**Top-Down**
+```python
+def numTeams(rating):
+    """
+    2   5   3   4   1   6
+    2
+        5
+            3 SKIP
+            4 SKIP
+            1 SKIP
+            6 take (CACHE) 1
+        3 CACHE(2)
+            4 take (CACHE) 1
+            1 SKIP
+            6 take (CACHE) 1
+        4 GET FROM CACHE
+        1 SKIP
+    5
+        3 SKIP
+        4 SKIP
+        1 SKIP
+    3
+        4 GET FROM CACHE 1
+        1 SKIP
+    4
+        1 SKIP
+    """
+    stack = []
+    memo = {}
+    ans = []
+
+    def doRecursion(start):
+        if len(stack) == 3:
+            ans.append(stack.copy())
+            return 1
+
+        if (start, len(stack)) in memo:
+            return memo[(start, len(stack))]
+
+        total = 0
+        for i in range(start, len(rating)):
+            cur_num = rating[i]
+
+            if stack and cur_num < stack[-1]:
+                continue
+
+            stack.append(cur_num)
+            total += doRecursion(i + 1)
+            stack.pop()
+
+        memo[(start, len(stack))] = total
+        return total
+
+    final_1 = doRecursion(0)
+    stack.clear()
+    memo.clear()
+    rating = list(reversed(rating))
+    final_2 = doRecursion(0)
+    return final_1 + final_2
+
+
+print(numTeams([2, 5, 3, 4, 1, 6]))
+```
+
+**Bottom-Up**
+```python
+def numTeams(rating):
+    """
+    Reuse the idea of Longest Increasing Subsequence
+    """
+    n = len(rating)
+    if n < 3:
+        return 0
+
+    increasing = [0] * n
+    decreasing = [0] * n
+
+    # Count increasing sequences
+    for j in range(1, n):
+        for i in range(j):
+            if rating[i] < rating[j]:
+                increasing[j] += 1
+
+    # Count decreasing sequences
+    for j in range(1, n):
+        for i in range(j):
+            if rating[i] > rating[j]:
+                decreasing[j] += 1
+
+    # Calculate the total number of teams
+    total_teams = 0
+    for j in range(n):
+        for k in range(j + 1, n):
+            if rating[j] < rating[k]:
+                total_teams += increasing[j]
+            if rating[j] > rating[k]:
+                total_teams += decreasing[j]
+
+    return total_teams
+
+
+print(numTeams([2, 5, 3, 4, 1, 6]))
+```
+
 ## Matrix Pattern
 ### [Unique Paths](https://leetcode.com/problems/unique-paths)
 ```python
