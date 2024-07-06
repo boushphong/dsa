@@ -123,29 +123,31 @@ uf.union(6, 7)  # [0, 0, 2, 2, 4, 4, 6, 6]
 uf.union(0, 4)  # [0, 0, 2, 2, 0, 4, 6, 6]
 """
 0
-    1
-    4
-        5
-
+├── 1
+└── 4
+    └── 5
 2
-    3
-    
+└── 3
 6
-    7
+└── 7
 """
+
 uf.union(2, 6)  # [0, 0, 2, 2, 0, 4, 2, 6]
 """
 0
-    1
-    4
-        5
-
+├── 1
+└── 4
+    └── 5
 2
-    3
-    6
-        7
+├── 3
+└── 6
+    └── 7
 """
-print(uf.find(7))
-print(uf)
+
+uf.find(7)
+# This will take O(LogN) = O(Log8) = 3 operations (iterate from element 7 to 6 to 3)
+
+uf.union(5, 7)
+# Same Idea
 ```
 
