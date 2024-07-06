@@ -91,20 +91,61 @@ print(uf.find(5))   # Output: 5
 # uf = [0, 1, 1, 1, 1, 5, 6, 7, 8, 9]
 ```
 
-| Operation | Naive | Path Compression Only |
-|-----------|-------|-----------------------|
-| `find`    | O(n)  | O(log*n)              |
-| `union`   | O(n)  | O(log*n)              |
+```python
+Let the subset {0, 1, .. 9} be represented as below and find() is called for element 3.
+             9
+         /   |   \  
+        4    5    6
+       /         /  \
+      0         7    8
+     /        
+    3
+   / \         
+  1   2
+When find() is called for 3, we traverse up and find 9 as representative
+of this subset. With path compression, we also make 3 and 0 as the child of 9 so 
+that when find() is called next time for 0, 1, 2 or 3, the path to root is reduced.
 
-### Explanation:
+        --------9-------
+      /   /    /  \      \
+     0   4    5    6       3 
+                  /  \    /  \
+                 7    8   1   2
+```
 
-**Path Compression**:
-   - **Find**: With path compression, every time we perform a `find` operation, we make nodes point directly to the root, effectively flattening the tree. This results in a time complexity of O(log*n), where log* is the iterated logarithm function, which grows very slowly and is considered almost constant in practical applications.
-   - **Union**: Even though we don't apply union by rank/size, the `union` operation involves finding the roots of the elements being united, which benefits from the efficient `find` operation. Therefore, the overall complexity of `union` is also O(log*n).
+**Worst Case**
+```python
+uf = UnionFind(8)
+uf.union(0, 1)
+uf.union(2, 3)
+uf.union(4, 5)
+uf.union(6, 7)  # [0, 0, 2, 2, 4, 4, 6, 6]
+uf.union(0, 4)  # [0, 0, 2, 2, 0, 4, 6, 6]
+"""
+0
+    1
+    4
+        5
 
-### Practical Considerations:
-- **Path Compression**: Greatly improves the efficiency of `find` operations and indirectly helps keep the `union` operations efficient by keeping the tree relatively flat.
-- **Iterated Logarithm (log*)**: The iterated logarithm grows extremely slowly, meaning that O(log*n) is nearly constant for all practical input sizes.
+2
+    3
+    
+6
+    7
+"""
+uf.union(2, 6)  # [0, 0, 2, 2, 0, 4, 2, 6]
+"""
+0
+    1
+    4
+        5
 
-### Conclusion:
-Applying path compression alone significantly enhances the performance of the Union-Find data structure, making both `find` and `union` operations nearly constant time. This optimization is simple to implement and yields substantial performance benefits.
+2
+    3
+    6
+        7
+"""
+print(uf.find(7))
+print(uf)
+```
+
