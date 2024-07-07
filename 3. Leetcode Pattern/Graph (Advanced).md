@@ -237,3 +237,7 @@ uf.union(2, 0)  # [0, 0, 0, 2, 0, 4, 6, 6]
 |-----------|--------------------|-------------|
 | `find`    | O(α(n))            | The amortized time complexity is nearly constant due to path compression, making future `find` operations more efficient. |
 | `union`   | O(α(n))            | The amortized time complexity is nearly constant due to union by rank and path compression, ensuring the tree remains shallow. |
+
+- **Amortized Complexity:** It is the average time taken per operation, over a sequence of operations. It accounts for the fact that while some operations may be expensive (take a long time), they make subsequent operations cheaper. Thus, when we average out the time taken over a large number of operations, the cost per operation appears lower.
+
+- **Sequence of Operations:** This typically involves considering the performance of the algorithm over multiple operations (e.g., multiple find and union operations in the Union-Find algorithm).
