@@ -42,11 +42,10 @@ print(uf.find(4))   # Output: 1
 print(uf.find(5))   # Output: 5
 ```
 
-
 | Operation | Time Complexity | Description |
 |-----------|-----------------|-------------|
-| `find`    | O(n)            | In the worst case, we may need to traverse up to `n` elements to find the root. This happens when the tree is highly unbalanced. |
-| `union`   | O(n)            | In the worst case, each `union` operation requires finding the roots of both elements, each of which can take up to `O(n)` time. |
+| `find`    | O(n)            | In the worst case (of a single `find` operation), we may need to traverse up to `n` elements to find the root. This happens when the tree is degenerated (highly unbalanced). |
+| `union`   | O(n)            | In the worst case (of a single `union` operation), each `union` operation requires finding the roots of both elements, each of which can take up to `O(n)` time. |
 
 ### Explanation:
 1. **Find Operation**:
@@ -55,7 +54,8 @@ print(uf.find(5))   # Output: 5
 2. **Union Operation**:
    - The `union` operation first involves finding the roots of the sets containing the two elements to be united. Each `find` operation can take up to `O(n)` time in the worst case. After finding the roots, merging the sets is an `O(1)` operation. Thus, the overall complexity of `union` is dominated by the `find` operations, making it `O(n)`.
 
-## Path Compression
+## Optimizations
+### Path Compression
 ```python
 class UnionFind:
     def __init__(self, size):
@@ -151,3 +151,89 @@ uf.union(5, 7)
 # Same Idea
 ```
 
+| Operation | Time Complexity | Description |
+|-----------|-----------------|-------------|
+| `find`    | O(LogN)            | In the worst case (of a single `find` operation), we may need to traverse up to `LogN` elements to find the root. This happens when there are 2 trees, each with a depth of 3 |
+| `union`   | O(LogN)            | In the worst case (of a single `union` operation), each `union` operation requires finding the roots of both elements, each of which can take up to `O(LogN)` time. |
+
+### Union By Rank (with Path Compression)
+**Worst Case: Before Union By Rank Optimization**
+```python
+uf = UnionFind(8)
+uf.union(0, 1)
+uf.union(2, 3)
+uf.union(4, 5)
+uf.union(6, 7)  # [0, 0, 2, 2, 4, 4, 6, 6]
+uf.union(2, 0)  # [2, 0, 2, 2, 0, 4, 6, 6]
+
+"""
+2
+├── 0
+|   └── 4
+|       └── 5  (Maximum Depth is 4) (Unbalanced)
+└── 3
+    └── 5 
+6
+└── 7
+"""
+```
+
+
+
+**After Union-By-Rank Optimization**
+
+```python
+class UnionFind:
+    def __init__(self, size):
+        self.parent = list(range(size))
+        self.rank = [0] * size
+
+    def find(self, x):
+        ...
+
+    def union(self, x, y):
+        rootX = self.find(x)
+        rootY = self.find(y)
+
+        if rootX != rootY:
+            # Union by rank
+            if self.rank[rootX] > self.rank[rootY]:
+                self.parent[rootY] = rootX
+            elif self.rank[rootX] < self.rank[rootY]:
+                self.parent[rootX] = rootY
+            else:
+                self.parent[rootY] = rootX
+                self.rank[rootX] += 1
+
+
+# Example usage:
+uf = UnionFind(8)
+uf.union(0, 1)
+uf.union(2, 3)
+uf.union(4, 5)
+uf.union(6, 7)  # [0, 0, 2, 2, 4, 4, 6, 6]
+uf.union(2, 0)  # [0, 0, 0, 2, 0, 4, 6, 6]
+
+"""
+0
+├── 1
+├── 2
+|   └── 3 (Maximum Depth is 3) (Balanced)
+└── 4
+    └── 5 (Maximum Depth is 3) (Balanced)
+6
+└── 7
+"""
+```
+
+| Operation | Time Complexity | Description |
+|-----------|-----------------|-------------|
+| `find`    | O(LogN)            | In the worst case (of a single `find` operation), we may need to traverse up to `LogN` elements to find the root. This happens when there are 2 trees, each with a depth of 3 |
+| `union`   | O(LogN)            | In the worst case (of a single `union` operation), each `union` operation requires finding the roots of both elements, each of which can take up to `O(LogN)` time. |
+
+### Amortized Complexity Analysis of Both Optizations
+
+| Operation | Time Complexity    | Description |
+|-----------|--------------------|-------------|
+| `find`    | O(α(n))            | The amortized time complexity is nearly constant due to path compression, making future `find` operations more efficient. |
+| `union`   | O(α(n))            | The amortized time complexity is nearly constant due to union by rank and path compression, ensuring the tree remains shallow. |
