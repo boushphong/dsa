@@ -241,3 +241,7 @@ uf.union(2, 0)  # [0, 0, 0, 2, 0, 4, 6, 6]
 - **Amortized Complexity:** It is the average time taken per operation, over a sequence of operations. It accounts for the fact that while some operations may be expensive (take a long time), they make subsequent operations cheaper. Thus, when we average out the time taken over a large number of operations, the cost per operation appears lower.
 
 - **Sequence of Operations:** This typically involves considering the performance of the algorithm over multiple operations (e.g., multiple find and union operations in the Union-Find algorithm).
+
+### Applications of Union-Find
+- Check if an undirected graph has a cycle.
+- Find the minimum spanning tree (Kruskal's algorithm).
