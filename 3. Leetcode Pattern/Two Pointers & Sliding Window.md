@@ -42,4 +42,5 @@ def maxFrequency(nums, k):
     return r - l
 
 print(maxFrequency([1, 2, 4], 5))
+print(maxFrequency([1, 4, 8, 13], 5))
 ```
