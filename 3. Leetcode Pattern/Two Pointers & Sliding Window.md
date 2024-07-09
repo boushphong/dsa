@@ -35,10 +35,11 @@ def maxFrequency(nums, k):
     for r, num in enumerate(nums[1:], 2):
         possible_increment = num * (r - l) - (prefix_sum[r] - prefix_sum[l])
 
-        if possible_increment > k:  # if to overestimate the windows else while to shrink the windows
+        # if to overestimate the windows else while to shrink the windows
+        if possible_increment > k:  
             l += 1
-            possible_increment = num * (r - l) - (prefix_sum[r] - prefix_sum[l])
-
 
     return r - l
+
+print(maxFrequency([1, 2, 4], 5))
 ```
