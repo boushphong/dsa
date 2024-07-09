@@ -16,8 +16,6 @@ def characterReplacement(s, k):
             left += 1
 
         longest = max(longest, right - left + 1)
-        right += 1
-
     return longest
 
 
