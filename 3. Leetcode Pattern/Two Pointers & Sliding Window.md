@@ -1,5 +1,6 @@
 # Two pointers & Sliding window
-## Patterns
+# Patterns
+## Sliding Window (Over Estimation)
 ### [Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement)
 ```python
 def characterReplacement(s, k):
