@@ -31,7 +31,7 @@ def characterReplacement(s, k):
         mapper[rightChar] = mapper.get(rightChar, 0) + 1
         topFrequency = max(topFrequency, mapper[rightChar])
 
-        while (right - left + 1) - topFrequency > k:
+        if (right - left + 1) - topFrequency > k:
             leftChar = s[left]
             mapper[leftChar] -= 1
             left += 1
