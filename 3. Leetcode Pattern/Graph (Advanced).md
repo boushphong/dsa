@@ -106,6 +106,75 @@ print(earliestAcq([[0, 2, 0], [1, 0, 1], [3, 0, 3], [4, 1, 2], [7, 3, 1]], 4))  
 print(earliestAcq([[9, 3, 0], [0, 2, 1], [8, 0, 1], [1, 3, 2], [2, 2, 0], [3, 3, 1]], 4))  # 2
 ```
 
+### [Accounts Merge](https://leetcode.com/problems/accounts-merge)
+```python
+import collections
+
+
+class UnionFind:
+    def __init__(self, size):
+        self.parent = list(range(size))
+
+    def __repr__(self):
+        return str(self.parent)
+
+    def find(self, x):
+        stack = []
+        while self.parent[x] != x:
+            stack.append(x)
+            x = self.parent[x]
+
+        for idx in stack:
+            self.parent[idx] = x
+
+        return x
+
+    def union(self, x, y):
+        rootX = self.find(x)
+        rootY = self.find(y)
+
+        if rootX != rootY:
+            self.parent[rootY] = rootX
+
+
+def accountsMerge(accounts):
+    uf = UnionFind(len(accounts))
+    visited = {}
+
+    for i, account in enumerate(accounts):
+        emails = account[1:]
+        for email in emails:
+            if email not in visited:
+                visited[email] = i
+            else:
+                uf.union(visited.get(email), i)
+
+    tmp = collections.defaultdict(list)
+    for email, index in visited.items():
+        tmp[uf.find(index)].append(email)
+
+    ans = [[accounts[idx][0]] + sorted(emails) for idx, emails in tmp.items()]
+
+    return ans
+
+
+print(accountsMerge(
+    [["John", "johnsmith@mail.com", "john_newyork@mail.com"],
+     ["John", "johnsmith@mail.com", "john00@mail.com"],
+     ["Mary", "mary@mail.com"],
+     ["John", "johnnybravo@mail.com"]]))
+#
+print(accountsMerge([["David", "David0@m.co", "David1@m.co"],
+                     ["David", "David3@m.co", "David4@m.co"],
+                     ["David", "David4@m.co", "David5@m.co"],
+                     ["David", "David2@m.co", "David3@m.co"],
+                     ["David", "David1@m.co", "David2@m.co"],
+                     ["David", "hello@m.co"]]
+                    ))
+
+```
+
+## Union-Find (Graph)
 ### [Number of Islands II](https://leetcode.com/problems/number-of-islands-ii)
 ```python
 class UnionFind:
