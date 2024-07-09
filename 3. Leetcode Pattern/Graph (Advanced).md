@@ -26,7 +26,7 @@ class UnionFind:
             self.parent[rootY] = rootX
 
 
-def numSimilarGroups(self, strs: List[str]) -> int:
+def numSimilarGroups(strs):
     n = len(strs)
     uf = UnionFind(n)
 
@@ -202,7 +202,7 @@ class UnionFind:
         return self.count
 
 
-def numIslands2(m: int, n: int, positions):
+def numIslands2(m, n, positions):
     directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
     visited = set()
     uf = UnionFind(m * n)
