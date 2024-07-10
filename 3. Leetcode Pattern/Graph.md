@@ -116,6 +116,52 @@ print(allPathsSourceTarget([[1, 2], [3], [3], []]))
     - **O(|V|)** from visited set
     - **O(|V|)** from recursion stack trace.
     - Hence **O(3|V|)** > **O(|V|)**
+
+### [Course Schedule](https://leetcode.com/problems/course-schedule)
+```python
+from collections import defaultdict
+
+
+def canFinish(numCourses, prerequisites):
+    if not prerequisites:
+        return True
+
+    graph = defaultdict(list)
+    for a, b in prerequisites:
+        graph[a].append(b)
+
+    visited = [False] * numCourses
+    visitedSet = set()
+
+    def dfs(i):
+        if visited[i]:
+            return False
+
+        visited[i] = True
+
+        noCycle = True
+        for v in graph[i]:
+            if v not in graph or v in visitedSet:
+                continue
+            noCycle = dfs(v) and noCycle
+
+        visited[i] = False
+        visitedSet.add(i)
+
+        return noCycle
+
+    for a in graph:
+        val = dfs(a)
+        if not val:
+            return val
+
+    return False
+
+
+print(canFinish(20, [[0, 10], [3, 18], [5, 5], [6, 11], [11, 14], [13, 1], [15, 1], [17, 4]]))  # False
+print(canFinish(4, [[2, 0], [1, 0], [3, 1], [3, 2], [1, 3]]))  # False
+print(canFinish(4, [[1, 0], [1, 2], [2, 0]]))  # False
+```
  
 ## BFS (Adjacency list)
 ### [Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite)
