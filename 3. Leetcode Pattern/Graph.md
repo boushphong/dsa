@@ -155,7 +155,7 @@ def canFinish(numCourses, prerequisites):
         if not val:
             return val
 
-    return False
+    return True
 
 
 print(canFinish(20, [[0, 10], [3, 18], [5, 5], [6, 11], [11, 14], [13, 1], [15, 1], [17, 4]]))  # False
