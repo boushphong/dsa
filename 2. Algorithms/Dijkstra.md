@@ -34,7 +34,8 @@ Heap = [(0, 0)]
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
 | 0 | 2 | 4 | ∞ | ∞ | 
-```
+
+```python
 Heap = [(2, 1), (4, 2)]
 ```
 
@@ -44,47 +45,52 @@ Heap = [(2, 1), (4, 2)]
 |---|---|---|---|---|
 | 0 | 2 | 3 | ∞ | ∞ | 
 
-```Heap
+```python
 Heap = [(3, 2), (4, 2), (9, 3)]
 ```
 
 - Popping the next vertex from the heap, `Vertex 2` can go to `Vertex 4`. We found a new shorter distance connecting `Vertex 4`. Hence we update.
+- 
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
 | 0 | 2 | 3 | 9 | 6 | 
 
-```Heap
+```python
 Heap = [(4, 2), (9, 3), (6, 4)]
 ```
 
 - Popping the next vertex from the heap, `Vertex 2` can go to `Vertex 4`. We found a stale shorest path here at path `0 -> 2 = 4`, shortest path is `3` for path `0 -> 1 -> 2`
+
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
 | 0 | 2 | 3 | 9 | ∞ | 
 
-```Heap
+```python
 Heap = [(6, 4), (9, 3)]
 ```
 
 - Popping the next vertex from the heap, `Vertex 4` can go to `Vertex 5`. We found a new shorter distance connecting `Vertex 5`. Hence we update.
+
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
 | 0 | 2 | 3 | 9 | 11 | 
 
-```Heap
+```python
 Heap = [(9, 3), (11, 5)]
 ```
 
 - Popping the next vertex from the heap, `Vertex 3` can go to `Vertex 5`. We found a new shorter distance connecting `Vertex 5`. Hence we update.
+
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
 | 0 | 2 | 3 | 9 | 10 | 
 
-```Heap
+```python
 Heap = [(10, 5), (11, 5)]
 ```
 
 - The last 2 items in the heap belongs to `Vertex 5`, this vertex doesn't have any outdegrees. So eventually they will be popped from the heap one by one. And return the final answer array.
+
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
 | 0 | 2 | 3 | 9 | 10 | 
