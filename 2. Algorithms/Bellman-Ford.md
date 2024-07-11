@@ -189,7 +189,7 @@ graph TD;
     4 -->|-10| 3;
 ```
 
-If there is a negative cycle in the graph, the **Bellman-Ford** algorithm will exert all the iterations (No negative cycle will likely end the itertion early if no updates are detected). We such a negative cycle, we have an additional logic to detect negative cycle.
+If there is a negative cycle in the graph, the **Bellman-Ford** algorithm will exert all the iterations (No negative cycle will likely end the itertion early if no updates are detected). To deal with negative cycle, we have an additional logic to detect negative cycle.
 
 ```python
 class Graph:
