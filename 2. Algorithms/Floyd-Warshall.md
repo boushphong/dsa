@@ -45,30 +45,6 @@ The shortest path between a pair is updated only when a new minimum result is fo
 INF = float('inf')
 
 
-def floyd_warshall(edges, V):
-    # Initialize the adjacency matrix
-    dist = [[INF] * V for _ in range(V)]
-
-    # Set the diagonal to 0
-    for i in range(V):
-        dist[i][i] = 0
-
-    # Fill the adjacency matrix with the given edges
-    for u, v, weight in edges:
-        dist[u][v] = weight
-
-    # Implementing Floyd-Warshall Algorithm
-    for k in range(V):
-        for i in range(V):
-            for j in range(V):
-                if i == k or j == k: 
-                    continue
-                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
-        print_solution(dist)
-
-    return dist
-
-
 def print_solution(dist):
     print("Shortest distances between every pair of vertices:")
 
@@ -90,6 +66,32 @@ def print_solution(dist):
         print()
 
 
+class Graph:
+    def __init__(self, edges, V):
+        # Initialize the adjacency matrix
+        self.edges = edges
+        self.dist = [[INF] * V for _ in range(V)]
+
+        for i in range(V):
+            self.dist[i][i] = 0
+
+        # Fill the adjacency matrix with the given edges
+        for u, v, weight in edges:
+            self.dist[u][v] = weight
+
+    def floyd_warshall(self):
+        # Implementing Floyd-Warshall Algorithm
+        for k in range(V):
+            for i in range(V):
+                for j in range(V):
+                    if i == k or j == k:
+                        continue
+                    self.dist[i][j] = min(self.dist[i][j], self.dist[i][k] + self.dist[k][j])
+            print_solution(self.dist)
+
+        return self.dist
+
+
 # Example usage:
 edges = [
     [0, 1, 3],
@@ -99,10 +101,10 @@ edges = [
     [0, 3, 7],
     [1, 0, 8]
 ]
-
 V = 4
-distances = floyd_warshall(edges, V)
-print_solution(distances)
+
+distances = Graph(edges, V)
+print_solution(distances.floyd_warshall())
 ```
 
 ### Output
