@@ -186,12 +186,12 @@ graph TD;
     2 -->|2| 4;
     3 -->|-4| 2;
     3 -->|-1| 4;
-    4 -->[-1] 3;
+    4 -->|-10| 3;
 ```
 
 If there is a negative cycle in the graph, the **Bellman-Ford** algorithm will exert all the iterations (No negative cycle will likely end the itertion early if no updates are detected).
 
-```
+```python
 # Example usage:
 edges = [
     [0, 3, 1],
