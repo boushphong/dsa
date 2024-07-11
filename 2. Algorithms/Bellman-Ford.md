@@ -97,7 +97,7 @@ We iterate all the edges `|V| - 1` times. In this case (`5 - 1 = 4` iterations) 
 |---|---|---|---|---|
 | 8 | 0 | 10 | 9 | 10 | 
 
-### NOTE
+### NOTE:
 The **Bellman-Ford algorithm** iterates `|V| - 1` times (where `|V|` is the number of vertices) to ensure that it computes the shortest path from the source vertex to all other vertices correctly. This number of iterations is crucial for the algorithm to guarantee that it has found the shortest paths under the assumption that the graph does not contain any negative weight cycles reachable from the source vertex.
 
 Since the longest possible path without a cycle can be `|V| - 1` edges, the edges must be scanned `|V| - 1` times to ensure the shortest path has been found for all nodes.
