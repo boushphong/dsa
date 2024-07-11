@@ -95,6 +95,19 @@ Heap = [(10, 5), (11, 5)]
 |---|---|---|---|---|
 | 0 | 2 | 3 | 9 | 10 | 
 
+## Analyzing Complexity
+- **Space:** `O(|V| + |E|)` (Adjacency List)
+- **Time:**
+    - **Worst:** `O(|V|^2` (Complete Graph)
+    - **Average:**: `O(|V|) + |E|Log(|E|)`
+        - First Step: `O(|V|)`
+            - Setting vertices' distance array: `O(|V|)`
+        - Second Step: `O(|E|Log(|E|)`
+            - Popping elements from Heap: `O(Log|E|)` (because there can be stale vertex in the heap`
+            - Visting vertices via edges: `O(|E|)` (One vertex can connects to all other vertices)
+            - Adding elements to Heap: `O(Log|E|)`
+              - Vising vertices and adding:  `O(|E|Log(|E|))`
+
 ## Implementation
 ```python
 import heapq
