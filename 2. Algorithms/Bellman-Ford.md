@@ -34,8 +34,10 @@ edges = [
     [3, 4, 1],
 ]
 ```
-We iterate all the edges `n - 1` times. In this case (`5 - 1 = 4` iterations) of `6` edges. Hence we might perform a total of `4 * 6 = 24` iterations
+We iterate all the edges `n - 1` times. In this case (`5 - 1 = 4` iterations) of `6` edges. Hence we might perform a maximum of `4 * 6 = 24` iterations
 If we find a smaller path, then do an update for the destination vertex.
+
+**1st Iteration**
 
 First edge, `Vertex 0` can go to vertex `3` (`[0, 3, 1]`), but `dist[0] = inf`, hence we skip. 
 | 0 | 1 | 2 | 3 | 4 |
@@ -59,7 +61,8 @@ Forth edge, `Vertex 2` can go to vertex `4` (`[2, 4, 2]`), `dist[2] = 10 + 2 = 1
 
 We skip the fifth and sixth edges `[3, 2, 1], [3, 4, 1]`, because `dist[3] = inf`.
 
-**Next Iteration**
+**2nd Iteration**
+
 First edge, `Vertex 0` can go to vertex `3` (`[0, 3, 1]`), `dist[0] = 8 + 1 = 9`, hence we update `array[3] = 9`.  
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
@@ -77,6 +80,11 @@ Sixth edge, `Vertex 3` can go to vertex `4` (`[3, 4, 1]`), `dist[3] + 1 = 10`, h
 |---|---|---|---|---|
 | 8 | 0 | 10 | 9 | 10 | 
 
+**3rd Iteration**
+None of the values are changed. Hence we return 
+| 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 8 | 0 | 10 | 9 | 10 | 
 
 ## Implementation
 ```python
