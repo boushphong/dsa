@@ -327,8 +327,6 @@ def print_tri(r, c=0):
 print_tri(3)
 ```
 
-![image](https://github.com/boushphong/Recursion/assets/59940078/67551972-85ee-49d5-b06a-1a9f926025bb)
-
 ```python
 s = "baccad"
 
@@ -411,7 +409,6 @@ def merge(arr, start, mid, end):
             mid += 1
             start2 += 1
 ```
-![image](https://github.com/boushphong/Recursion/assets/59940078/f62e6119-b3e0-4e99-9df1-153c01485837)
 
 # Complexity Analysis
 ## [Pascal's Triangle](https://leetcode.com/problems/pascals-triangle/)
