@@ -1,5 +1,5 @@
 # Bellman-Ford
-**Bellman-Ford** is used to find the shortest path from one node to all nodes in a weighted graph.
+**Bellman-Ford** is used to find the shortest path from one vertex to all vertex in a weighted graph.
 - Negative edges are allowed but there has to be no negative cycles.
 
 **Example:**
@@ -223,4 +223,10 @@ g.bellman_ford(1)
 |---|---|---|---|---|
 | 8 | 0 | -15 | -25 | -15 | 
 
-When the iteration ends, 
+When the iteration ends, it means we have the shortest path between `Vertex 1` to other vertices. Hence if we find a specific path from `Vertex 1` to a specifc vertex and it is smaller than corresponding shortest path in the distance array, then the negative cycle is detected.
+
+From the iteration code above, at iteration where `u, v, w = 3, 2, 1`. We found a cycle.
+- dist[u] + w = `-25 + 1 = -24` (The path is `1 > 3 > 2`)
+- dist[v] = `-15`
+- `-24 < -15`. We found a new shorter path from (`1 > 2`)
+Hence we detected a cycle in this graph.
