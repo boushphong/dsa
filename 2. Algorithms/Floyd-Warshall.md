@@ -101,3 +101,41 @@ V = 4
 distances = floyd_warshall(edges, V)
 print_solution(distances)
 ```
+
+### Output
+```python
+Shortest distances between every pair of vertices (Initially)
+      0   1   2   3
+ 0    0   3 INF   7
+ 1    8   0   2 INF
+ 2  INF INF   0   1
+ 3    2 INF INF   0
+
+Shortest distances between every pair of vertices after visiting intermediate vertex: 0
+      0   1   2   3
+ 0    0   3 INF   7
+ 1    8   0   2  15
+ 2  INF INF   0   1
+ 3    2   5 INF   0
+
+Shortest distances between every pair of vertices after visiting intermediate vertex: 1
+      0   1   2   3
+ 0    0   3   5   7
+ 1    8   0   2  15
+ 2  INF INF   0   1
+ 3    2   5   7   0
+
+Shortest distances between every pair of vertices after visiting intermediate vertex: 2
+      0   1   2   3
+ 0    0   3   5   6
+ 1    8   0   2   3
+ 2  INF INF   0   1
+ 3    2   5   7   0
+
+Shortest distances between every pair of vertices after visiting intermediate vertex: 3
+      0   1   2   3
+ 0    0   3   5   6
+ 1    5   0   2   3
+ 2    3   6   0   1
+ 3    2   5   7   0
+```
