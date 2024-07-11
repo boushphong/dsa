@@ -4,7 +4,7 @@
 
 **Example:**
 
-Graph representation
+Graph representation:
 ```mermaid
 graph TD;
     1 -->|3| 2;
@@ -15,5 +15,11 @@ graph TD;
     2 -->|8| 1;
 ```
 
-Matrix Representation
+Matrix Representation:
 
+|   | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 1 | 0 | 3 | ∞ | 7 |
+| 2 | 8 | 0 | 2 | ∞ |
+| 3 | 5 | ∞ | 0 | 1 |
+| 4 | 2 | ∞ | ∞ | 0 |
