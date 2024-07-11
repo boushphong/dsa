@@ -61,6 +61,8 @@ def floyd_warshall(edges, V):
     for k in range(V):
         for i in range(V):
             for j in range(V):
+                if i == k or j == k: 
+                    continue
                 dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
         print_solution(dist)
 
