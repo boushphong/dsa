@@ -1,5 +1,5 @@
 # Floyd-Warshall
-**Floyd-Warshall** is used to find the shortest path between all pairs of vertices in a weighted graph.
+**Floyd-Warshall** algorithm is used to find the shortest path between all pairs of vertices in a weighted graph.
 - Negative edges are allowed but there has to be no negative cycles.
 
 **Example:**
