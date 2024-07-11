@@ -24,7 +24,7 @@ If we want to find the shortest path between `vertex 0` to other vertices. An ar
 | 0 | ∞ | ∞ | ∞ | ∞ | 
 
 A Heap to track the next Vertex we should visit should also be initialzed. We track the shortest distance from the source vertex to a specific vertex in the Min-Heap. 
-```
+```python
 Heap = [(0, 0)]
 ```
 ---
