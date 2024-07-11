@@ -21,7 +21,7 @@ graph TD;
 |---|---|---|---|---|
 | 0 | 0 | 3 | ∞ | 7 |
 | 1 | 8 | 0 | 2 | ∞ |
-| 2 | 5 | ∞ | 0 | 1 |
+| 2 | 0 | ∞ | 0 | 1 |
 | 3 | 2 | ∞ | ∞ | 0 |
 
 **Floyd-Warshall** algorithms utilizes Dynamic Programming.
