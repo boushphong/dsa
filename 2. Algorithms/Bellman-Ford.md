@@ -32,8 +32,7 @@ edges = [
     [3, 4, 1],
 ]
 ```
-We iterate all the edges `n - 1` times. In this case (`5 - 1 = 4` iterations) of `6` edges. Hence we might perform a maximum of `4 * 6 = 24` iterations
-If we find a smaller path, then do an update for the destination vertex.
+We iterate all the edges `|V| - 1` times. In this case (`5 - 1 = 4` iterations) of `6` edges. Hence we might perform a maximum of `4 * 6 = 24` iterations. If we find a smaller path, then do an update for the destination vertex.
 
 ---
 
@@ -97,6 +96,16 @@ If we find a smaller path, then do an update for the destination vertex.
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
 | 8 | 0 | 10 | 9 | 10 | 
+
+### NOTE
+The **Bellman-Ford algorithm** iterates `|V| - 1` times (where `|V|` is the number of vertices) to ensure that it computes the shortest path from the source vertex to all other vertices correctly. This number of iterations is crucial for the algorithm to guarantee that it has found the shortest paths under the assumption that the graph does not contain any negative weight cycles reachable from the source vertex.
+
+Since the longest possible path without a cycle can be `|V| - 1` edges, the edges must be scanned `|V| - 1` times to ensure the shortest path has been found for all nodes.
+
+Let's consider the below graph where the shortest path from **A** to **D** is **A -> B -> C -> D** and let's see why repeating for `|V| - 1` loops actually guarantee computing the shortest paths correctly:
+**A --> B --> C --> D**
+
+We will have to keep in mind that we can do edge relaxation in any order. So for the graph above, if we relax the vertex in the order **A -> B -> C -> D** then we would get the shortest path in the first iteration, and in the subsequent iteration there will be no updation. However, if we scan the vertices in the order **D -> C -> B -> A**, then it would take 3 iterations to actually get the shortest path, because in the first iteration only **AB** edge will be relaxed. In second iteration **BC** will be relaxed followed by **CD** in third iteration 
 
 ## Implementation
 ```python
