@@ -24,7 +24,7 @@ graph TD;
 | 2 | 0 | ∞ | 0 | 1 |
 | 3 | 2 | ∞ | ∞ | 0 |
 
-**Floyd-Warshall** algorithms utilizes Dynamic Programming.
+**Floyd-Warshall** algorithm utilizes Dynamic Programming.
 
 The shortest path of every pair of vertices will be calculated by getting the sub-optimal result of the shortest path between every other pairs.
 - Shortest path between pair `(3, 2)` will be calculated by getting the optimal result from.
