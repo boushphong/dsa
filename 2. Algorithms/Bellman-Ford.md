@@ -102,10 +102,28 @@ The **Bellman-Ford algorithm** iterates `|V| - 1` times (where `|V|` is the numb
 
 Since the longest possible path without a cycle can be `|V| - 1` edges, the edges must be scanned `|V| - 1` times to ensure the shortest path has been found for all nodes.
 
-Let's consider the below graph where the shortest path from **A** to **D** is **A -> B -> C -> D** and let's see why repeating for `|V| - 1` loops actually guarantee computing the shortest paths correctly:
-**A --> B --> C --> D**
+Let's consider the below graph where the shortest path from **5** to **0** is **5 -> 4 -> 3 -> 2 -> 1 -> 0** and let's see why repeating for `|V| - 1` loops actually guarantee computing the shortest paths correctly:
 
-We will have to keep in mind that we can do edge relaxation in any order. So for the graph above, if we relax the vertex in the order **A -> B -> C -> D** then we would get the shortest path in the first iteration, and in the subsequent iteration there will be no updation. However, if we scan the vertices in the order **D -> C -> B -> A**, then it would take 3 iterations to actually get the shortest path, because in the first iteration only **AB** edge will be relaxed. In second iteration **BC** will be relaxed followed by **CD** in third iteration 
+**Example:**
+**5 -> 4 -> 3 -> 2 -> 1 -> 0**
+
+We will have to keep in mind that we can do edge relaxation in any order. So for the graph above, if we relax the vertex in the order **5 -> 4 -> 3 -> 2 -> 1 -> 0** then we would get the shortest path in the first iteration, and in the subsequent iteration there will be no updation. However, if we scan the vertices in the order **0 -> 1 -> 2 -> 3 -> 4 -> 5**, then it would take 5 iterations `|V| - 1 = 6 - 1 = 5` to actually get the shortest path, because in the first iteration only **01** edge will be relaxed. In second iteration **12** will be relaxed followed by **23** in third iteration, then `34`, `45` accordingly.
+
+```python
+# Example Usage (Worst Case)
+edges = [
+    [0, 1, 3],
+    [1, 0, 2],
+    [2, 1, 3],
+    [3, 2, 1],
+    [4, 3, 2],
+    [5, 4, 1],
+]
+
+g = Graph(edges, 6)
+
+g.bellman_ford(5)
+```
 
 ## Implementation
 ```python
