@@ -19,9 +19,9 @@ graph TD
 **Dijkstra** algorithm utilizes Gready Algorithm.
 
 If we want to find the shortest path between `vertex 0` to other vertices. An array of **V** vertices will be initialzed as follow:
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
-| 0 | ∞ | ∞ | ∞ | ∞ | 
+| 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| 0 | ∞ | ∞ | ∞ | ∞ | ∞ |
 
 A Heap to track the next Vertex we should visit should also be initialzed. We track the shortest distance from the source vertex to a specific vertex in the Min-Heap. 
 ```python
@@ -31,9 +31,9 @@ Heap = [(0, 0)]
 
 - Starting from source vertex, `Vertex 0` can go to `Vertex 1` and `Vertex 2`. We found a new shorter distance for both connecting vertices. Hence we update.
 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
-| 0 | 2 | 4 | ∞ | ∞ | 
+| 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| 0 | 2 | 4 | ∞ | ∞ | ∞ |
 
 ```python
 Heap = [(2, 1), (4, 2)]
@@ -41,9 +41,9 @@ Heap = [(2, 1), (4, 2)]
 
 - Popping the next vertex from the heap, `Vertex 1` can go to `Vertex 2`. We found a new shorter distance connecting `Vertex 2` (from source vertex (`0 -> 1 -> 2 = 3 > 0 -> 2 = 4`)). Hence we update.
 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
-| 0 | 2 | 3 | ∞ | ∞ | 
+| 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| 0 | 2 | 3 | ∞ | ∞ | ∞ | 
 
 ```python
 Heap = [(3, 2), (4, 2), (9, 3)]
@@ -51,9 +51,9 @@ Heap = [(3, 2), (4, 2), (9, 3)]
 
 - Popping the next vertex from the heap, `Vertex 2` can go to `Vertex 4`. We found a new shorter distance connecting `Vertex 4`. Hence we update.
 - 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
-| 0 | 2 | 3 | 9 | 6 | 
+| 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| 0 | 2 | 3 | 9 | 6 | ∞ |
 
 ```python
 Heap = [(4, 2), (9, 3), (6, 4)]
@@ -61,9 +61,9 @@ Heap = [(4, 2), (9, 3), (6, 4)]
 
 - Popping the next vertex from the heap, `Vertex 2` can go to `Vertex 4`. We found a stale shorest path here at path `0 -> 2 = 4`, shortest path is `3` for path `0 -> 1 -> 2`
 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
-| 0 | 2 | 3 | 9 | ∞ | 
+| 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| 0 | 2 | 3 | 9 | 6 | ∞ |
 
 ```python
 Heap = [(6, 4), (9, 3)]
@@ -71,9 +71,9 @@ Heap = [(6, 4), (9, 3)]
 
 - Popping the next vertex from the heap, `Vertex 4` can go to `Vertex 5`. We found a new shorter distance connecting `Vertex 5`. Hence we update.
 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
-| 0 | 2 | 3 | 9 | 11 | 
+| 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| 0 | 2 | 3 | 9 | 6 | 11 |
 
 ```python
 Heap = [(9, 3), (11, 5)]
@@ -81,9 +81,9 @@ Heap = [(9, 3), (11, 5)]
 
 - Popping the next vertex from the heap, `Vertex 3` can go to `Vertex 5`. We found a new shorter distance connecting `Vertex 5`. Hence we update.
 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
-| 0 | 2 | 3 | 9 | 10 | 
+| 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| 0 | 2 | 3 | 9 | 6 | 10 |
 
 ```python
 Heap = [(10, 5), (11, 5)]
@@ -91,9 +91,9 @@ Heap = [(10, 5), (11, 5)]
 
 - The last 2 items in the heap belongs to `Vertex 5`, this vertex doesn't have any outdegrees. So eventually they will be popped from the heap one by one. And return the final answer array.
 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
-| 0 | 2 | 3 | 9 | 10 | 
+| 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| 0 | 2 | 3 | 9 | 6 | 10 |
 
 ## Analyzing Complexity
 - **Space:** `O(|V| + |E|)` (Adjacency List)
