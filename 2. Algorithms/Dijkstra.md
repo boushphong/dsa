@@ -23,6 +23,71 @@ If we want to find the shortest path between `vertex 0` to other vertices. An ar
 |---|---|---|---|---|
 | 0 | ∞ | ∞ | ∞ | ∞ | 
 
+A Heap to track the next Vertex we should visit should also be initialzed. We track the shortest distance from the source vertex to a specific vertex in the Min-Heap. 
+```
+Heap = [(0, 0)]
+```
+---
+
+- Starting from source vertex, `Vertex 0` can go to `Vertex 1` and `Vertex 2`. We found a new shorter distance for both connecting vertices. Hence we update.
+
+| 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 0 | 2 | 4 | ∞ | ∞ | 
+```
+Heap = [(2, 1), (4, 2)]
+```
+
+- Popping the next vertex from the heap, `Vertex 1` can go to `Vertex 2`. We found a new shorter distance connecting `Vertex 2` (from source vertex (`0 -> 1 -> 2 = 3 > 0 -> 2 = 4`)). Hence we update.
+
+| 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 0 | 2 | 3 | ∞ | ∞ | 
+
+```Heap
+Heap = [(3, 2), (4, 2), (9, 3)]
+```
+
+- Popping the next vertex from the heap, `Vertex 2` can go to `Vertex 4`. We found a new shorter distance connecting `Vertex 4`. Hence we update.
+| 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 0 | 2 | 3 | 9 | 6 | 
+
+```Heap
+Heap = [(4, 2), (9, 3), (6, 4)]
+```
+
+- Popping the next vertex from the heap, `Vertex 2` can go to `Vertex 4`. We found a stale shorest path here at path `0 -> 2 = 4`, shortest path is `3` for path `0 -> 1 -> 2`
+| 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 0 | 2 | 3 | 9 | ∞ | 
+
+```Heap
+Heap = [(6, 4), (9, 3)]
+```
+
+- Popping the next vertex from the heap, `Vertex 4` can go to `Vertex 5`. We found a new shorter distance connecting `Vertex 5`. Hence we update.
+| 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 0 | 2 | 3 | 9 | 11 | 
+
+```Heap
+Heap = [(9, 3), (11, 5)]
+```
+
+- Popping the next vertex from the heap, `Vertex 3` can go to `Vertex 5`. We found a new shorter distance connecting `Vertex 5`. Hence we update.
+| 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 0 | 2 | 3 | 9 | 10 | 
+
+```Heap
+Heap = [(10, 5), (11, 5)]
+```
+
+- The last 2 items in the heap belongs to `Vertex 5`, this vertex doesn't have any outdegrees. So eventually they will be popped from the heap one by one. And return the final answer array.
+| 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 0 | 2 | 3 | 9 | 10 | 
 
 ## Implementation
 ```python
@@ -37,14 +102,15 @@ class Graph:
     def add_edge(self, from_node, to_node, weight):
         self.graph[from_node][to_node] = weight
 
-    def dijkstra(self, start):
+    def dijkstra(self, src):
         dist = [float('inf')] * self.size
-        dist[start] = 0
-        heap = [(0, start)]
+        dist[src] = 0
+        heap = [(0, src)]
 
         while heap:
             curDistance, curV = heapq.heappop(heap)
 
+            # Skipping stale value
             if curDistance > dist[curV]:
                 continue
 
