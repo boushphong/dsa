@@ -17,8 +17,6 @@ graph TD;
 
 **Bellman-Ford** algorithm utilizes Dynamic Programming.
 
----
-
 If we want to find the shortest path between `vertex 1` to other vertices. An array of **V** vertices will be initialzed as follow:
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
@@ -36,6 +34,8 @@ edges = [
 ```
 We iterate all the edges `n - 1` times. In this case (`5 - 1 = 4` iterations) of `6` edges. Hence we might perform a maximum of `4 * 6 = 24` iterations
 If we find a smaller path, then do an update for the destination vertex.
+
+---
 
 **1st Iteration**
 
@@ -65,6 +65,8 @@ If we find a smaller path, then do an update for the destination vertex.
 
 - We skip the fifth and sixth edges `[3, 2, 1], [3, 4, 1]`, because `dist[3] = inf`.
 
+---
+
 **2nd Iteration**
 
 - First edge, `Vertex 0` can go to vertex `3` (`[0, 3, 1]`), `dist[0] = 8 + 1 = 9`, hence we update `array[3] = 9`.
@@ -86,6 +88,8 @@ If we find a smaller path, then do an update for the destination vertex.
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
 | 8 | 0 | 10 | 9 | 10 | 
+
+---
 
 **3rd Iteration**
 - None of the values are changed. Hence we return.
