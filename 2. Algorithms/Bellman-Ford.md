@@ -176,3 +176,37 @@ Initial distances: [inf, 0, inf, inf, inf]
 1 > 3: 9
 1 > 4: 10
 ```
+
+## Detecting Negative Cycle
+```mermaid
+graph TD;
+    0 -->|1| 3;
+    1 -->|8| 0;
+    1 -->|10| 2;
+    2 -->|2| 4;
+    3 -->|-4| 2;
+    3 -->|-1| 4;
+    4 -->[-1] 3;
+```
+
+If there is a negative cycle in the graph, the **Bellman-Ford** algorithm will exert all the iterations (No negative cycle will likely end the itertion early if no updates are detected).
+
+```
+# Example usage:
+edges = [
+    [0, 3, 1],
+    [1, 0, 8],
+    [1, 2, 10],
+    [2, 4, 2],
+    [3, 2, 1],
+    [3, 4, 1],
+    [4, 3, -10]
+]
+
+g = Graph(edges, 5)
+g.bellman_ford(1)
+```
+
+| 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 8 | 0 | -15 | -25 | -15 | 
