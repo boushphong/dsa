@@ -157,12 +157,6 @@ Initial distances: [inf, 0, inf, inf, inf]
 [8, 0, 10, inf, 12] 2 4 2
 [8, 0, 10, inf, 12] 3 2 1
 [8, 0, 10, inf, 12] 3 4 1
-Vertex Distance from Source
-1 > 0: 8
-1 > 1: 0
-1 > 2: 10
-1 > 3: inf
-1 > 4: 12
 
 # 2nd iteration
 [8, 0, 10, 9, 12] 0 3 1
@@ -174,4 +168,11 @@ Vertex Distance from Source
 
 # 3rd iteration
 ...
+
+# Vertex Distance from Source
+1 > 0: 8
+1 > 1: 0
+1 > 2: 10
+1 > 3: 9
+1 > 4: 10
 ```
