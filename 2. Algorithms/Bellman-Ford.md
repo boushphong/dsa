@@ -11,8 +11,8 @@ graph TD;
     1 -->|8| 0;
     1 -->|10| 2;
     2 -->|2| 4;
-    3 -->|-4| 2;
-    3 -->|-1| 4;
+    3 -->|1| 2;
+    3 -->|1| 4;
 ```
 
 **Bellman-Ford** algorithm utilizes Dynamic Programming.
@@ -189,9 +189,21 @@ graph TD;
     4 -->|-10| 3;
 ```
 
-If there is a negative cycle in the graph, the **Bellman-Ford** algorithm will exert all the iterations (No negative cycle will likely end the itertion early if no updates are detected).
+If there is a negative cycle in the graph, the **Bellman-Ford** algorithm will exert all the iterations (No negative cycle will likely end the itertion early if no updates are detected). We such a negative cycle, we have an additional logic to detect negative cycle.
 
 ```python
+class Graph:
+    ...
+
+    def bellman_ford(self, src):
+        ...
+
+        for u, v, w in self.edges:
+            if dist[u] != float('inf') and dist[u] + w < dist[v]:
+                print("Graph contains negative weight cycle")
+                return
+        ...
+
 # Example usage:
 edges = [
     [0, 3, 1],
@@ -210,3 +222,5 @@ g.bellman_ford(1)
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
 | 8 | 0 | -15 | -25 | -15 | 
+
+When the iteration ends, 
