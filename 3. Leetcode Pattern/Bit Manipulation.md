@@ -76,12 +76,11 @@ a >> 1  →  01111111 11111111 11111111 11111110 (a = 2147483646) (Logical)
 ### Get k-th bit of number x
 ```python
 def getBit(x, k):
-  return (x >> k) & 1
+    return (x >> k) & 1
 
 getBit(13, 2) # 1
 """
 00001101 (x)
-
 00000011 (x >> 2)
 00000001 (1)
 00000001 (x >> 2) & 1
@@ -90,9 +89,51 @@ getBit(13, 2) # 1
 getBit(8, 1) # 0
 """
 00001000 (x)
-
 00000100 (x >> 1)
 00000001 (1)
-00000000 (x >> 2) & 1
+00000000 (x >> 1) & 1
+"""
+```
+
+### Set k-th bit of number x to 1
+```python
+def setBit(x, k):
+    return x | (1 << k)
+
+setBit(13, 4) # 24
+"""
+00000001 (1)
+00010000 (1 << 4)
+00001101 (x)
+00011101 x | (1 << 4)
+"""
+```
+
+### Set k-th bit of number x to 0
+```python
+def clearBit(x, k):
+    return x & (~(1 << k))
+
+clearBit(13, 2) # 9
+"""
+00000001 (1)
+00000100 (1 << 2)
+11111011 ~(1 << 2)
+00001101 (x)
+00001001 x & (~(1 << k))
+"""
+```
+
+### Flip k_th bit of number x
+```python
+def flipBit(x, k):
+    return x ^ (1 << k)
+
+flipbit(13 , 4)  # 9
+"""
+00000001 (1)
+00010000 (1 << 4)
+00001101 (x)
+00011101 x ^ (1 << k)
 """
 ```
