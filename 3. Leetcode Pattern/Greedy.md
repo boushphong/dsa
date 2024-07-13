@@ -33,3 +33,25 @@ def maxProfit(prices):
 
 print(maxProfit([7, 1, 5, 3, 6, 4]))
 ```
+
+## Early Feasibility Check
+### [Gas Station](https://leetcode.com/problems/gas-station/)
+```python
+def canCompleteCircuit(gas, cost):
+    if sum(gas) < sum(cost):
+        return -1
+
+    total = 0
+    start = 0
+    for i in range(len(gas)):
+        total += (gas[i] - cost[i])
+        if total < 0:
+            total = 0
+            start = i + 1
+
+    return start
+
+
+print(canCompleteCircuit([1, 2, 2, 4, 10], [3, 4, 1, 6, 2]))  # 4
+print(canCompleteCircuit([5, 1, 4, 1], [2, 1, 5, 3]))  # 0
+```
