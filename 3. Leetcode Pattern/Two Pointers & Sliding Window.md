@@ -44,3 +44,48 @@ print(characterReplacement("ABCBBAAAA", 2))
 
 **Explanation**
 - When we reduce the windows from `left, right = 1, 6` (**BCBBAA**) to `left, right = 2, 6` (**CBBAA**), we do not decrement the `topFrequency` variable because the `(right - left + 1)` keeps track of the maximum length of any valid window seen so far. As long as the condition `(right - left + 1) - topFrequency <= k` holds, the length of the current window is a candidate for the longest valid window. Even if we decrement the `topFrequency`, and update the windows, the windows' size will shrink, hence we would not get a bigger windows' size. We inherently over-estimate the `topFrequency` variable and never decrement it because we want to find the maximum windows' size, not calculing windows' size for every single window. In short, we will always maintain the maximum windows' size.
+
+## Sliding Window (Cyclic Array)
+### [Rotate Function](https://leetcode.com/problems/rotate-function)
+```python
+from itertools import accumulate
+
+
+def maxRotateFunction(nums):
+    n = len(nums)
+    endingIdx = n - 1
+    sum_val = sum([nums[i] * i for i in range(n)])
+    nums = nums + nums[:-1]
+    preSum = list(accumulate(nums))
+
+    ans = sum_val
+
+    for idx, val in enumerate(nums[1:n], 1):
+        sum_val += nums[idx + endingIdx] * endingIdx
+        sum_val -= (preSum[idx + endingIdx - 1] - preSum[idx - 1])
+        ans = max(sum_val, ans)
+
+    return ans
+
+
+print(maxRotateFunction([4, 5, 0, 6]))
+
+
+"""
+Double the array for sliding windows
+0   4   9   9   15  19  24  24
+    4   5   0   6   4   5   0 
+        
+    0   1   2   3
+    0   5   0   18 = 23
+        
+        0   1   2   3                  
+        0   0   12  12 = 24 or (23 + 4 * 3) - (15 - 4) = 35 - 11 = 24
+
+            0   1   2   3
+            0   6   8  15 = 29 or (24 + 5 * 3) - (19 - 9) = 39 - 10 = 29 
+
+                0   1   2   3
+                0   4   10  0 = 14 or (29 + 0 * 3) - (24 - 9) = 29 - 15 = 14
+""" 
+```
