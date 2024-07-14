@@ -52,6 +52,36 @@ def minimumCost(m, n, horizontalCut, verticalCut):
     return res + sumh + sumv
 
 
+"""
+      5   1
+    *   *   *
+1
+    *   *   *
+4
+    *   *   *
+
+Same as:
+
+      5   1
+    * | *   *
+4   - |
+    * | *   *
+1   - |
+    * | *   *
+ans = 0 + 5 + 4 + 1 = 10
+
+      5   1
+    * | *   * 
+1   - |       
+    * | *   *
+4   - | - - -
+    * | * | *
+    
+ans = 10 + 4 + 1 = 15
+...
+"""
+
+
 print(minimumCost(3, 3, [1, 4], [5, 1]))
 ```
 
