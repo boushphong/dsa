@@ -34,6 +34,27 @@ def maxProfit(prices):
 print(maxProfit([7, 1, 5, 3, 6, 4]))
 ```
 
+### [Minimum Cost for Cutting Cake I](https://leetcode.com/problems/minimum-cost-for-cutting-cake-i)
+```python
+def minimumCost(m, n, horizontalCut, verticalCut):
+    h = sorted(h)
+    v = sorted(v)
+    sumh = sum(h)
+    sumv = sum(v)
+    res = 0
+    while h and v:
+        if h[-1] > v[-1]:
+            res += h[-1] + sumv
+            sumh -= h.pop()
+        else:
+            res += v[-1] + sumh
+            sumv -= v.pop()
+    return res + sumh + sumv
+
+
+print(minimumCost(3, 3, [1, 4], [5, 1]))
+```
+
 ## Early Feasibility Check
 ### [Gas Station](https://leetcode.com/problems/gas-station/)
 ```python
