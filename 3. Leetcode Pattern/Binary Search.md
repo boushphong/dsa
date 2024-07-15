@@ -258,6 +258,31 @@ def lengthOfLIS(nums):
 print(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 1, 2, 3, 10, 4, 5]))  # 5
 ```
 
+### [Russian Doll Envelopes](https://leetcode.com/problems/russian-doll-envelopes)
+```python
+from bisect import bisect_left
+
+
+def maxEnvelopes(envelopes):
+    envelopes.sort(key=lambda x: (x[0], -x[1]))
+    # find the longest increasing subsequence
+    stack = []
+
+    for _, height in envelopes:
+        if (stack and height > stack[-1]) or not stack:
+            stack.append(height)
+            continue
+
+        pos = bisect_left(stack, height)
+        stack[pos] = height
+
+    return len(stack)
+
+
+print(maxEnvelopes([[5, 4], [6, 4], [6, 7], [2, 3], [2, 4]]))  # 3
+print(maxEnvelopes([[2, 10], [3, 20], [4, 30], [5, 50], [5, 40], [5, 25], [6, 37], [6, 36], [7, 38]]))  # 5
+```
+
 
 ## Rotated Array Search
 ### [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array)
