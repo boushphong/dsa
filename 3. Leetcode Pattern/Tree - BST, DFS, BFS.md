@@ -543,7 +543,56 @@ def lowestCommonAncestor(root, p, q):
 
     node = dfs(root)
     return node
+```
 
+### [Find Distance in a Binary Tree](https://leetcode.com/problems/find-distance-in-a-binary-tree)
+```python
+def findDistance(root, p, q):
+    def dfs(node=root):
+        if node.val in {p, q}:
+            return node
+
+        left = None
+        if node.left:
+            left = dfs(node.left)
+
+        right = None
+        if node.right:
+            right = dfs(node.right)
+
+        if left and right:
+            return node
+
+        return left or right
+
+    def dist(node, target):
+        if node.val == target:
+            return 1
+
+        dist_left = 0
+        if node.left:
+            dist_left += dist(node.left, target)
+
+        dist_right = 0
+        if not dist_left and node.right:
+            dist_right += dist(node.right, target)
+
+        total_dist = dist_left + dist_right
+        if dist_left or dist_right:
+            total_dist += 1
+
+        return total_dist
+
+    lca = dfs()
+
+    if lca.val == p:
+        return dist(lca, q) - 1
+    elif lca.val == q:
+        return dist(lca, p) - 1
+    else:
+        dist_p = dist(lca, p) - 1
+        dist_q = dist(lca, q) - 1
+        return dist_p + dist_q
 ```
 
 ### [Find Leaves of Binary Tree](https://leetcode.com/problems/find-leaves-of-binary-tree)
