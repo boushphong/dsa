@@ -525,10 +525,8 @@ Find P or Q node first, then immediately return, then we check the other side of
 ```python
 def lowestCommonAncestor(root, p, q):
     def dfs(node):
-        if node.val == p.val:
-            return p
-        elif node.val == q.val:
-            return q
+        if node.val in {p.val, q.val}:
+            return node
 
         left = None
         if node.left:
