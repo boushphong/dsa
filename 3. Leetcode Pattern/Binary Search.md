@@ -47,6 +47,7 @@ from bisect import bisect_left
 array = [1,2,4,4,7]
 
 # Insert a value into a sorted array. What would the new element index would be?
+bisect_left(array, 2)  # 1
 bisect_left(array, 0)  # 0 since 0 < 1 (the first element)
 bisect_left(array, 3)  # 2 since 3 > 2
 bisect_left(array, 8)  # 5 since 8 > 7 (the last element)
@@ -76,6 +77,8 @@ from bisect import bisect_right
 array = [1,2,4,4,7]
 
 # Insert a value into a sorted array. What would the new element index would be?
+bisect_right(array, 2)  # 2
+bisect_right(array, 4)  # 4
 bisect_right(array, 4)  # 4
 bisect_right(array, 3)  # 2
 bisect_right(array, 0)  # 0
