@@ -85,6 +85,24 @@ ans = 10 + 4 + 1 = 15
 print(minimumCost(3, 3, [1, 4], [5, 1]))
 ```
 
+### [Jump Game](https://leetcode.com/problems/jump-game/)
+```python
+def canJump(nums):
+    max_reachable = 0
+    for i in range(len(nums)):
+        if i > max_reachable:
+            return False
+        max_reachable = max(max_reachable, i + nums[i])  # 2
+        if max_reachable >= len(nums) - 1:
+            return True
+    return False
+
+
+print(canJump([2, 3, 1, 1, 4]))
+print(canJump([2, 3, 1, 0, 1, 4]))
+```
+
+
 ## Early Feasibility Check
 ### [Gas Station](https://leetcode.com/problems/gas-station/)
 ```python
