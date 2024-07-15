@@ -234,6 +234,31 @@ print(findRadius([1, 2, 3], [2])
 print(findRadius([1, 2, 3, 4], [1, 4])
 ```
 
+### [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence)
+```python
+from bisect import bisect_left
+
+
+def lengthOfLIS(nums):
+    if not nums:
+        return 0
+    stack = []
+
+    for num in nums:
+        if (stack and num > stack[-1]) or not stack:
+            stack.append(num)
+            continue
+
+        pos = bisect_left(stack, num)
+        stack[pos] = num
+
+    return len(stack)
+
+
+print(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 1, 2, 3, 10, 4, 5]))  # 5
+```
+
+
 ## Rotated Array Search
 ### [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array)
 ```python
