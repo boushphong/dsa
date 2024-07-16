@@ -123,6 +123,7 @@ def jump(nums):
             previousReachableIndex = reachableIndex
 
 
+print(jump([2, 3, 1, 1, 4, 1]))  # 3
 print(jump([2, 3, 1, 1, 4]))  # 2
 print(jump([1, 2, 3]))  # 2
 ```
