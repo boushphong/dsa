@@ -102,6 +102,31 @@ print(canJump([2, 3, 1, 1, 4]))
 print(canJump([2, 3, 1, 0, 1, 4]))
 ```
 
+### [Jump Game II](https://leetcode.com/problems/jump-game-ii/)
+```python
+def jump(nums):
+    if len(nums) <= 2:
+        return len(nums) - 1
+
+    reachableIndex = 0
+    previousReachableIndex = 0
+    count = 0
+
+    for i, v in enumerate(nums):
+        if i + v >= reachableIndex:
+            reachableIndex = i + v
+
+        if i == previousReachableIndex:
+            count += 1
+            previousReachableIndex = reachableIndex
+            if previousReachableIndex >= len(nums) - 1:
+                return count
+
+
+print(jump([2, 3, 1, 1, 4]))  # 2
+print(jump([1, 2, 3]))  # 2
+```
+
 
 ## Early Feasibility Check
 ### [Gas Station](https://leetcode.com/problems/gas-station/)
