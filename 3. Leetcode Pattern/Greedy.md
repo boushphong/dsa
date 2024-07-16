@@ -124,6 +124,16 @@ def jump(nums):
 
 
 print(jump([2, 3, 1, 1, 4, 1]))  # 3
+"""
+Greedy Approach
+Starting from index 0
+1. Can jump to index 1 and 2.
+    - Update jump count
+2. Check maximum jump point from index 1 and 2. If the maximum jump point is reached (index 2) and we can still not finish jumping to the last index. Update jump count.
+    - Index 1 can jump to 4
+    - Index 2 can jump to 3
+        - Reach index 2 and last index jump is still not possible. Update jump count.
+"""
 print(jump([2, 3, 1, 1, 4]))  # 2
 print(jump([1, 2, 3]))  # 2
 ```
