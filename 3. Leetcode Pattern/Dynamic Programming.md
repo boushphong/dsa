@@ -284,7 +284,7 @@ def wordBreak(s, wordDict):
 
     return dp[-1]
 ```
-
+## Increasing/Decreasing Subsequnce
 ### [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
 ```python
 def lengthOfLIS(nums):
@@ -317,30 +317,6 @@ print(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]))
 **Top-Down**
 ```python
 def numTeams(rating):
-    """
-    2   5   3   4   1   6
-    2
-        5
-            3 SKIP
-            4 SKIP
-            1 SKIP
-            6 take (CACHE) 1
-        3 CACHE(2)
-            4 take (CACHE) 1
-            1 SKIP
-            6 take (CACHE) 1
-        4 GET FROM CACHE
-        1 SKIP
-    5
-        3 SKIP
-        4 SKIP
-        1 SKIP
-    3
-        4 GET FROM CACHE 1
-        1 SKIP
-    4
-        1 SKIP
-    """
     stack = []
     memo = {}
     ans = []
@@ -376,6 +352,30 @@ def numTeams(rating):
 
 
 print(numTeams([2, 5, 3, 4, 1, 6]))
+"""
+2   5   3   4   1   6
+2
+    5
+        3 SKIP
+        4 SKIP
+        1 SKIP
+        6 take (CACHE) 1
+    3 CACHE(2)
+        4 take (CACHE) 1
+        1 SKIP
+        6 take (CACHE) 1
+    4 GET FROM CACHE
+    1 SKIP
+5
+    3 SKIP
+    4 SKIP
+    1 SKIP
+3
+    4 GET FROM CACHE 1
+    1 SKIP
+4
+    1 SKIP
+"""
 ```
 
 **Bottom-Up**
@@ -416,6 +416,35 @@ def numTeams(rating):
 
 
 print(numTeams([2, 5, 3, 4, 1, 6]))
+```
+
+### [Best Team With No Conflicts](https://leetcode.com/problems/best-team-with-no-conflicts)
+```python
+def bestTeamScore(scores, ages):
+    n = len(scores)
+    array = list(zip(ages, scores))
+    array.sort()
+
+    dp = [score for age, score in array]
+    for i in range(1, n):
+        curAge, curScore = array[i][0], array[i][1]
+        tmp_ans = curScore
+        seen = 0
+        for j in range(i - 1, -1, -1):
+            if curScore >= array[j][1] and array[j][0] != seen:
+                seen = array[j][0]
+                tmp_ans = max(dp[i] + dp[j], tmp_ans)
+
+        dp[i] = tmp_ans
+
+    return max(dp)
+
+
+print(bestTeamScore([4, 4, 4, 5, 6, 5, 3], [2, 2, 2, 1, 2, 1, 1]))  # 21
+"""
+dp = [(1, 3), (1, 8), (1, 13), (2, 7), (2, 11), (2, 15), (2, 21)]
+"""
+print(bestTeamScore([4, 4, 4, 5, 6, 5, 3, 5], [2, 2, 2, 1, 2, 1, 1, 1]))  # 24
 ```
 
 ## Matrix Pattern
