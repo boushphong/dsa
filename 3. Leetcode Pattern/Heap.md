@@ -238,6 +238,38 @@ def findKthLargest(nums, k):
 - **SC** = `O(k)` (Average)
 - **SC** = `O(N)` (Worst) - when `k` equals to `N`.
 
+### [Employee Free Time](https://leetcode.com/problems/employee-free-time)
+```python
+def employeeFreeTime(schedule):
+    # collect first events of all employees
+    heap = []
+    for i, employee in enumerate(schedule):
+        # (event.start, employee index, event index)
+        heappush(heap, (employee[0][0], i, 0))
+
+    res = []
+    _, i, j = heap[0]
+    prev_end = schedule[i][j][1]
+    while heap:
+        _, i, j = heappop(heap)
+        # check for next employee event and push it
+        if j + 1 < len(schedule[i]):
+            heappush(heap, (schedule[i][j + 1][0], i, j + 1))
+
+        event = schedule[i][j]
+        if event[0] > prev_end:
+            res.append([prev_end, event[0]])
+        prev_end = max(prev_end, event[1])
+    return res
+
+
+print(employeeFreeTime([[[1, 3], [6, 7]], [[2, 5], [9, 12]], [[2, 4]]]))
+# [[5, 6], [7, 9]]
+```
+
+- **TC** = `O(NLogk)` - We still iterate through `N` elements, but the heap only contains at max `k` elemnents at a time.
+- **SC** = `O(k)` Only keep `k` elements in the heap
+
 ### [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii)
 ```python
 def minMeetingRooms(intervals):
@@ -274,37 +306,47 @@ meetingRooms: [12, 20, 19, 30]
 """
 ```
 
-### [Employee Free Time](https://leetcode.com/problems/employee-free-time)
+## Simulation
+### [Meeting Rooms III](https://leetcode.com/problems/meeting-rooms-iii)
 ```python
-def employeeFreeTime(schedule):
-    # collect first events of all employees
-    heap = []
-    for i, employee in enumerate(schedule):
-        # (event.start, employee index, event index)
-        heappush(heap, (employee[0][0], i, 0))
-
-    res = []
-    _, i, j = heap[0]
-    prev_end = schedule[i][j][1]
-    while heap:
-        _, i, j = heappop(heap)
-        # check for next employee event and push it
-        if j + 1 < len(schedule[i]):
-            heappush(heap, (schedule[i][j + 1][0], i, j + 1))
-
-        event = schedule[i][j]
-        if event[0] > prev_end:
-            res.append([prev_end, event[0]])
-        prev_end = max(prev_end, event[1])
-    return res
+from collections import defaultdict
+from heapq import *
 
 
-print(employeeFreeTime([[[1, 3], [6, 7]], [[2, 5], [9, 12]], [[2, 4]]]))
-# [[5, 6], [7, 9]]
+def mostBooked(n, meetings):
+    meetings.sort()
+
+    available = [_ for _ in range(n)]
+    unavailable = []
+    count = defaultdict(int)
+
+    for start, end in meetings:
+        while unavailable and start >= unavailable[0][0]:
+            _, room = heappop(unavailable)
+            heappush(available, room)
+
+        if not available:
+            end_time, room = heappop(unavailable)
+            end = end_time + (end - start)
+            heappush(available, room)
+
+        room = heappop(available)
+        heappush(unavailable, (end, room))
+        count[room] += 1
+
+    largestIdx = 0
+    curMax = 1
+    for i, v in count.items():
+        if v > curMax:
+            largestIdx = i
+            curMax = v
+
+    return largestIdx
+
+
+print(mostBooked(2, [[0, 10], [1, 5], [2, 7], [3, 4]]))  # 0
+print(mostBooked(4, [[18, 19], [3, 12], [17, 19], [2, 13], [7, 10]]))  # 0
 ```
-
-- **TC** = `O(NLogk)` - We still iterate through `N` elements, but the heap only contains at max `k` elemnents at a time.
-- **SC** = `O(k)` Only keep `k` elements in the heap
 
 ## Two Heaps
 ### [Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream)
