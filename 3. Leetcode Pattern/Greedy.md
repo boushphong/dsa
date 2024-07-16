@@ -133,6 +133,8 @@ Starting from index 0
     - Index 1 can jump to 4
     - Index 2 can jump to 3
         - Reach index 2 and last index jump is still not possible. Update jump count.
+3. Repeat for the next windows and so on ...
+    Checking maximum jump point from index 3 and 4 ...
 """
 print(jump([2, 3, 1, 1, 4]))  # 2
 print(jump([1, 2, 3]))  # 2
