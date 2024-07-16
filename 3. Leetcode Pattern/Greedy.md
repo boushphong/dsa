@@ -113,14 +113,14 @@ def jump(nums):
     count = 0
 
     for i, v in enumerate(nums):
-        if i + v >= reachableIndex:
-            reachableIndex = i + v
+        reachableIndex = max(reachableIndex, i + v)
+
+        if reachableIndex >= len(nums) - 1:
+            return count + 1
 
         if i == previousReachableIndex:
             count += 1
             previousReachableIndex = reachableIndex
-            if previousReachableIndex >= len(nums) - 1:
-                return count
 
 
 print(jump([2, 3, 1, 1, 4]))  # 2
