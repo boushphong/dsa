@@ -476,7 +476,6 @@ def maxDistance(position, m):
                 mx += 1
                 cur_force = basket
             if mx == m:
-                # ans = max(ans, force)
                 return True
         return False
 
