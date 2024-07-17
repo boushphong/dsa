@@ -72,7 +72,6 @@ def maxSumTwoNoOverlap(nums, firstLen, secondLen):
 
 print(maxSumTwoNoOverlap([2, 1, 5, 6, 0, 9, 5, 0, 3, 8], 4, 3))  # 31
 print(maxSumTwoNoOverlap([0, 6, 5, 2, 2, 5, 1, 9, 4], 2, 1))  # 20
-
 ```
 
 ## Sliding Window (Cyclic Array)
