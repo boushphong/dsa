@@ -460,3 +460,46 @@ def shipWithinDays(weights, days):
 
 print(shipWithinDays([3, 2, 2, 4, 1, 4], 3))  # 6
 ```
+
+### [Magnetic Force Between Two Balls](https://leetcode.com/problems/magnetic-force-between-two-balls/)
+```python
+def maxDistance(position, m):
+    position.sort()
+    ans = 0
+
+    def isFeasible(force):
+        nonlocal ans
+        mx = 1
+        cur_force = position[0]
+        for basket in position[1:]:
+            if basket - cur_force >= force:
+                mx += 1
+                cur_force = basket
+            if mx == m:
+                # ans = max(ans, force)
+                return True
+        return False
+
+    left, right = 0, max(position)
+
+    while left <= right:
+        mid = (left + right) // 2
+        if isFeasible(mid):
+            ans = mid
+            left = mid + 1
+        else:
+            right = mid - 1
+    return ans
+
+
+print(maxDistance([1, 2, 3, 4, 6, 7, 10], 4))  # 3
+"""
+1   2   3   4   5   6   7   8   9   10
+1   2   3   4       6   7           10
+m = 4, ans = 3
+"""
+
+print(maxDistance([5, 4, 3, 2, 1, 100], 2))  # 99
+
+print(maxDistance([79, 74, 57, 22], 4))  # 5
+```
