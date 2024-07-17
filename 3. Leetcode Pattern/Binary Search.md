@@ -468,7 +468,6 @@ def maxDistance(position, m):
     ans = 0
 
     def isFeasible(force):
-        nonlocal ans
         mx = 1
         cur_force = position[0]
         for basket in position[1:]:
