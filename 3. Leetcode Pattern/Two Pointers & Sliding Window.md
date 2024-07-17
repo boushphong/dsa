@@ -45,6 +45,36 @@ print(characterReplacement("ABCBBAAAA", 2))
 **Explanation**
 - When we reduce the windows from `left, right = 1, 6` (**BCBBAA**) to `left, right = 2, 6` (**CBBAA**), we do not decrement the `topFrequency` variable because the `(right - left + 1)` keeps track of the maximum length of any valid window seen so far. As long as the condition `(right - left + 1) - topFrequency <= k` holds, the length of the current window is a candidate for the longest valid window. Even if we decrement the `topFrequency`, and update the windows, the windows' size will shrink, hence we would not get a bigger windows' size. We inherently over-estimate the `topFrequency` variable and never decrement it because we want to find the maximum windows' size, not calculing windows' size for every single window. In short, we will always maintain the maximum windows' size.
 
+## Tracking Max/Min of a Window
+### [Maximum Sum of Two Non-Overlapping Subarrays](https://leetcode.com/problems/maximum-sum-of-two-non-overlapping-subarrays)
+```python
+from itertools import accumulate
+
+
+def maxSumTwoNoOverlap(nums, firstLen, secondLen):
+    prefixSum = list(accumulate(nums, initial=0))
+
+    def calc(a, b):
+        ans = 0
+        maxPartA = 0
+        for i in range(a + b, len(prefixSum)):
+            maxPartA = max(maxPartA, prefixSum[i - b] - prefixSum[i - b - a])
+            curPartB = prefixSum[i] - prefixSum[i - b]
+            ans = max(maxPartA + curPartB, ans)
+
+        return ans
+
+    first = calc(firstLen, secondLen)
+    second = calc(secondLen, firstLen)
+
+    return max(first, second)
+
+
+print(maxSumTwoNoOverlap([2, 1, 5, 6, 0, 9, 5, 0, 3, 8], 4, 3))  # 31
+print(maxSumTwoNoOverlap([0, 6, 5, 2, 2, 5, 1, 9, 4], 2, 1))  # 20
+
+```
+
 ## Sliding Window (Cyclic Array)
 ### [Rotate Function](https://leetcode.com/problems/rotate-function)
 ```python
