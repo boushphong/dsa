@@ -626,6 +626,59 @@ def findLeaves(root):
     return res
 ```
 
+### [Number of Good Leaf Nodes Pairs](https://leetcode.com/problems/number-of-good-leaf-nodes-pairs)
+```python
+from bisect import *
+
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result += left[i:]
+    result += right[j:]
+    return result
+
+
+def countPairs(root, distance):
+    """
+    TC: O(N log(N) ^ 2) each element will be processed at most log(n) times. each processing takes log(n) (merge step and bisect step)
+    SC: O(N)
+    """
+    ans = 0
+
+    def dfs(node=root):
+        nonlocal ans
+        if not node.left and not node.right:
+            return [1]
+
+        left = []
+        if node.left:
+            left += dfs(node.left)
+
+        right = []
+        if node.right:
+            right += dfs(node.right)
+
+        if left and right:
+            for _ in left:
+                tmp = bisect_right(right, distance - _)
+                ans += tmp
+
+        merged = merge(left, right)
+
+        return [_ + 1 for _ in merged]
+
+    dfs()
+    return ans
+```
+
 ## Binary Search Tree (BST)
 ### [Path Sum](https://leetcode.com/problems/path-sum/)
 ```python
