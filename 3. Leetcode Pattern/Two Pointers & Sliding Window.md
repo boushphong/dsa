@@ -1,6 +1,6 @@
 # Two pointers & Sliding window
 # Patterns
-## Sliding Window (Over Estimation)
+## Sliding Window (Explading wWindow and Over Estimation)
 ### [Frequency of the Most Frequent Element](https://leetcode.com/problems/frequency-of-the-most-frequent-element)
 ```python
 def maxFrequency(nums, k):
@@ -43,7 +43,7 @@ print(characterReplacement("ABCBBAAAA", 2))
 ```
 
 **Explanation**
-- When we reduce the windows from `left, right = 1, 6` (**BCBBAA**) to `left, right = 2, 6` (**CBBAA**), we do not decrement the `topFrequency` variable because the `(right - left + 1)` keeps track of the maximum length of any valid window seen so far. As long as the condition `(right - left + 1) - topFrequency <= k` holds, the length of the current window is a candidate for the longest valid window. Even if we decrement the `topFrequency`, and update the windows, the windows' size will shrink, hence we would not get a bigger windows' size. We inherently over-estimate the `topFrequency` variable and never decrement it because we want to find the maximum windows' size, not calculing windows' size for every single window. In short, we will always maintain the maximum windows' size.
+- When we reduce the windows from `left, right = 1, 6` (**BCBBAA**) to `left, right = 2, 6` (**CBBAA**), we do not decrement the `topFrequency` variable because the `(right - left + 1)` keeps track of the maximum length of any valid window seen so far. As long as the condition `(right - left + 1) - topFrequency <= k` holds, the length of the current window is a candidate for the longest valid window. Even if we decrement the `topFrequency`, and update the windows, the windows' size will shrink, hence we would not get a bigger windows' size. We inherently over-estimate the `topFrequency` variable and never decrement it because we want to find the maximum windows' size, not calculing windows' size for every single window. In short, we will always maintain the maximum windows' size
 
 ## Tracking Max/Min of a Window
 ### [Maximum Sum of Two Non-Overlapping Subarrays](https://leetcode.com/problems/maximum-sum-of-two-non-overlapping-subarrays)
@@ -72,6 +72,26 @@ def maxSumTwoNoOverlap(nums, firstLen, secondLen):
 
 print(maxSumTwoNoOverlap([2, 1, 5, 6, 0, 9, 5, 0, 3, 8], 4, 3))  # 31
 print(maxSumTwoNoOverlap([0, 6, 5, 2, 2, 5, 1, 9, 4], 2, 1))  # 20
+```
+
+## Fixed Window
+### [Minimum Swaps to Group All 1's Together](https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together)
+```python
+def minSwaps(data):
+    sumOfOnes = sum(data)
+
+    windowCount1 = sum(data[0:sumOfOnes])
+    ans = sumOfOnes - windowCount1
+
+    for i in range(1, (len(data) - sumOfOnes) + 1):
+        windowCount1 -= data[i - 1]
+        windowCount1 += data[i + sumOfOnes - 1]
+        ans = min(ans, sumOfOnes - windowCount1)
+
+    return ans
+
+
+print(minSwaps([1, 0, 0, 1, 0, 0, 1, 0, 1, 1]))  # 2
 ```
 
 ## Sliding Window (Cyclic Array)
