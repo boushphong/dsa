@@ -235,6 +235,61 @@ print(findRadius([1, 2, 3], [2])
 print(findRadius([1, 2, 3, 4], [1, 4])
 ```
 
+### [Minimum Array Changes to Make Differences Equal](https://leetcode.com/problems/minimum-array-changes-to-make-differences-equal)
+```python
+from collections import defaultdict
+from bisect import bisect_left
+
+
+def minChanges(nums: List[int], k: int) -> int:
+    frequency_map = defaultdict(int)
+    l, r = 0, len(nums) - 1
+    pairRanges = []
+
+    while l < r:
+        diff = abs(nums[l] - nums[r])
+        frequency_map[diff] += 1
+
+        maxNum = max(nums[l], nums[r])
+        maxRangeExtension = k - min(nums[l], nums[r])
+        pairRanges.append(max(maxNum, maxRangeExtension))
+        l += 1
+        r -= 1
+
+    noPairs = len(pairRanges)
+    pairRanges.sort()
+
+    min_changes = float('inf')
+    for X, occurrence in frequency_map.items():
+        of2 = bisect_left(pairRanges, X)
+        of1 = noPairs - occurrence - of2
+        min_changes = min(min_changes, of2 * 2 + of1)
+
+    return min_changes
+
+
+print(minChanges(nums=[1, 0, 1, 2, 4, 3], k=4))  # 2
+"""Idea is to gather all the possible X values first. In the case above, {2: 1, 4:1, 1:1} Then we find out the 
+maximum expand range of every pair: [3, 4, 3] 
+- pair (1 3) have a maximum expand range of 3 because  
+    - 3 can be replaced with k = 4 (4 - 1 = 3) 
+- pair (0 4) have a maximum expand range of 4 because
+    - A number can be replaced with it self hence expand range is still (4 - 0 = 4)
+- pair (1 2) have a maximum expand range of 3 because
+    - 2 can be replace with k = 4 (4 - 1 = 3)
+    
+Once maximum expand range for every pair is found, we sort this windows: [3, 3, 4]. Since we have every X candidates: 
+{2: 1, 4: 1, 1: 1}. We perform binary search (bisecting) on the this windows.
+
+For example:
+- bisecting left 2 into the windows give 0. This means that no double replace operations has to be performed. Since
+    this window can replace just 1 element of the pair. 
+
+- bisecting left 4 into the windows give 2. This means that 2 double replace operations has to be performed. Since
+    both maximum expand range of [3, 3] are smaller than 4. Both pairs has to replace all 2 elements in their pairs
+"""
+```
+
 ### [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence)
 ```python
 from bisect import bisect_left
