@@ -241,31 +241,32 @@ from collections import defaultdict
 from bisect import bisect_left
 
 
-def minChanges(nums: List[int], k: int) -> int:
-    frequency_map = defaultdict(int)
-    l, r = 0, len(nums) - 1
-    pairRanges = []
+def minChanges(nums, k):
+      frequencyMap = defaultdict(int)
+      l, r = 0, len(nums) - 1
+      pairRanges = []
 
-    while l < r:
-        diff = abs(nums[l] - nums[r])
-        frequency_map[diff] += 1
+      while l < r:
+          diff = abs(nums[l] - nums[r])
+          frequencyMap[diff] += 1
 
-        maxNum = max(nums[l], nums[r])
-        maxRangeExtension = k - min(nums[l], nums[r])
-        pairRanges.append(max(maxNum, maxRangeExtension))
-        l += 1
-        r -= 1
+          maxNum = max(nums[l], nums[r])
+          maxRangeExtension = k - min(nums[l], nums[r])
+          pairRanges.append(max(maxNum, maxRangeExtension))
+          l += 1
+          r -= 1
 
-    noPairs = len(pairRanges)
-    pairRanges.sort()
+      noPairs = len(pairRanges)
+      pairRanges.sort()
 
-    min_changes = float('inf')
-    for X, occurrence in frequency_map.items():
-        of2 = bisect_left(pairRanges, X)
-        of1 = noPairs - occurrence - of2
-        min_changes = min(min_changes, of2 * 2 + of1)
+      minChanges = float('inf')
+      for X, occurrence in frequencyMap.items():
+          needsDoubleReplacementPairs = bisect_left(pairRanges, X)
+          needsSingleReplacementParis = noPairs - occurrence - needsDoubleReplacementPairs
+          minChanges = min(minChanges, needsDoubleReplacementPairs * 2 + needsSingleReplacementParis)
 
-    return min_changes
+      return minChanges
+
 
 
 print(minChanges(nums=[1, 0, 1, 2, 4, 3], k=4))  # 2
