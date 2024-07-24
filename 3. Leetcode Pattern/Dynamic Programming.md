@@ -660,6 +660,48 @@ At every iteration of a pair of (value and weight), we consider if there is a po
 """
 ```
 
+### [Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum)
+```python
+def canPartition(nums):
+    if sum(nums) % 2:
+        return False
+
+    target = sum(nums) // 2
+
+    if max(nums) > target:
+        return False
+
+    dp = [False] * target
+
+    for i, v in enumerate(nums):
+        tmp_dp = [False] * target
+        tmp_dp[v - 1] = True
+        for iSum in range(v + 1, target + 1):
+            if dp[iSum - 1]:
+                tmp_dp[iSum - 1] = True
+                continue
+
+            tmp_dp[iSum - 1] = (tmp_dp[v - 1] and dp[iSum - v - 1])
+
+        if tmp_dp[-1]:
+            return True
+        dp = [v1 or v2 for v1, v2 in zip(dp, tmp_dp)]
+
+    return False
+
+
+print(canPartition([1, 5, 10, 6]))
+print(canPartition([4, 4, 2, 1, 5]))
+"""
+    1   2   3   4   5   6   7   8
+4   F   F   F   T   F   F   F   F
+4   F   F   F   T   F   F   F   T
+2   F   T   F   T   F   T   F   T
+1   T   T   T   T   T   T   T   T
+5   T   T   T   T   T   T   T   T
+"""
+```
+
 ### [Unbounded Knapsack](https://www.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1)
 ```python
 def knapsack(values, weights, m):
