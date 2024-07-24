@@ -165,8 +165,6 @@ print(subset_string_iterative("abc"))  # ['a', 'ab', 'b', 'ac', 'abc', 'bc', 'c'
 ```
 **Logic**: Explore all the possible values at each iteration.
 
-![image](https://github.com/boushphong/Recursion/assets/59940078/16a9a3e4-7131-4ff9-8856-2549c3c0f0a1)
-
 # Patterns
 ## Permutation
 **Time Complexity**: `N!`
@@ -207,7 +205,6 @@ input_string = "abc"
 permutations = get_permutation('', input_string)
 print(permutations)  # ['abc', 'acb', 'bac', 'bca', 'cab', 'cba']
 ```
-![image](https://github.com/boushphong/Recursion/assets/59940078/997736b8-7633-4bf2-ae69-eab7b47f9220)
 
 **Solution 2:**
 ```python
@@ -232,7 +229,6 @@ input_string = "abc"
 permutations = get_permutation('', input_string)
 print(permutations)  # ['cba', 'bca', 'bac', 'cab', 'acb', 'abc']
 ```
-![image](https://github.com/boushphong/Recursion/assets/59940078/adcec105-2a74-4d8b-9df5-dfeabb378091)
 
 ### Permutation String (Counting Number of Permutations)
 ```python
@@ -256,7 +252,6 @@ input_string = "abc"
 count = get_permutation('', input_string)
 print(count)
 ```
-![image](https://github.com/boushphong/Recursion/assets/59940078/b27f2212-cabb-4cee-845d-1437bb2e34ac)
 
 ### [Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/submissions/)
 
