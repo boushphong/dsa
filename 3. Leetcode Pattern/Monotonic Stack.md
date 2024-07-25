@@ -224,7 +224,7 @@ def carFleet(target: int, position: List[int], speed: List[int]) -> int:
 ## Left and Right Bound Index
 ### [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water)
 ```python
-def trap(height) -> int:
+def trap(height):
     stack = []
     ans = 0
     for rIdx, rHeight in enumerate(height):
