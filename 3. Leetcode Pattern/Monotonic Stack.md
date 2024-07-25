@@ -220,3 +220,52 @@ def carFleet(target: int, position: List[int], speed: List[int]) -> int:
         stack.append(till_finish_line)
     return len(stack)
 ```
+
+## Left and Right Bound Index
+### [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water)
+```python
+def trap(height) -> int:
+    stack = []
+    ans = 0
+    for rIdx, rHeight in enumerate(height):
+        while stack and rHeight > stack[-1][1]:
+            _, tmpHeight = stack.pop()
+            if stack:
+                lIndex, lHeight = stack[-1][0], stack[-1][1]
+                vol = min(rHeight, lHeight)
+                ans += (rIdx - lIndex - 1) * (vol - tmpHeight)
+
+        stack.append((rIdx, rHeight))
+
+    return ans
+
+
+print(trap([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]))
+```
+
+### [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram)
+```python
+def largestRectangleArea(heights):
+    stack = []
+    ans = max(heights)
+    for rIdx, rHeight in enumerate(heights + [0]):
+        if stack and rHeight < stack[-1][1]:
+            idx, height = stack.pop()
+            volR = min(rHeight, height) * (rIdx - idx + 1)
+            ans = max(ans, rHeight, volR)
+
+            tmpIdx = idx
+            while stack and rHeight < stack[-1][1]:
+                tmpIdx, tmpHeight = stack.pop()
+                volTmp = min(tmpHeight, height) * (idx - tmpIdx + 1)
+                volR = rHeight * (rIdx - tmpIdx + 1)
+                ans = max(ans, volTmp, volR)
+
+            stack.append((tmpIdx, rHeight))
+        stack.append((rIdx, rHeight))
+
+    return ans
+
+
+print(largestRectangleArea([2, 1, 5, 6, 2, 3]))
+```
