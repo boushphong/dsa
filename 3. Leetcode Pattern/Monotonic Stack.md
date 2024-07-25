@@ -249,6 +249,7 @@ def largestRectangleArea(heights):
     stack = []
     ans = max(heights)
     for rIdx, rHeight in enumerate(heights + [0]):
+        ans = max(ans, rHeight)
         if stack and rHeight < stack[-1][1]:
             idx, height = stack.pop()
             volR = min(rHeight, height) * (rIdx - idx + 1)
