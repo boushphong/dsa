@@ -444,3 +444,46 @@ def minRefuelStops(target, startFuel, stations):
 print(minRefuelStops(130, 20, [[10, 60], [30, 30], [40, 10], [60, 70]]))
 print(minRefuelStops(100, 1, [[10, 100]]))
 ```
+
+## K Number of Heaps 
+### [Smallest Range Covering Elements from K Lists](https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists)
+```python
+def smallestRange(nums):
+    cur_max = float("-inf")
+
+    heap = []
+    for i in range(len(nums)):
+        cur_max = max(cur_max, nums[i][0])
+        heap.append((heappop(nums[i]), i))
+
+    heapify(heap)
+
+    aRange = [heap[0][0], cur_max]
+    cur_range = cur_max - heap[0][0]
+
+    while True:
+        _, tmpIdx = heap[0]
+
+        if not nums[tmpIdx]:
+            return aRange
+        num = heappop(nums[tmpIdx])
+
+        if num > cur_max:
+            cur_max = num
+
+        heapreplace(heap, (num, tmpIdx))
+        if cur_max - heap[0][0] < cur_range:
+            aRange = [heap[0][0], cur_max]
+            cur_range = cur_max - heap[0][0]
+
+
+print(
+    smallestRange(
+        [
+            [4, 10, 15, 24, 26],
+            [0, 9, 12, 20],
+            [5, 18, 22, 30]
+        ]
+    )
+)
+```
