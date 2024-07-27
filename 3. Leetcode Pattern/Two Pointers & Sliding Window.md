@@ -94,6 +94,45 @@ def minSwaps(data):
 print(minSwaps([1, 0, 0, 1, 0, 0, 1, 0, 1, 1]))  # 2
 ```
 
+### [Smallest Range Covering Elements from K Lists](https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists)
+```python
+def smallestRange(nums):
+    merged = []
+    for i in range(len(nums)):
+        merged.extend(zip(nums[i], [i] * len(nums[i])))
+
+    merged.sort()
+    visited = {}
+    curRange = [merged[0][0], merged[-1][0]]
+    curMax = merged[-1][0] - merged[0][0]
+
+    l = 0
+    for r, (v, k) in enumerate(merged):
+        visited[k] = r
+
+        while len(visited) == len(nums):
+            tmpCurMax = v - merged[l][0]
+            if tmpCurMax < curMax:
+                curRange = [merged[l][0], v]
+                curMax = v - merged[l][0]
+
+            if l == visited.get(merged[l][1]):
+                del visited[merged[l][1]]
+            l += 1
+    return curRange
+
+
+print(
+    smallestRange(
+        [
+            [4, 10, 15, 24, 26],
+            [0, 9, 12, 20],
+            [5, 18, 22, 30]
+        ]
+    )
+)
+```
+
 ## Sliding Window (Cyclic Array)
 ### [Rotate Function](https://leetcode.com/problems/rotate-function)
 ```python
