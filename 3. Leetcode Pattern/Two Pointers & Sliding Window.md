@@ -1,6 +1,6 @@
 # Two pointers & Sliding window
 # Patterns
-## Sliding Window (Explading wWindow and Over Estimation)
+## Sliding Window (Explading Window and Over Estimation)
 ### [Frequency of the Most Frequent Element](https://leetcode.com/problems/frequency-of-the-most-frequent-element)
 ```python
 def maxFrequency(nums, k):
@@ -131,6 +131,28 @@ print(
         ]
     )
 )
+```
+
+## Updating Alternating Window
+### [Count Binary Substrings](https://leetcode.com/problems/count-binary-substrings/)
+```python
+def countBinarySubstrings(s):
+    consecutive = {"0": 0, "1": 0}
+    l = ans = 0
+
+    for r, v in enumerate(s):
+        if v == s[l] and consecutive.get("1" if v == "0" else "0"):
+            ans += min(consecutive.values())
+            l = r - consecutive.get("1" if v == "0" else "0")
+            consecutive[v] = 0
+
+        consecutive[v] += 1
+
+    ans += min(consecutive.values())
+    return ans
+
+
+print(countBinarySubstrings("000111000"))
 ```
 
 ## Sliding Window (Cyclic Array)
