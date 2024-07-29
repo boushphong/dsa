@@ -617,6 +617,7 @@ Second Row:
 """
 ```
 
+## Knapsack
 ### [0/1 Knapsack](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1)
 ```python
 def knapsack01(values, weights, m):
@@ -738,4 +739,34 @@ At every iteration of a pair of (value and weight), we consider if there is a po
     - Hence, we get 1
 ...
 """
+```
+
+## Dymamic Size DP
+### [Make Array Strictly Increasing](https://leetcode.com/problems/make-array-strictly-increasing)
+```python
+from bisect import bisect_right
+
+
+def makeArrayIncreasing(arr1, arr2):
+    arr2.sort()
+    dp = {arr1[0]: 0}
+    if arr2[0] < arr1[0]:
+        dp.update({arr2[0]: 1})
+    INF = float("inf")
+
+    for idx, val in enumerate(arr1[1:], 1):
+        tmpDp = {}
+        for prev, operations in dp.items():
+            if val > prev:
+                tmpDp[val] = min(operations, tmpDp.get(val, INF))
+            tmpIdx = bisect_right(arr2, prev)
+            if tmpIdx < len(arr2):
+                tmpDp[arr2[tmpIdx]] = min(1 + dp[prev], tmpDp.get(arr2[tmpIdx], INF))
+        dp = tmpDp
+
+    return min(dp.values()) if dp else -1
+
+
+print(makeArrayIncreasing(arr1=[1, 5, 3, 6, 7], arr2=[1, 3, 2, 4]))  # 1
+print(makeArrayIncreasing(arr1=[9, 5, 3, 6, 7], arr2=[1, 3, 2, 4]))  # 2
 ```
