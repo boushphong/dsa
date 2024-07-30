@@ -514,7 +514,7 @@ print(uniquePathsWithObstacles([[0, 0, 0, 0],
 """
 ```
 
-### [Largest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence)
+### [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence)
 ```python
 def longestCommonSubsequence(text1, text2):
     m, n = len(text1), len(text2)
