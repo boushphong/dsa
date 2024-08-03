@@ -1,10 +1,10 @@
 # Bit Manipulation
 | X | Y | X&Y | X\|Y | X^Y | ~(X) |
-|---|---|-----|-----|-----|------|
-| 0 | 0 |  0  |  0  |  0  |  1   |
-| 0 | 1 |  0  |  1  |  1  |  1   |
-| 1 | 0 |  0  |  1  |  1  |  0   |
-| 1 | 1 |  1  |  1  |  0  |  0   |
+|---|---|-----|------|-----|------|
+| 0 | 0 | 0   | 0    | 0   | 1    |
+| 0 | 1 | 0   | 1    | 1   | 1    |
+| 1 | 0 | 0   | 1    | 1   | 0    |
+| 1 | 1 | 1   | 1    | 0   | 0    |
 
 ## Bit Representation
 ```
@@ -184,4 +184,56 @@ x           = 00001000
 x - 1       = 00000111
 x & (x - 1) = 00000000
 """
+```
+
+## Reverse Bits
+**Get and Set**
+```python
+def reverseBits(n):
+    def getBit(x, k):
+        return (x >> k) & 1
+    
+    def setBit(x, k, i):
+        if i:
+            return x | (1 << k)
+        else:
+            return x & (~(1 << k))
+    
+    l, r = 0, 31
+    
+    while l < r:
+        i = getBit(n, l)
+        j = getBit(n, r)
+        n = setBit(n, l, j)
+        n = setBit(n, r, i)
+        l += 1
+        r -= 1
+    
+    return n
+
+
+print(reverseBits(reverseBits(1)))  # 2147483648
+```
+
+**Flip**
+```python
+def reverseBits(n):
+    def getBit(x, k):
+        return (x >> k) & 1
+
+    def flipBit(x, k):
+        return x ^ (1 << k)
+
+    l, r = 0, 31
+
+    while l < r:
+        i = getBit(n, l)
+        j = getBit(n, r)
+        if i != j:
+            n = flipBit(n, l)
+            n = flipBit(n, r)
+        l += 1
+        r -= 1
+    
+    return n
 ```

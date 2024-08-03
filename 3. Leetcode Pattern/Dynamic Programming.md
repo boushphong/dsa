@@ -4,7 +4,7 @@ Dynamic Programming is a technique that breaks down a large problem into smaller
 
 Two important properties of dynamic programming:
 - **Optimal Substructure**: The optimal solution of the original problem can be constructed from the optimal solutions of its subproblems.
-- **Overlapping Subproblems**: In the process of solving the problem, some subproblems are solved multiple times.
+- **Overlapping Sub-problems**: In the process of solving the problem, some subproblems are solved multiple times.
 
 ## Fibonacci
 ```python
