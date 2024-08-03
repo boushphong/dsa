@@ -186,7 +186,7 @@ x & (x - 1) = 00000000
 """
 ```
 
-## Reverse Bits
+### [Reverse Bits](https://leetcode.com/problems/reverse-bits/)
 **Get and Set**
 ```python
 def reverseBits(n):
@@ -236,4 +236,48 @@ def reverseBits(n):
         r -= 1
     
     return n
+```
+
+### [Single Number](https://leetcode.com/problems/single-number/)
+```python
+def singleNumber(nums):
+    ans = 0
+    for _ in nums:
+        ans ^= _
+    return ans
+
+
+print(singleNumber([4,1,2,1,2]))  # 4
+"""
+An integer XORs with itself will return 0
+X ^ Y ^ Z ^ Y ^ Z = X ^ (Y ^ Y) ^ (Z ^ Z) = X ^ 0 ^ 0 = X
+"""
+```
+
+## Subsets
+### [Subsets](https://leetcode.com/problems/subsets/)
+```python
+def subsets(nums):
+    def getSubset(i):
+        subset = []
+        idx = 0
+
+        while i != 0:
+            if i & 1:
+                subset.append(nums[idx])
+            i >>= 1
+            idx += 1
+        return subset
+
+    aRange = [i for i in range(2 ** len(nums))]
+
+    ans = []
+    for _ in aRange:
+        ans.append(getSubset(_))
+
+    return ans
+
+
+print(subsets([1, 2, 3]))
+# [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
 ```
