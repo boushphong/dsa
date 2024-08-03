@@ -137,3 +137,52 @@ flipBit(13 , 4) # 29
 00011101 x ^ (1 << 4)
 """
 ```
+
+### [Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits)
+```python
+def hammingWeight(n):
+    res = 0
+    while n != 0:
+        res += (n & 1)
+        n = n >> 1 
+    return res
+
+
+print(hammingWeight(4))  # 1
+"""
+TC: O(K) (K is the number of bits)
+00000100 1st
+n >> 1
+
+00000010 2st
+n >> 1
+
+00000001 3rd (res += 1)
+n >> 1
+
+00000000 end loop
+"""
+```
+
+```python
+def hammingWeight(n):
+    res = 0
+    while n != 0:
+        res += 1
+        n = n & (n - 1)
+
+    return res
+
+print(hammingWeight(10))  # 2
+"""
+TC: O(K) (K is the number of 1 bits)
+x           = 00001010
+x - 1       = 00001001
+x & (x - 1) = 00001000
+
+
+x           = 00001000
+x - 1       = 00000111
+x & (x - 1) = 00000000
+"""
+```
