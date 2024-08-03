@@ -170,7 +170,6 @@ def hammingWeight(n):
     while n != 0:
         res += 1
         n = n & (n - 1)
-
     return res
 
 print(hammingWeight(10))  # 2
