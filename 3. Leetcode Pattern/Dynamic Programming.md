@@ -111,7 +111,7 @@ def fib(n):
 - Top-down solutions are easier to set up initially and focus on building sub-problems as needed, without being limited by array indices (as they can dynamically handle numbers >= the size of the array).
 
 # Patterns
-## Fibonacci Style
+## Fibonacci Style (1D)
 Result of `N` is equal to `N - 1 + N - 2`
 ### [Climbing Stairs](https://leetcode.com/problems/climbing-stairs)
 **Top-Down**
@@ -152,7 +152,51 @@ def climbStairs(n):
 ```
 
 
-## General 1D
+## Linear Sequences with Constant Transition (1D)
+Requires us to solve the sub problem on every prefix (or suffix) of the array. 
+- The definition of a prefix of an array is a subarray from `0` to `i` for some `i`.
+- The definition of a suffix of an array is a subarray from `i` to `n - 1` for some `i`. (`n` is the length of the array)
+
+### [Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/)
+**Top-Down:** Solving Suffix 
+```python
+def minCostClimbingStairs(cost):
+    memo = {}
+
+    def doRecursion(step, totalCost=0):
+        if step in memo:
+            return memo[step]
+        if step > len(cost) - 1:
+            return 0
+
+        totalCost += cost[step]
+        climbSingleStep = cost[step] + doRecursion(step + 1)
+        climbDoubleStep = cost[step] + doRecursion(step + 2)
+
+        memo[step] = min(climbSingleStep, climbDoubleStep)
+        return memo[step]
+
+    startAt0 = doRecursion(0)
+    startAt1 = doRecursion(1)
+    return min(startAt1, startAt0)
+
+
+print(minCostClimbingStairs([10, 100, 1, 1, 1, 100, 1, 1, 100, 1]))  # 15
+```
+
+**Bottom-Up**: Solving Prefix
+```python
+def minCostClimbingStairs(cost):
+    first = cost[0]
+    second = cost[1]
+    for c in cost[2:]:
+        curCost = min(c + first, c + second)
+        first = second
+        second = curCost
+    return min(first, second)
+```
+
+
 ### [Decode Ways](https://leetcode.com/problems/decode-ways)
 **Top-Down**
 
@@ -261,31 +305,6 @@ Possible combinations
 11 2 1
 11 21
 """
-```
-
-### [Coin Change](https://leetcode.com/problems/coin-change)
-```python
-def coinChange(coins, amount):
-    dp = [float("inf")] * (amount + 1)
-    minimum = min(coins)
-    if amount < minimum:
-        return -1 if amount else 0
-
-    for i in range(0, amount + 1):
-        for c in coins:
-            if c == i:
-                dp[i] = 1
-                break
-
-            if i - c >= minimum:
-                dp[i] = min(dp[i], dp[c] + dp[i - c])
-
-    return dp[amount] if dp[amount] != float("inf") else -1
-
-
-print(coinChange([2, 3, 5], 13))
-print(coinChange([1], 1))
-print(coinChange([1], 0))
 ```
 
 ### [Word Break](https://leetcode.com/problems/word-break/)
@@ -701,6 +720,32 @@ At every iteration of a pair of (value and weight), we consider if there is a po
 ...
 """
 ```
+
+### [Coin Change](https://leetcode.com/problems/coin-change)
+```python
+def coinChange(coins, amount):
+    dp = [float("inf")] * (amount + 1)
+    minimum = min(coins)
+    if amount < minimum:
+        return -1 if amount else 0
+
+    for i in range(0, amount + 1):
+        for c in coins:
+            if c == i:
+                dp[i] = 1
+                break
+
+            if i - c >= minimum:
+                dp[i] = min(dp[i], dp[c] + dp[i - c])
+
+    return dp[amount] if dp[amount] != float("inf") else -1
+
+
+print(coinChange([2, 3, 5], 13))
+print(coinChange([1], 1))
+print(coinChange([1], 0))
+```
+
 
 ### [Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum)
 ```python
