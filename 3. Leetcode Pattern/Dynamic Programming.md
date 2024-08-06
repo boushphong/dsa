@@ -307,43 +307,7 @@ Possible combinations
 """
 ```
 
-### [Word Break](https://leetcode.com/problems/word-break/)
-**Backward**
-```python
-def wordBreak(s, wordDict):
-    n = len(s)
-    dp = [False] * (n + 1)
-    dp[n] = True
-    for i in range(n, -1, -1):
-        for word in wordDict:
-            if i - len(word) < 0:
-                continue
-            
-            if not dp[i - len(word)] and word == s[i - len(word): i]:
-                dp[i - len(word)] = True and dp[i]
 
-    return dp[0]
-
-print(wordBreak("neetcodese", ["sez", "code", "neet"]))
-print(wordBreak("neetcodese", ["se", "code", "neet"]))
-```
-
-**Forward**
-```python
-def wordBreak(s, wordDict):
-    n = len(s)
-    dp = [False] * (n + 1)
-    dp[0] = True
-    for i in range(n):
-        for word in wordDict:
-            if i + len(word) > n:
-                continue
-
-            if not dp[i + len(word)] and word == s[i: i + len(word)]:
-                dp[i + len(word)] = True and dp[i]
-
-    return dp[-1]
-```
 ## Increasing/Decreasing Subsequnce
 ### [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
 ```python
@@ -744,6 +708,32 @@ def coinChange(coins, amount):
 print(coinChange([2, 3, 5], 13))
 print(coinChange([1], 1))
 print(coinChange([1], 0))
+```
+
+
+### [Word Break](https://leetcode.com/problems/word-break/)
+```python
+def wordBreak(s, wordDict):
+    dp = [False] * (len(s) + 1)
+    dp[0] = True
+
+    for i in range(1, len(s) + 1):
+        for word in wordDict:
+            if len(word) > i or dp[i]:
+                continue
+
+            tmpWord = s[i - len(word):i]
+            if word == tmpWord:
+                dp[i] = True and dp[i - len(word)]
+    return dp[-1]
+
+
+print(wordBreak("dogs", ["dog", "s", "gs"]))  # True
+"""
+0   1   2   3   4 
+    d   o   g   s
+T   F   F   T   T
+"""
 ```
 
 
