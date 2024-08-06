@@ -163,13 +163,12 @@ Requires us to solve the sub-problem on every prefix (or suffix) of the array.
 def minCostClimbingStairs(cost):
     memo = {}
 
-    def doRecursion(step, totalCost=0):
+    def doRecursion(step):
         if step in memo:
             return memo[step]
         if step > len(cost) - 1:
             return 0
 
-        totalCost += cost[step]
         climbSingleStep = cost[step] + doRecursion(step + 1)
         climbDoubleStep = cost[step] + doRecursion(step + 2)
 
@@ -308,7 +307,8 @@ Possible combinations
 ```
 
 
-## Increasing/Decreasing Subsequnce
+## Linear Sequences with non-constant Transition (LIS)
+Requires us to solve the sub-problem on every prefix of the array. However, transitions may not be simple and require a linear amount of options from indices `j < i`.
 ### [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
 ```python
 def lengthOfLIS(nums):
