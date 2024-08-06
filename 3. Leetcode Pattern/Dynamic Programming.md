@@ -111,7 +111,48 @@ def fib(n):
 - Top-down solutions are easier to set up initially and focus on building sub-problems as needed, without being limited by array indices (as they can dynamically handle numbers >= the size of the array).
 
 # Patterns
-## Top-Down DP and Bottom-Up DP
+## Fibonacci Style
+Result of `N` is equal to `N - 1 + N - 2`
+### [Climbing Stairs](https://leetcode.com/problems/climbing-stairs)
+**Top-Down**
+```python
+def climbStairs(n):
+    memo = {}
+
+    def doRecursion(step=0):
+        if step > n:
+            return 0
+        if step == n:
+            return 1
+        if step in memo:
+            return memo[step]
+
+        climbSingleStep = doRecursion(step + 1)
+        climbDoubleStep = doRecursion(step + 2)
+
+        memo[step] = climbSingleStep + climbDoubleStep
+        return memo[step]
+
+    return doRecursion(0)
+
+
+print(climbStairs(5))  # 8
+```
+
+**Bottom-Up**
+```python
+def climbStairs(n):
+    step1, step2, step = 0, 1, 0
+    for i in range(n):
+        step = step1 + step2
+        step1 = step2
+        step2 = step
+
+    return step
+```
+
+
+## General 1D
 ### [Decode Ways](https://leetcode.com/problems/decode-ways)
 **Top-Down**
 
