@@ -153,7 +153,7 @@ def climbStairs(n):
 
 
 ## Linear Sequences with Constant Transition (1D)
-Requires us to solve the sub problem on every prefix (or suffix) of the array. 
+Requires us to solve the sub-problem on every prefix (or suffix) of the array. 
 - The definition of a prefix of an array is a subarray from `0` to `i` for some `i`.
 - The definition of a suffix of an array is a subarray from `i` to `n - 1` for some `i`. (`n` is the length of the array)
 
@@ -471,7 +471,8 @@ dp = [(1, 3), (1, 8), (1, 13), (2, 7), (2, 11), (2, 15), (2, 21)]
 print(bestTeamScore([4, 4, 4, 5, 6, 5, 3, 5], [2, 2, 2, 1, 2, 1, 1, 1]))  # 24
 ```
 
-## Matrix Pattern
+## Matrix (Grid) Pattern
+Requires us to solve the sub-problem on every sub-grids.
 ### [Unique Paths](https://leetcode.com/problems/unique-paths)
 ```python
 def uniquePaths(m, n):
@@ -538,6 +539,8 @@ print(uniquePathsWithObstacles([[0, 0, 0, 0],
 """
 ```
 
+## Dual Sequence
+Requires us to calculate some value related to two sequences. `Dp[i][j]` will store the answer to the sub-problem solved on prefix of sequence 1 with length `i`, and prefix on sequence 2 with length `j`.
 ### [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence)
 ```python
 def longestCommonSubsequence(text1, text2):
