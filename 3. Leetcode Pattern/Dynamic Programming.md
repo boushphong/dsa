@@ -709,6 +709,7 @@ print(longestPalindromeSubseq("cbbabab"))
 ```
 
 ### [Stone Game VII](https://leetcode.com/problems/stone-game-vii)
+Use `lru_cache(maxsize=3000)` instead of `memo` for cache eviction to pass `Memory Limit Exceeded` on LeetCode.
 ```python
 from itertools import accumulate
 
