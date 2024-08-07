@@ -708,6 +708,62 @@ print(longestPalindromeSubseq("cbbabab"))
 """
 ```
 
+### [Stone Game VII](https://leetcode.com/problems/stone-game-vii)
+```python
+from itertools import accumulate
+
+
+def stoneGameVII(stones):
+    n = len(stones)
+    prefix_sum = list(accumulate(stones, initial=0))
+    memo = {}
+
+    def dp(l, r):
+        if l == r:
+            return 0
+
+        if (l, r) in memo:
+            return memo[(l, r)]
+
+        total_sum = prefix_sum[r + 1] - prefix_sum[l]
+        left_choice = total_sum - stones[l] - dp(l + 1, r)
+        right_choice = total_sum - stones[r] - dp(l, r - 1)
+
+        result = max(left_choice, right_choice)
+        memo[(l, r)] = result
+        return result
+
+    return dp(0, n - 1)
+
+
+print(stoneGameVII([5, 3, 1, 4, 2]))
+"""
+memo = {(3, 4): 4, (2, 3): 4, (2, 4): 2, (1, 2): 3, (1, 3): 1, (1, 4): 7, (0, 1): 5, (0, 2): 3, (0, 3): 7, (0, 4): 6}
+stoneGameVII([5, 3, 1, 4, 2])
+  └─ dp(0, 4)  # diff = 6 -> max(15 - 7 - 3, 15 - 7 - 2)
+       ├─ dp(1, 4)  # diff = 7 (cache)
+       │    ├─ dp(2, 4)  # diff = 2 (cache)
+       │    │    ├─ dp(3, 4)  # diff = 4 (cache)
+       │    │    │    ├─ dp(4, 4)    
+       │    │    │    └─ dp(3, 3)  
+       │    │    └─ dp(2, 3)  # diff = 4 (cache)
+       │    │         ├─ dp(3, 3)  
+       │    │         └─ dp(2, 2)
+       │    └─ dp(1, 3)  # diff = 1 (cache)
+       │         ├─ dp(2, 3)  # diff = 4 (use cache)
+       │         └─ dp(1, 2)  # diff = 3 (cache)
+       │              ├─ dp(2, 2)
+       │              └─ dp(1, 1)
+       └─ dp(0, 3)  # diff = 7 (cache)
+            ├─ dp(1, 3)  # diff = 1 (use cache)
+            └─ dp(0, 2)  # diff = 3 (cache)
+                 ├─ dp(1, 2)  # diff = 3 (use cache)
+                 └─ dp(0, 1)  # diff = 5 (cache)
+                      ├─ dp(1, 1)
+                      └─ dp(0, 0)
+"""
+```
+
 ## Knapsack
 ### [0/1 Knapsack](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1)
 ```python
