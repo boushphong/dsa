@@ -644,6 +644,57 @@ Second Row:
 """
 ```
 
+## Interval
+Requires us to solve sub-problems based on every single interval (sub-array) of the array
+### [Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence)
+```python
+def longestPalindromeSubseq(s):
+    memo = {}
+
+    def doRecursion(l=0, r=len(s) - 1):
+        if (l, r) in memo:
+            return memo[(l, r)]
+        if l == r:
+            return 1
+        if l > r:
+            return 0
+
+        if s[l] == s[r]:
+            cnt = 2 + doRecursion(l + 1, r - 1)
+        else:
+            cnt1 = doRecursion(l + 1, r)
+            cnt2 = doRecursion(l, r - 1)
+            cnt = max(cnt1, cnt2)
+
+        memo[(l, r)] = cnt
+        return cnt
+
+    return doRecursion()
+
+
+print(longestPalindromeSubseq("cbbabab"))
+"""
+0   6 (5)
+    1   6 (5)
+        2   5 (3)
+            3   5 (3)
+                4   4 (1)
+            2   4 (3)
+                3   3 (1)
+    0   5 (3)
+        1   5 (3)
+            2   5 (3) 
+            1   4 (3)
+                2   4 (3)
+                1   3 (2)
+                    2   3 (1)
+                        3   3 (1)
+                    1   2 (2)
+                        2   1 (0)
+        1   4 (3)
+"""
+```
+
 ## Knapsack
 ### [0/1 Knapsack](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1)
 ```python
