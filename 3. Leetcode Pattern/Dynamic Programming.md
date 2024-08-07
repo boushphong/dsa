@@ -15,7 +15,8 @@
    * [Matrix (Grid) Pattern](#matrix-grid-pattern)
    * [Dual Sequence](#dual-sequence)
    * [Interval](#interval)
-   * [Knapsack](#knapsack)
+   * [Knapsack 1D](#knapsack-1d)
+   * [Knapsack 2D](#knapsack-2d)
    * [Dynamic Size DP](#dynamic-size-dp)
 
 ## What is Dynamic Programming?
@@ -806,46 +807,41 @@ def stoneGameVII(stones):
 ```
 
 
-## Knapsack
-### [0/1 Knapsack](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1)
+## Knapsack 1D
+### [Unbounded Knapsack](https://www.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1)
 ```python
-def knapsack01(values, weights, m):
+def knapsack(values, weights, m):
     dp = [0] * (m + 1)
 
     for value, weight in zip(values, weights):
-        tmp_dp = [0] * (m + 1)
-        for i in range(1, len(tmp_dp)):
-            if i >= weight:
-                tmp_dp[i] = max(dp[i], dp[i - weight] + value)
-            else:
-                tmp_dp[i] = dp[i]
-        dp = tmp_dp
+        for w in range(weight, m + 1):
+            dp[w] = max(dp[w], dp[w - weight] + value)
+
     return dp[-1]
 
 
-print(knapsack01([2, 1, 4, 6], [1, 2, 3, 5], 8))
+print(knapsack([1, 5, 7, 14], [1, 2, 3, 5], 9))
+# print(knapsack01([7, 1, 14, 5], [3, 1, 5, 2], 9))
 ```
 
 Explanation
 ```python
-m = 8
-values = [2, 1, 4, 6]
+m = 9
+values = [1, 5, 7, 14]
 weights = [1, 2, 3, 5]
-v   w   0   1   2   3   4   5   6   7   8
--   -   0   0   0   0   0   0   0   0   0
-2   1   0   2   2   2   2   2   2   2   2
-1   2   0   2   2   3   3   3   3   3   3
-4   3   0   2   2   4   6   6   7   7   7
-6   5   0   2   2   4   6   6   8   8  10
+v   w   0   1   2   3   4   5   6   7   8   9
+-   -   0   0   0   0   0   0   0   0   0   0
+1   1   0   1   2   3   4   5   6   7   8   9
+5   2   0   1   5   6  10  11  15  16  20  21
+7   3   0   1   5   7  10  12  15  16  20  21
+14  5   0   1   5   7  10  14  15  19  21  24
 
 """
-At every iteration of a pair of (value and weight), we consider if there is a posible answer by looking the best answer of the previous pair.
-- At the first iteration, we look at previous pair of (value = 0, weight = 0)
+At every iteration of a pair of (value and weight), we consider if there is a posible answer by looking the best answer of the previous pair. We only iterate from starting weight to ending weight of the item and we update dp INPLACE.
+- At first item iteration (value = 1, weight = 1), we look at a previous pair of (value = 0, weight = 0)
     - At weight i = 1, we get the best answer from previous dp (dp[1] = 0).
-    - Compare it with the possible best answer dp[i - weight] + value = dp[1 - 1] + 2 = 2
-    - Hence, we get 2.
-- We do this to determine the best possible value at weight = 1.
-    - At first item iteration (value = 2, weight = 1) and at i = 1. If we want to know the best possible value by including this item, we need to know the best possible value of at weight (1 - 1 = 0). At weight 0, the best possible value is 0.
+    - Compare it with the possible best answer dp[w - weight] + value = dp[1 - 1] + 1 = 0 + 1 = 1
+    - Hence, we get 1
 ...
 """
 ```
@@ -901,6 +897,49 @@ T   F   F   T   T
 """
 ```
 
+## Knapsack 2D
+### [0/1 Knapsack](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1)
+```python
+def knapsack01(values, weights, m):
+    dp = [0] * (m + 1)
+
+    for value, weight in zip(values, weights):
+        tmp_dp = [0] * (m + 1)
+        for i in range(1, len(tmp_dp)):
+            if i >= weight:
+                tmp_dp[i] = max(dp[i], dp[i - weight] + value)
+            else:
+                tmp_dp[i] = dp[i]
+        dp = tmp_dp
+    return dp[-1]
+
+
+print(knapsack01([2, 1, 4, 6], [1, 2, 3, 5], 8))
+```
+
+Explanation
+```python
+m = 8
+values = [2, 1, 4, 6]
+weights = [1, 2, 3, 5]
+v   w   0   1   2   3   4   5   6   7   8
+-   -   0   0   0   0   0   0   0   0   0
+2   1   0   2   2   2   2   2   2   2   2
+1   2   0   2   2   3   3   3   3   3   3
+4   3   0   2   2   4   6   6   7   7   7
+6   5   0   2   2   4   6   6   8   8  10
+
+"""
+At every iteration of a pair of (value and weight), we consider if there is a posible answer by looking the best answer of the previous pair.
+- At the first iteration, we look at previous pair of (value = 0, weight = 0)
+    - At weight i = 1, we get the best answer from previous dp (dp[1] = 0).
+    - Compare it with the possible best answer dp[i - weight] + value = dp[1 - 1] + 2 = 2
+    - Hence, we get 2.
+- We do this to determine the best possible value at weight = 1.
+    - At first item iteration (value = 2, weight = 1) and at i = 1. If we want to know the best possible value by including this item, we need to know the best possible value of at weight (1 - 1 = 0). At weight 0, the best possible value is 0.
+...
+"""
+```
 
 ### [Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum)
 ```python
@@ -941,44 +980,6 @@ print(canPartition([4, 4, 2, 1, 5]))
 2   F   T   F   T   F   T   F   T
 1   T   T   T   T   T   T   T   T
 5   T   T   T   T   T   T   T   T
-"""
-```
-
-### [Unbounded Knapsack](https://www.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1)
-```python
-def knapsack(values, weights, m):
-    dp = [0] * (m + 1)
-
-    for value, weight in zip(values, weights):
-        for w in range(weight, m + 1):
-            dp[w] = max(dp[w], dp[w - weight] + value)
-
-    return dp[-1]
-
-
-print(knapsack([1, 5, 7, 14], [1, 2, 3, 5], 9))
-# print(knapsack01([7, 1, 14, 5], [3, 1, 5, 2], 9))
-```
-
-Explanation
-```python
-m = 9
-values = [1, 5, 7, 14]
-weights = [1, 2, 3, 5]
-v   w   0   1   2   3   4   5   6   7   8   9
--   -   0   0   0   0   0   0   0   0   0   0
-1   1   0   1   2   3   4   5   6   7   8   9
-5   2   0   1   5   6  10  11  15  16  20  21
-7   3   0   1   5   7  10  12  15  16  20  21
-14  5   0   1   5   7  10  14  15  19  21  24
-
-"""
-At every iteration of a pair of (value and weight), we consider if there is a posible answer by looking the best answer of the previous pair. We only iterate from starting weight to ending weight of the item and we update dp INPLACE.
-- At first item iteration (value = 1, weight = 1), we look at a previous pair of (value = 0, weight = 0)
-    - At weight i = 1, we get the best answer from previous dp (dp[1] = 0).
-    - Compare it with the possible best answer dp[w - weight] + value = dp[1 - 1] + 1 = 0 + 1 = 1
-    - Hence, we get 1
-...
 """
 ```
 
