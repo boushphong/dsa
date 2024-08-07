@@ -731,7 +731,7 @@ print(longestPalindromeSubseq("cbbabab"))  # 5
 ```
 
 ### [Stone Game VII](https://leetcode.com/problems/stone-game-vii)
-Use `lru_cache(maxsize=3000)` instead of `memo` for cache eviction to pass `Memory Limit Exceeded` on LeetCode.
+**Top-Down:** Use `lru_cache(maxsize=3000)` instead of `memo` for cache eviction to pass `Memory Limit Exceeded` on LeetCode.
 ```python
 from itertools import accumulate
 
@@ -785,6 +785,26 @@ stoneGameVII([5, 3, 1, 4, 2])
                       └─ dp(0, 0)
 """
 ```
+
+**Bottom-Up**
+```python
+def stoneGameVII(stones):
+    n = len(stones)
+    prefix_sum = list(accumulate(stones, initial=0))
+    dp = [0] * n
+
+    for length in range(2, n + 1):
+        for l in range(n - length + 1):
+            r = l + length - 1
+            total_sum = prefix_sum[r + 1] - prefix_sum[l]
+            dp[l] = max(
+                total_sum - stones[l] - dp[l + 1],
+                total_sum - stones[r] - dp[l]
+            )
+            
+    return dp[0]
+```
+
 
 ## Knapsack
 ### [0/1 Knapsack](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1)
