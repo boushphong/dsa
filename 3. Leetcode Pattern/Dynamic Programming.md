@@ -1,4 +1,23 @@
 # Dynamic Programming
+# Table of Contents
+* [Dynamic Programming](#dynamic-programming)
+   * [What is Dynamic Programming?](#what-is-dynamic-programming)
+   * [Fibonacci](#fibonacci)
+* [Top-Down approach](#top-down-approach)
+   * [Fibonacci Dynamic Programming (Memoization)](#fibonacci-dynamic-programming-memoization)
+* [Bottom-Up approach](#bottom-up-approach)
+   * [Fibonacci Dynamic Programming (Tabulation)](#fibonacci-dynamic-programming-tabulation)
+   * [Top-Down DP vs Bottom-Up DP](#top-down-dp-vs-bottom-up-dp)
+* [Patterns](#patterns)
+   * [Fibonacci Style (1D)](#fibonacci-style-1d)
+   * [Linear Sequences with Constant Transition (1D)](#linear-sequences-with-constant-transition-1d)
+   * [Linear Sequences with non-constant Transition (LIS)](#linear-sequences-with-non-constant-transition-lis)
+   * [Matrix (Grid) Pattern](#matrix-grid-pattern)
+   * [Dual Sequence](#dual-sequence)
+   * [Interval](#interval)
+   * [Knapsack](#knapsack)
+   * [Dynamic Size DP](#dymamic-size-dp)
+
 ## What is Dynamic Programming?
 Dynamic Programming is a technique that breaks down a large problem into smaller subproblems, solving and storing the optimal results of these subproblems to reuse in finding the optimal solution for the initial problem.
 
@@ -198,7 +217,6 @@ def minCostClimbingStairs(cost):
 
 ### [Decode Ways](https://leetcode.com/problems/decode-ways)
 **Top-Down**
-
 ```python
 def numDecodings(s):
     n = len(s)
@@ -225,12 +243,7 @@ def numDecodings(s):
 
 
 print(numDecodings("10211"))
-print(numDecodings("1121"))
-```
-
-```python
-Example: 10211
-
+"""
 i = 0 (1)                                       (Step 8)
     i = 1 (0) > invalid > return 0              (Step 1)
 
@@ -242,9 +255,10 @@ i = 0 (1)                                       (Step 8)
         i = 4 (1) > 1 > get from memo           (Step 6)
 
 i = 0 (1) = 0 + 3 = 3
+"""
 
-Example: 1121
-
+print(numDecodings("1121"))
+"""
 i = 0 (1)                                       (Step 8)
     i = 1 (1) > 3 > cache 1: 3                  (Step 6)
         i = 2 (2) > 2 > cache 2: 2              (Step 4)
@@ -255,6 +269,7 @@ i = 0 (1)                                       (Step 8)
     i = 2 (2) > 2 > get from memo               (Step 7)
 
 i = 0 (1) = 3 + 2 = 5
+"""
 ```
 
 **Bottom-Up**
@@ -524,10 +539,8 @@ def uniquePathsWithObstacles(obstacleGrid):
             tmp = dp[j]
 
     return dp[0]
-```
 
-Explanation
-```python
+
 print(uniquePathsWithObstacles([[0, 0, 0, 0],
                                 [0, 1, 0, 0],
                                 [0, 0, 1, 0]]))
@@ -871,7 +884,7 @@ At every iteration of a pair of (value and weight), we consider if there is a po
 """
 ```
 
-## Dymamic Size DP
+## Dynamic Size DP
 ### [Make Array Strictly Increasing](https://leetcode.com/problems/make-array-strictly-increasing)
 ```python
 from bisect import bisect_right
