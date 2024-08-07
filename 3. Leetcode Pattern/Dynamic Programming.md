@@ -664,7 +664,7 @@ Requires us to solve sub-problems based on every single interval (sub-array) of 
 def longestPalindromeSubseq(s):
     memo = {}
 
-    def doRecursion(l=0, r=len(s) - 1):
+    def dp(l=0, r=len(s) - 1):
         if (l, r) in memo:
             return memo[(l, r)]
         if l == r:
@@ -673,16 +673,16 @@ def longestPalindromeSubseq(s):
             return 0
 
         if s[l] == s[r]:
-            cnt = 2 + doRecursion(l + 1, r - 1)
+            cnt = 2 + dp(l + 1, r - 1)
         else:
-            cnt1 = doRecursion(l + 1, r)
-            cnt2 = doRecursion(l, r - 1)
+            cnt1 = dp(l + 1, r)
+            cnt2 = dp(l, r - 1)
             cnt = max(cnt1, cnt2)
 
         memo[(l, r)] = cnt
         return cnt
 
-    return doRecursion()
+    return dp()
 
 
 print(longestPalindromeSubseq("cbbabab"))
@@ -714,11 +714,10 @@ from itertools import accumulate
 
 
 def stoneGameVII(stones):
-    n = len(stones)
     prefix_sum = list(accumulate(stones, initial=0))
     memo = {}
 
-    def dp(l, r):
+    def dp(l=0, r=len(stones) - 1):
         if l == r:
             return 0
 
@@ -733,7 +732,7 @@ def stoneGameVII(stones):
         memo[(l, r)] = result
         return result
 
-    return dp(0, n - 1)
+    return dp()
 
 
 print(stoneGameVII([5, 3, 1, 4, 2]))
