@@ -16,7 +16,7 @@
    * [Dual Sequence](#dual-sequence)
    * [Interval](#interval)
    * [Knapsack](#knapsack)
-   * [Dynamic Size DP](#dymamic-size-dp)
+   * [Dynamic Size DP](#dynamic-size-dp)
 
 ## What is Dynamic Programming?
 Dynamic Programming is a technique that breaks down a large problem into smaller subproblems, solving and storing the optimal results of these subproblems to reuse in finding the optimal solution for the initial problem.
@@ -660,6 +660,7 @@ Second Row:
 ## Interval
 Requires us to solve sub-problems based on every single interval (sub-array) of the array
 ### [Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence)
+**Top-Down**
 ```python
 def longestPalindromeSubseq(s):
     memo = {}
@@ -706,6 +707,27 @@ print(longestPalindromeSubseq("cbbabab"))
                         2   1 (0)
         1   4 (3)
 """
+```
+
+[**Bottom-Up**](https://www.youtube.com/watch?v=TLaGwTnd3HY&t=207s&ab_channel=GeeksforGeeks)
+```python
+def longestPalindromeSubseq(s):
+    dp = [0] * len(s)
+
+    for i in range(len(s) - 1, -1, -1):
+        tmp_dp = [0] * len(s)
+        tmp_dp[i] = 1
+        for j in range(i + 1, len(s)):
+            if s[i] == s[j]:
+                tmp_dp[j] = 2 + dp[j - 1]
+            else:
+                tmp_dp[j] = max(dp[j], tmp_dp[j - 1])
+        dp = tmp_dp
+    return dp[-1]
+
+
+print(longestPalindromeSubseq("babcbab"))  # 7
+print(longestPalindromeSubseq("cbbabab"))  # 5
 ```
 
 ### [Stone Game VII](https://leetcode.com/problems/stone-game-vii)
