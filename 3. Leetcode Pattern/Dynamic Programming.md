@@ -325,19 +325,47 @@ Possible combinations
 
 ## Linear Sequences with non-constant Transition (LIS)
 Requires us to solve the sub-problem on every prefix of the array. However, transitions may not be simple and require a linear amount of options from indices `j < i`.
+
+### [Largest Sum of Averages](https://leetcode.com/problems/largest-sum-of-averages)
+```python
+def largestSumOfAverages(nums, k):
+    n = len(nums)
+    dp = [0] * (n + 1)
+    sums = [0] * (n + 1)
+
+    for i in range(1, n + 1):
+        sums[i] = sums[i - 1] + nums[i - 1]
+        dp[i] = sums[i] / i
+
+    for atK in range(2, k + 1):
+        new_dp = [0] * (n + 1)
+        for i in range(atK, n + 1):
+            for j in range(atK - 1, i):
+                new_dp[i] = max(new_dp[i], dp[j] + (sums[i] - sums[j]) / (i - j))
+        dp = new_dp
+
+    return dp[n]
+
+
+print(largestSumOfAverages([9, 1, 2, 3, 9], 3))  # 20.0
+```
+
+Explanation
+|   k\i   |   1   |   2   |   3   |   4   |   5   |
+|:-------:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|   k=1   |   9   |   5   |   4   |  3.75 |  4.8  |
+|   k=2   |   -   |  9+1  | 9+1.5 | 9+2   | 9+3.75|
+|         |       |       | 5+2   | 5+2.5 | 5+4.67|
+|         |       |       |       | 4+3   | 4+6   |
+|         |       |       |       |       | 3.75+9|
+|   k=3   |   -   |   -   | 10+2  | 10+2.5| 10+4.67|
+|         |       |       |       | 10.5+3| 10.5+6|
+|         |       |       |       |       | 11+9  |
+
+## Longest Increasing Subsequence Variation
 ### [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
 ```python
 def lengthOfLIS(nums):
-    """
-    0: [1, 1, 1, 1, 1, 1, 1, 1]
-    1: [1, 1, 1, 1, 1, 1, 1, 1]
-    2: [1, 1, 1, 1, 1, 1, 1, 1]
-    3: [1, 1, 1, 2, 1, 1, 1, 1]
-    4: [1, 1, 1, 2, 2, 1, 1, 1]
-    5: [1, 1, 1, 2, 2, 3, 1, 1]
-    6: [1, 1, 1, 2, 2, 3, 4, 1]
-    7: [1, 1, 1, 2, 2, 3, 4, 4]
-    """
     dp = [1] * len(nums)
     
     for i, num in enumerate(nums):
@@ -351,6 +379,16 @@ def lengthOfLIS(nums):
 
 
 print(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]))
+  """
+  0: [1, 1, 1, 1, 1, 1, 1, 1]
+  1: [1, 1, 1, 1, 1, 1, 1, 1]
+  2: [1, 1, 1, 1, 1, 1, 1, 1]
+  3: [1, 1, 1, 2, 1, 1, 1, 1]
+  4: [1, 1, 1, 2, 2, 1, 1, 1]
+  5: [1, 1, 1, 2, 2, 3, 1, 1]
+  6: [1, 1, 1, 2, 2, 3, 4, 1]
+  7: [1, 1, 1, 2, 2, 3, 4, 4]
+  """
 ```
 
 ### [Count Number of Teams](https://leetcode.com/problems/count-number-of-teams)
