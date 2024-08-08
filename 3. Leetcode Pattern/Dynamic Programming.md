@@ -11,7 +11,7 @@
 * [Patterns](#patterns)
    * [Fibonacci Style (1D)](#fibonacci-style-1d)
    * [Linear Sequences with Constant Transition (1D)](#linear-sequences-with-constant-transition-1d)
-   * [Linear Sequences with non-constant Transition (LIS)](#linear-sequences-with-non-constant-transition-lis)
+   * [Linear Sequences with non-constant Transition (LIS)](#linear-sequences-with-non-constant-transition)
    * [Matrix (Grid) Pattern](#matrix-grid-pattern)
    * [Dual Sequence](#dual-sequence)
    * [Interval](#interval)
@@ -323,7 +323,7 @@ Possible combinations
 ```
 
 
-## Linear Sequences with non-constant Transition (LIS)
+## Linear Sequences with non-constant Transition
 Requires us to solve the sub-problem on every prefix of the array. However, transitions may not be simple and require a linear amount of options from indices `j < i`.
 
 ### [Largest Sum of Averages](https://leetcode.com/problems/largest-sum-of-averages)
@@ -351,7 +351,7 @@ print(largestSumOfAverages([9, 1, 2, 3, 9], 3))  # 20.0
 ```
 
 Explanation
-|   k\i   |   1   |   2   |   3   |   4   |   5   |
+|   k\i   |   9   |   1   |   2   |   3   |   9   |
 |:-------:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |   k=1   |   9   |   5   |   4   |  3.75 |  4.8  |
 |   k=2   |   -   |  9+1  | 9+1.5 | 9+2   | 9+3.75|
