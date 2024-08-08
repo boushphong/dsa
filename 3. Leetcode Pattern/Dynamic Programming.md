@@ -11,7 +11,7 @@
 * [Patterns](#patterns)
    * [Fibonacci Style (1D)](#fibonacci-style-1d)
    * [Linear Sequences with Constant Transition (1D)](#linear-sequences-with-constant-transition-1d)
-   * [Linear Sequences with non-constant Transition (LIS)](#linear-sequences-with-non-constant-transition)
+   * [Linear Sequences with non-constant Transition](#linear-sequences-with-non-constant-transition)
    * [Matrix (Grid) Pattern](#matrix-grid-pattern)
    * [Dual Sequence](#dual-sequence)
    * [Interval](#interval)
