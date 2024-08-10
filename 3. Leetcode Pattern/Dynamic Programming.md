@@ -391,6 +391,23 @@ print(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]))
 """
 ```
 
+### [Longest Arithmetic Subsequence](https://leetcode.com/problems/longest-arithmetic-subsequence)
+```python
+def longestArithSeqLength(nums):
+    dp = {}
+
+    for i in range(len(nums)):
+        for j in range(i - 1, -1, -1):
+            diff = nums[i] - nums[j]
+            dp[(i, diff)] = max(dp.get((i, diff), 0), dp.get((j, diff), 1) + 1)
+            # max to handle multiple identical (i, diff) when there are multiple identical nums[j]
+
+    return max(dp.values())
+
+
+print(longestArithSeqLength([2, 1, 2, 3]))  # 3
+```
+
 ### [Count Number of Teams](https://leetcode.com/problems/count-number-of-teams)
 **Top-Down**
 ```python
@@ -1022,6 +1039,8 @@ print(canPartition([4, 4, 2, 1, 5]))
 ```
 
 ## Dynamic Size DP
+### [Go to Longest Arithmetic Subsequence](#longest-arithmetic-subsequence)
+
 ### [Make Array Strictly Increasing](https://leetcode.com/problems/make-array-strictly-increasing)
 ```python
 from bisect import bisect_right
