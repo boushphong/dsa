@@ -1039,7 +1039,7 @@ print(canPartition([4, 4, 2, 1, 5]))
 ```
 
 ## Dynamic Size DP
-### [Go to Longest Arithmetic Subsequence](#longest-arithmetic-subsequence)
+### [Longest Arithmetic Subsequence](#longest-arithmetic-subsequence)
 
 ### [Make Array Strictly Increasing](https://leetcode.com/problems/make-array-strictly-increasing)
 ```python
