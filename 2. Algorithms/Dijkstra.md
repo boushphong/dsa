@@ -19,6 +19,7 @@ graph TD
 **Dijkstra** algorithm utilizes Gready Algorithm.
 
 If we want to find the shortest path between `vertex 0` to other vertices. An array of **V** vertices will be initialzed as follow:
+
 | 0 | 1 | 2 | 3 | 4 | 5 |
 |---|---|---|---|---|---|
 | 0 | ∞ | ∞ | ∞ | ∞ | ∞ |
