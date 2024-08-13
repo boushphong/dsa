@@ -17,7 +17,7 @@
    * [Interval](#interval)
    * [Knapsack 1D](#knapsack-1d)
    * [Knapsack 2D](#knapsack-2d)
-   * [Dynamic Size DP](#dynamic-size-dp)
+   * [Dynamic Memoization](#dynamic-memoization)
 
 ## What is Dynamic Programming?
 Dynamic Programming is a technique that breaks down a large problem into smaller subproblems, solving and storing the optimal results of these subproblems to reuse in finding the optimal solution for the initial problem.
@@ -1038,8 +1038,8 @@ print(canPartition([4, 4, 2, 1, 5]))
 """
 ```
 
-## Dynamic Size DP
-Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. This technique is employed to prevent recalculating results for sub-problems that have already been solved, which is crucial when overlapping sub-problems occur. This ensures that the most optimal result for a sub-problem is preserved and re-used whenever needed.
+## Dynamic Memoization
+Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. This technique is employed to prevent overriding the best optimal result for sub-problems that have already been solved, which is crucial when overlapping sub-problems occur. This ensures that the most optimal result for a sub-problem is preserved and can be re-used whenever needed.
 ### [Longest Arithmetic Subsequence](#longest-arithmetic-subsequence)
 
 ### [Make Array Strictly Increasing](https://leetcode.com/problems/make-array-strictly-increasing)
