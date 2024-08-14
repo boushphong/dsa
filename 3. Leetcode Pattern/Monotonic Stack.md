@@ -203,6 +203,26 @@ def maxWidthRamp(nums: List[int]) -> int:
 print(maxWidthRamp([9, 10, 6, 1, 2, 1, 7]))
 ```
 
+### [Maximum Length of Semi-Decreasing Subarrays](https://leetcode.com/problems/maximum-length-of-semi-decreasing-subarrays)
+```python
+def maxSubarrayLength(nums):
+    stack = []
+    for i, num in enumerate(nums):
+        if not stack or (stack and num > nums[stack[-1]]):
+            stack.append(i)
+
+    ans = 0
+    for i in range(len(nums) - 1, -1, -1):
+        while stack and nums[stack[-1]] > nums[i]:
+            ans = max(ans, i - stack[-1] + 1)
+            stack.pop()
+    return ans
+
+
+print(maxSubarrayLength([57, 55, 50, 60, 61, 58, 63, 59, 64, 60, 63]))  # 6
+print(maxSubarrayLength([7, 6, 5, 4, 3, 2, 1, 6, 10, 11]))  # 8
+```
+
 ## Sorting
 Sort the sequece before proceeding
 
