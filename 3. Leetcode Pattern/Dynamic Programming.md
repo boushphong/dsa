@@ -324,7 +324,7 @@ Possible combinations
 
 
 ## Linear Sequences with non-constant Transition
-Requires us to solve the sub-problem on every prefix of the array. However, transitions may not be simple and require a linear amount of options from indices `j < i`.
+Requires us to solve the sub-problem on every prefix (or suffix) of the array. However, transitions may not be simple and require a linear amount of options from indices `j < i` (or `j > i`).
 
 ### [Largest Sum of Averages](https://leetcode.com/problems/largest-sum-of-averages)
 ```python
@@ -406,6 +406,23 @@ def longestArithSeqLength(nums):
 
 
 print(longestArithSeqLength([2, 1, 2, 3]))  # 3
+```
+
+### [Minimum Number of Coins for Fruits](https://leetcode.com/problems/minimum-number-of-coins-for-fruits)
+```python
+def minimumCoins(prices):
+    n = len(prices)
+    endIdx = (n // 2) - 1
+    endIdx -= 1 if n % 2 == 0 else 0
+
+    for i in range(endIdx, -1, -1):
+        maxReachable = (i + 1) * 2
+        prices[i] = prices[i] + min(prices[i + 1:maxReachable + 1])
+
+    return prices[0]
+
+
+print(minimumCoins([1, 10, 100, 1, 50]))  # 12
 ```
 
 ### [Count Number of Teams](https://leetcode.com/problems/count-number-of-teams)
