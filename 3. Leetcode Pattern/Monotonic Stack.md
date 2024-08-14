@@ -177,7 +177,7 @@ For Maximum Subarray optimal solution, refer **Kadane’s Algorithm**.
 
 ## Over-estimation 
 Don't push everything in the stack unless we really have to. 
-This pattern usually push all the necessary elements into the stack first. Then another iteration will be used to gradually remove (all) elements in the stack, which means the stack's size will always be decreasing in the second iteration unlike other monotonic stacks patterns which the stack's size could vary because we dynamically remove and add elements into the stack under just one iteration.
+This pattern usually pushes all the necessary elements into the stack first. Then another iteration will be used to gradually remove element one by one in the stack, which means the stack's size will always be decreasing in the second iteration unlike other monotonic stacks patterns, which the stack's size could vary dynamically because we decide to remove and add elements into the stack under some condition.
 
 ### [Maximum Width Ramp](https://leetcode.com/problems/maximum-width-ramp/)
 ```python
