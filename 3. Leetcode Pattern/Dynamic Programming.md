@@ -18,6 +18,7 @@
    * [Knapsack 1D](#knapsack-1d)
    * [Knapsack 2D](#knapsack-2d)
    * [Dynamic Memoization](#dynamic-memoization)
+   * [State Machine](#state-machine)
 
 ## What is Dynamic Programming?
 Dynamic Programming is a technique that breaks down a large problem into smaller subproblems, solving and storing the optimal results of these subproblems to reuse in finding the optimal solution for the initial problem.
@@ -1087,3 +1088,28 @@ def makeArrayIncreasing(arr1, arr2):
 print(makeArrayIncreasing(arr1=[1, 5, 3, 6, 7], arr2=[1, 3, 2, 4]))  # 1
 print(makeArrayIncreasing(arr1=[9, 5, 3, 6, 7], arr2=[1, 3, 2, 4]))  # 2
 ```
+
+
+## State Machine
+Requires us to memoize sub-problems' most optimal results for every state. This is usually can be solved by creating a memoize dp for every possible state. 
+### 
+```python
+def maxProfit(prices):
+    sold, bought, reset = 0, -prices[0], 0
+
+    for price in prices[1:]:
+        pre_sold = sold
+        sold = bought + price
+        bought = max(bought, reset - price)
+        reset = max(reset, pre_sold)
+
+    return max(sold, reset)
+
+
+print(maxProfit([1, 2, 3, 0, 2]))  # 3
+```
+| price |      | 1    | 2  | 3  | 0  | 2 |
+|-------|------|------|----|----|----|---|
+| sold  | -inf | -inf | 1  | 2  | -1 | 3 |
+| held  | -inf | -1   | -1 | -1 | 1  | 1 |
+| reset | 0    | 0    | 0  | 1  | 2  | 2 |
