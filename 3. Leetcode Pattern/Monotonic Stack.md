@@ -176,7 +176,8 @@ print(maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
 For Maximum Subarray optimal solution, refer **Kadane’s Algorithm**.
 
 ## Over-estimation 
-Don't push everything in the stack unless we really have to.
+Don't push everything in the stack unless we really have to. 
+This pattern usually push all the necessary elements into the stack first. Then another iteration will be used to gradually remove (all) elements in the stack, which means the stack's size will always be decreasing in the second iteration unlike other monotonic stacks patterns which the stack's size could vary because we dynamically remove and add elements into the stack under just one iteration.
 
 ### [Maximum Width Ramp](https://leetcode.com/problems/maximum-width-ramp/)
 ```python
