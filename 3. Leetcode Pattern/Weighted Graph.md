@@ -1,6 +1,6 @@
 # Weighted Graph
 # Patterns
-## Explore all shortest paths of every nodes with Floyd-Warshall
+## Explore all shortest paths of every node with Floyd-Warshall
 ### [Find the City With the Smallest Number of Neighbors at a Threshold Distance](https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/)
 ```python
 def findTheCity(n, edges, distanceThreshold):
@@ -38,7 +38,7 @@ print(findTheCity(4, [
 ], 4))  # 3
 ```
 
-## Explore all shortest paths of a node.
+## Explore all shortest paths of a node
 ### [Network Delay Time](https://leetcode.com/problems/network-delay-time)
 ```python
 def networkDelayTime(times, n, k):
