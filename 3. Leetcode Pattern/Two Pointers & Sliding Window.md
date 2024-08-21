@@ -5,7 +5,7 @@
 ```python
 def maxFrequency(nums, k):
     nums.sort()
-    prefix_sum = [0] + list(accumulate(nums))
+    prefix_sum = list(accumulate(nums, initial=0))
     l, r = 0, 1
 
     for r, num in enumerate(nums[1:], 2):
