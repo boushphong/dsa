@@ -40,7 +40,7 @@ Heap = [(0, 0)]
 Heap = [(2, 1), (4, 2)]
 ```
 
-- Popping the next vertex from the heap, `Vertex 1` can go to `Vertex 2`. We found a new shorter distance connecting `Vertex 2` (from source vertex (`0 -> 1 -> 2 = 3 > 0 -> 2 = 4`)). Hence we update.
+- Popping the next vertex from the heap, `Vertex 1` can go to `Vertex 2` and `Vertex 3`. We found a new shorter distance connecting `Vertex 2` (from source vertex (`0 -> 1 -> 2 = 3 > 0 -> 2 = 4`)). For `Vertex 3`, We found a new shorter distance connecting `Vertex 4`, Hence we update both.
 
 | 0 | 1 | 2 | 3 | 4 | 5 |
 |---|---|---|---|---|---|
