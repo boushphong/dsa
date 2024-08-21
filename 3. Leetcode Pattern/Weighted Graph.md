@@ -55,7 +55,7 @@ def networkDelayTime(times, n, k):
         if curDistance > dist[curV]:
             continue
 
-        for neighbor, weight in graph.get(curV, {}).items():
+        for neighbor, weight in graph.get(curV).items():
             distance = curDistance + weight
 
             if distance < dist[neighbor]:
