@@ -97,7 +97,6 @@ Heap = [(10, 5), (11, 5)]
 | 0 | 2 | 3 | 9 | 6 | 10 |
 
 ## Analyzing Complexity
-- **Space:** `O(|V| + |E|)` (Adjacency List)
 - **Time:** `O(|V|) + |E|Log(|E|)`
   - First Step: `O(|V|)`
     - Setting vertices' distance array: `O(|V|)`
@@ -106,6 +105,7 @@ Heap = [(10, 5), (11, 5)]
     - Visting vertices via edges: `O(|E|)` (One vertex can connects to all other vertices)
     - Adding elements to Heap: `O(Log|E|)`
       - Vising vertices and adding:  `O(|E|Log(|E|))`
+- **Space:** `O(|V| + |E|)` (Adjacency List)
 
 ## Implementation
 ```python
