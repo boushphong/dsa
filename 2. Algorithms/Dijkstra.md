@@ -51,7 +51,7 @@ Heap = [(3, 2), (4, 2), (9, 3)]
 ```
 
 - Popping the next vertex from the heap, `Vertex 2` can go to `Vertex 4`. We found a new shorter distance connecting `Vertex 4`. Hence we update.
-- 
+
 | 0 | 1 | 2 | 3 | 4 | 5 |
 |---|---|---|---|---|---|
 | 0 | 2 | 3 | 9 | 6 | ∞ |
