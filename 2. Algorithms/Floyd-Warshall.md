@@ -78,6 +78,8 @@ class Graph:
         # Fill the adjacency matrix with the given edges
         for u, v, weight in edges:
             self.dist[u][v] = weight
+            # For bidirectional graph, un-comment the line below
+            # self.dist[v][u] = weight  
 
     def floyd_warshall(self):
         # Implementing Floyd-Warshall Algorithm
