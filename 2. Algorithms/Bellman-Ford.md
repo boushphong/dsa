@@ -128,7 +128,7 @@ g.bellman_ford(5)
 
 ## Analyzing Complexity
 - **Time:** `O(|V| * |E|)` (Adjacency List)
-- **Space:** `O(|V|)`
+- **Space:** `O(|V| + |E|)`
 
 
 ## Implementation
