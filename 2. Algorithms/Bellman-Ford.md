@@ -126,6 +126,10 @@ g = Graph(edges, 6)
 g.bellman_ford(5)
 ```
 
+## Analyzing Complexity
+- **Space:** `O(|V| * |E|)` (Adjacency List)
+- **Time:** `O(|V|)`
+
 ## Implementation
 ```python
 def print_solution(dist, V, src):
