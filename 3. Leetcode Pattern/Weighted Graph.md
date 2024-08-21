@@ -1,6 +1,6 @@
 # Weighted Graph
 # Patterns
-## Exploring all shortest paths with Floyd-Warshall
+## Explore all shortest paths of every nodes with Floyd-Warshall
 ### [Find the City With the Smallest Number of Neighbors at a Threshold Distance](https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/)
 ```python
 def findTheCity(n, edges, distanceThreshold):
@@ -36,4 +36,39 @@ print(findTheCity(4, [
     [1, 3, 4], 
     [2, 3, 1]
 ], 4))  # 3
+```
+
+## Explore all shortest paths of a node.
+### [Network Delay Time](https://leetcode.com/problems/network-delay-time)
+```python
+def networkDelayTime(times, n, k):
+    graph = {i: {} for i in range(1, n + 1)}
+    for from_node, to_node, weight in times:
+        graph[from_node][to_node] = weight
+
+    dist = [float('inf')] * (n + 1)
+    dist[k] = 0
+    heap = [(0, k)]
+
+    while heap:
+        curDistance, curV = heappop(heap)
+        if curDistance > dist[curV]:
+            continue
+
+        for neighbor, weight in graph.get(curV, {}).items():
+            distance = curDistance + weight
+
+            if distance < dist[neighbor]:
+                dist[neighbor] = distance
+                heappush(heap, (distance, neighbor))
+
+    dist[k] = float("-inf")
+    res = max(dist[1:])
+    if res == float("inf"):
+        return -1
+    return res
+
+
+print(networkDelayTime([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2))  # 2
+print(networkDelayTime([[1, 2, 1], [2, 3, 2], [1, 3, 1]], 3, 2))  # -1
 ```
