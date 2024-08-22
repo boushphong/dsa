@@ -72,3 +72,37 @@ def networkDelayTime(times, n, k):
 print(networkDelayTime([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2))  # 2
 print(networkDelayTime([[1, 2, 1], [2, 3, 2], [1, 3, 1]], 3, 2))  # -1
 ```
+
+### [Path with Maximum Probability](https://leetcode.com/problems/path-with-maximum-probability/)
+**Dijikstra** works with motonic increasing (for shortest path hence min-heap) or decreasing behavior (max-heap).
+- Maximum probability is found by multiplying 2 large probability together. Hence decreasing behavior is found (multipling probability will guarantee to have a smaller or equal probability), hence we would use a max-heap to track the largest probability along the path till we reach the destination.
+
+```python
+def maxProbability(n, edges, succProb, start_node, end_node):
+    graph = {i: {} for i in range(n)}
+    for (from_node, to_node), weight in zip(edges, succProb):
+        graph[from_node][to_node] = weight
+        graph[to_node][from_node] = weight
+
+    distance = [0] * n
+    distance[start_node] = -1
+    heap = [(-1, start_node)]
+
+    while heap:
+        curProb, curV = heappop(heap)
+        if abs(curProb) < distance[curV]:
+            continue
+
+        for neighbor, weight in graph.get(curV).items():
+            prob = abs(curProb) * weight
+
+            if prob > distance[neighbor]:
+                distance[neighbor] = prob
+                if neighbor != end_node:
+                    heappush(heap, (-prob, neighbor))
+
+    return distance[end_node]
+
+
+print(maxProbability(3, [[0, 1], [1, 2], [0, 2]], [0.5, 0.5, 0.2], 0, 2))  # 0.25
+```
