@@ -2,6 +2,8 @@
 **Dijkstra** algorithm is used to find the shortest path from one vertex to all vertex in a weighted graph. **Dijkstra** can work on both weighted and non-weighted graph. On non-weighted graph, edges can be updated to be bidirectional between every pair.
 - Negative edges are **not allowed**.
 
+**Dijkstra** algorithm is usually implemeted with a Min-Heap. This is because the main idea of Dijkstra's algorithm is to explore the shortest paths first hence a Min-Heap allows the algorithm to always expand the vertex with the smallest tentative distance next. This ensures that the shortest path to each vertex is found in the correct order.
+
 **Example:**
 
 ## Graph representation:
