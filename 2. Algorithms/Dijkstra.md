@@ -97,14 +97,12 @@ Heap = [(10, 5), (11, 5)]
 | 0 | 2 | 3 | 9 | 6 | 10 |
 
 ## Analyzing Complexity
-- **Time:** `O(|V|) + |E|Log(|E|)`
-  - First Step: `O(|V|)`
-    - Setting vertices' distance array: `O(|V|)`
-  - Second Step: `O(|E|Log(|E|)`
-    - Popping elements from Heap: `O(Log|E|)` (because there can be stale vertex in the heap`
-    - Visting vertices via edges: `O(|E|)` (One vertex can connects to all other vertices)
-    - Adding elements to Heap: `O(Log|E|)`
-      - Vising vertices and adding:  `O(|E|Log(|E|))`
+- **Time:** `O((|V| + |E|) * Log(|V|)`
+  - Inseration and Update: `O(|V| + |E|)`
+    - In the worst case, for each edge, there could be an insertion into the heap because each edge represents a potential path that could lead to a new shortest path update for a neighboring vertex.
+    - The total number of insertions can be as large as `|E|` (if each edge leads to an update) plus the initial insertion of each vertex, which gives us a total of up to: `O(|V| + |E|)`
+  - Heap: `O(Log(|V|)`
+    - Popping elements from Heap: `O(Log|V|)` (There are at most `|V|` vertices in the heap at any given time)
 - **Space:** `O(|V| + |E|)` (Adjacency List)
 
 ## Implementation
