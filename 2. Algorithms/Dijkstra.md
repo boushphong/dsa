@@ -107,6 +107,10 @@ Heap = [(10, 5), (11, 5)]
     - Popping elements from Heap: `O(Log|V|)` (There are at most `|V|` vertices in the heap at any given time)
 - **Space:** `O(|V| + |E|)` (Adjacency List)
 
+## Some Characteristics of Dijkstra
+- Once a node is popped out of the heap, that means we have found the shortest distance to that node. The remainder of that node in the heap are stale.
+  - This is because we always greedily choose the minimum distance to a node from the heap to process, hence the first occurance of a node would always be the shortest distance to that node.
+
 ## Implementation
 ```python
 import heapq
