@@ -1,5 +1,40 @@
 # Weighted Graph
 # Patterns
+## BFS
+### [Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
+```python
+def findCheapestPrice(n, flights, src, dst, k):
+    graph = defaultdict(dict)
+
+    for fromNode, toNode, weight in flights:
+        graph[fromNode].update({toNode: weight})
+
+    distance = [float("inf")] * n
+    distance[src] = 0
+
+    queue = deque([(src, 0)])
+    stops = 0
+
+    while stops <= k and queue:
+        for _ in range(len(queue)):
+            curNode, curCost = queue.popleft()
+            for neighbor, price in graph[curNode].items():
+                if price + curCost >= distance[neighbor]:
+                    continue
+                distance[neighbor] = price + curCost
+                queue.append((neighbor, distance[neighbor]))
+        stops += 1
+
+    return -1 if distance[dst] == float("inf") else distance[dst]
+
+
+print(findCheapestPrice(n=4,
+                        flights=[[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]],
+                        src=0,
+                        dst=3,
+                        k=1))  # 700
+```
+
 ## Explore all shortest paths of every node with Floyd-Warshall
 ### [Find the City With the Smallest Number of Neighbors at a Threshold Distance](https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/)
 ```python
