@@ -38,7 +38,7 @@ print(findTheCity(4, [
 ], 4))  # 3
 ```
 
-## Explore all shortest paths of a node
+## Explore all shortest paths of a node with Dijikstra
 ### [Network Delay Time](https://leetcode.com/problems/network-delay-time)
 ```python
 def networkDelayTime(times, n, k):
@@ -148,4 +148,41 @@ def countRestrictedPaths(n, edges):
 
 
 print(countRestrictedPaths(5, [[1, 2, 3], [1, 3, 3], [2, 3, 1], [1, 4, 2], [5, 2, 2], [3, 5, 1], [5, 4, 10]]))  # 3
+```
+
+### [Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
+**Dijikstra** has a special characteristic that once a node is popped out of the heap, that means we have found the shortest distance to that node.
+
+```python
+def findCheapestPrice(n, flights, src, dst, k):
+    graph = defaultdict(dict)
+
+    for fromNode, toNode, weight in flights:
+        graph[fromNode].update({toNode: weight})
+
+    visited = {}
+    heap = [(0, src, 0)]
+    while heap:
+        curDistance, curNode, stop = heappop(heap)
+        if curNode == dst:
+            return curDistance
+
+        if (curNode, stop) in visited and curDistance >= visited[(curNode, stop)]:
+            continue
+        visited[(curNode, stop)] = curDistance
+
+        for neighbor, cost in graph[curNode].items():
+            toDistance = curDistance + cost
+            if neighbor != dst and stop == k:
+                continue
+            heappush(heap, (toDistance, neighbor, stop + 1))
+
+    return -1
+
+
+print(findCheapestPrice(n=4,
+                        flights=[[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]],
+                        src=0,
+                        dst=3,
+                        k=1))  # 700
 ```
