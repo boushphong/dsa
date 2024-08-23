@@ -106,3 +106,46 @@ def maxProbability(n, edges, succProb, start_node, end_node):
 
 print(maxProbability(3, [[0, 1], [1, 2], [0, 2]], [0.5, 0.5, 0.2], 0, 2))  # 0.25
 ```
+
+### [Number of Restricted Paths From First to Last Node](https://leetcode.com/problems/number-of-restricted-paths-from-first-to-last-node/)
+```python
+def countRestrictedPaths(n, edges):
+    graph = {i: {} for i in range(n)}
+
+    for fromNode, toNode, weight in edges:
+        graph[fromNode - 1][toNode - 1] = weight
+        graph[toNode - 1][fromNode - 1] = weight
+
+    dist = [float('inf')] * n
+    dist[n - 1] = 0
+    heap = [(0, n - 1)]
+
+    while heap:
+        curDistance, curV = heappop(heap)
+        if curDistance > dist[curV]:
+            continue
+
+        for neighbor, weight in graph.get(curV).items():
+            distance = curDistance + weight
+
+            if distance < dist[neighbor]:
+                dist[neighbor] = distance
+                heappush(heap, (distance, neighbor))
+
+    @lru_cache(None)
+    def dfs(node=0):
+        if node == n - 1:
+            return 1
+
+        ans = 0
+        for neighbor, _ in graph.get(node).items():
+            if dist[neighbor] < dist[node]:
+                ans += dfs(neighbor)
+
+        return ans
+
+    return dfs() % (10**9 + 7)
+
+
+print(countRestrictedPaths(5, [[1, 2, 3], [1, 3, 3], [2, 3, 1], [1, 4, 2], [5, 2, 2], [3, 5, 1], [5, 4, 10]]))  # 3
+```
