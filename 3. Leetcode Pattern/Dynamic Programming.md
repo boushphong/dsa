@@ -363,7 +363,7 @@ Explanation
 |         |       |       |       | 10.5+3| 10.5+6|
 |         |       |       |       |       | 11+9  |
 
-## Longest Increasing Subsequence Variation
+#### Longest Increasing Subsequence Variation
 ### [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
 ```python
 def lengthOfLIS(nums):
