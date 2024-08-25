@@ -28,11 +28,7 @@ def findCheapestPrice(n, flights, src, dst, k):
     return -1 if distance[dst] == float("inf") else distance[dst]
 
 
-print(findCheapestPrice(n=4,
-                        flights=[[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]],
-                        src=0,
-                        dst=3,
-                        k=1))  # 700
+print(findCheapestPrice(4, [[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]], 0, 3, 1))  # 700
 ```
 
 ## Explore all shortest paths of every node
@@ -296,9 +292,5 @@ def findCheapestPrice(n, flights, src, dst, k):
     return -1
 
 
-print(findCheapestPrice(n=4,
-                        flights=[[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]],
-                        src=0,
-                        dst=3,
-                        k=1))  # 700
+print(findCheapestPrice(4, [[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]], 0, 3, 1))  # 700
 ```
