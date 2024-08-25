@@ -35,7 +35,8 @@ print(findCheapestPrice(n=4,
                         k=1))  # 700
 ```
 
-## Explore all shortest paths of every node with Floyd-Warshall
+## Explore all shortest paths of every node
+#### With Floyd-Warshall
 ### [Find the City With the Smallest Number of Neighbors at a Threshold Distance](https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/)
 ```python
 def findTheCity(n, edges, distanceThreshold):
@@ -71,6 +72,86 @@ print(findTheCity(4, [
     [1, 3, 4], 
     [2, 3, 1]
 ], 4))  # 3
+```
+
+#### With Dijikstra
+To explore all shortest paths of every node with Dijikstra. We have to add all vertices into the heap first before the while loop.
+```
+def findTheCity(n, edges, distanceThreshold):
+    graph = defaultdict(dict)
+
+    for cityA, cityB, cost in edges:
+        graph[cityA].update({cityB: cost})
+        graph[cityB].update({cityA: cost})
+
+    reachableCities = defaultdict(set)
+    heap = [(0, _, _) for _ in range(n)]
+    distances = set()
+    heapify(heap)
+
+    while heap:
+        curDistance, curCity, originCity = heappop(heap)
+
+        if (originCity, curCity) in distances:
+            continue
+        else:
+            distances.add((originCity, curCity))
+
+        for neighbor, cost in graph[curCity].items():
+            if originCity == neighbor:
+                continue
+            distance = curDistance + cost
+
+            if distance <= distanceThreshold:
+                reachableCities[originCity].add(neighbor)
+                if distance < distanceThreshold:
+                    heappush(heap, (distance, neighbor, originCity))
+
+    minReachable = n
+    ans = n - 1
+    for city in range(n - 1, -1, -1):
+        tmpMinReachable = len(reachableCities[city])
+        if tmpMinReachable < minReachable:
+            ans = city
+            minReachable = tmpMinReachable
+
+    return ans
+
+
+print(findTheCity(6, [[0, 3, 7], [2, 4, 1], [0, 1, 5], [2, 3, 10], [1, 3, 6], [1, 2, 1]], 417))  # 5
+print(findTheCity(6, [[0, 1, 10], [0, 2, 1], [2, 3, 1], [1, 3, 1], [1, 4, 1], [4, 5, 10]], 20))  # 5
+print(findTheCity(4, [[0, 1, 3], [1, 2, 1], [1, 3, 4], [2, 3, 1]], 4))  # 3
+```
+
+### [Minimum Cost to Buy Apples](https://leetcode.com/problems/minimum-cost-to-buy-apples/)
+```python
+def minCost(n, roads, appleCost, k):
+    graph = defaultdict(dict)
+
+    for cityA, cityB, cost in roads:
+        graph[cityA - 1].update({cityB - 1: cost})
+        graph[cityB - 1].update({cityA - 1: cost})
+
+    result = appleCost.copy()
+
+    heap = [(cost, start) for start, cost in enumerate(appleCost)]
+    heapify(heap)
+
+    while heap:
+        totalCost, curCity = heappop(heap)
+
+        if result[curCity] < totalCost:
+            continue
+
+        for neighbor, cost in graph[curCity].items():
+            if result[neighbor] > result[curCity] + (k + 1) * cost:
+                result[neighbor] = result[curCity] + (k + 1) * cost
+                heappush(heap, (result[neighbor], neighbor))
+
+    return result
+
+
+print(minCost(4, [[1, 2, 4], [2, 3, 2], [2, 4, 5], [3, 4, 1], [1, 3, 4]], [56, 42, 102, 301], 2))  # [54, 42, 48, 51]
 ```
 
 ## Explore all shortest paths of a node with Dijikstra
