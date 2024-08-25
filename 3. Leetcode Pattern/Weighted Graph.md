@@ -71,9 +71,9 @@ print(findTheCity(4, [
 ```
 
 #### With Dijikstra
-To explore all shortest paths of every node with Dijikstra **at once**. We have to add all vertices into the heap first before the while loop. However, the TC also would differ.
-- **Dijikstra (explore all shortest paths of a node |V| times):** `O(|V| * ((|V| + |E|) * Log(|V|))` (With Fibonacci Heap)
-- **Dijikstra (explore all shortest paths of every node at once):** `O((|V| + |E|) * Log(|V| + |E|))` (With Fibonacci Heap)
+To explore all shortest paths of every node with Dijikstra **at once**. We have to add all vertices into the heap first before the while loop. However, the TC also would differ, be reduced from the original (1st) method.
+1. **Dijikstra (explore all shortest paths of a node |V| times):** `O(|V| * ((|V| + |E|) * Log(|V|))` (With Fibonacci Heap)
+2. **Dijikstra (explore all shortest paths of every node at once):** `O((|V| + |E|) * Log(|V| + |E|))` (With Fibonacci Heap)
 
 ```python
 def findTheCity(n, edges, distanceThreshold):
