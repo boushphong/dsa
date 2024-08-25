@@ -1092,7 +1092,7 @@ print(makeArrayIncreasing(arr1=[9, 5, 3, 6, 7], arr2=[1, 3, 2, 4]))  # 2
 
 ## State Machine
 Requires us to memoize sub-problems' most optimal results for every state. This is usually can be solved by creating a memoize dp for every possible state. 
-### 
+### [Best Time to Buy and Sell Stock with Cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
 ```python
 def maxProfit(prices):
     sold, bought, reset = 0, -prices[0], 0
