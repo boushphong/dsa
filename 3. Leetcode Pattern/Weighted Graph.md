@@ -194,21 +194,25 @@ print(networkDelayTime([[1, 2, 1], [2, 3, 2], [1, 3, 1]], 3, 2))  # -1
 
 ```python
 def maxProbability(n, edges, succProb, start_node, end_node):
-    graph = {i: {} for i in range(n)}
-    for (from_node, to_node), weight in zip(edges, succProb):
-        graph[from_node][to_node] = weight
-        graph[to_node][from_node] = weight
+    graph = defaultdict(dict)
+    for (fromNode, toNode), weight in zip(edges, succProb):
+        graph[fromNode].update({toNode: weight})
+        graph[toNode].update({fromNode: weight})
 
     distance = [0] * n
     distance[start_node] = -1
     heap = [(-1, start_node)]
+    seen = set()
 
     while heap:
         curProb, curV = heappop(heap)
-        if abs(curProb) < distance[curV]:
+        seen.add(curV)
+        if curProb > distance[curV]:
             continue
 
-        for neighbor, weight in graph.get(curV).items():
+        for neighbor, weight in graph[curV].items():
+            if neighbor in seen:
+                continue
             prob = abs(curProb) * weight
 
             if prob > distance[neighbor]:
@@ -225,11 +229,10 @@ print(maxProbability(3, [[0, 1], [1, 2], [0, 2]], [0.5, 0.5, 0.2], 0, 2))  # 0.2
 ### [Number of Restricted Paths From First to Last Node](https://leetcode.com/problems/number-of-restricted-paths-from-first-to-last-node/)
 ```python
 def countRestrictedPaths(n, edges):
-    graph = {i: {} for i in range(n)}
-
+    graph = defaultdict(dict)
     for fromNode, toNode, weight in edges:
-        graph[fromNode - 1][toNode - 1] = weight
-        graph[toNode - 1][fromNode - 1] = weight
+        graph[fromNode - 1].update({toNode - 1: weight})
+        graph[toNode - 1].update({fromNode - 1: weight})
 
     dist = [float('inf')] * n
     dist[n - 1] = 0
@@ -240,7 +243,7 @@ def countRestrictedPaths(n, edges):
         if curDistance > dist[curV]:
             continue
 
-        for neighbor, weight in graph.get(curV).items():
+        for neighbor, weight in graph[curV].items():
             distance = curDistance + weight
 
             if distance < dist[neighbor]:
@@ -253,7 +256,7 @@ def countRestrictedPaths(n, edges):
             return 1
 
         ans = 0
-        for neighbor, _ in graph.get(node).items():
+        for neighbor, _ in graph[node].items():
             if dist[neighbor] < dist[node]:
                 ans += dfs(neighbor)
 
@@ -271,7 +274,6 @@ print(countRestrictedPaths(5, [[1, 2, 3], [1, 3, 3], [2, 3, 1], [1, 4, 2], [5, 2
 ```python
 def findCheapestPrice(n, flights, src, dst, k):
     graph = defaultdict(dict)
-
     for fromNode, toNode, weight in flights:
         graph[fromNode].update({toNode: weight})
 
