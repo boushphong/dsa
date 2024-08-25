@@ -76,7 +76,7 @@ print(findTheCity(4, [
 
 #### With Dijikstra
 To explore all shortest paths of every node with Dijikstra. We have to add all vertices into the heap first before the while loop.
-```
+```python
 def findTheCity(n, edges, distanceThreshold):
     graph = defaultdict(dict)
 
