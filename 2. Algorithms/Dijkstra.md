@@ -99,13 +99,16 @@ Heap = [(10, 5), (11, 5)]
 | 0 | 2 | 3 | 9 | 6 | 10 |
 
 ## Analyzing Complexity
-- **Time:** `O((|V| + |E|) * Log(|V|)`
-  - Inseration and Update: `O(|V| + |E|)`
+- **Time:** `O((|V| + |E| * Log(|E|)` (With Min Heap)
+  - Graph Initization: `|V|`
+  - Inseration and Update: `|E| * Log(|E|)`
     - In the worst case, for each edge, there could be an insertion into the heap because each edge represents a potential path that could lead to a new shortest path update for a neighboring vertex.
-    - The total number of insertions can be as large as `|E|` (if each edge leads to an update) plus the initial insertion of each vertex, which gives us a total of up to: `O(|V| + |E|)`
-  - Heap: `O(Log(|V|)`
-    - Popping elements from Heap: `O(Log|V|)` (There are at most `|V|` vertices in the heap at any given time)
+    - The total number of insertions can be as large as `|E|` (if each edge leads to an update) plus the initial insertion of each vertex, which gives us a total of up to: `|E| * Log(|E|)`
+  - Heap: `O(Log(|E|)`
+    - Popping elements from Heap: `O(Log|E|)` (There are at most `|E|` vertices in the heap at any given time)
 - **Space:** `O(|V| + |E|)` (Adjacency List)
+
+- **Time:** `O((|V| + |E|) * Log(|V|)` (With Fibonacci Heap)
 
 ## Some Characteristics of Dijkstra
 - Once a node is popped out of the heap, that means we have found the shortest distance to that node. The remainder of that node in the heap are stale.
