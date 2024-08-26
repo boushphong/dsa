@@ -145,7 +145,7 @@ def numRollsToTarget(n, k, target):
             3 (2) cache(rollNo=2, total=6) = 1
                 1 (base case)
     """
-    memo = defaultdict(int)
+    memo = {}
 
     def doRecursion(rollNo=0, total=0):
         if (rollNo, total) in memo:
@@ -165,7 +165,7 @@ def numRollsToTarget(n, k, target):
             if tmpTotal == target:
                 break
 
-        memo[(rollNo, total)] += totalWays
+        memo[(rollNo, total)] = totalWays
         return totalWays % (10 ** 9 + 7)
 
     return doRecursion()
