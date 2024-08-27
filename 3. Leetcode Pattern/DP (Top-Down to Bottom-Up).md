@@ -124,7 +124,7 @@ DP: `O(N * K * T)`
 ```python
 def numRollsToTarget(n, k, target):
     """
-    n = 3, k = 6, target = 7
+    n = 3, k = 3, target = 7
     n = 1
     0 (0) cache(rollNo0, total=0) = 1 + 2 + 3 = 6
         1 (1) cache(rollNo=1, total=1) = 0 + 0 + 1 = 1
