@@ -162,6 +162,43 @@ print(canFinish(20, [[0, 10], [3, 18], [5, 5], [6, 11], [11, 14], [13, 1], [15, 
 print(canFinish(4, [[2, 0], [1, 0], [3, 1], [3, 2], [1, 3]]))  # False
 print(canFinish(4, [[1, 0], [1, 2], [2, 0]]))  # False
 ```
+
+#### Connected Component
+### [Most Stones Removed with Same Row or Column](https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/description/)
+```python
+def removeStones(stones: List[List[int]]) -> int:
+    def dfs(x, y):
+        points.discard((x, y))
+        for yCoordinate in xCoordinates[x]:
+            if (x, yCoordinate) in points:
+                dfs(x, yCoordinate)
+
+        for xCoordinate in yCoordinates[y]:
+            if (xCoordinate, y) in points:
+                dfs(xCoordinate, y)
+
+    xCoordinates = defaultdict(list)
+    yCoordinates = defaultdict(list)
+    points = {(i, j) for i, j in stones}
+
+    for x, y in stones:
+        xCoordinates[x].append(y)
+        yCoordinates[y].append(x)
+
+    cnt = 0
+    for x, y in stones:
+        if (x, y) in points:
+            dfs(x, y)
+            cnt += 1
+
+    return len(stones) - cnt
+
+
+print(removeStones([[0, 1], [1, 1]]))  # 1
+print(removeStones([[0, 0], [0, 1], [1, 0], [1, 2], [2, 1], [2, 2]]))  # 5
+print(removeStones([[0, 0], [0, 2], [1, 1], [2, 0], [2, 2]]))  # 3
+print(removeStones([[0, 1], [1, 0]]))  # 0
+```
  
 ## BFS (Adjacency list)
 ### [Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite)
