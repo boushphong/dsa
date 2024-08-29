@@ -2,7 +2,7 @@
 **Greedy** algorithm is nothing but a paradigm which builds problems piece by piece. In recursion, we keep on dividing a big problem into multiple smaller chunks and solving those sub problems which is finally used to solve our actual problem. But this isn't the case for Greedy. In this, at any instant, we choose a piece of solution which will offer the most obvious and immediate benefit.
 
 # Pattern
-## Tracking Maximum Reachable Valu
+## Tracking Maximum Reachable Value
 ### [Minimum Number of Coins to be Added](https://leetcode.com/problems/minimum-number-of-coins-to-be-added/)
 ```python
 def minimumAddedCoins(coins: List[int], target: int) -> int:
