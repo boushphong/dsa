@@ -333,7 +333,7 @@ def eraseOverlapIntervals(intervals):
 
 
 print(eraseOverlapIntervals([[1, 2], [1, 5], [2, 3], [3, 4]]))  # 1
-print(eraseOverlapIntervals([[1, 5], [2, 3], [3, 4]]))  # 1
+print(eraseOverlapIntervals([[1, 7], [5, 10], [6, 7], [7, 8], [8, 9]]))  # 1
 ```
 
 ### [Russian Doll Envelopes](https://leetcode.com/problems/russian-doll-envelopes)
