@@ -326,7 +326,7 @@ def eraseOverlapIntervals(intervals):
             tails.append(end)
             continue
 
-        index = bisect_right(tails, start)
+        index = bisect_left(tails, start)
         tails[index] = min(tails[index], end)
 
     return len(intervals) - len(tails)
