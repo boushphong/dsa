@@ -168,6 +168,27 @@ print(jump([2, 3, 1, 1, 4]))  # 2
 print(jump([1, 2, 3]))  # 2
 ```
 
+#### Interval
+Usually can be solved by sorting the intervals and keep track of a maximum/minimum of an interval and update it gradually.
+### [Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/)
+```python
+def eraseOverlapIntervals(intervals: List[List[int]]) -> int:
+    intervals.sort(key=lambda x: x[1])
+    ans = 0
+    k = -inf
+
+    for start, end in intervals:
+        if start >= k:
+            k = end
+        else:
+            ans += 1
+
+    return ans
+
+
+print(eraseOverlapIntervals([[1, 8], [4, 5], [3, 4], [2, 9]]))  # 2
+print(eraseOverlapIntervals([[1, 5], [5, 10], [4, 7], [7, 8], [8, 9]]))  # 2
+```
 
 ## Early Feasibility Check
 ### [Gas Station](https://leetcode.com/problems/gas-station/)
