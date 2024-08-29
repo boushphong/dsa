@@ -333,6 +333,7 @@ def eraseOverlapIntervals(intervals):
 
 
 print(eraseOverlapIntervals([[1, 2], [1, 5], [2, 3], [3, 4]]))  # 1
+print(eraseOverlapIntervals([[1, 8], [4, 5], [1, 4], [2, 9]]))  # 2
 print(eraseOverlapIntervals([[1, 7], [5, 10], [6, 7], [7, 8], [8, 9]]))  # 1
 ```
 
