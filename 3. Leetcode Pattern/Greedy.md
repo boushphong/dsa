@@ -25,9 +25,9 @@ def minimumAddedCoins(coins: List[int], target: int) -> int:
 
 print(minimumAddedCoins([6, 6, 6, 15, 4], 31))  # 2 (1, 2)
 print(minimumAddedCoins([15, 1, 12], 43))  # 4 (2, 4, 8)
-print(minimumAddedCoins(coins=[1, 1, 1], target=20))  # (4, 8, 16)
-print(minimumAddedCoins(coins=[1, 4, 10, 5, 7, 19], target=19))  # 1  (2)
-print(minimumAddedCoins(coins=[1, 4, 10], target=19))  # 2 (2, 8)
+print(minimumAddedCoins([1, 1, 1], 20))  # (4, 8, 16)
+print(minimumAddedCoins([1, 4, 10, 5, 7, 19], 19))  # 1  (2)
+print(minimumAddedCoins([1, 4, 10], 19))  # 2 (2, 8)
 ```
 
 ## Tracking Minimum/Maximum
