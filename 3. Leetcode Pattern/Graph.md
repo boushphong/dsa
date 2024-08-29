@@ -163,7 +163,7 @@ print(canFinish(4, [[2, 0], [1, 0], [3, 1], [3, 2], [1, 3]]))  # False
 print(canFinish(4, [[1, 0], [1, 2], [2, 0]]))  # False
 ```
 
-#### Connected Component
+#### Connected Components
 ### [Most Stones Removed with Same Row or Column](https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/description/)
 ```python
 def removeStones(stones: List[List[int]]) -> int:
