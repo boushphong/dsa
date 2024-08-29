@@ -315,6 +315,27 @@ def lengthOfLIS(nums):
 print(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 1, 2, 3, 10, 4, 5]))  # 5
 ```
 
+### [Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/)
+```python
+def eraseOverlapIntervals(intervals):
+    tails = []
+    intervals.sort()
+
+    for start, end in intervals:
+        if not tails or start >= tails[-1]:
+            tails.append(end)
+            continue
+
+        index = bisect_right(tails, start)
+        tails[index] = min(tails[index], end)
+
+    return len(intervals) - len(tails)
+
+
+print(eraseOverlapIntervals([[1, 2], [1, 5], [2, 3], [3, 4]]))  # 1
+print(eraseOverlapIntervals([[1, 5], [2, 3], [3, 4]]))  # 1
+```
+
 ### [Russian Doll Envelopes](https://leetcode.com/problems/russian-doll-envelopes)
 ```python
 from bisect import bisect_left
