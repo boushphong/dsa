@@ -2,6 +2,34 @@
 **Greedy** algorithm is nothing but a paradigm which builds problems piece by piece. In recursion, we keep on dividing a big problem into multiple smaller chunks and solving those sub problems which is finally used to solve our actual problem. But this isn't the case for Greedy. In this, at any instant, we choose a piece of solution which will offer the most obvious and immediate benefit.
 
 # Pattern
+## Tracking Maximum Reachable Valu
+### [Minimum Number of Coins to be Added](https://leetcode.com/problems/minimum-number-of-coins-to-be-added/)
+```python
+def minimumAddedCoins(coins: List[int], target: int) -> int:
+    heapify(coins)
+    curIdx = ans = 0
+    reachable = 0
+
+    while reachable < target:
+        if not coins or reachable < coins[0] - 1:
+            print(reachable + 1)
+            reachable = reachable + reachable + 1
+            ans += 1
+            continue
+
+        if coins:
+            reachable += heappop(coins)
+            curIdx += 1
+    return ans
+
+
+print(minimumAddedCoins([6, 6, 6, 15, 4], 31))  # 2 (1, 2)
+print(minimumAddedCoins([15, 1, 12], 43))  # 4 (2, 4, 8)
+print(minimumAddedCoins(coins=[1, 1, 1], target=20))  # (4, 8, 16)
+print(minimumAddedCoins(coins=[1, 4, 10, 5, 7, 19], target=19))  # 1  (2)
+print(minimumAddedCoins(coins=[1, 4, 10], target=19))  # 2 (2, 8)
+```
+
 ## Tracking Minimum/Maximum
 ### [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock)
 ```python
