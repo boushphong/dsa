@@ -378,7 +378,7 @@ def furthestBuilding(heights, bricks, ladders):
             ladders -= 1
 
             if heap and -heap[0] > diff:
-                bricks += -heappop(heap) if heap else 0
+                bricks += -heappop(heap)
                 bricks -= diff
                 heappush(heap, -diff)
 
