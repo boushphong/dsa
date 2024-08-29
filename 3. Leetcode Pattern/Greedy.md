@@ -4,6 +4,7 @@
 # Pattern
 ## Tracking Maximum Reachable Value
 ### [Minimum Number of Coins to be Added](https://leetcode.com/problems/minimum-number-of-coins-to-be-added/)
+Sorting would work too, but using heap is less error prone because you don't have to check wether the index is out of bound.
 ```python
 def minimumAddedCoins(coins: List[int], target: int) -> int:
     heapify(coins)
@@ -12,7 +13,6 @@ def minimumAddedCoins(coins: List[int], target: int) -> int:
 
     while reachable < target:
         if not coins or reachable < coins[0] - 1:
-            print(reachable + 1)
             reachable = reachable + reachable + 1
             ans += 1
             continue
