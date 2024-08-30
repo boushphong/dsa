@@ -117,10 +117,11 @@ from math import sqrt
 
 def closestPairOfPoints(points):
     def calculateDistance(x1, y1, x2, y2):
-        return sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+        return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
 
     def mergeCandidates(leftPortion, rightPortion):
-        mergedPortion, i, j = [], 0, 0
+        mergedPortion = []
+        i = j = 0
         while i < len(leftPortion) and j < len(rightPortion):
             if leftPortion[i][1] < rightPortion[j][1]:
                 mergedPortion.append(rightPortion[j])
@@ -145,6 +146,7 @@ def closestPairOfPoints(points):
         return minDistance
 
     points.sort()
+
     def divideAndConquer(portion):
         if len(portion) <= 3:
             return min(
@@ -173,13 +175,20 @@ def closestPairOfPoints(points):
                 j += 1
 
         candidates = mergeCandidates(leftCandidates, rightCandidates)
+        if not candidates:
+            if left < right:
+                candidates = leftSorted
+            elif right < left:
+                candidates = rightSorted
+            else:
+                candidates = mergeCandidates(leftSorted, rightSorted)
         return minDistance, candidates
 
     res, _ = divideAndConquer(points)
     return res
 
 
-print(closestPairOfPoints([(1, 2), (0, 6), (3, 3), (3, 8), (5, 3), (5, 9), (8, 1), (8, 5)]))  # 2.0
+print(closestPairOfPoints([(0, 5), (0, 6), (3, 2), (3, 3), (5, 3), (5, 4), (8, 1), (8, 5)]))  # 2.0
 ```
 You can either:
 - Iterate 7 times for each point if you decide to merge the two sorted arrays first
