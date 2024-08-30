@@ -56,37 +56,37 @@ def countInversions(arr):
 
     def mergeAndCount(portion):
         nonlocal invCount
-        temp_arr = [0] * len(portion)
+        tempArr = [0] * len(portion)
         left, right = 0, len(portion) - 1
         rightStart = len(portion) // 2  # Starting index for right subarray
         leftEnd = rightStart - 1
-        curTmpIdx = left  # Starting index to be sorted in temp_arr
+        curTmpIdx = left  # Starting index to be sorted in tempArr
 
         # Merge the two portions of the array and count inversions
         while left <= leftEnd and rightStart <= right:
             if portion[left] <= portion[rightStart]:
-                temp_arr[curTmpIdx] = portion[left]
+                tempArr[curTmpIdx] = portion[left]
                 left += 1
             else:
                 # arr[left] > arr[rightStart] indicates inversions
-                temp_arr[curTmpIdx] = portion[rightStart]
+                tempArr[curTmpIdx] = portion[rightStart]
                 invCount += (leftEnd - left) + 1  # Count inversions
                 rightStart += 1
             curTmpIdx += 1
 
         # Copy the remaining elements of left subarray, if any
         while left <= leftEnd:
-            temp_arr[curTmpIdx] = portion[left]
+            tempArr[curTmpIdx] = portion[left]
             left += 1
             curTmpIdx += 1
 
         # Copy the remaining elements of right subarray, if any
         while rightStart <= right:
-            temp_arr[curTmpIdx] = portion[rightStart]
+            tempArr[curTmpIdx] = portion[rightStart]
             rightStart += 1
             curTmpIdx += 1
 
-        return temp_arr
+        return tempArr
 
     def mergeSort(portion):
         if len(portion) <= 1:
@@ -107,7 +107,7 @@ print(countInversions([1, 3, 5, 2, 4, 6]))  # 3
 # (3,2), (5,2), (5,4)
 ```
 
-## Multi-Dimensional Divide and Conquer
+## Multi-Dimensional
 ### [Closest Pair of Points](https://www.geeksforgeeks.org/closest-pair-of-points-using-divide-and-conquer-algorithm/)
 Given a set of points in a plane, find the closest pair of points.
 
