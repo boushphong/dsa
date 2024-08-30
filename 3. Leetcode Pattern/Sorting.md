@@ -203,60 +203,56 @@ The result is `5` and the inversion pairs are
 - `(3,2), (3,1), (5,2), (5,1), (2,1)`
 
 ```python
-inv_count = 0
-
-
-def merge_and_count(arr):
-    global inv_count
-    temp_arr = [0] * len(arr)
-    left = 0  # Starting index for left subarray
-    right = len(arr) - 1
-    right_start = len(arr) // 2  # Starting index for right subarray
-    left_end = right_start - 1
-    cur_tmp_idx = left  # Starting index to be sorted in temp_arr
-
-    # Merge the two portions of the array and count inversions
-    while left <= left_end and right_start <= right:
-        if arr[left] <= arr[right_start]:
-            temp_arr[cur_tmp_idx] = arr[left]
-            left += 1
-        else:
-            # arr[left] > arr[right_start] indicates inversions
-            temp_arr[cur_tmp_idx] = arr[right_start]
-            inv_count += (left_end - left) + 1  # Count inversions
-            right_start += 1
-        cur_tmp_idx += 1
-
-    # Copy the remaining elements of left subarray, if any
-    while left <= left_end:
-        temp_arr[cur_tmp_idx] = arr[left]
-        left += 1
-        cur_tmp_idx += 1
-
-    # Copy the remaining elements of right subarray, if any
-    while right_start <= right:
-        temp_arr[cur_tmp_idx] = arr[right_start]
-        right_start += 1
-        cur_tmp_idx += 1
-
-    return temp_arr
-
-
-def mergeSort(arr):
-    if len(arr) <= 1:
-        return arr
-
-    mid = len(arr) // 2
-    left_portion = mergeSort(arr[:mid])
-    right_portion = mergeSort(arr[mid:])
-
-    merged_portion = merge_and_count(left_portion + right_portion)
-    return merged_portion
-
-
 def countInversions(arr):
+    invCount = 0
+
+    def mergeAndCount(portion):
+        nonlocal invCount
+        temp_arr = [0] * len(portion)
+        left, right = 0, len(portion) - 1
+        rightStart = len(portion) // 2  # Starting index for right subarray
+        leftEnd = rightStart - 1
+        curTmpIdx = left  # Starting index to be sorted in temp_arr
+
+        # Merge the two portions of the array and count inversions
+        while left <= leftEnd and rightStart <= right:
+            if portion[left] <= portion[rightStart]:
+                temp_arr[curTmpIdx] = portion[left]
+                left += 1
+            else:
+                # arr[left] > arr[rightStart] indicates inversions
+                temp_arr[curTmpIdx] = portion[rightStart]
+                invCount += (leftEnd - left) + 1  # Count inversions
+                rightStart += 1
+            curTmpIdx += 1
+
+        # Copy the remaining elements of left subarray, if any
+        while left <= leftEnd:
+            temp_arr[curTmpIdx] = portion[left]
+            left += 1
+            curTmpIdx += 1
+
+        # Copy the remaining elements of right subarray, if any
+        while rightStart <= right:
+            temp_arr[curTmpIdx] = portion[rightStart]
+            rightStart += 1
+            curTmpIdx += 1
+
+        return temp_arr
+
+    def mergeSort(portion):
+        if len(portion) <= 1:
+            return portion
+
+        mid = len(portion) // 2
+        leftPortion = mergeSort(portion[:mid])
+        rightPortion = mergeSort(portion[mid:])
+
+        mergedPortion = mergeAndCount(leftPortion + rightPortion)
+        return mergedPortion
+
     mergeSort(arr)
-    return inv_count
+    return invCount
 
 
 print(countInversions([1, 3, 5, 2, 4, 6]))  # 3
