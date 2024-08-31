@@ -5,7 +5,7 @@ Divide and Conquer is a technique to solve problems by dividing them into smalle
 3. **Combine**: Combine the solutions of the sub-problems to solve the original problem.
 
 # Pattern
-## Merge Sort
+## Merge Sort (Divide at Middle)
 ### [Merge Sort](https://leetcode.com/problems/sort-an-array/)
 ```python
 def merge(left, right):
@@ -105,6 +105,35 @@ def countInversions(arr):
 
 print(countInversions([1, 3, 5, 2, 4, 6]))  # 3
 # (3,2), (5,2), (5,4)
+```
+## Divide at Index
+### [Longest Substring with At Least K Repeating Characters](https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/)
+```python
+def longestSubstring(s, k):
+    l, r = 0, len(s)
+
+    def divideAndConquer(start=l, end=r):
+        if len(s[start:end]) < k:
+            return 0
+        cnt = Counter(s[start:end])
+        mid = -1
+        for idx in range(start, end):
+            if cnt[s[idx]] < k:
+                mid = idx
+                break
+
+        if mid == -1:
+            return sum(cnt.values())
+
+        left = divideAndConquer(start, mid)
+        right = divideAndConquer(mid + 1, end)
+
+        return max(left, right)
+
+    return divideAndConquer()
+
+
+print(longestSubstring("ababcabaaadc", 2))  # 4
 ```
 
 ## Multi-Dimensional
