@@ -174,15 +174,7 @@ def closestPairOfPoints(points):
                 minDistance = updateMinDistance(rightCandidates[j], leftCandidates, i, minDistance)
                 j += 1
 
-        candidates = mergeCandidates(leftCandidates, rightCandidates)
-        if not candidates:
-            if left < right:
-                candidates = leftSorted
-            elif right < left:
-                candidates = rightSorted
-            else:
-                candidates = mergeCandidates(leftSorted, rightSorted)
-        return minDistance, candidates
+        return minDistance, mergeCandidates(leftSorted, rightSorted)
 
     res, _ = divideAndConquer(points)
     return res
