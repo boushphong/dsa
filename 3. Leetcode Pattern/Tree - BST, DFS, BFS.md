@@ -10,6 +10,7 @@
    * [DFS](#dfs)
    * [Binary Search Tree (BST)](#binary-search-tree-bst)
    * [Binary Search Tree (BST) (Iteratively)](#binary-search-tree-bst-iteratively)
+   * [Balanced Binary Search Tree](#balanced-binary-search-tree)
 
 ## A Representation of a Tree.
 ```
@@ -902,4 +903,41 @@ root.left.right.left = TreeNode(1)
 root.left.right.right = TreeNode(3)
 
 print(inorderTraversal(root))
+```
+
+## Balanced Binary Search Tree
+In Python, `sortedcontainers.SortedList` is a Balanced Binary Search Tree.
+- Insert, Remove, Get index, Bisect Right and Left, Find element inside `SortedList`, are all `log(n)` operations.
+- 
+### Count Inversions
+Given an array of distinct integers, count the number of inversion pairs in the array.
+
+An inversion pair (𝑖,𝑗) is defined as a pair of indices 𝑖,𝑗 such that:
+- `0 ≤ i < j < n`
+- `a[i] > a[j]`
+
+For example:
+Given the array: `a=[3,5,2,1,6]`
+The result is `5` and the inversion pairs are
+- `(3,2), (3,1), (5,2), (5,1), (2,1)`
+
+```python
+from sortedcontainers import SortedList
+
+
+def countInversions(nums):
+    sortedList = SortedList()
+    invCount = 0
+
+    for num in nums:
+        pos = sortedList.bisect_right(num)
+        invCount += len(sortedList) - pos
+        sortedList.add(num)
+
+    return invCount
+
+
+print(countInversions([1, 3, 5, 2, 4, 0]))  # 8
+print(countInversions([1, 3, 5, 2, 4, 6]))  # 3
+print(countInversions([9, 8, 7, 6, 5]))  # 10
 ```
