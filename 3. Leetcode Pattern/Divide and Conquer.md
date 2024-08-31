@@ -37,6 +37,39 @@ def mergeSort(arr):
 
 print(mergeSort([3, 2, 1, 4, 5]))  # [1, 2, 3, 4, 5]
 ```
+### [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
+```python
+def maxSubArray(nums):
+    l, r = 0, len(nums)
+
+    def divideAndConquer(start=l, end=r):
+        if end - start == 1:
+            return nums[start]
+
+        mid = (start + end) // 2
+        left = divideAndConquer(start, mid)
+        right = divideAndConquer(mid, end)
+
+        cur, leftMax = 0, -inf
+        for i in range(mid - 1, start - 1, -1):
+            cur += nums[i]
+            leftMax = max(leftMax, cur)
+
+        cur, rightMax = 0, -inf
+        for i in range(mid, end):
+            cur += nums[i]
+            rightMax = max(rightMax, cur)
+
+        return max(left, right, leftMax + rightMax)
+
+    return divideAndConquer()
+
+
+print(maxSubArray([-2, -1]))  # -1
+print(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]))  # 6
+```
+
+
 
 ### Count Inversions
 Given an array of distinct integers, count the number of inversion pairs in the array.
