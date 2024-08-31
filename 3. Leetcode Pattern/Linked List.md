@@ -66,10 +66,10 @@ class DoublyLinkedList:
 
 
 if __name__ == '__main__':
-    doublyLinkedList = DoublyLinkedList()
-    doublyLinkedList.append(1)
-    doublyLinkedList.append(2)
-    doublyLinkedList.append(3)
+    dll = DoublyLinkedList()
+    dll.append(1)
+    dll.append(2)
+    dll.append(3)
 ```
 
 
