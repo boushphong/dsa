@@ -291,6 +291,29 @@ For example:
 """
 ```
 
+### [Minimum Absolute Sum Difference](https://leetcode.com/problems/minimum-absolute-sum-difference/)
+```python
+def minAbsoluteSumDiff(nums1, nums2):
+    n = len(nums1)
+    diff = [abs(num1 - num2) for num1, num2 in zip(nums1, nums2)]
+    nums1.sort()
+
+    total = ans = sum(diff)
+    for i, num2 in enumerate(nums2):
+        numDiff = diff[i]
+        idxNum1 = bisect_left(nums1, num2)
+
+        if idxNum1 < n:
+            ans = min(ans, total - numDiff + abs(nums1[idxNum1] - num2))
+        if idxNum1 > 0:
+            ans = min(ans, total - numDiff + abs(nums1[idxNum1 - 1] - num2))
+
+    return ans % (10 ** 9 + 7)
+
+
+print(minAbsoluteSumDiff([1, 7, 6], [1, 3, 6]))  # 2
+```
+
 ### [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence)
 ```python
 from bisect import bisect_left
