@@ -926,13 +926,13 @@ from sortedcontainers import SortedList
 
 
 def countInversions(nums):
-    sortedList = SortedList()
+    tree = SortedList()
     invCount = 0
 
     for num in nums:
-        pos = sortedList.bisect_right(num)
-        invCount += len(sortedList) - pos
-        sortedList.add(num)
+        pos = tree.bisect_right(num)
+        invCount += len(tree) - pos
+        tree.add(num)
 
     return invCount
 
@@ -940,4 +940,22 @@ def countInversions(nums):
 print(countInversions([1, 3, 5, 2, 4, 0]))  # 8
 print(countInversions([1, 3, 5, 2, 4, 6]))  # 3
 print(countInversions([9, 8, 7, 6, 5]))  # 10
+```
+
+### [K-th Nearest Obstacle Queries](https://leetcode.com/problems/k-th-nearest-obstacle-queries/)
+```python
+def resultsArray(queries, k):
+    from sortedcontainers import SortedList
+    tree = SortedList()
+    res = []
+    for a, b in queries:
+        tree.add(abs(a) + abs(b))
+        if len(tree) < k:
+            res.append(-1)
+        else:
+            res.append(tree[k - 1])
+    return res
+
+
+print(resultsArray([[1, 2],[3, 4],[2, 3],[-3, 0]], 2))  # [-1,7,5,3]
 ```
