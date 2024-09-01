@@ -908,7 +908,7 @@ print(inorderTraversal(root))
 ## Balanced Binary Search Tree
 In Python, `sortedcontainers.SortedList` is a Balanced Binary Search Tree.
 - Insert, Remove, Get index, Bisect Right and Left, Find element inside `SortedList`, are all `log(n)` operations.
-- 
+
 ### Count Inversions
 Given an array of distinct integers, count the number of inversion pairs in the array.
 
