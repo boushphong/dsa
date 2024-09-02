@@ -52,3 +52,38 @@ def maxSlidingWindow(nums, k):
 print(maxSlidingWindow([1, 2, 3, 4, 5, 6, 7, 8], 3))  # [3, 4, 5, 6, 7, 8]
 print(maxSlidingWindow([4, 3, -1, -3, 5, 3, 6, 7], 3))  # [4, 3, 5, 5, 6, 7]
 ```
+
+## Tracking Both Maximum and Mininum Element of a Sliding Window. (2 Queues)
+### [Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/)
+```python
+def longestSubarray(nums: List[int], limit: int) -> int:
+    decrDeque = deque()
+    incrDeque = deque()
+    left = maxLength = 0
+
+    for right, num in enumerate(nums):
+        while decrDeque and num > decrDeque[-1]:
+            decrDeque.pop()
+        decrDeque.append(num)
+
+        while incrDeque and num < incrDeque[-1]:
+            incrDeque.pop()
+        incrDeque.append(num)
+
+        # Check if the current window exceeds the limit
+        while decrDeque[0] - incrDeque[0] > limit:
+            # Remove the elements that are out of the current window
+            if decrDeque[0] == nums[left]:
+                decrDeque.popleft()
+            if incrDeque[0] == nums[left]:
+                incrDeque.popleft()
+            left += 1
+
+        maxLength = max(maxLength, right - left + 1)
+
+    return maxLength
+
+
+print(longestSubarray([10, 1, 2, 4, 7, 2], 5))  # 4
+print(longestSubarray([8, 4, 2, 7], 4))  # 2
+```
