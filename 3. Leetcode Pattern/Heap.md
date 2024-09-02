@@ -349,6 +349,36 @@ print(mostBooked(4, [[18, 19], [3, 12], [17, 19], [2, 13], [7, 10]]))  # 0
 ```
 
 ## Two Heaps
+### [Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/)
+```python
+def longestSubarray(nums, limit):
+    maxHeap = []
+    minHeap = []
+
+    left = 0
+    maxLength = 0
+
+    for right in range(len(nums)):
+        heappush(maxHeap, (-nums[right], right))
+        heappush(minHeap, (nums[right], right))
+
+        while -maxHeap[0][0] - minHeap[0][0] > limit:
+            left = min(maxHeap[0][1], minHeap[0][1]) + 1
+
+            while maxHeap[0][1] < left:
+                heappop(maxHeap)
+            while minHeap[0][1] < left:
+                heappop(minHeap)
+
+        maxLength = max(maxLength, right - left + 1)
+
+    return maxLength
+
+
+print(longestSubarray([10, 1, 2, 4, 7, 2], 5))  # 4
+print(longestSubarray([8, 4, 2, 7], 4))  # 2
+```
+
 ### [Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream)
 ```python
 
