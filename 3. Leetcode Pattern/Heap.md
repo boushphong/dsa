@@ -5,6 +5,8 @@
    * [Top K Pattern](#top-k-pattern)
    * [Merge K Sorted](#merge-k-sorted)
    * [Minimum Number](#minimum-number)
+   * [Simulation](#simulation)
+   * [Two Heaps](#two-heaps)
    * [Greedy. Keeping Max (or Min) element to replace](#greedy-keeping-max-or-min-element-to-replace)
 
 ## Top K Pattern
