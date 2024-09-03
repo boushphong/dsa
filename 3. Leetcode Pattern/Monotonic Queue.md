@@ -88,3 +88,43 @@ def longestSubarray(nums: List[int], limit: int) -> int:
 print(longestSubarray([10, 1, 2, 4, 7, 2], 5))  # 4
 print(longestSubarray([8, 4, 2, 7], 4))  # 2
 ```
+
+### [Continuous Subarrays](https://leetcode.com/problems/continuous-subarrays/)
+```python
+def longestSubarray(nums):
+    incDeque = deque()
+    decDeque = deque()
+    left = countSubarray = countDuplicateSubarray = 0
+
+    for right, num in enumerate(nums):
+        windowSize = 0
+        while incDeque and num < incDeque[-1]:
+            incDeque.pop()
+        incDeque.append(num)
+
+        while decDeque and num > decDeque[-1]:
+            decDeque.pop()
+        decDeque.append(num)
+
+        while decDeque[0] - incDeque[0] > 2:
+            if not windowSize:
+                windowSize = right - left
+                countSubarray += (windowSize * (windowSize + 1) // 2)
+            if incDeque[0] == nums[left]:
+                incDeque.popleft()
+            if decDeque[0] == nums[left]:
+                decDeque.popleft()
+            left += 1
+
+        if windowSize:
+            duplicateWindow = (right - left)
+            countDuplicateSubarray += (duplicateWindow * (duplicateWindow + 1)) // 2
+
+    lastWindowSize = (right - left + 1)
+    lastCountSubarray = (lastWindowSize * (lastWindowSize + 1)) // 2
+    return countSubarray + lastCountSubarray - countDuplicateSubarray
+
+
+print(longestSubarray([65, 66, 67, 66, 66, 65, 64, 65, 65, 64]))  # 43
+print(longestSubarray([5, 4, 2, 4]))  # 8
+```
