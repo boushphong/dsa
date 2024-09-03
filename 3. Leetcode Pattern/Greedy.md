@@ -65,19 +65,19 @@ print(maxProfit([7, 1, 5, 3, 6, 4]))
 ### [Minimum Cost for Cutting Cake I](https://leetcode.com/problems/minimum-cost-for-cutting-cake-i)
 ```python
 def minimumCost(m, n, horizontalCut, verticalCut):
-    h = sorted(h)
-    v = sorted(v)
-    sumh = sum(h)
-    sumv = sum(v)
+    h = sorted(horizontalCut)
+    v = sorted(verticalCut)
+    sumH = sum(h)
+    sumV = sum(v)
     res = 0
     while h and v:
         if h[-1] > v[-1]:
-            res += h[-1] + sumv
-            sumh -= h.pop()
+            res += h[-1] + sumV
+            sumH -= h.pop()
         else:
-            res += v[-1] + sumh
-            sumv -= v.pop()
-    return res + sumh + sumv
+            res += v[-1] + sumH
+            sumV -= v.pop()
+    return res + sumH + sumV
 
 
 """
@@ -104,30 +104,29 @@ ans = 0 + 5 + 4 + 1 = 10
     * | *   *
 4   - | - - -
     * | * | *
-    
+
 ans = 10 + 4 + 1 = 15
 ...
 """
 
-
-print(minimumCost(3, 3, [1, 4], [5, 1]))
+print(minimumCost(3, 3, [1, 4], [5, 1]))  # 18
 ```
 
 ### [Jump Game](https://leetcode.com/problems/jump-game/)
 ```python
 def canJump(nums):
-    max_reachable = 0
+    maxReachable = 0
     for i in range(len(nums)):
-        if i > max_reachable:
+        if i > maxReachable:
             return False
-        max_reachable = max(max_reachable, i + nums[i])  # 2
-        if max_reachable >= len(nums) - 1:
+        maxReachable = max(maxReachable, i + nums[i])  # 2
+        if maxReachable >= len(nums) - 1:
             return True
     return False
 
 
-print(canJump([2, 3, 1, 1, 4]))
-print(canJump([2, 3, 1, 0, 1, 4]))
+print(canJump([2, 3, 1, 1, 4]))  # True
+print(canJump([2, 2, 1, 0, 1, 4]))  # False
 ```
 
 ### [Jump Game II](https://leetcode.com/problems/jump-game-ii/)
