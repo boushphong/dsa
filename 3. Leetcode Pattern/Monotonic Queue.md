@@ -31,21 +31,21 @@ print(maxResult([-123], 10))  # -123
 Decreasing Monotonic Queue
 ```python
 def maxSlidingWindow(nums, k):
-    dq, res = deque(), []
+    queue, res = deque(), []
     for i, num in enumerate(nums[:k]):
-        while dq and num > nums[dq[-1]]:
-            dq.pop()
-        dq.append(i)
+        while queue and num > nums[queue[-1]]:
+            queue.pop()
+        queue.append(i)
 
-    res.append(nums[dq[0]])
+    res.append(nums[queue[0]])
     for i, num in enumerate(nums[k:], k):
-        if dq and dq[0] <= i - k:
-            dq.popleft()
-        while dq and num > nums[dq[-1]]:
-            dq.pop()
+        if queue and queue[0] <= i - k:
+            queue.popleft()
+        while queue and num > nums[queue[-1]]:
+            queue.pop()
 
-        dq.append(i)
-        res.append(nums[dq[0]])
+        queue.append(i)
+        res.append(nums[queue[0]])
     return res
 
 
@@ -58,8 +58,7 @@ This pattern can also be solved by using the **Two Heaps** pattern. But the time
 ### [Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/)
 ```python
 def longestSubarray(nums: List[int], limit: int) -> int:
-    decrDeque = deque()
-    incrDeque = deque()
+    incDeque, decDeque = deque(), deque()
     left = maxLength = 0
 
     for right, num in enumerate(nums):
@@ -92,8 +91,7 @@ print(longestSubarray([8, 4, 2, 7], 4))  # 2
 ### [Continuous Subarrays](https://leetcode.com/problems/continuous-subarrays/)
 ```python
 def longestSubarray(nums):
-    incDeque = deque()
-    decDeque = deque()
+    incDeque, decDeque = deque(), deque()
     left = countSubarray = countDuplicateSubarray = 0
 
     for right, num in enumerate(nums):
