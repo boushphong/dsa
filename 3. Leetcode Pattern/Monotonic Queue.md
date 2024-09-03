@@ -2,7 +2,7 @@
 Monotonic stacks are generally used for solving questions of the type - next greater element, next smaller element, previous greater element and previous smaller element. Likewise, **Monotonic Queue** can also be used to solve these kind of questions, but it excels at Finding the maximum or minimum element in a **Sliding Window**.
 
 # Patterns
-## Tracking Maximum/Mininum Element of a Fixed Sliding Window.
+## Tracking Maximum/Mininum Element of a Fixed Sliding Window
 ### [Jump Game VI](https://leetcode.com/problems/jump-game-vi/)
 Decreasing Monotonic Queue
 ```python
@@ -53,7 +53,7 @@ print(maxSlidingWindow([1, 2, 3, 4, 5, 6, 7, 8], 3))  # [3, 4, 5, 6, 7, 8]
 print(maxSlidingWindow([4, 3, -1, -3, 5, 3, 6, 7], 3))  # [4, 3, 5, 5, 6, 7]
 ```
 
-## Tracking Both Maximum and Mininum Element of a Sliding Window. (Two Queues)
+## Tracking Both Maximum and Mininum Element of a Sliding Window (Two Queues)
 This pattern can also be solved by using the **Two Heaps** pattern. But the time complexity of the **Two Queues** pattern is more efficient at `O(N)`.
 ### [Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/)
 ```python
