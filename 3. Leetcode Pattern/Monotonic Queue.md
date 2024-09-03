@@ -57,7 +57,7 @@ print(maxSlidingWindow([4, 3, -1, -3, 5, 3, 6, 7], 3))  # [4, 3, 5, 5, 6, 7]
 This pattern can also be solved by using the **Two Heaps** pattern. But the time complexity of the **Two Queues** pattern is more efficient at `O(N)`.
 ### [Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/)
 ```python
-def longestSubarray(nums: List[int], limit: int) -> int:
+def longestSubarray(nums, limit):
     incDeque, decDeque = deque(), deque()
     left = maxLength = 0
 
