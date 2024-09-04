@@ -299,3 +299,56 @@ def findCheapestPrice(n, flights, src, dst, k):
 
 print(findCheapestPrice(4, [[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]], 0, 3, 1))  # 700
 ```
+
+#### In Matrix
+### [Path With Minimum Effort](https://leetcode.com/problems/path-with-minimum-effort/)
+```python
+def minimumEffortPath(heights):
+    m, n = len(heights), len(heights[0])
+    directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+    distance = [[inf] * n for _ in range(m)]
+    distance[0][0] = 0
+    heap = [(0, 0, 0)]
+
+    while heap:
+        curDistance, curRow, curCol = heappop(heap)
+        if curDistance > distance[curRow][curCol]:
+            continue
+
+        if curRow == m - 1 and curCol == n - 1:
+            return curDistance
+
+        for movedByRow, movedByCol in directions:
+            tmpCurRow, tmpCurCol = curRow + movedByRow, curCol + movedByCol
+            if tmpCurRow in {-1, m} or tmpCurCol in {-1, n}:
+                continue
+            toNewNodeDistance = max(curDistance, abs(heights[tmpCurRow][tmpCurCol] - heights[curRow][curCol]))
+
+            if toNewNodeDistance < distance[tmpCurRow][tmpCurCol]:
+                distance[tmpCurRow][tmpCurCol] = toNewNodeDistance
+                heappush(heap, (toNewNodeDistance, tmpCurRow, tmpCurCol))
+
+
+print(
+    minimumEffortPath(
+        [
+            [1, 2, 2],
+            [3, 8, 2],
+            [5, 3, 5]
+        ]
+    )
+)  # 2
+
+
+print(
+    minimumEffortPath(
+        [
+            [1, 2, 1, 1, 1],
+            [1, 2, 1, 2, 1],
+            [1, 2, 1, 2, 1],
+            [1, 2, 1, 2, 1],
+            [1, 1, 1, 2, 1]
+        ]
+    )
+)  # 0
+```
