@@ -309,7 +309,7 @@ meetingRooms: [12, 20, 19, 30]
 ```
 
 ## Simulation
-Usually involve tracking which elements are available and unavailable in two separate heaps.
+Usually involve tracking which elements are available and unavailable in two separate data structures (which can maintain priority (Heap, Balanced Tree ...).
 ### [Meeting Rooms III](https://leetcode.com/problems/meeting-rooms-iii)
 ```python
 from collections import defaultdict
@@ -349,6 +349,35 @@ def mostBooked(n, meetings):
 
 print(mostBooked(2, [[0, 10], [1, 5], [2, 7], [3, 4]]))  # 0
 print(mostBooked(4, [[18, 19], [3, 12], [17, 19], [2, 13], [7, 10]]))  # 0
+```
+
+### [Find Servers That Handled Most Number of Requests](https://leetcode.com/problems/find-servers-that-handled-most-number-of-requests/)
+```python
+def busiestServers(k, arrival, load):
+    from sortedcontainers import SortedSet
+    cnt = defaultdict(int)
+    available = SortedSet(range(k))
+    unavailable = []
+    mostBusy = 0
+
+    for i, (time, usage) in enumerate(zip(arrival, load)):
+        while unavailable and time >= unavailable[0][0]:
+            _, serverId = heappop(unavailable)
+            available.add(serverId)
+
+        if available:
+            serverIdx = available.bisect_left(i % k)
+            serverId = available[serverIdx] if serverIdx < len(available) else available[0]
+            available.remove(serverId)
+            heappush(unavailable, (time + usage, serverId))
+            cnt[serverId] += 1
+            mostBusy = max(mostBusy, cnt[serverId])
+
+    return [k for k, v in cnt.items() if v == mostBusy]
+
+
+print(busiestServers(3, [1, 2, 3, 4, 8, 9, 10], [5, 2, 10, 3, 1, 2, 2]))  # [1]
+print(busiestServers(k=3, arrival=[1, 2, 3], load=[10, 12, 11]))  # [0, 1, 2]
 ```
 
 ## Two Heaps
