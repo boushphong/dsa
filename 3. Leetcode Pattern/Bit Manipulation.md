@@ -177,6 +177,28 @@ n >> 1
 """
 ```
 
+```python
+def hammingWeight(n):
+    res = 0
+    while n != 0:
+        res += 1
+        n = n & (n - 1)
+    return res
+
+print(hammingWeight(10))  # 2
+"""
+TC: O(K) (K is the number of 1 bits)
+x           = 00001010
+x - 1       = 00001001
+x & (x - 1) = 00001000
+
+
+x           = 00001000
+x - 1       = 00000111
+x & (x - 1) = 00000000
+"""
+```
+
 ### [Power of Two](https://leetcode.com/problems/power-of-two/)
 ```python
 def isPowerOfTwo(n):
@@ -216,26 +238,23 @@ print(isPowerOfTwo(3))  # False
 """
 ```
 
+### [Number Complement](https://leetcode.com/problems/number-complement/)
 ```python
-def hammingWeight(n):
-    res = 0
-    while n != 0:
-        res += 1
-        n = n & (n - 1)
-    return res
-
-print(hammingWeight(10))  # 2
-"""
-TC: O(K) (K is the number of 1 bits)
-x           = 00001010
-x - 1       = 00001001
-x & (x - 1) = 00001000
+# Flip Bit by Bit
+def findComplement(num):
+    flipRange = floor(log2(num)) + 1
+    for i in range(flipRange):
+        num ^= (1 << i)
+    return num
 
 
-x           = 00001000
-x - 1       = 00000111
-x & (x - 1) = 00000000
-"""
+# Flip only once
+def findComplement(num):
+    flipNum = floor(log2(num)) + 1
+    return num ^ ((1 << flipNum) - 1)
+
+
+print(findComplement(5))  # 2
 ```
 
 ### [Reverse Bits](https://leetcode.com/problems/reverse-bits/)
