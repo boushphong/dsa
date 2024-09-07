@@ -36,6 +36,19 @@ a = 12   →  00000000 00000000 00000000 00001100
 11110011 (0011 = 3) -> 11110100 (0100 = 4) 
 ```
 
+## Converting a Positive Integer to Negative
+In Python, negative integers are represented using **two's complement** when working with bits. Here's how it works:
+
+### Example:
+Let's represent `-5` in an 8-bit format:
+1. First, take the binary of `5`: `00000101` (in 8 bits).
+2. Flip the bits: `11111010`.
+3. Add 1: `11111010 + 1 = 11111011`.
+
+So, `-5` is represented as `11111011` in an 8-bit two's complement format.
+
+**Note:** Add 1 means to "carry" to the next bit. If the rightmost bit is already 1 then the next rightmost 0 will be replaced with 1.
+
 ## Common Tricks
 - **x ^ 0s = x**
 - **x ^ 1s = ~x**
