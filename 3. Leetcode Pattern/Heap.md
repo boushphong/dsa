@@ -309,6 +309,7 @@ meetingRooms: [12, 20, 19, 30]
 ```
 
 ## Simulation
+Usually involve tracking which elements are available and unavailable in two separate heaps.
 ### [Meeting Rooms III](https://leetcode.com/problems/meeting-rooms-iii)
 ```python
 from collections import defaultdict
