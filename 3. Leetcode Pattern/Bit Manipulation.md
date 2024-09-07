@@ -184,11 +184,35 @@ def isPowerOfTwo(n):
         return False
     return n & (n - 1) == 0
 
+
 print(isPowerOfTwo(2))  # True
+print(isPowerOfTwo(3))  # False
 """
 00000010 (2)
 00000001 (1)
-00000000 (0) 2 & 1
+00000000 (0) 2 & 1 -> True
+
+00000011 (3)
+00000010 (2)
+00000010 (2) 3 & 2 -> False
+"""
+
+def isPowerOfTwo(n):
+    if n == 0:
+        return False
+    return n & (-n) == n
+
+
+print(isPowerOfTwo(2))  # True
+print(isPowerOfTwo(3))  # False
+"""
+00000010 (2)
+11111110 (-2)
+00000010 (2) 2 & -2 -> True
+
+00000011 (3)
+11111101 (-3)
+00000001 (1) 3 & -3 -> False
 """
 ```
 
