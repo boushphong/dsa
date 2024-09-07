@@ -164,6 +164,21 @@ n >> 1
 """
 ```
 
+### [Power of Two](https://leetcode.com/problems/power-of-two/)
+```python
+def isPowerOfTwo(n):
+    if n == 0:
+        return False
+    return n & (n - 1) == 0
+
+print(isPowerOfTwo(2))  # True
+"""
+00000010 (2)
+00000001 (1)
+00000000 (0) 2 & 1
+"""
+```
+
 ```python
 def hammingWeight(n):
     res = 0
