@@ -137,7 +137,7 @@ clearBit(13, 2) # 9
 """
 ```
 
-### Flip k_th bit of number x
+### Flip k-th bit of number x
 ```python
 def flipBit(x, k):
     return x ^ (1 << k)
