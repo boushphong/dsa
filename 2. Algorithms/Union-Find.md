@@ -67,6 +67,7 @@ class UnionFind:
         return x
     ...
 ```
+
 Doing it iteratively
 ```python
 class UnionFind:
@@ -85,7 +86,7 @@ class UnionFind:
     ...
 ```
 
-```
+```python
 # Example usage:
 uf = UnionFind(10)
 uf.union(1, 2)
