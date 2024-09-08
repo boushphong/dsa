@@ -563,6 +563,41 @@ def shipWithinDays(weights, days):
 print(shipWithinDays([3, 2, 2, 4, 1, 4], 3))  # 6
 ```
 
+### [Maximize Score of Numbers in Ranges](https://leetcode.com/problems/maximize-score-of-numbers-in-ranges/)
+```python
+def maxPossibleScore(start, d):
+    start.sort()
+    l, r = 0, start[-1] + d
+
+    def isFeasible(score):
+        cur = start[0]
+        wiggleRoom = cur + d - score
+        for i, num in enumerate(start[1:], 1):
+            cur += score
+            if num <= cur <= num + d:
+                wiggleRoom = num + d - cur
+            if cur < num:
+                wiggleRoom -= (num - cur)
+                cur = num
+            if cur > num + d:
+                return False
+        return True
+
+    ans = -1
+    while l <= r:
+        m = l + (r - l) // 2
+        if isFeasible(m):
+            ans = m
+            l = m + 1
+        else:
+            r = m - 1
+    return ans
+
+
+print(maxPossibleScore([6, 0, 3], 2))  # 4
+print(maxPossibleScore([2, 6, 13, 13], 5))  # 5
+```
+
 ### [Magnetic Force Between Two Balls](https://leetcode.com/problems/magnetic-force-between-two-balls/)
 ```python
 def maxDistance(position, m):
