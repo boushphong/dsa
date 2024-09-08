@@ -58,18 +58,34 @@ print(uf.find(5))   # Output: 5
 ### Path Compression
 ```python
 class UnionFind:
-    def __init__(self, size):
-        ...
+    ...
 
     def find(self, x):
         if self.parent[x] != x:
             self.parent[x] = self.find(self.parent[x])
             x = self.parent[x]
         return x
+    ...
+```
+Doing it iteratively
+```python
+class UnionFind:
+    ...
 
-    def union(self, x, y):
-        ...
+    def find(self, x):
+        stack = []
+        while self.parent[x] != x:
+            stack.append(x)
+            x = self.parent[x]
 
+        for idx in stack:
+            self.parent[idx] = x
+
+        return x
+    ...
+```
+
+```
 # Example usage:
 uf = UnionFind(10)
 uf.union(1, 2)
