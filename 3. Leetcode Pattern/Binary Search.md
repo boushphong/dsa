@@ -535,7 +535,7 @@ In this example, even when we search `9` in our first iteration, which will retu
 
 ```python
 def shipWithinDays(weights, days):
-    def feasible(capacity):
+    def isFeasible(capacity):
         tmp_weight = 0
         ship_within_days = 1
         for weight in weights:
@@ -552,7 +552,7 @@ def shipWithinDays(weights, days):
     left, right = max(weights), sum(weights)
     while left <= right:
         mid = left + (right - left) // 2
-        if feasible(mid):
+        if isFeasible(mid):
             ans = mid
             right = mid - 1
         else:
