@@ -571,13 +571,9 @@ def maxPossibleScore(start, d):
 
     def isFeasible(score):
         cur = start[0]
-        wiggleRoom = cur + d - score
         for i, num in enumerate(start[1:], 1):
             cur += score
-            if num <= cur <= num + d:
-                wiggleRoom = num + d - cur
             if cur < num:
-                wiggleRoom -= (num - cur)
                 cur = num
             if cur > num + d:
                 return False
