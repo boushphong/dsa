@@ -86,7 +86,6 @@ def findTheCity(n, edges, distanceThreshold):
     reachableCities = defaultdict(set)
     heap = [(0, _, _) for _ in range(n)]
     distances = set()
-    heapify(heap)
 
     while heap:
         curDistance, curCity, originCity = heappop(heap)
