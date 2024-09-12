@@ -229,6 +229,72 @@ print(numIslands2(1, 2, [[0, 1], [0, 0]]))  # [1, 1]
 print(numIslands2(3, 3, [[0, 0], [0, 1], [1, 2], [2, 2], [1, 1]]))  # [1, 1, 2, 2, 1]
 ```
 
+#### Using HashMap as `Parent`
+### [Making A Large Island](https://leetcode.com/problems/making-a-large-island/)
+```python
+def largestIsland(grid):
+    n = len(grid)
+    directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+    parent = {}
+
+    for i in range(n):
+        for j in range(n):
+            if grid[i][j]:
+                parent[(i, j)] = (i, j)
+
+    def find(row, col):
+        if (row, col) != parent.get((row, col)):
+            parent[(row, col)] = find(*parent.get((row, col)))
+            row, col = parent[(row, col)]
+        return row, col
+
+    def union(rowX, colX, rowY, colY):
+        rootX = find(rowX, colX)
+        rootY = find(rowY, colY)
+        if rootX != rootY:
+            parent[rootY] = rootX
+
+    for i in range(n):
+        for j in range(n):
+            if grid[i][j]:
+                for movedByRow, movedByCol in directions:
+                    tmpRow, tmpCol = i + movedByRow, j + movedByCol
+                    if tmpCol in {-1, n} or tmpRow in {-1, n} or not grid[tmpRow][tmpCol]:
+                        continue
+                    union(i, j, tmpRow, tmpCol)
+
+    res = 0
+    islandSize = defaultdict(int)
+    for _, v in parent.items():
+        rowKey, colKey = find(*v)
+        islandSize[(rowKey, colKey)] += 1
+        res = max(res, islandSize[(rowKey, colKey)])
+
+    for i in range(n):
+        for j in range(n):
+            if not grid[i][j]:
+                up = parent.get((i + 1, j))
+                down = parent.get((i - 1, j))
+                right = parent.get((i, j + 1))
+                left = parent.get((i, j - 1))
+                neighbors = {find(*_) for _ in [up, down, right, left] if _}
+                res = max(res, sum(islandSize.get(_, 0) for _ in neighbors) + 1)
+
+    return res
+
+
+print(largestIsland([
+    [0, 1, 0, 0, 1, 0, 0, 0],
+    [1, 1, 0, 1, 0, 1, 1, 0],
+    [1, 1, 1, 0, 0, 1, 1, 1],
+    [1, 0, 0, 1, 1, 0, 1, 0],
+    [0, 0, 1, 1, 1, 1, 0, 1],
+    [0, 0, 1, 1, 1, 0, 1, 0],
+    [0, 0, 1, 0, 1, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 1, 0]
+]))  # 24
+```
+
 ## Topological Sort
 ### [Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)
 ```python
