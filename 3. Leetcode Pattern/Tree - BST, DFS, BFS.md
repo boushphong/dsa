@@ -398,6 +398,34 @@ def rightSideView(root):
     return result
 ```
 
+### [Binary Tree Vertical Order Traversal](https://leetcode.com/problems/binary-tree-vertical-order-traversal/)
+```python
+def verticalOrder(root):
+    if not root:
+        return []
+
+    levels = defaultdict(list)
+    queue = deque([(root, 0)])
+    leftMost = 0
+    while queue:
+        node, level = queue.popleft()
+        leftMost = min(leftMost, level)
+        levels[level].append(node.val)
+
+        if node.left:
+            queue.append((node.left, level - 1))
+
+        if node.right:
+            queue.append((node.right, level + 1))
+
+    res = []
+    while levels.get(leftMost):
+        res.append(levels.get(leftMost))
+        leftMost += 1
+
+    return res
+```
+
 ## DFS
 ### [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view)
 All DFS techniques would technically work, but we are using pre-order in this case because the len of `ans` is used at each recursive call so that if a new depth is discovered, we want to add an element to the `ans` list immediately after seeing a new depth. And when if that depth is already discovered, we can modify the `ans` result.
