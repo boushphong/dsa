@@ -315,8 +315,8 @@ print(solve(grid))
 
 #### Tracking visited node with a HashMap
 ### [Find a Safe Walk Through a Grid](https://leetcode.com/problems/find-a-safe-walk-through-a-grid/)
-```
-def findSafeWalk(grid: List[List[int]], health: int) -> bool:
+```python
+def findSafeWalk(grid, health):
     m, n = len(grid[0]), len(grid)
     directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
     visited = defaultdict(lambda: -inf)
