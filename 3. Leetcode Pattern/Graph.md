@@ -319,12 +319,12 @@ print(solve(grid))
 ### [Find a Safe Walk Through a Grid](https://leetcode.com/problems/find-a-safe-walk-through-a-grid/)
 ```python
 def findSafeWalk(grid, health):
-    m, n = len(grid[0]), len(grid)
+    m, n = len(grid), len(grid[0])
     directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
     visited = defaultdict(lambda: -inf)
 
     def dfs(row, col, remainingHealth):
-        if row == n - 1 and col == m - 1:
+        if row == m - 1 and col == n - 1:
             return remainingHealth > 0
 
         visited[(row, col)] = remainingHealth
@@ -332,7 +332,7 @@ def findSafeWalk(grid, health):
         isSafe = False
         for movedByRow, movedByCol in directions:
             tmpRow, tmpCol = row + movedByRow, col + movedByCol
-            if 0 <= tmpRow < n and 0 <= tmpCol < m:
+            if 0 <= tmpRow < m and 0 <= tmpCol < n:
                 newHealth = remainingHealth - grid[tmpRow][tmpCol]
                 if 0 < newHealth > visited[(tmpRow, tmpCol)]:
                     isSafe = isSafe or dfs(tmpRow, tmpCol, newHealth)
