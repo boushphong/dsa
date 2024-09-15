@@ -312,7 +312,40 @@ grid = [
 
 print(solve(grid))
 ```
- 
+
+#### Tracking visited node with a HashMap
+### [Find a Safe Walk Through a Grid](https://leetcode.com/problems/find-a-safe-walk-through-a-grid/)
+```
+def findSafeWalk(grid: List[List[int]], health: int) -> bool:
+    m, n = len(grid[0]), len(grid)
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    visited = defaultdict(lambda: -inf)
+
+    def dfs(row, col, remainingHealth):
+        if row == n - 1 and col == m - 1:
+            return remainingHealth > 0
+
+        visited[(row, col)] = remainingHealth
+
+        isSafe = False
+        for movedByRow, movedByCol in directions:
+            tmpRow, tmpCol = row + movedByRow, col + movedByCol
+            if 0 <= tmpRow < n and 0 <= tmpCol < m:
+                newHealth = remainingHealth - grid[tmpRow][tmpCol]
+                if 0 < newHealth > visited[(tmpRow, tmpCol)]:
+                    isSafe = isSafe or dfs(tmpRow, tmpCol, newHealth)
+
+        return isSafe
+
+    initialHealth = health - grid[0][0]
+    return dfs(0, 0, initialHealth)
+
+
+print(findSafeWalk([[1, 1, 1],
+                    [1, 0, 1],
+                    [1, 1, 1]], 5))  # True
+```
+
 ## BFS (Adjacency matrix)
 ### [Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix)
 ```python
