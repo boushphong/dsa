@@ -7,6 +7,7 @@
 * [Patterns](#patterns)
    * [DFS (Adjacency list)](#dfs-adjacency-list)
    * [BFS (Adjacency list)](#bfs-adjacency-list)
+   * [Island Traversal](#island-traversal) 
    * [DFS (Adjacency matrix)](#dfs-adjacency-matrix)
    * [BFS (Adjacency matrix)](#bfs-adjacency-matrix)
 
@@ -234,6 +235,7 @@ print(isBipartite([[1, 2, 3], [0, 2], [0, 1, 3], [0, 2]]))
 print(isBipartite([[1, 3], [0, 2], [1, 3], [0, 2]]))
 ```
 
+## Island Traversal
 ## DFS (Adjacency matrix)
 ### [Number of Islands](https://leetcode.com/problems/number-of-islands/)
 ```python
