@@ -124,7 +124,7 @@ def findTargetSumWays(nums, target):
         tmpDp = [0] * (2 * totalSum + 1)
         for s in range(-totalSum, totalSum + 1):
             if dp[s + totalSum] > 0:
-                tmpDp[s + num + totalSum] += dp[ s + totalSum]
+                tmpDp[s + num + totalSum] += dp[s + totalSum]
                 tmpDp[s - num + totalSum] += dp[s + totalSum]
         dp = tmpDp
 
