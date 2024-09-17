@@ -92,7 +92,6 @@ Explanation
     - Later down the recursive call, we encounter this state again inside `dp(1, -1)`, which calls onto `dp(2, 0)`, hence we could just get the result from the cache. 
   - Therefore, at later recursive calls, if we encounter a pre-computed state's result, we can get the result from the cache.
 ```python
-"""
 findTargetSumWays([1, 1, 1, 1, 1], 3)
   └─ dp(0, 0) (cache ways=5)
        ├─ dp(1, 1) (cache ways=4)
@@ -108,7 +107,6 @@ findTargetSumWays([1, 1, 1, 1, 1], 3)
        │         └─ dp(3, 1) (get from cache ways=1)
        └─ dp(1, -1) (cache ways=1)
             └─ dp(2, 0) (get from cache ways=1)
-"""
 ```
 
 ## Linear Sequences with Constant Transition (1D)
