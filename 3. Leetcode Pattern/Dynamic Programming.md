@@ -56,6 +56,7 @@ def climbStairs(n):
 
 ## Fibonacci Style (2D)
 ### [Target Sum](https://leetcode.com/problems/target-sum/)
+**Top-Down**
 ```python
 def findTargetSumWays(nums, target):
     n = len(nums)
@@ -108,6 +109,40 @@ findTargetSumWays([1, 1, 1, 1, 1], 3)
        └─ dp(1, -1) (cache ways=1)
             └─ dp(2, 0) (get from cache ways=1)
 ```
+
+**Bottom-Up**
+```python
+def findTargetSumWays(nums, target):
+    totalSum = sum(nums)
+    if abs(target) > totalSum:
+        return 0
+
+    dp = [0] * (2 * totalSum + 1)
+    dp[totalSum] = 1
+
+    for num in nums:
+        tmpDp = [0] * (2 * totalSum + 1)
+        for s in range(-totalSum, totalSum + 1):
+            if dp[s + totalSum] > 0:
+                tmpDp[s + num + totalSum] += dp[ s + totalSum]
+                tmpDp[s - num + totalSum] += dp[s + totalSum]
+        dp = tmpDp
+
+    return dp[target + totalSum]
+
+
+print(findTargetSumWays([1, 1, 1, 1, 1], 3))  # 5
+"""
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0]
+[0, 0, 0, 1, 0, 2, 0, 1, 0, 0, 0]
+[0, 0, 1, 0, 3, 0, 3, 0, 1, 0, 0]
+[0, 1, 0, 4, 0, 6, 0, 4, 0, 1, 0]
+[1, 0, 5, 0, 10, 0, 10, 0, 5, 0, 1]
+"""
+```
+
+
 
 ## Linear Sequences with Constant Transition (1D)
 Requires us to solve the sub-problem on every prefix (or suffix) of the array. 
