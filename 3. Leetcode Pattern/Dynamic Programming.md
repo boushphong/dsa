@@ -2,6 +2,7 @@
 # Table of Contents
 * [Patterns](#patterns)
    * [Fibonacci Style (1D)](#fibonacci-style-1d)
+   * [Fibonacci Style (2D)](#fibonacci-style-2d)
    * [Linear Sequences with Constant Transition (1D)](#linear-sequences-with-constant-transition-1d)
    * [Linear Sequences with non-constant Transition](#linear-sequences-with-non-constant-transition)
    * [Matrix (Grid) Pattern](#matrix-grid-pattern)
@@ -53,6 +54,62 @@ def climbStairs(n):
     return step
 ```
 
+## Fibonacci Style (2D)
+### [Target Sum](https://leetcode.com/problems/target-sum/)
+```python
+def findTargetSumWays(nums, target):
+    n = len(nums)
+    memo = {}
+
+    def dp(i=0, total=0):
+        if (i, total) in memo:
+            return memo[(i, total)]
+        if i == n:
+            if total == target:
+                return 1
+            else:
+                return 0
+
+        plus = total + nums[i]
+        plusWays = dp(i + 1, plus)
+
+        minus = total - nums[i]
+        minusWays = dp(i + 1, minus)
+
+        memo[(i, total)] = plusWays + minusWays
+        return plusWays + minusWays
+
+    return dp()
+
+
+print(findTargetSumWays([1, 1, 1, 1, 1], 3))  # 5
+```
+
+Explanation
+- The state variables are the current index and the current total sum at that index.
+  - At every state, we memoize how many different valid paths that sums up to the target.
+    - For example, at state `dp(2, 0)`, there is only one valid path, hence we cache `1` for this state.
+    - Later down the recursive call, we encounter this state again inside `dp(1, -1)`, which calls onto `dp(2, 0)`, hence we could just get the result from the cache. 
+  - Therefore, at later recursive calls, if we encounter a pre-computed state's result, we can get the result from the cache.
+```python
+"""
+findTargetSumWays([1, 1, 1, 1, 1], 3)
+  └─ dp(0, 0) (cache ways=5)
+       ├─ dp(1, 1) (cache ways=4)
+       │    ├─ dp(2, 2) (cache ways=3)
+       │    │    ├─ dp(3, 3) (cache ways=2)
+       │    │    │    ├─ dp(4, 4) (cache ways=1)
+       │    │    │    │    └─ dp(5, 3) (valid path)
+       │    │    │    └─ dp(4, 2) (cache ways=1)
+       │    │    │         └─ dp(5, 3) (valid path)
+       │    │    └─ dp(3, 1) (cache ways=1)
+       │    │         └─ dp(4, 2) (get from cache ways=1)
+       │    └─ dp(2, 0) (cache ways=1)
+       │         └─ dp(3, 1) (get from cache ways=1)
+       └─ dp(1, -1) (cache ways=1)
+            └─ dp(2, 0) (get from cache ways=1)
+"""
+```
 
 ## Linear Sequences with Constant Transition (1D)
 Requires us to solve the sub-problem on every prefix (or suffix) of the array. 
