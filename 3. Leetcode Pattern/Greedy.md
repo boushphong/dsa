@@ -299,15 +299,17 @@ print(minRefuelStops(100, 1, [[10, 100]]))
 
 ### [Minimum Number of Seconds to Make Mountain Height Zero](https://leetcode.com/problems/minimum-number-of-seconds-to-make-mountain-height-zero/)
 ```python
-def minNumberOfSeconds(mountainHeight: int, workerTimes: List[int]) -> int:
-    h = [(t, t, 1) for t in workerTimes]
-    heapify(h)
-
-    while mountainHeight > 1:
-        ps, wt, x = heappop(h)
-        heappush(h, (ps + wt * (x + 1), wt, x + 1))
+def minNumberOfSeconds(mountainHeight, workerTimes):
+    heap = [(time, time, 0) for time in workerTimes]
+    heapify(heap)
+    
+    while mountainHeight > -1:
+        totalTime, originalTime, multiplier = heap[0]
+        newMultiplier = multiplier + 1
+        newTotalTime = originalTime * ((newMultiplier * (newMultiplier + 1)) // 2)
+        heapreplace(heap, (newTotalTime, originalTime, newMultiplier))
         mountainHeight -= 1
-    return heappop(h)[0]
+    return heappop(heap)[0]
 
 
 print(minNumberOfSeconds(4, [5, 1]))  # 6
