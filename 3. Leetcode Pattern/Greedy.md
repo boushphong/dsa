@@ -311,4 +311,25 @@ def minNumberOfSeconds(mountainHeight: int, workerTimes: List[int]) -> int:
 
 
 print(minNumberOfSeconds(4, [5, 1]))  # 6
+"""
+Heap:  [(1, 1, 1), (5, 5, 1)]
+---
+Popping from heap: (1, 1, 1)
+New Total Time: 3 , Original Time: 1 , New Multiplier: 2
+Heap: [(3, 1, 2), (5, 5, 1)]
+
+---
+Popping from heap: (3, 1, 2)
+New Total Time: 6 , Original Time: 1 , New Multiplier: 3
+Heap: [(5, 5, 1), (6, 1, 3)]
+
+---
+Popping from heap: (5, 5, 1)
+New Total Time: 15 , Original Time: 5 , New Multiplier: 2
+Heap: [(6, 1, 3), (15, 5, 2)]
+
+---
+Answer = `totalTime` of the first element of the heap.
+Answer = 6
+"""
 ```
