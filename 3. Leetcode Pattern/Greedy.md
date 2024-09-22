@@ -210,3 +210,105 @@ def canCompleteCircuit(gas, cost):
 print(canCompleteCircuit([1, 2, 2, 4, 10], [3, 4, 1, 6, 2]))  # 4
 print(canCompleteCircuit([5, 1, 4, 1], [2, 1, 5, 3]))  # 0
 ```
+
+## Greedy. Keeping Max (or Min) element to replace with Heap
+### [Furthest Building You Can Reach](https://leetcode.com/problems/furthest-building-you-can-reach/)
+```python
+def furthestBuilding(heights, bricks, ladders):
+    heap = []
+
+    for i in range(len(heights) - 1):
+        diff = heights[i + 1] - heights[i]
+        if diff <= 0:
+            continue
+        if diff <= bricks:
+            bricks -= diff
+            heappush(heap, -diff)
+        else:
+            if not ladders:
+                return i
+            ladders -= 1
+
+            if heap and -heap[0] > diff:
+                bricks += -heappop(heap)
+                bricks -= diff
+                heappush(heap, -diff)
+
+    return len(heights) - 1
+
+
+print(furthestBuilding([4, 12, 2, 7, 3, 18, 20, 3, 19], 10, 2))
+""" MAX HEAP
+[4, 12, 2, 7, 3, 18, 20, 3, 19]
+i = 0 (4)
+diff 8 (smaller than 10)> heap = [8]
+bricks = 2
+
+i = 1 (12)
+diff -10 > continue
+
+i = 2 (2)
+diff -5 (larger than bricks = 2) > stair -= 1
+pop the max heap, and push diff > heap = [5]
+bricks = 5
+
+i = 3 (7)
+diff -4 > continue
+
+i = 4 (3)
+diff -15 (larger than bricks = 5) > stair -= 1
+won't pop the max heap because don't have enough bricks (5 < 15)
+
+i = 5 (18)
+diff 2 (smaller than 5) > heap = [5, 2]
+bricks = 3
+
+i = 6 (20)
+diff -17 > continue
+
+i = 7 (3)
+diff 16 (larger than bricks = 3)
+return i since ladders = 0 
+"""
+```
+
+### [Minimum Number of Refueling Stops](https://leetcode.com/problems/minimum-number-of-refueling-stops)
+```python
+def minRefuelStops(target, startFuel, stations):
+    heap = []
+    ans = 0
+    stations += [[target, 0]]
+    for i, [station, fuel] in enumerate(stations):
+        startFuel -= station - stations[i - 1][0] if i != 0 else station
+
+        while heap and startFuel < 0:
+            tmp_fuel = heappop(heap)
+            startFuel += -tmp_fuel
+            ans += 1
+
+        if startFuel < 0:
+            return -1
+
+        heappush(heap, -fuel)
+    return ans
+
+
+print(minRefuelStops(130, 20, [[10, 60], [30, 30], [40, 10], [60, 70]]))
+print(minRefuelStops(100, 1, [[10, 100]]))
+```
+
+### [Minimum Number of Seconds to Make Mountain Height Zero](https://leetcode.com/problems/minimum-number-of-seconds-to-make-mountain-height-zero/)
+```python
+def minNumberOfSeconds(mountainHeight: int, workerTimes: List[int]) -> int:
+    h = [(t, t, 1) for t in workerTimes]
+    heapify(h)
+
+    while mountainHeight > 1:
+        ps, wt, x = heappop(h)
+        heappush(h, (ps + wt * (x + 1), wt, x + 1))
+        mountainHeight -= 1
+    return heappop(h)[0]
+
+
+print(minNumberOfSeconds(4, [5, 1]))  # 6
+```
