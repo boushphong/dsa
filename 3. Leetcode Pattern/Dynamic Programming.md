@@ -1029,7 +1029,10 @@ print(canPartition([4, 4, 2, 1, 5]))
 ```
 
 ## Dynamic Memoization
-Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. This technique is employed to prevent overriding the best optimal result for sub-problems that have already been solved, which is crucial when overlapping sub-problems occur. This ensures that the most optimal result for a sub-problem is preserved and can be re-used whenever needed.
+Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. 
+- Can be used to prevent overriding the best optimal result for sub-problems that have already been solved, which is crucial when overlapping sub-problems occur. This ensures that the most optimal result for a sub-problem is preserved and can be re-used whenever needed.
+- Can be used to cut TC if many similar keys are accessed repeatedly.
+
 ### [Longest Arithmetic Subsequence](#longest-arithmetic-subsequence)
 
 ### [Make Array Strictly Increasing](https://leetcode.com/problems/make-array-strictly-increasing)
@@ -1059,6 +1062,24 @@ def makeArrayIncreasing(arr1, arr2):
 
 print(makeArrayIncreasing(arr1=[1, 5, 3, 6, 7], arr2=[1, 3, 2, 4]))  # 1
 print(makeArrayIncreasing(arr1=[9, 5, 3, 6, 7], arr2=[1, 3, 2, 4]))  # 2
+```
+
+### [Longest Ideal Subsequence](https://leetcode.com/problems/longest-ideal-subsequence/)
+```python
+def longestIdealString(s, k):
+    hm = defaultdict(int)
+    for i, letter in enumerate(s):
+        ordLetter = ord(letter)
+        cur = 1
+        for letterInRange in range(ordLetter - k, ordLetter + k + 1):
+            cur = max(cur, hm.get(chr(letterInRange), 0) + 1)
+        hm[letter] = max(hm[letter], cur)
+
+    return max(cnt for cnt in hm.values())
+
+
+print(longestIdealString("acfgbd", 2))  # 4
+print(longestIdealString("pvjcci", 4))  # 2
 ```
 
 
