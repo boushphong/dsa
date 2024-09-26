@@ -53,6 +53,35 @@ print(maxSlidingWindow([1, 2, 3, 4, 5, 6, 7, 8], 3))  # [3, 4, 5, 6, 7, 8]
 print(maxSlidingWindow([4, 3, -1, -3, 5, 3, 6, 7], 3))  # [4, 3, 5, 5, 6, 7]
 ```
 
+## Tracking Maximum/Mininum Element of a Dynamic Sliding Window
+### [Maximum Number of Robots Within Budget](https://leetcode.com/problems/maximum-number-of-robots-within-budget/)
+```python
+def maximumRobots(chargeTimes, runningCosts, budget):
+    l = res = 0
+    curMax = deque()
+    preSum = list(accumulate(runningCosts, initial=0))
+
+    for r, charge in enumerate(chargeTimes):
+        while curMax and chargeTimes[curMax[-1]] <= charge:
+            curMax.pop()
+
+        while curMax and curMax[0] < l:
+            curMax.popleft()
+
+        curMax.append(r)
+        limit = chargeTimes[curMax[0]] + ((r - l + 1) * (preSum[r + 1] - preSum[l]))
+
+        if limit <= budget:
+            res = max(res, r - l + 1)
+        else:
+            l += 1
+
+    return res
+
+
+print(maximumRobots([3, 6, 1, 3, 4], [2, 1, 3, 4, 5], 25))  # 3
+```
+
 ## Tracking Both Maximum and Mininum Element of a Sliding Window (Two Queues)
 This pattern can also be solved by using the **Two Heaps** pattern. But the time complexity of the **Two Queues** pattern is more efficient at `O(N)`.
 ### [Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/)
