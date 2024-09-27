@@ -1,6 +1,31 @@
-# Two pointers & Sliding window
-# Patterns
-## Sliding Window (Explading Window and Over Estimation)
+# Two Pointers & Sliding Window
+# Patterns (Two Pointers)
+## Three Pointers
+### [Count Subarrays With Fixed Bounds](https://leetcode.com/problems/count-subarrays-with-fixed-bounds/)
+```python
+def countSubarrays(nums, minK, maxK):
+    ans = 0
+    leftBound = lastMinK = lastMaxK = -1
+
+    for i, num in enumerate(nums):
+        if num < minK or nums[i] > maxK:
+            leftBound = i
+        if num == minK:
+            lastMinK = i
+        if num == maxK:
+            lastMaxK = i
+
+        if lastMinK > leftBound and lastMaxK > leftBound:
+            ans += min(lastMinK, lastMaxK) - leftBound
+
+    return ans
+
+
+print(countSubarrays(nums=[1, 3, 1, 5, 5, 2], minK=1, maxK=5))  # 9
+```
+
+# Patterns (Sliding Window)
+## Explading Window and Over Estimation
 ### [Frequency of the Most Frequent Element](https://leetcode.com/problems/frequency-of-the-most-frequent-element)
 ```python
 def maxFrequency(nums, k):
