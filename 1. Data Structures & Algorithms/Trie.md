@@ -60,6 +60,6 @@ if __name__ == '__main__':
     trie.insert("hello")
     trie.insert("helld")
     print(trie.startsWith("hell"))  # True
-    print(trie.startsWith("False"))  # True
+    print(trie.startsWith("hello"))  # True
     print(trie)  # {'h': {'e': {'l': {'l': {'o': {}, 'd': {}}}}}}
 ```
