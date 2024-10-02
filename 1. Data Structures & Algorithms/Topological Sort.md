@@ -2,6 +2,10 @@
 Topological Sorting (Toposort) is an algorithm for ordering the vertices of a **directed acyclic graph** (**DAG**) such that:
 - For every directed edge ( `u → v` ), vertex ( `u` ) comes before vertex ( `v` ) in the ordering.
 
+## Analyzing Complexity
+- **Time:** `O(|V| + |E|)`
+- **Space:** `O(|V|)`
+
 ## Graph Representation
 ```mermaid
 graph TD;
