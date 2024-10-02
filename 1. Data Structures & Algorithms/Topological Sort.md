@@ -1,125 +1,78 @@
 # Topological Sort
-Topological Sorting (Toposort) is an algorithm for ordering the vertices of a **directed acyclic graph** (**DAG**) such that for every directed edge ( `u → v` ), vertex ( `u` ) comes before vertex ( `v` ) in the ordering.
+Topological Sorting (Toposort) is an algorithm for ordering the vertices of a **directed acyclic graph** (**DAG**) such that:
+- For every directed edge ( `u → v` ), vertex ( `u` ) comes before vertex ( `v` ) in the ordering.
 
 ## Topological Sort Graph (with DFS)
 ```python
 from collections import defaultdict
 
 
-class Graph:
-    def __init__(self, vertices):
-        self.graph = defaultdict(list)
-        self.V = vertices
+def toposort(n, edges):
+    graph = defaultdict(list)
 
-    def __repr__(self):
-        return f"Graph({self.graph})"
+    for fromNode, toNode in edges:
+        graph[fromNode].append(toNode)
 
-    def add_edge(self, u, v):
-        self.graph[u].append(v)
+    visited = [False] * n
+    res = []
 
-    def topological_sort_util(self, v, visited, stack):
-        visited[v] = True
+    def toposortUtil(node):
+        nonlocal curNode
 
-        for i in self.graph[v]:
-            if not visited[i]:
-                self.topological_sort_util(i, visited, stack)
+        hasCycle = False
+        visited[node] = True
+        for childNode in graph.get(node, []):
+            if childNode == curNode:
+                return True
 
-        stack.append(v)
+            if not visited[childNode]:
+                hasCycle = toposortUtil(childNode) or hasCycle
 
-    def topological_sort(self):
-        visited = [False] * self.V
-        stack = []
+        res.append(node)
+        return hasCycle
 
-        for v in range(self.V):
-            if not visited[v]:
-                self.topological_sort_util(v, visited, stack)
+    for curNode in graph.keys():
+        if not visited[curNode]:
+            if toposortUtil(curNode):
+                return []
 
-        return stack[::-1]
+    return res[::-1]
 
 
 # Example usage:
-if __name__ == "__main__":
-    g = Graph(6)
-    g.add_edge(1, 2)
-    g.add_edge(1, 0)
-    g.add_edge(4, 0)
-    g.add_edge(4, 5)
-    g.add_edge(2, 3)
-    g.add_edge(3, 5)
-    """
-    1 → 2 → 3
-    ↓       ↓
-    → → →   ↓
-        ↓   ↓
-    4 → 0   ↓
-    ↓       ↓
-    5 ← ← ← ← 
-    """
-
-    print(g.topological_sort())  # [5, 4, 2, 3, 1, 0]
+print(toposort(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5)]))
+# [4, 1, 0, 2, 3, 5]
 ```
 
 ## Topological Sort Graph (with BFS)
+Topological sorting using a **BFS** approach is often referred to as Kahn's Algorithm
+
 ```python
 from collections import defaultdict, deque
 
-class Graph:
-    def __init__(self, vertices):
-        self.graph = defaultdict(list)  # dictionary containing adjacency List
-        self.V = vertices  # No. of vertices
+def toposort_bfs(n, edges):
+    graph = defaultdict(list)
+    inDegree = [0] * n
 
-    def __repr__(self):
-        return f"Graph({self.graph})"
+    for fromNode, toNode in edges:
+        graph[fromNode].append(toNode)
+        inDegree[toNode] += 1
 
-    def add_edge(self, u, v):
-        self.graph[u].append(v)
+    queue = deque([node for node in range(n) if inDegree[node] == 0])
+    res = []
 
-    def topological_sort_bfs(self):
-        # Step 1: Calculate in-degrees of all vertices
-        in_degree = [0] * self.V
-        for u in self.graph:
-            for v in self.graph[u]:
-                in_degree[v] += 1
+    while queue:
+        node = queue.popleft()
+        res.append(node)
 
-        # Step 2: Initialize the queue with all vertices having in-degree 0
-        queue = deque([i for i in range(self.V) if in_degree[i] == 0])
+        for childNode in graph[node]:
+            inDegree[childNode] -= 1
+            if inDegree[childNode] == 0:
+                queue.append(childNode)
 
-        # Step 3: Process the vertices
-        top_order = []
-        while queue:
-            u = queue.popleft()
-            top_order.append(u)
+    return res if len(res) == n else []
 
-            # Decrease the in-degree of all adjacent vertices
-            for v in self.graph[u]:
-                in_degree[v] -= 1
-                if in_degree[v] == 0:
-                    queue.append(v)
 
-        # Step 4: Check if there was a cycle
-        if len(top_order) != self.V:
-            raise ValueError("There exists a cycle in the graph")
-
-        return top_order
-
-# Example usage:
-if __name__ == "__main__":
-    g = Graph(6)
-    g.add_edge(1, 2)
-    g.add_edge(1, 0)
-    g.add_edge(4, 0)
-    g.add_edge(4, 5)
-    g.add_edge(2, 3)
-    g.add_edge(3, 5)
-    """
-    1 → 2 → 3
-    ↓       ↓
-    → → →   ↓
-        ↓   ↓
-    4 → 0   ↓
-    ↓       ↓
-    5 ← ← ← ← 
-    """
-
-    print(g.topological_sort())  # [5, 4, 2, 3, 1, 0]
+print(toposort_bfs(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5)]))
+# [1, 4, 2, 0, 3, 5]
 ```
