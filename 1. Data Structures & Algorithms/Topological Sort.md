@@ -52,6 +52,8 @@ def toposort(n, edges):
 # Example usage:
 print(toposort(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5)]))
 # [4, 1, 0, 2, 3, 5]
+print(toposort(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5), (5, 1)]))
+# []
 ```
 
 ## Topological Sort Graph (with BFS)
@@ -60,7 +62,7 @@ Topological sorting using a **BFS** approach is often referred to as Kahn's Algo
 ```python
 from collections import defaultdict, deque
 
-def toposort_bfs(n, edges):
+def toposort(n, edges):
     graph = defaultdict(list)
     inDegree = [0] * n
 
@@ -83,6 +85,8 @@ def toposort_bfs(n, edges):
     return res if len(res) == n else []
 
 
-print(toposort_bfs(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5)]))
+print(toposort(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5)]))
 # [1, 4, 2, 0, 3, 5]
+print(toposort(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5), (5, 1)]))
+# []
 ```

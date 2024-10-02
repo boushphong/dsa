@@ -2,9 +2,7 @@
 **Bellman-Ford** algorithm is used to find the shortest path from one vertex to all vertex in a weighted graph.
 - Negative edges are allowed but there has to be no negative cycles.
 
-**Example:**
-
-## Graph representation:
+## Graph Representation:
 ```mermaid
 graph TD;
     0 -->|1| 3;
