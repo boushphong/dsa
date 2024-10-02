@@ -298,51 +298,41 @@ print(largestIsland([
 ## Topological Sort
 ### [Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)
 ```python
-from collections import defaultdict
-
-
 def findOrder(numCourses, prerequisites):
     if not prerequisites:
         return list(range(numCourses - 1, -1, -1))
 
-    ans = []
     graph = defaultdict(list)
-    visited = set()
 
-    truth = [False] * numCourses
+    for toNode, fromNode in prerequisites:
+        graph[fromNode].append(toNode)
 
-    for a, b in prerequisites:
-        graph[a].append(b)
+    visited = [False] * numCourses
+    recStack = [False] * numCourses
+    res = []
 
-    def dfs(v):
-        if v in visited and truth[v]:
-            return False
-        if v in visited:
-            return True
+    def toposortUtil(node):
+        visited[node] = True
+        recStack[node] = True
 
-        visited.add(v)
-        if truth[v]:
-            return False
-        truth[v] = True
+        for childNode in graph.get(node, []):
+            if not visited[childNode]:
+                if toposortUtil(childNode):
+                    return True
+            elif recStack[childNode]:
+                return True
 
-        noCycle = True
-        for adj in graph.get(v, []):
-            noCycle = noCycle and dfs(adj)
+        recStack[node] = False
+        res.append(node)
+        return False
 
-        truth[v] = False
-        ans.append(v)
-
-        return noCycle
-
-    for i in range(numCourses):
-        if i not in graph:
-            continue
-        if i not in visited:
-            if not dfs(i):
+    for curNode in graph.keys():
+        if not visited[curNode]:
+            if toposortUtil(curNode):
                 return []
 
-    tmp = [i for i in range(numCourses) if i not in visited]
-    return tmp + ans
+    unlistedCourse = [i for i, haveSeen in enumerate(visited) if not haveSeen]
+    return unlistedCourse + res[::-1]
 
 
 print(findOrder(6, [[5, 4], [1, 2], [2, 4], [2, 3], [4, 0], [3, 0], [0, 2]]))  # []
