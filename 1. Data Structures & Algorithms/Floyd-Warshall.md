@@ -2,9 +2,7 @@
 **Floyd-Warshall** algorithm is used to find the shortest path between all pairs of vertices in a weighted graph.
 - Negative edges are allowed but there has to be no negative cycles.
 
-**Example:**
-
-## Graph representation:
+## Graph Representation:
 ```mermaid
 graph TD;
     0 -->|3| 1;
