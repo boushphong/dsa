@@ -26,7 +26,7 @@ def toposort(n, edges):
                 return True
 
             if not visited[childNode]:
-                hasCycle = toposortUtil(childNode) or hasCycle
+                hasCycle = hasCycle or toposortUtil(childNode)
 
         res.append(node)
         return hasCycle
