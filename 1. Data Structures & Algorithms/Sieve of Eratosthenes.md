@@ -1,14 +1,14 @@
 # Sieve of Eratosthenes
 
-**Sieve of Eratosthenes** is an algorithm for finding all prime numbers up to any given limit, which has a time complexity of `O(N log(log(N))` for generating all prime numbers up to `N`. 
+**Sieve of Eratosthenes** is an algorithm for finding all prime numbers up to any given limit, which has a time complexity of `O(N log(log(N)))` for generating all prime numbers up to `N`. 
 
 1. **Outer loop (over `p`)**: The loop runs from `p = 2` to `sqrt(n)`, which makes about `O(sqrt(n))` iterations.
 2. **Inner operation (removing multiples)**: For each prime number `p`, it removes multiples of `p` from the set of possible primes. The number of multiples removed for each prime decreases as `p` increases.
 
-The total number of steps for removing multiples across all primes is roughly proportional to `N log(log(N)`. This comes from the harmonic series analysis applied to the prime numbers.
+The total number of steps for removing multiples across all primes is roughly proportional to `N log(log(N))`. This comes from the harmonic series analysis applied to the prime numbers.
 
 ## Complexity Analysis
-- **Time Complexity**: `O(N log(log(N))`
+- **Time Complexity**: `O(N log(log(N)))`
 - **Space Complexity**: `O(N)` due to the `primes` set holding numbers up to `N`.
 
 ## Implementation
