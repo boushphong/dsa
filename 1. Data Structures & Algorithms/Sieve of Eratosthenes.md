@@ -18,14 +18,14 @@ def generatePrimes(n):
         return []
 
     primes = set(range(2, n + 1))
+    prime = 2
 
-    for p in range(2, int(n ** 0.5) + 1):
-        pSquared = p ** 2
-        if pSquared > n:
-            break
-        if p in primes:
-            multiples = set(range(pSquared, n + 1, p))
+    while prime ** 2 <= n:
+        pSquared = prime ** 2
+        if prime in primes:
+            multiples = set(range(pSquared, n + 1, prime))
             primes -= multiples
+        prime += 1
 
     return list(primes)
 
