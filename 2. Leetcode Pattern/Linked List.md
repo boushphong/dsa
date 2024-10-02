@@ -88,3 +88,123 @@ if __name__ == '__main__':
 - **Reordering:** Since the linked list maintains the order, any reordering operations (like moving an item to the end or beginning) are efficient.
   - `O(1)`
 
+
+# Patterns
+## Implement LRU Cache
+### [LRU Cache](https://leetcode.com/problems/lru-cache/)
+```python
+class Node:
+    def __init__(self, val, key=None):
+        self.val = val
+        self.key = key
+        self.prev = None
+        self.next = None
+
+    def __repr__(self):
+        return "Node: " + str(self.val)
+
+
+class DoublyLinkedList:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.head = Node(None)
+        self.tail = None
+        self.curCapacity = 0
+
+    def __len__(self):
+        return self.curCapacity
+
+    def __repr__(self):
+        return "Head: " + str(self.head.next) + ", Tail: " + str(self.tail)
+
+    def addNode(self, node):
+        tmpKey = node.key
+        if not self.tail:
+            self.head.next = node
+            node.prev = self.head
+            self.tail = node
+        else:
+            tmpFront = self.head.next
+            tmpFront.prev = node
+            node.next = tmpFront
+            self.head.next = node
+            node.prev = self.head
+
+        self.curCapacity += 1
+
+        if len(self) > self.capacity:
+            tmpKey = self.tail.key
+            tmpBack = self.tail.prev
+            self.tail = tmpBack
+            if self.tail:
+                self.tail.next = None
+            self.curCapacity -= 1
+            return tmpKey
+        return tmpKey
+
+    def rebalance(self, node):
+        if node is self.head.next:
+            return
+
+        # Remove the node from its current position
+        if node.next:
+            node.next.prev = node.prev
+        if node.prev:
+            node.prev.next = node.next
+
+        # If the node is the tail, update the tail pointer
+        if node is self.tail:
+            self.tail = node.prev
+
+        # Move the node to the front
+        tmpFront = self.head.next
+        tmpFront.prev = node
+        node.next = tmpFront
+        node.prev = self.head
+        self.head.next = node
+
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.storage = DoublyLinkedList(capacity)
+        self.cache = {}
+
+    def __repr__(self):
+        return str(self.storage)
+
+    def get(self, key: int) -> int:
+        tmpNode = self.cache.get(key)
+        if not tmpNode:
+            return -1
+        # Rebalance the node to the front if it's not already the most recent
+        if tmpNode is not self.storage.head.next:
+            self.storage.rebalance(tmpNode)
+        return tmpNode.val
+
+    def put(self, key: int, value: int) -> None:
+        # If the key is already present, update the value and rebalance
+        if key in self.cache:
+            self.cache[key].val = value
+            if self.cache[key] is not self.storage.head.next:
+                self.storage.rebalance(self.cache[key])
+            return
+
+        # Otherwise, add a new node
+        tmpNode = Node(value, key)
+        self.cache[key] = tmpNode
+        tmpKey = self.storage.addNode(tmpNode)
+
+        # If adding the node exceeded capacity, remove the least recently used node
+        if tmpKey != key and tmpKey in self.cache:
+            del self.cache[tmpKey]
+
+
+obj = LRUCache(2)
+print(obj.get(4))  # -1
+obj.put(1, 10)
+obj.put(2, 20)
+obj.put(3, 30)
+obj.put(4, 40)
+print(obj.get(1))  # -1
+```
+
