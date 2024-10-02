@@ -14,9 +14,6 @@ graph TD;
 
 ## Topological Sort Graph (with DFS)
 ```python
-from collections import defaultdict
-
-
 def toposort(n, edges):
     graph = defaultdict(list)
 
@@ -24,22 +21,23 @@ def toposort(n, edges):
         graph[fromNode].append(toNode)
 
     visited = [False] * n
+    recStack = [False] * n
     res = []
 
     def toposortUtil(node):
-        nonlocal curNode
-
-        hasCycle = False
         visited[node] = True
+        recStack[node] = True
+
         for childNode in graph.get(node, []):
-            if childNode == curNode:
+            if not visited[childNode]:
+                if toposortUtil(childNode):
+                    return True
+            elif recStack[childNode]:
                 return True
 
-            if not visited[childNode]:
-                hasCycle = hasCycle or toposortUtil(childNode)
-
+        recStack[node] = False
         res.append(node)
-        return hasCycle
+        return False
 
     for curNode in graph.keys():
         if not visited[curNode]:
