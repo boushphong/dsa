@@ -349,3 +349,41 @@ print(findOrder(6, [[5, 4], [1, 2], [2, 4], [2, 3], [4, 0], [3, 0], [0, 2]]))  #
 print(findOrder(6, [[5, 4], [1, 2], [2, 4], [2, 3], [4, 0], [3, 0]]))  # [0, 4, 3, 2, 1, 5]
 print(findOrder(8, [[5, 4], [1, 2], [2, 4], [4, 0]]))  # [3, 6, 7, 0, 4, 2, 1, 5]
 ```
+
+
+### [All Ancestors of a Node in a Directed Acyclic Graph](https://leetcode.com/problems/all-ancestors-of-a-node-in-a-directed-acyclic-graph/)
+```python
+def getAncestors(n, edges):
+    graph = defaultdict(set)
+
+    for fromNode, toNode in edges:
+        graph[fromNode].add(toNode)
+
+    visited = [False] * n
+    stack = []
+
+    def toposortUtil(node):
+        visited[node] = True
+        for childNode in graph.get(node, []):
+            if not visited[childNode]:
+                toposortUtil(childNode)
+
+        stack.append(node)
+
+    for curNode in graph.keys():
+        if not visited[curNode]:
+            toposortUtil(curNode)
+
+    stack = stack[::-1]
+    res = [set() for _ in range(n)]
+    for i, node in enumerate(stack):
+        for j in range(i - 1, -1, -1):
+            if node in graph[stack[j]]:
+                res[node].add(stack[j])
+                res[node].update(res[stack[j]])
+    return [sorted(_) for _ in res]
+
+
+print(getAncestors(8, [[0, 3], [0, 4], [1, 3], [2, 4], [2, 7], [3, 5], [3, 6], [3, 7], [4, 6]]))
+# [[], [], [], [0, 1], [0, 2], [0, 1, 3], [0, 1, 2, 3, 4], [0, 1, 2, 3]]
+```
