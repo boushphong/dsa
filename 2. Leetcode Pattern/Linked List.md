@@ -120,10 +120,12 @@ class DoublyLinkedList:
     def addNode(self, node):
         tmpKey = node.key
         if not self.tail:
+            # Initialize the list with the first node
             self.head.next = node
             node.prev = self.head
             self.tail = node
         else:
+            # Insert the new node at the front
             tmpFront = self.head.next
             tmpFront.prev = node
             node.next = tmpFront
@@ -131,7 +133,8 @@ class DoublyLinkedList:
             node.prev = self.head
 
         self.curCapacity += 1
-
+        
+        # If the capacity is exceeded, remove the least recently used (tail)
         if len(self) > self.capacity:
             tmpKey = self.tail.key
             tmpBack = self.tail.prev
@@ -143,19 +146,20 @@ class DoublyLinkedList:
         return tmpKey
 
     def rebalance(self, node):
+        # If the node is already at the front, no need to rebalance
         if node is self.head.next:
             return
-
+        
         # Remove the node from its current position
         if node.next:
             node.next.prev = node.prev
         if node.prev:
             node.prev.next = node.next
-
+        
         # If the node is the tail, update the tail pointer
         if node is self.tail:
             self.tail = node.prev
-
+        
         # Move the node to the front
         tmpFront = self.head.next
         tmpFront.prev = node
@@ -177,23 +181,21 @@ class LRUCache:
         if not tmpNode:
             return -1
         # Rebalance the node to the front if it's not already the most recent
-        if tmpNode is not self.storage.head.next:
-            self.storage.rebalance(tmpNode)
+        self.storage.rebalance(tmpNode)
         return tmpNode.val
 
     def put(self, key: int, value: int) -> None:
         # If the key is already present, update the value and rebalance
         if key in self.cache:
             self.cache[key].val = value
-            if self.cache[key] is not self.storage.head.next:
-                self.storage.rebalance(self.cache[key])
+            self.storage.rebalance(self.cache[key])
             return
-
+        
         # Otherwise, add a new node
         tmpNode = Node(value, key)
         self.cache[key] = tmpNode
         tmpKey = self.storage.addNode(tmpNode)
-
+        
         # If adding the node exceeded capacity, remove the least recently used node
         if tmpKey != key and tmpKey in self.cache:
             del self.cache[tmpKey]
