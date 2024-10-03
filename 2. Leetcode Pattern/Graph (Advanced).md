@@ -410,11 +410,7 @@ def checkIfPrerequisite(numCourses, prerequisites, queries):
                 query[node].add(stack[j])
                 query[node].update(query[stack[j]])
 
-    res = []
-    for preNode, node in queries:
-        res.append(preNode in query[node])
-
-    return res
+    return [preNode in query[node] for preNode, node in queries]
 
 
 print(checkIfPrerequisite(5, [[1, 0], [2, 3], [3, 4]], [[0, 1], [1, 0]]))
