@@ -24,27 +24,27 @@ def toposort(n, edges):
     for fromNode, toNode in edges:
         graph[fromNode].append(toNode)
 
-    visited = [False] * n
-    recStack = [False] * n
+    visited = set()
+    visitedPath = [False] * n
     res = []
 
     def toposortUtil(node):
-        visited[node] = True
-        recStack[node] = True
+        visited.add(node)
+        visitedPath[node] = True
 
         for childNode in graph.get(node, []):
-            if not visited[childNode]:
+            if childNode not in visited:
                 if toposortUtil(childNode):
                     return True
-            elif recStack[childNode]:
+            elif visitedPath[childNode]:
                 return True
 
-        recStack[node] = False
+        visitedPath[node] = False
         res.append(node)
         return False
 
     for curNode in graph.keys():
-        if not visited[curNode]:
+        if curNode not in visited:
             if toposortUtil(curNode):
                 return []
 
