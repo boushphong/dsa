@@ -377,3 +377,46 @@ def getAncestors(n, edges):
 print(getAncestors(8, [[0, 3], [0, 4], [1, 3], [2, 4], [2, 7], [3, 5], [3, 6], [3, 7], [4, 6]]))
 # [[], [], [], [0, 1], [0, 2], [0, 1, 3], [0, 1, 2, 3, 4], [0, 1, 2, 3]]
 ```
+
+### [Course Schedule IV](https://leetcode.com/problems/course-schedule-iv/)
+```python
+def checkIfPrerequisite(numCourses, prerequisites, queries):
+    graph = defaultdict(set)
+
+    for fromNode, toNode in prerequisites:
+        graph[fromNode].add(toNode)
+
+    visited = set()
+    stack = []
+
+    def toposortUtil(node):
+        visited.add(node)
+
+        for childNode in graph.get(node, []):
+            if childNode not in visited:
+                toposortUtil(childNode)
+
+        stack.append(node)
+
+    for curNode in graph.keys():
+        if curNode not in visited:
+            toposortUtil(curNode)
+
+    stack = stack[::-1]
+    query = [set() for _ in range(numCourses)]
+    for i, node in enumerate(stack):
+        for j in range(i - 1, -1, -1):
+            if node in graph[stack[j]]:
+                query[node].add(stack[j])
+                query[node].update(query[stack[j]])
+
+    res = []
+    for preNode, node in queries:
+        res.append(preNode in query[node])
+
+    return res
+
+
+print(checkIfPrerequisite(5, [[1, 0], [2, 3], [3, 4]], [[0, 1], [1, 0]]))
+# [False, True]
+```
