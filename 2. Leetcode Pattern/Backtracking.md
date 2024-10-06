@@ -15,13 +15,13 @@ The **SC** of backtracking can be derived by `N` (maximum depth).
 # Table of Contents
 * [Backtracking](#backtracking)
 * [Patterns](#patterns)
-   * [Branch Pruning](#branch-pruning)
-   * [K-Decisions](#k-decisions)
+   * [K-Decisions (On Array)](#k-decisions-on-array)
+   * [K-Decisions (On Grid)](#k-decisions-on-grid)
    * [Skipping Duplicates and Index Shifting](#skipping-duplicates-and-index-shifting)
    * [Early Branch Pruning (Without Pruning in the Base Case)](#early-branch-pruning-without-pruning-in-the-base-case)
 
 # Patterns
-## Branch Pruning
+## K-Decisions (On Array)
 ### [Combination Sum](https://leetcode.com/problems/combination-sum)
 ```python
 def combinationSum(candidates, target):
@@ -47,7 +47,7 @@ def combinationSum(candidates, target):
 print(combinationSum([2, 3, 6, 7], 7))
 ```
 
-## K-Decisions
+## K-Decisions (On Grid)
 ### Maze Problems
 ```python
 def getMazePathsAllDirections(n: int):
