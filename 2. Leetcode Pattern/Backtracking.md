@@ -169,7 +169,7 @@ print(solveNQueens(4))
 
 ### [Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)
 ```python
-def solveSudoku(board: List[List[str]]) -> None:
+def solveSudoku(board):
     boxes = defaultdict(set)
     rows = defaultdict(set)
     cols = defaultdict(set)
@@ -182,9 +182,9 @@ def solveSudoku(board: List[List[str]]) -> None:
                 rows[i].add(board[i][j])
                 cols[j].add(board[i][j])
 
-    def backtrack() -> bool:
-        for i in range(9):
-            for j in range(9):
+    def backtrack(row=0, col=0):
+        for i in range(row, 9):
+            for j in range(col if i == row else 0, 9):
                 if board[i][j] == ".":
                     boxNo = (j // 3) + ((i // 3) * 3)
                     leftOver = set(str(_) for _ in range(1, 10)) - boxes[boxNo] - rows[i] - cols[j]
@@ -195,7 +195,10 @@ def solveSudoku(board: List[List[str]]) -> None:
                         rows[i].add(num)
                         cols[j].add(num)
 
-                        if backtrack():
+                        tmpCol = (j + 1) % 9
+                        tmpRow = i + 1 if tmpCol == 0 else i
+
+                        if backtrack(tmpRow, tmpCol):
                             return True
 
                         board[i][j] = "."
