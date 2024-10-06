@@ -4,6 +4,14 @@
 
 In the Maze Problems (All directions) below, we constantly make changes to the global `maze` variable, but once a recursion call is finished, we will change the `maze` variable again to the original parent recursion call's `maze` variable state so the parent recursion call would be valid for other child recursion call.
 
+## Time and Space complexity
+The **TC** of backtracking can be derived by `K` (number of decisions) and `N` (maximum depth). At every depth level, `K` decisions are explored. Hence:
+- `O(K ** N)`
+
+The **SC** of backtracking can be derived by `N` (maximum depth).
+- `O(N)`
+
+
 # Table of Contents
 * [Backtracking](#backtracking)
 * [Patterns](#patterns)
@@ -160,7 +168,7 @@ print(solveNQueens(4))
 ```
 
 ### [Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)
-```
+```python
 def solveSudoku(board: List[List[str]]) -> None:
     boxes = defaultdict(set)
     rows = defaultdict(set)
