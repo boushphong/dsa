@@ -245,14 +245,10 @@ def largestIsland(grid):
     def find(row, col):
         if (row, col) != parent.get((row, col)):
             parent[(row, col)] = find(*parent.get((row, col)))
-            row, col = parent[(row, col)]
-        return row, col
+        return parent[(row, col)]
 
     def union(rowX, colX, rowY, colY):
-        rootX = find(rowX, colX)
-        rootY = find(rowY, colY)
-        if rootX != rootY:
-            parent[rootY] = rootX
+        parent[find(rowY, colY)] = find(rowX, colX)
 
     for i in range(n):
         for j in range(n):
