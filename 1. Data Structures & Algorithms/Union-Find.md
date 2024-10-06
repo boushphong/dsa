@@ -11,7 +11,7 @@ class UnionFind:
 
     def find(self, x):
         # Find the root of the set containing x
-        while self.parent[x] != x:
+        if self.parent[x] != x:
             x = self.parent[x]
         return x
 
