@@ -63,8 +63,7 @@ class UnionFind:
     def find(self, x):
         if self.parent[x] != x:
             self.parent[x] = self.find(self.parent[x])
-            x = self.parent[x]
-        return x
+        return self.parent[x]
     ...
 ```
 
