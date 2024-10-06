@@ -7,13 +7,39 @@ In the Maze Problems (All directions) below, we constantly make changes to the g
 # Table of Contents
 * [Backtracking](#backtracking)
 * [Patterns](#patterns)
-   * [Undoing the Global Variable](#undoing-the-global-variable)
-   * [Copying the Global Variable](#copying-the-global-variable)
+   * [Branch Pruning](#branch-pruning)
+   * [K-Decisions](#k-decisions)
    * [Skipping Duplicates and Index Shifting](#skipping-duplicates-and-index-shifting)
    * [Early Branch Pruning (Without Pruning in the Base Case)](#early-branch-pruning-without-pruning-in-the-base-case)
 
 # Patterns
-## Undoing the Global Variable
+## Branch Pruning
+### [Combination Sum](https://leetcode.com/problems/combination-sum)
+```python
+def combinationSum(candidates, target):
+    candidates.sort()
+    res = []
+    stack = []
+
+    def doRecursion(start=0, total=0):
+        if total == target:
+            return res.extend([stack.copy()])
+
+        for idx in range(start, len(candidates)):
+            new_total = total + candidates[idx]
+            if new_total > target:
+                break
+            stack.append(candidates[idx])
+            doRecursion(idx, total=new_total)
+            stack.pop()
+
+    doRecursion()
+    return res
+
+print(combinationSum([2, 3, 6, 7], 7))
+```
+
+## K-Decisions
 ### Maze Problems
 ```python
 def getMazePathsAllDirections(n: int):
@@ -60,33 +86,6 @@ print(getMazePathsAllDirections(3))
 # ['DDRR', 'DDRURD', 'DDRUURDD', 'DRDR', 'DRRD', 'DRURDD', 'RDDR', 'RDRD', 'RDLDRR', 'RRDD', 'RRDLDR', 'RRDLLDRR']
 ```
 
-
-### [Combination Sum](https://leetcode.com/problems/combination-sum)
-```python
-def combinationSum(candidates, target):
-    candidates.sort()
-    res = []
-    stack = []
-
-    def doRecursion(start=0, total=0):
-        if total == target:
-            return res.extend([stack.copy()])
-
-        for idx in range(start, len(candidates)):
-            new_total = total + candidates[idx]
-            if new_total > target:
-                break
-            stack.append(candidates[idx])
-            doRecursion(idx, total=new_total)
-            stack.pop()
-
-    doRecursion()
-    return res
-
-print(combinationSum([2, 3, 6, 7], 7))
-```
-
-## Copying the Global Variable
 ### [N-Queens](https://leetcode.com/problems/n-queens)
 ```python
 def solveNQueens(n: int):
@@ -159,25 +158,77 @@ def solveNQueens(n: int):
 
 print(solveNQueens(4))
 ```
-**With Carrying Argument**
-```python
-def solveNQueens(n: int):
-    ...
-    # Start here
-    res = []
 
-    def doRecursion(row=0, chessBoard=[[True] * n for _ in range(n)]):
-        if row == n:
-            return res.extend([[''.join(['Q' if item else '.' for item in inner_list]) for inner_list in chessBoard]])
+### [Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)
+```
+def solveSudoku(board: List[List[str]]) -> None:
+    boxes = defaultdict(set)
+    rows = defaultdict(set)
+    cols = defaultdict(set)
 
-        for col in range(n):
-            if chessBoard[row][col]:
-                chess_board_copy = deepcopy(chessBoard)
-                markSlots(row, col, chess_board_copy)
-                doRecursion(row + 1, chess_board_copy)
+    for i in range(9):
+        for j in range(9):
+            if board[i][j] != ".":
+                boxNo = (j // 3) + ((i // 3) * 3)
+                boxes[boxNo].add(board[i][j])
+                rows[i].add(board[i][j])
+                cols[j].add(board[i][j])
 
-    doRecursion()
-    return res
+    def backtrack() -> bool:
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] == ".":
+                    boxNo = (j // 3) + ((i // 3) * 3)
+                    leftOver = set(str(_) for _ in range(1, 10)) - boxes[boxNo] - rows[i] - cols[j]
+
+                    for num in leftOver:
+                        board[i][j] = num
+                        boxes[boxNo].add(num)
+                        rows[i].add(num)
+                        cols[j].add(num)
+
+                        if backtrack():
+                            return True
+
+                        board[i][j] = "."
+                        boxes[boxNo].remove(num)
+                        rows[i].remove(num)
+                        cols[j].remove(num)
+
+                    return False
+        return True
+
+    backtrack()
+
+print(
+    solveSudoku(
+        [
+            ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+            ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+            [".", "9", "8", ".", ".", ".", ".", "6", "."],
+            ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+            ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+            ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+            [".", "6", ".", ".", ".", ".", "2", "8", "."],
+            [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+            [".", ".", ".", ".", "8", ".", ".", "7", "9"],
+        ]
+    )
+)
+
+"""
+[
+ ['5', '3', '4', '6', '7', '8', '9', '1', '2'],
+ ['6', '7', '2', '1', '9', '5', '3', '4', '8'],
+ ['1', '9', '8', '3', '4', '2', '5', '6', '7'],
+ ['8', '5', '9', '7', '6', '1', '4', '2', '3'],
+ ['4', '2', '6', '8', '5', '3', '7', '9', '1'],
+ ['7', '1', '3', '9', '2', '4', '8', '5', '6'],
+ ['9', '6', '1', '5', '3', '7', '2', '8', '4'],
+ ['2', '8', '7', '4', '1', '9', '6', '3', '5'],
+ ['3', '4', '5', '2', '8', '6', '1', '7', '9']
+]
+"""
 ```
 
 ## Skipping Duplicates and Index Shifting 
