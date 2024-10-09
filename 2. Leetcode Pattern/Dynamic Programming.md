@@ -529,6 +529,28 @@ print(bestTeamScore([4, 4, 4, 5, 6, 5, 3, 5], [2, 2, 2, 1, 2, 1, 1, 1]))  # 24
 ## Matrix (Grid) Pattern
 Requires us to solve the sub-problem on every sub-grids.
 ### [Unique Paths](https://leetcode.com/problems/unique-paths)
+**Top-Down**
+```python
+def uniquePaths(m, n):
+    @cache
+    def dp(row=0, col=0):
+        if row == m - 1 and col == n - 1:
+            return 1
+
+        rowCnt = 0
+        if col < n - 1:
+            rowCnt += dp(row, col + 1)
+
+        colCnt = 0
+        if row < m - 1:
+            colCnt += dp(row + 1, col)
+
+        return rowCnt + colCnt
+
+    return dp()
+```
+
+**Bottom-Up**
 ```python
 def uniquePaths(m, n):
     dp = [1] * n
@@ -558,6 +580,32 @@ n = 7
 ```
 
 ### [Unique Paths II](https://leetcode.com/problems/unique-paths-ii)
+**Top-Down**
+```python
+def uniquePathsWithObstacles(obstacleGrid):
+    m, n = len(obstacleGrid), len(obstacleGrid[0])
+    @cache
+    def dp(row=0, col=0):
+        if obstacleGrid[row][col]:
+            return 0
+            
+        if row == m - 1 and col == n - 1:
+            return 1
+
+        rowCnt = 0
+        if col < n - 1:
+            rowCnt += dp(row, col + 1)
+
+        colCnt = 0
+        if row < m - 1:
+            colCnt += dp(row + 1, col)
+
+        return rowCnt + colCnt
+
+    return dp()
+```
+
+**Bottom-Up**
 ```python
 def uniquePathsWithObstacles(obstacleGrid):
     elements_each_row = len(obstacleGrid[0])

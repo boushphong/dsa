@@ -444,7 +444,22 @@ Requires us to memoize sub-problems' results on a dynamic data structure (eg. Ha
 - Can be used to prevent overriding the best optimal result for sub-problems that have already been solved, which is crucial when overlapping sub-problems occur. This ensures that the most optimal result for a sub-problem is preserved and can be re-used whenever needed.
 - Can be used to cut TC if many similar keys are accessed repeatedly.
 
-### [Longest Arithmetic Subsequence](#longest-arithmetic-subsequence)
+### [Longest Arithmetic Subsequence](https://leetcode.com/problems/longest-arithmetic-subsequence)
+```python
+def longestArithSeqLength(nums):
+    dp = {}
+
+    for i in range(len(nums)):
+        for j in range(i - 1, -1, -1):
+            diff = nums[i] - nums[j]
+            dp[(i, diff)] = max(dp.get((i, diff), 0), dp.get((j, diff), 1) + 1)
+            # max to handle multiple identical (i, diff) when there are multiple identical nums[j]
+
+    return max(dp.values())
+
+
+print(longestArithSeqLength([2, 1, 2, 3]))  # 3
+```
 
 ### [Make Array Strictly Increasing](https://leetcode.com/problems/make-array-strictly-increasing)
 ```python
