@@ -331,6 +331,29 @@ Explanation
 
 #### Longest Increasing Subsequence Variation
 ### [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
+**Top-Down**
+```python
+def lengthOfLIS(nums):
+    n, ans = len(nums), 0
+
+    @cache
+    def dp(start=0):
+        nonlocal ans
+
+        longest = 0
+        for idx in range(start + 1, n):
+            tmpLongest = dp(idx)
+            if nums[start] < nums[idx]:
+                longest = max(longest, tmpLongest)
+
+        ans = max(ans, longest + 1)
+        return longest + 1
+
+    dp()
+    return ans
+```
+
+**Bottom-Up**
 ```python
 def lengthOfLIS(nums):
     dp = [1] * len(nums)
