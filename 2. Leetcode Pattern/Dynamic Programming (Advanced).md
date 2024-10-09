@@ -1,6 +1,7 @@
 # Dynamic Programming (Advanced)
 # Table of Contents
 * [Patterns](#patterns)
+   * [Dual Sequence](#dual-sequence)
    * [Interval](#interval)
    * [Knapsack 1D](#knapsack-1d)
    * [Knapsack 2D](#knapsack-2d)
