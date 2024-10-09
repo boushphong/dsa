@@ -329,6 +329,26 @@ print(coinChange([1], 0))
 
 
 ### [Word Break](https://leetcode.com/problems/word-break/)
+**Top-Down**
+```python
+def wordBreak(s, wordDict):
+    n = len(s)
+
+    def dp(i=0):
+        if i == n:
+            return True
+
+        isValid = False
+        for word in wordDict:
+            if s[i:].startswith(word):
+                isValid = isValid or dp(i + len(word))
+
+        return isValid
+
+    return dp()
+```
+
+**Bottom-Up**
 ```python
 def wordBreak(s, wordDict):
     dp = [False] * (len(s) + 1)
