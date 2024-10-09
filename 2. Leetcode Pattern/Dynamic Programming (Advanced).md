@@ -191,9 +191,6 @@ print(longestPalindromeSubseq("cbbabab"))  # 5
 ### [Stone Game VII](https://leetcode.com/problems/stone-game-vii)
 **Top-Down:** Use `lru_cache(maxsize=3000)` instead of `memo` for cache eviction to pass `Memory Limit Exceeded` on LeetCode.
 ```python
-from itertools import accumulate
-
-
 def stoneGameVII(stones):
     prefix_sum = list(accumulate(stones, initial=0))
     memo = {}
@@ -484,9 +481,6 @@ print(longestArithSeqLength([2, 1, 2, 3]))  # 3
 
 ### [Make Array Strictly Increasing](https://leetcode.com/problems/make-array-strictly-increasing)
 ```python
-from bisect import bisect_right
-
-
 def makeArrayIncreasing(arr1, arr2):
     arr2.sort()
     dp = {arr1[0]: 0}
