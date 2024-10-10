@@ -51,8 +51,6 @@ dfs(graph, 'A')
 
 ## BFS
 ```python
-from collections import deque
-
 def bfs(graph, start):
     visited = set()
     queue = deque([start])
@@ -120,9 +118,6 @@ print(allPathsSourceTarget([[1, 2], [3], [3], []]))
 
 ### [Course Schedule](https://leetcode.com/problems/course-schedule)
 ```python
-from collections import defaultdict
-
-
 def canFinish(numCourses, prerequisites):
     if not prerequisites:
         return True
@@ -351,9 +346,6 @@ print(findSafeWalk([[1, 1, 1],
 ## BFS (Adjacency matrix)
 ### [Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix)
 ```python
-from collections import deque
-
-
 def shortestPathBinaryMatrix(grid):
     if grid[0][0] == 1:
         return -1
