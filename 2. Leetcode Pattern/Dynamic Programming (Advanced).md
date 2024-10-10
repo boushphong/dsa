@@ -516,7 +516,7 @@ def longestIdealString(s, k):
             cur = max(cur, hm.get(chr(letterInRange), 0) + 1)
         hm[letter] = max(hm[letter], cur)
 
-    return max(cnt for cnt in hm.values())
+    return max(hm.values())
 
 
 print(longestIdealString("acfgbd", 2))  # 4
