@@ -13,6 +13,29 @@
 ## Dual Sequence
 Requires us to calculate some value related to two sequences. `Dp[i][j]` will store the answer to the sub-problem solved on prefix of sequence 1 with length `i`, and prefix on sequence 2 with length `j`.
 ### [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence)
+**Top-Down**
+```
+def longestCommonSubsequence(text1, text2):
+    memo = {}
+    
+    def dp(i=0, j=0):
+        if (i, j) in memo:
+            return memo[(i, j)]
+        
+        if i == len(text1) or j == len(text2):
+            return 0
+        
+        if text1[i] == text2[j]:
+            memo[(i, j)] = dp(i + 1, j + 1) + 1
+        else:
+            memo[(i, j)] = max(dp(i, j + 1), dp(i + 1, j))
+        
+        return memo[(i, j)]
+    
+    return dp()
+```
+
+**Bottom-Up**
 ```python
 def longestCommonSubsequence(text1, text2):
     m, n = len(text1), len(text2)
