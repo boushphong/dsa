@@ -14,7 +14,7 @@
 Requires us to calculate some value related to two sequences. `Dp[i][j]` will store the answer to the sub-problem solved on prefix of sequence 1 with length `i`, and prefix on sequence 2 with length `j`.
 ### [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence)
 **Top-Down**
-```
+```python
 def longestCommonSubsequence(text1, text2):
     memo = {}
     
