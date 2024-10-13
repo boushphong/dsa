@@ -192,6 +192,47 @@ def minDistance(word1, word2):
 print(minDistance("horse", "ros"))  # 3
 ```
 
+Explanation
+```python
+memo = {(4, 2): 1, (4, 1): 2, (3, 2): 1, (3, 1): 2, (2, 0): 2, (2, 2): 2, (1, 1): 2, (2, 1): 2, (1, 0): 3, (1, 2): 3, (0, 2): 4, (0, 1): 3, (0, 0): 3}
+
+minDistance("horse", "ros")
+  └─ dp(0, 0)  # h != r -> (cache 3)
+      ├─ dp(1, 0)  # o != r -> (cache 3)
+      │    ├─ dp(2, 0)  # r == r (cache 2)
+      │    │    └─ dp(3, 1)  # s != o -> (cache 2)
+      │    │         ├─ dp(4, 1)  # e != o -> (cache 3)
+      │    │         │    ├─ dp(5, 1)  # 2
+      │    │         │    ├─ dp(4, 2)  # e != s -> (cache 2)
+      │    │         │    │    ├─ dp(5, 2)  # 1
+      │    │         │    │    ├─ dp(4, 3)  # 1
+      │    │         │    │    └─ dp(5, 3)  # 0
+      │    │         │    └─ dp(5, 2)  # 1
+      │    │         ├─ dp(3, 2)  # s == s (cache 1)
+      │    │         │    └─ dp(4, 3)  # 1
+      │    │         └─ dp(4, 2)  # (get cache 2)
+      │    ├─ dp(1, 1)  # o == o (cache 2)
+      │    │    └─ dp(2, 2)  # r != s -> (cache 1)
+      │    │         ├─ dp(3, 2)  # (get cache 1)
+      │    │         ├─ dp(2, 3)  # 2
+      │    │         └─ dp(3, 3)  # 0
+      │    └─ dp(2, 1)  # r != o -> (cache 2)
+      │         ├─ dp(3, 1)  # (get cache 2)
+      │         ├─ dp(2, 2)  # (get cache 1)
+      │         └─ dp(3, 2)  # (get cache 1)
+      ├─ dp(0, 1)  # h != o -> (cache 4)
+      │    ├─ dp(1, 1)  # (get cache 2)
+      │    ├─ dp(0, 2)  # h != s -> (cache 3)
+      │    │    ├─ dp(1, 2)  # o != s -> (cache 2)
+      │    │    │    ├─ dp(2, 2)  # (get cache 1)
+      │    │    │    ├─ dp(1, 3)  # 2
+      │    │    │    └─ dp(2, 3)  # 1
+      │    │    ├─ dp(0, 3)  # 3
+      │    │    └─ dp(1, 3)  # 2
+      │    └─ dp(1, 2)  # (get cache 2)
+      └─ dp(1, 1)  # (get cache 2)
+```
+
 **Bottom-Up**
 ```python
 def minDistance(word1, word2):
