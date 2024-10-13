@@ -72,7 +72,7 @@ def longestCommonSubsequence(text1, text2):
 
     return dp[-1]
 
-print(longestCommonSubsequence("abcdegace", "bace"))
+print(longestCommonSubsequence("abcdegace", "bace"))  # 4
 ```
 
 Explanation
