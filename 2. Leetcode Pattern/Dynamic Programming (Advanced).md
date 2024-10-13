@@ -40,6 +40,8 @@ print(longestCommonSubsequence("abcde", "ace"))  # 3
 
 Explanation
 ```python
+memo = {(4, 2): 1, (3, 2): 1, (2, 2): 1, (1, 2): 1, (2, 1): 2, (1, 1): 2, (0, 0): 3}
+
 longestCommonSubsequence("abcde", "ace")
   └─ dp(0, 0)  # a -> increment and max (cache 3)
        └─ dp(1, 1)  # max (cache 2)
@@ -95,8 +97,78 @@ We get the left-up diagonal element because we would like to check wether the lo
 """
 ```
 
-
 ### [Edit Distance](https://leetcode.com/problems/edit-distance)
+**Top-Down**
+```python
+def minDistance(word1, word2):
+    n, m = len(word1), len(word2)
+    memo = {}
+
+    if not n:
+        return m
+    if not m:
+        return n
+    
+    def dp(i=n - 1, j=m - 1):
+        if (i, j) in memo:
+            return memo[(i, j)]
+        if i < 0:
+            return j + 1
+        if j < 0:
+            return i + 1
+        
+        if word1[i] == word2[j]:
+            return dp(i - 1, j - 1)
+
+        removeOp = dp(i - 1, j)
+        insertOp = dp(i, j - 1)
+        replaceOp = dp(i - 1, j - 1)
+
+        memo[(i, j)] = min(removeOp, insertOp, replaceOp) + 1
+        
+        return memo[(i, j)]
+
+    return dp()
+
+print(minDistance("horse", "ros"))  # 3
+```
+
+Explanation
+```python
+memo = {(0, 0): 1, (1, 1): 1, (2, 0): 2, (1, 0): 2, (2, 1): 2, (3, 2): 2, (3, 0): 3, (3, 1): 3, (4, 0): 4, (4, 1): 4, (4, 2): 3}
+
+minDistance("horse", "ros")
+  └─ dp(4, 2)  # e != s -> min(remove, insert, replace) + 1 (cache 3)
+       ├─ dp(3, 2)  # s == s -> (cache 2)
+       │    └─ dp(2, 1)  # r != o -> (cache 2)
+       │         ├─ dp(1, 1)  # o == o -> (cache 1)
+       │         │    └─ dp(0, 0)  # h != r -> (cache 1)
+       │         │         ├─ dp(-1, 0)  # 1
+       │         │         ├─ dp(0, -1)  # 1
+       │         │         └─ dp(-1, -1)  # 0
+       │         ├─ dp(2, 0)  # r == r (cache 2)
+       │         │    └─ dp(1, -1)  # 2
+       │         └─ dp(1, 0)  # o != r -> (cache 2)
+       │              ├─ dp(0, 0)  # (get cache 1)
+       │              ├─ dp(1, -1)  # 2
+       │              └─ dp(0, -1)  # 1
+       ├─ dp(4, 1)  # e != o -> (cache 4)
+       │    ├─ dp(3, 1)  # s != o -> (cache 3)
+       │    │    ├─ dp(2, 1)  # (get cache 2)
+       │    │    ├─ dp(3, 0)  # s != r -> (cache 3)
+       │    │    │    ├─ dp(2, 0)  # (get cache 2)
+       │    │    │    ├─ dp(3, -1)  # 4
+       │    │    │    └─ dp(2, -1)  # 3
+       │    │    └─ dp(2, 0)  # (get cache 1)
+       │    ├─ dp(4, 0)  # e != r -> (cache 4)
+       │    │    ├─ dp(3, 0)  # (get cache 3)
+       │    │    ├─ dp(4, -1)  # 5
+       │    │    └─ dp(3, -1)  # 4
+       │    └─ dp(3, 0)  # (get cache 3)
+       └─ dp(3, 1)  # (get cache 2)
+```
+
+**Bottom-Up**
 ```python
 def minDistance(word1, word2):
     dp = list(range(len(word2), -1, -1))
@@ -121,7 +193,7 @@ def minDistance(word1, word2):
     return dp[0]
 
 
-print(minDistance("horse", "ros"))
+print(minDistance("horse", "ros"))  # 3
 ```
 
 Explanation
@@ -259,6 +331,7 @@ def stoneGameVII(stones):
 print(stoneGameVII([5, 3, 1, 4, 2]))
 """
 memo = {(3, 4): 4, (2, 3): 4, (2, 4): 2, (1, 2): 3, (1, 3): 1, (1, 4): 7, (0, 1): 5, (0, 2): 3, (0, 3): 7, (0, 4): 6}
+
 stoneGameVII([5, 3, 1, 4, 2])
   └─ dp(0, 4)  # diff = 6 -> max(15 - 7 - 3, 15 - 7 - 2)
        ├─ dp(1, 4)  # diff = 7 (cache)
