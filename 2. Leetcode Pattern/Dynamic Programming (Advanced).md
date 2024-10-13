@@ -325,26 +325,27 @@ def longestPalindromeSubseq(s):
 
 
 print(longestPalindromeSubseq("cbbabab"))
-"""
-0   6 (5)
-    1   6 (5)
-        2   5 (3)
-            3   5 (3)
-                4   4 (1)
-            2   4 (3)
-                3   3 (1)
-    0   5 (3)
-        1   5 (3)
-            2   5 (3) 
-            1   4 (3)
-                2   4 (3)
-                1   3 (2)
-                    2   3 (1)
-                        3   3 (1)
-                    1   2 (2)
-                        2   1 (0)
-        1   4 (3)
-"""
+```
+
+Explanation
+```python
+longestPalindromeSubseq("cbbabab")
+  └─ dp(0, 6)  # c != b -> (cache 5)
+      ├─ dp(1, 6)  # b == b -> (cache 5)
+      │    └─ dp(2, 5)  # b != a -> (cache 3)
+      │         ├─ dp(3, 5)  # a != a -> (cache 3)
+      │         │    └─ dp(4, 4)  # b == b (cache 1)
+      │         └─ dp(2, 4)  # b == b -> (cache 3)
+      │              └─ dp(3, 3)  # a == a (cache 1)
+      └─ dp(0, 5)  # c != a -> (cache 3)
+           ├─ dp(1, 5)  # b != a -> (cache 3)
+           │    ├─ dp(2, 5)  # (get cache 3)
+           │    └─ dp(1, 4)  # b == b -> (cache 3)
+           │         ├─ dp(2, 3)  # b != a -> (cache 1)
+           │         │    ├─ dp(3, 3)  # (get cache 1)
+           │         │    └─ dp(2, 2)  # b == b (cache 1)
+           │         └─ dp(2, 1)  # 0
+           └─ dp(1, 4)  # (get cache 3)
 ```
 
 [**Bottom-Up**](https://www.youtube.com/watch?v=TLaGwTnd3HY&t=207s&ab_channel=GeeksforGeeks)
@@ -394,7 +395,10 @@ def stoneGameVII(stones):
 
 
 print(stoneGameVII([5, 3, 1, 4, 2]))
-"""
+```
+
+Explanation
+```python
 memo = {(3, 4): 4, (2, 3): 4, (2, 4): 2, (1, 2): 3, (1, 3): 1, (1, 4): 7, (0, 1): 5, (0, 2): 3, (0, 3): 7, (0, 4): 6}
 
 stoneGameVII([5, 3, 1, 4, 2])
@@ -419,7 +423,6 @@ stoneGameVII([5, 3, 1, 4, 2])
                  └─ dp(0, 1)  # diff = 5 (cache)
                       ├─ dp(1, 1)
                       └─ dp(0, 0)
-"""
 ```
 
 **Bottom-Up**
