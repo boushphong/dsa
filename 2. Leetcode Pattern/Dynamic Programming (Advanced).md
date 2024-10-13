@@ -98,17 +98,12 @@ We get the left-up diagonal element because we would like to check wether the lo
 ```
 
 ### [Edit Distance](https://leetcode.com/problems/edit-distance)
-**Top-Down**
+**Top-Down (Backward)**
 ```python
 def minDistance(word1, word2):
     n, m = len(word1), len(word2)
     memo = {}
 
-    if not n:
-        return m
-    if not m:
-        return n
-    
     def dp(i=n - 1, j=m - 1):
         if (i, j) in memo:
             return memo[(i, j)]
@@ -118,13 +113,12 @@ def minDistance(word1, word2):
             return i + 1
         
         if word1[i] == word2[j]:
-            return dp(i - 1, j - 1)
-
-        removeOp = dp(i - 1, j)
-        insertOp = dp(i, j - 1)
-        replaceOp = dp(i - 1, j - 1)
-
-        memo[(i, j)] = min(removeOp, insertOp, replaceOp) + 1
+            memo[(i, j)] = dp(i - 1, j - 1)
+        else:
+            removeOp = dp(i - 1, j)
+            insertOp = dp(i, j - 1)
+            replaceOp = dp(i - 1, j - 1)
+            memo[(i, j)] = min(removeOp, insertOp, replaceOp) + 1
         
         return memo[(i, j)]
 
@@ -166,6 +160,36 @@ minDistance("horse", "ros")
        │    │    └─ dp(3, -1)  # 4
        │    └─ dp(3, 0)  # (get cache 3)
        └─ dp(3, 1)  # (get cache 2)
+```
+
+**Top-Down (Forward)**
+```python
+def minDistance(word1, word2):
+    n, m = len(word1), len(word2)
+    memo = {}
+    
+    def dp(i=0, j=0):
+        if (i, j) in memo:
+            return memo[(i, j)]
+        if i == n:
+            return m - j
+        if j == m:
+            return n - i
+        
+        if word1[i] == word2[j]:
+            memo[(i, j)] = dp(i + 1, j + 1)
+        else:
+            removeOp = dp(i + 1, j)
+            insertOp = dp(i, j + 1)
+            replaceOp = dp(i + 1, j + 1)
+            memo[(i, j)] = min(removeOp, insertOp, replaceOp) + 1
+
+        return memo[(i, j)]
+
+    return dp()
+
+
+print(minDistance("horse", "ros"))  # 3
 ```
 
 **Bottom-Up**
