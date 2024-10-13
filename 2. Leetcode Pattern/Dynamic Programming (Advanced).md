@@ -43,6 +43,7 @@ print(longestCommonSubsequence("abcde", "ace"))  # 3
 
 ```python
 memo = {(4, 2): 1, (3, 2): 1, (2, 2): 1, (1, 2): 1, (2, 1): 2, (1, 1): 2, (0, 0): 3}
+
 longestCommonSubsequence("abcde", "ace")
   └─ dp(0, 0)  # a -> increment and max (cache 3)
        └─ dp(1, 1)  # max (cache 2)
@@ -79,7 +80,9 @@ def longestCommonSubsequence(text1, text2):
 print(longestCommonSubsequence("abcdegace", "bace"))  # 4
 ```
 
-Explanation
+<details>
+<summary>Explanation</summary>
+
 ```python
       b  a  c  e
   [0, 0, 0, 0, 0]
@@ -98,6 +101,7 @@ Get element of index 1 (num = 1) in the previous array (left-up diagonal). When 
 We get the left-up diagonal element because we would like to check wether the longest common subsequence of the previous letter 
 """
 ```
+</details>
 
 ### [Edit Distance](https://leetcode.com/problems/edit-distance)
 **Top-Down (Backward)**
@@ -129,7 +133,9 @@ def minDistance(word1, word2):
 print(minDistance("horse", "ros"))  # 3
 ```
 
-Explanation
+<details>
+<summary>Explanation</summary>
+
 ```python
 memo = {(0, 0): 1, (1, 1): 1, (2, 0): 2, (1, 0): 2, (2, 1): 2, (3, 2): 2, (3, 0): 3, (3, 1): 3, (4, 0): 4, (4, 1): 4, (4, 2): 3}
 
@@ -163,6 +169,7 @@ minDistance("horse", "ros")
        │    └─ dp(3, 0)  # (get cache 3)
        └─ dp(3, 1)  # (get cache 2)
 ```
+</details>
 
 **Top-Down (Forward)**
 ```python
@@ -194,7 +201,9 @@ def minDistance(word1, word2):
 print(minDistance("horse", "ros"))  # 3
 ```
 
-Explanation
+<details>
+<summary>Explanation</summary>
+
 ```python
 memo = {(4, 2): 1, (4, 1): 2, (3, 2): 1, (3, 1): 2, (2, 0): 2, (2, 2): 2, (1, 1): 2, (2, 1): 2, (1, 0): 3, (1, 2): 3, (0, 2): 4, (0, 1): 3, (0, 0): 3}
 
@@ -234,6 +243,8 @@ minDistance("horse", "ros")
       │    └─ dp(1, 2)  # (get cache 2)
       └─ dp(1, 1)  # (get cache 2)
 ```
+</details>
+
 
 **Bottom-Up**
 ```python
@@ -263,7 +274,9 @@ def minDistance(word1, word2):
 print(minDistance("horse", "ros"))  # 3
 ```
 
-Explanation
+<details>
+<summary>Explanation</summary>
+
 ```python
     r   o   s  ''
 h   3   3   4   5    < string horse takes 5 operation to make it become '' (remove 5 times)
@@ -296,6 +309,7 @@ Second Row:
 
 """
 ```
+</details>
 
 ## Interval
 Requires us to solve sub-problems based on every single interval (sub-array) of the array
@@ -329,7 +343,9 @@ def longestPalindromeSubseq(s):
 print(longestPalindromeSubseq("cbbabab"))
 ```
 
-Explanation
+<details>
+<summary>Explanation</summary>
+
 ```python
 longestPalindromeSubseq("cbbabab")
   └─ dp(0, 6)  # c != b -> (cache 5)
@@ -349,6 +365,7 @@ longestPalindromeSubseq("cbbabab")
            │         └─ dp(2, 1)  # 0
            └─ dp(1, 4)  # (get cache 3)
 ```
+</details>
 
 [**Bottom-Up**](https://www.youtube.com/watch?v=TLaGwTnd3HY&t=207s&ab_channel=GeeksforGeeks)
 ```python
@@ -399,7 +416,9 @@ def stoneGameVII(stones):
 print(stoneGameVII([5, 3, 1, 4, 2]))
 ```
 
-Explanation
+<details>
+<summary>Explanation</summary>
+
 ```python
 memo = {(3, 4): 4, (2, 3): 4, (2, 4): 2, (1, 2): 3, (1, 3): 1, (1, 4): 7, (0, 1): 5, (0, 2): 3, (0, 3): 7, (0, 4): 6}
 
@@ -426,6 +445,7 @@ stoneGameVII([5, 3, 1, 4, 2])
                       ├─ dp(1, 1)
                       └─ dp(0, 0)
 ```
+</details>
 
 **Bottom-Up**
 ```python
@@ -464,7 +484,9 @@ print(knapsack([1, 5, 7, 14], [1, 2, 3, 5], 9))
 # print(knapsack01([7, 1, 14, 5], [3, 1, 5, 2], 9))
 ```
 
-Explanation
+<details>
+<summary>Explanation</summary>
+
 ```python
 m = 9
 values = [1, 5, 7, 14]
@@ -485,6 +507,7 @@ At every iteration of a pair of (value and weight), we consider if there is a po
 ...
 """
 ```
+</details>
 
 ### [Coin Change](https://leetcode.com/problems/coin-change)
 ```python
@@ -577,7 +600,9 @@ def knapsack01(values, weights, m):
 print(knapsack01([2, 1, 4, 6], [1, 2, 3, 5], 8))
 ```
 
-Explanation
+<details>
+<summary>Explanation</summary>
+
 ```python
 m = 8
 values = [2, 1, 4, 6]
@@ -600,6 +625,7 @@ At every iteration of a pair of (value and weight), we consider if there is a po
 ...
 """
 ```
+</details>
 
 ### [Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum)
 ```python

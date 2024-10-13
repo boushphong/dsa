@@ -80,12 +80,15 @@ def findTargetSumWays(nums, target):
 print(findTargetSumWays([1, 1, 1, 1, 1], 3))  # 5
 ```
 
-Explanation
+<details>
+<summary>Explanation</summary>
+
 - The state variables are the current index and the current total sum at that index.
   - At every state, we memoize how many different valid paths that sums up to the target.
     - For example, at state `dp(2, 0)`, there is only one valid path, hence we cache `1` for this state.
     - Later down the recursive call, we encounter this state again inside `dp(1, -1)`, which calls onto `dp(2, 0)`, hence we could just get the result from the cache. 
   - Therefore, at later recursive calls, if we encounter a pre-computed state's result, we can get the result from the cache.
+
 ```python
 findTargetSumWays([1, 1, 1, 1, 1], 3)
   └─ dp(0, 0) (cache ways=5)
@@ -103,6 +106,8 @@ findTargetSumWays([1, 1, 1, 1, 1], 3)
        └─ dp(1, -1) (cache ways=1)
             └─ dp(2, 0) (get from cache ways=1)
 ```
+</details>
+
 
 **Bottom-Up**
 ```python
