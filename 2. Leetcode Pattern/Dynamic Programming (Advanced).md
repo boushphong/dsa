@@ -38,10 +38,11 @@ def longestCommonSubsequence(text1, text2):
 print(longestCommonSubsequence("abcde", "ace"))  # 3
 ```
 
-Explanation
+<details>
+<summary>Explanation</summary>
+
 ```python
 memo = {(4, 2): 1, (3, 2): 1, (2, 2): 1, (1, 2): 1, (2, 1): 2, (1, 1): 2, (0, 0): 3}
-
 longestCommonSubsequence("abcde", "ace")
   └─ dp(0, 0)  # a -> increment and max (cache 3)
        └─ dp(1, 1)  # max (cache 2)
@@ -56,6 +57,7 @@ longestCommonSubsequence("abcde", "ace")
             └─ dp(2, 1)  # c -> increment and max (cache 2)
                  └─ dp(4, 2)  # e -> (get cache 1)
 ```
+</details>
 
 **Bottom-Up**
 ```python
