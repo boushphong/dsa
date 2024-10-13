@@ -41,7 +41,7 @@ print(longestCommonSubsequence("abcde", "ace"))  # 3
 Explanation
 ```python
 longestCommonSubsequence("abcde", "ace")
-  └─ dp(0, 0)  # max (cache 3)
+  └─ dp(0, 0)  # a -> increment and max (cache 3)
        └─ dp(1, 1)  # max (cache 2)
             ├─ dp(1, 2)  # max (cache 1) 
             │    ├─ dp(1, 3) 
