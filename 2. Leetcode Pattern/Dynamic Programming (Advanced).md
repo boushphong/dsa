@@ -26,13 +26,33 @@ def longestCommonSubsequence(text1, text2):
             return 0
         
         if text1[i] == text2[j]:
-            memo[(i, j)] = dp(i + 1, j + 1) + 1
+            memo[(i, j)] = 1 + dp(i + 1, j + 1)
         else:
             memo[(i, j)] = max(dp(i, j + 1), dp(i + 1, j))
         
         return memo[(i, j)]
     
     return dp()
+
+
+print(longestCommonSubsequence("abcde", "ace"))  # 3
+```
+
+Explanation
+```python
+longestCommonSubsequence("abcde", "ace")
+  └─ dp(0, 0)  # max (cache 3)
+       └─ dp(1, 1)  # max (cache 2)
+            ├─ dp(1, 2)  # max (cache 1) 
+            │    ├─ dp(1, 3) 
+            │    └─ dp(2, 2)  # max (cache 1)
+            │         ├─ dp(2, 3)  
+            │         └─ dp(3, 2)  # max (cache 1)
+            │              ├─ dp(3, 3)
+            │              └─ dp(4, 2)  # e -> increment (cache 1)
+            │                   └─ dp(5, 3)
+            └─ dp(2, 1)  # c -> increment and max (cache 2)
+                 └─ dp(4, 2)  # e -> (get cache 1)
 ```
 
 **Bottom-Up**
