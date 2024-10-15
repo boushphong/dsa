@@ -589,7 +589,7 @@ def knapsack01(values, weights, wt):
     n = len(values)
     memo = {}
 
-    def dp(k=wt, i=0, space=''):
+    def dp(k=wt, i=0):
         if (k, i) in memo:
             return memo[(k, i)]
         if k < 0:
@@ -597,8 +597,8 @@ def knapsack01(values, weights, wt):
         if i == n:
             return 0
 
-        pick = values[i] + dp(k - weights[i], i + 1, space + '    ')
-        notPick = dp(k, i + 1, space + '    ')
+        pick = values[i] + dp(k - weights[i], i + 1)
+        notPick = dp(k, i + 1)
         memo[(k, i)] = max(pick, notPick)
         return memo[(k, i)]
 
