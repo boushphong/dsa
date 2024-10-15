@@ -480,8 +480,7 @@ def knapsack(values, weights, m):
     return dp[-1]
 
 
-print(knapsack([1, 5, 7, 14], [1, 2, 3, 5], 9))
-# print(knapsack01([7, 1, 14, 5], [3, 1, 5, 2], 9))
+print(knapsack([1, 5, 7, 14], [1, 2, 3, 5], 9))  # 24
 ```
 
 <details>
@@ -499,7 +498,7 @@ v   w   0   1   2   3   4   5   6   7   8   9
 14  5   0   1   5   7  10  14  15  19  21  24
 
 """
-At every iteration of a pair of (value and weight), we consider if there is a posible answer by looking the best answer of the previous pair. We only iterate from starting weight to ending weight of the item and we update dp INPLACE.
+At every iteration of a pair of (value and weight), we consider if there is a possible answer by looking the best answer of the previous pair. We only iterate from starting weight to ending weight of the item and we update dp INPLACE.
 - At first item iteration (value = 1, weight = 1), we look at a previous pair of (value = 0, weight = 0)
     - At weight i = 1, we get the best answer from previous dp (dp[1] = 0).
     - Compare it with the possible best answer dp[w - weight] + value = dp[1 - 1] + 1 = 0 + 1 = 1
