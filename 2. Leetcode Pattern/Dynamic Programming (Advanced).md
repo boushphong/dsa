@@ -3,8 +3,8 @@
 * [Patterns](#patterns)
    * [Dual Sequence](#dual-sequence)
    * [Interval](#interval)
-   * [Knapsack 1D](#knapsack-1d)
-   * [Knapsack 2D](#knapsack-2d)
+   * [Unbounded Knapsack](#unbounded-knapsack)
+   * [0/1 Knapsack](#01-knapsack)
    * [Dynamic Memoization](#dynamic-memoization)
    * [State Machine](#state-machine)
 
@@ -467,7 +467,7 @@ def stoneGameVII(stones):
 ```
 
 
-## Knapsack 1D
+## Unbounded Knapsack
 ### [Unbounded Knapsack](https://www.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1)
 ```python
 def knapsack(values, weights, m):
@@ -580,30 +580,64 @@ T   F   F   T   T
 """
 ```
 
-## Knapsack 2D
-Knapsack problem resembles subset problems, as it requires making binary decisions about including or excluding items to find the optimal solution.
+## 0/1 Knapsack
+0/1 Knapsack problem resembles subset problems, as it requires making binary decisions about including or excluding items to find the optimal solution.
 ### [0/1 Knapsack](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1)
 **Top-Down**
 ```python
 def knapsack01(values, weights, wt):
     n = len(values)
+    memo = {}
 
-    @cache
-    def dp(k=wt, i=0):
+    def dp(k=wt, i=0, space=''):
+        if (k, i) in memo:
+            return memo[(k, i)]
         if k < 0:
             return -inf
         if i == n:
             return 0
 
-        pick = values[i] + dp(k - weights[i], i + 1)
-        notPick = dp(k, i + 1)
-        return max(pick, notPick)
+        pick = values[i] + dp(k - weights[i], i + 1, space + '    ')
+        notPick = dp(k, i + 1, space + '    ')
+        memo[(k, i)] = max(pick, notPick)
+        return memo[(k, i)]
 
     return dp()
 
 
 print(knapsack01([20, 30, 15, 25, 10], [6, 13, 7, 10, 3], 20))  # 60
 ```
+
+<details>
+<summary>Explanation</summary>
+
+```python
+knapsack01([20, 30, 15, 25, 10], [6, 13, 7, 10, 3], 20)
+  └─ dp(20, 0)  # (Pick) 20 + 35 = 55 -- (Not Pick) 50 -> Res = 55 
+      ├─ dp(14, 1)  # (Not Pick) (Cache 35)
+      │    ├─ dp(1, 2)   # Can't pick item 2 (Weight Exceeded)
+      │    │   └─ dp(1, 3)  # Can't pick item 2 (Weight Exceeded)
+      │    │       └─ dp(1, 4)  # Can't pick item 2 (Weight Exceeded)
+      │    └─ dp(14, 2)  # (Not Pick) (Cache 35)
+      │        ├─ dp(7, 3) # (Not Pick) (Cache 10)
+      │        │   └─ dp(7, 4)  # (Pick) (Cache 10)
+      │        └─ dp(14, 3)  # (Pick) (Cache 35)
+      │            ├─ dp(4, 4)  # (Pick) (Cache 10) 
+      │            └─ dp(14, 4)  # (Pick) (Cache 10)
+      └─ dp(20, 1)  # (Pick) (Cache 50)
+          ├─ dp(7, 2)  # (Pick) (Cache 15)
+          │    ├─ dp(0, 3)  # Can't pick item 3 (Weight Exceeded)
+          │    │    └─ dp(0, 4)  # Can't pick item 4 (Weight Exceeded)
+          │    └─ dp(7, 3)  # (Get From Cache 10) 
+          └─ dp(20, 2)  # (Pick) (Cache 50)
+              ├─ dp(13, 3)  # (Pick) (Cache 35)
+              │    ├─ dp(3, 4)  # (Pick) (Cache 10)
+              │    └─ dp(13, 4)  # (Pick) (Cache 10)
+              └─ dp(20, 3)  # (Pick) (Cache 35)
+                  ├─ dp(10, 4)  # (Pick) (Cache 10)
+                  └─ dp(20, 4)  # (Pick) (Cache 10)
+```
+</details>
 
 **Bottom-Up**
 ```python

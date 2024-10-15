@@ -51,14 +51,14 @@ We iterate all the edges `|V| - 1` times. In this case (`5 - 1 = 4` iterations) 
 
 - Third edge, `Vertex 1` can go to `Vertex 2`  (`[1, 2, 10]`), `dist[1] + 10 = 10`, hence we update `array[2] = 10`.
 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
+| 0 | 1 | 2  | 3 | 4 |
+|---|---|----|---|---|
 | 8 | 0 | 10 | ∞ | ∞ | 
 
 - Forth edge, `Vertex 2` can go to `Vertex 4`  (`[2, 4, 2]`), `dist[2] = 10 + 2 = 12`, hence we update `array[4] = 12`.
 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
+| 0 | 1 | 2  | 3 | 4  |
+|---|---|----|---|----|
 | 8 | 0 | 10 | ∞ | 12 | 
 
 - We skip the fifth and sixth edges `[3, 2, 1], [3, 4, 1]`, because `dist[3] = inf`.
@@ -69,22 +69,22 @@ We iterate all the edges `|V| - 1` times. In this case (`5 - 1 = 4` iterations) 
 
 - First edge, `Vertex 0` can go to `Vertex 3`  (`[0, 3, 1]`), `dist[0] = 8 + 1 = 9`, hence we update `array[3] = 9`.
 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
+| 0 | 1 | 2  | 3 | 4  |
+|---|---|----|---|----|
 | 8 | 0 | 10 | 9 | 12 | 
 
 - Second edge, `Vertex 1` can go to `Vertex 0`  (`[1, 0, 8]`), `dist[1] + 8 = 8`, hence we skip because `8` is not smaller than `dist[0] = 8`.
 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
+| 0 | 1 | 2  | 3 | 4  |
+|---|---|----|---|----|
 | 8 | 0 | 10 | 9 | 12 | 
 
 - We skip the Third, Forth and Fifth edges `[1, 2, 10], [2, 4, 2], [3, 2, 1]`, because results are not smaller for the destinations.
 
 - Sixth edge, `Vertex 3` can go to `Vertex 4`  (`[3, 4, 1]`), `dist[3] + 1 = 10`, hence we update `array[4] = 10` because `10 < array[4] = 12`.
 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
+| 0 | 1 | 2  | 3 | 4  |
+|---|---|----|---|----|
 | 8 | 0 | 10 | 9 | 10 | 
 
 ---
@@ -92,8 +92,8 @@ We iterate all the edges `|V| - 1` times. In this case (`5 - 1 = 4` iterations) 
 **3rd Iteration**
 - None of the values are changed. Hence we return.
 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
+| 0 | 1 | 2  | 3 | 4  |
+|---|---|----|---|----|
 | 8 | 0 | 10 | 9 | 10 | 
 
 ### NOTE:
