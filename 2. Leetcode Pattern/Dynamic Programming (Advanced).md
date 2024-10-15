@@ -686,6 +686,36 @@ At every iteration of a pair of (value and weight), we consider if there is a po
 </details>
 
 ### [Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum)
+**Top-Down**
+```python
+def canPartition(nums):
+    n = len(nums)
+    totalSum = sum(nums)
+
+    if totalSum % 2 != 0:
+        return False
+
+    @cache
+    def dp(i=0, total=0):
+        if total == totalSum // 2:
+            return True
+        if total > totalSum:
+            return False
+        if i == n:
+            return False
+
+        pick = dp(i + 1, total + nums[i])
+        if pick:
+            return True
+        notPick = dp(i + 1, total)
+        if notPick:
+            return True
+        return False
+
+    return dp()
+```
+
+**Bottom-Up**
 ```python
 def canPartition(nums):
     if sum(nums) % 2:
