@@ -581,7 +581,31 @@ T   F   F   T   T
 ```
 
 ## Knapsack 2D
+Knapsack problem resembles subset problems, as it requires making binary decisions about including or excluding items to find the optimal solution.
 ### [0/1 Knapsack](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1)
+**Top-Down**
+```python
+def knapsack01(values, weights, wt):
+    n = len(values)
+
+    @cache
+    def dp(k=wt, i=0):
+        if k < 0:
+            return -inf
+        if i == n:
+            return 0
+
+        pick = values[i] + dp(k - weights[i], i + 1)
+        notPick = dp(k, i + 1)
+        return max(pick, notPick)
+
+    return dp()
+
+
+print(knapsack01([20, 30, 15, 25, 10], [6, 13, 7, 10, 3], 20))  # 60
+```
+
+**Bottom-Up**
 ```python
 def knapsack01(values, weights, m):
     dp = [0] * (m + 1)
