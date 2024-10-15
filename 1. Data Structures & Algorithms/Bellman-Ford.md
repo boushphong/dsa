@@ -250,8 +250,8 @@ g = Graph(edges, 5)
 g.bellman_ford(1)
 ```
 
-| 0 | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
+| 0 | 1 | 2   | 3   | 4   |
+|---|---|-----|-----|-----|
 | 8 | 0 | -15 | -25 | -15 | 
 
 When the iteration ends, it means we have the shortest path between `Vertex 1` to other vertices. Hence if we find a specific path from `Vertex 1` to a specifc vertex and it is smaller than corresponding shortest path in the distance array, then the negative cycle is detected.
