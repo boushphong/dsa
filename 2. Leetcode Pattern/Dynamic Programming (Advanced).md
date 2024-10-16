@@ -580,7 +580,7 @@ def coinChange(coins, amount):
 **Bottom Up**
 ```python
 def coinChange(coins, amount):
-    dp = [float("inf")] * (amount + 1)
+    dp = [inf] * (amount + 1)
     minimum = min(coins)
     if amount < minimum:
         return -1 if amount else 0
@@ -594,7 +594,7 @@ def coinChange(coins, amount):
             if i - c >= minimum:
                 dp[i] = min(dp[i], dp[c] + dp[i - c])
 
-    return dp[amount] if dp[amount] != float("inf") else -1
+    return dp[amount] if dp[amount] != inf else -1
 
 
 print(coinChange([2, 3, 5], 13))  # 3
