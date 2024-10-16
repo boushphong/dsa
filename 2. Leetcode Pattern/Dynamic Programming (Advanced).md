@@ -833,16 +833,15 @@ def makeArrayIncreasing(arr1, arr2):
     dp = {arr1[0]: 0}
     if arr2[0] < arr1[0]:
         dp.update({arr2[0]: 1})
-    INF = float("inf")
 
     for idx, val in enumerate(arr1[1:], 1):
         tmpDp = {}
         for prev, operations in dp.items():
             if val > prev:
-                tmpDp[val] = min(operations, tmpDp.get(val, INF))
+                tmpDp[val] = min(operations, tmpDp.get(val, inf))
             tmpIdx = bisect_right(arr2, prev)
             if tmpIdx < len(arr2):
-                tmpDp[arr2[tmpIdx]] = min(1 + dp[prev], tmpDp.get(arr2[tmpIdx], INF))
+                tmpDp[arr2[tmpIdx]] = min(1 + dp[prev], tmpDp.get(arr2[tmpIdx], inf))
         dp = tmpDp
 
     return min(dp.values()) if dp else -1
