@@ -587,6 +587,7 @@ print(coinChange([1], 0))  # 0
 def wordBreak(s, wordDict):
     n = len(s)
 
+    @cache
     def dp(i=0):
         if i == n:
             return True
