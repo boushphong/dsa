@@ -468,9 +468,36 @@ def stoneGameVII(stones):
 
 
 ## Unbounded Knapsack
+Unbounded Knapsack problem involves determining how many times each item can be included, without any restrictions on the number of times an item can be chosen, to maximize the total value while staying within a specified weight limit or to determine if the end goal can be reachable or not.
 ### [Unbounded Knapsack](https://www.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1)
+**Top-Down**
 ```python
-def knapsack(values, weights, m):
+def unboundedKnapsack(values, weights, m):
+    memo = {}
+
+    def dp(capacity=m):
+        if capacity == 0:
+            return 0
+        if capacity in memo:
+            return memo[capacity]
+
+        maxValue = 0
+        for i, value in enumerate(values):
+            if weights[i] <= capacity:
+                maxValue = max(maxValue, value + dp(capacity - weights[i]))
+
+        memo[capacity] = maxValue
+        return maxValue
+
+    return dp()
+
+
+print(unboundedKnapsack([1, 5, 7, 14], [1, 2, 3, 5], 9))  # 24
+```
+
+**Bottom-Up**
+```python
+def unboundedKnapsack(values, weights, m):
     dp = [0] * (m + 1)
 
     for value, weight in zip(values, weights):
@@ -480,7 +507,7 @@ def knapsack(values, weights, m):
     return dp[-1]
 
 
-print(knapsack([1, 5, 7, 14], [1, 2, 3, 5], 9))  # 24
+print(unboundedKnapsack([1, 5, 7, 14], [1, 2, 3, 5], 9))  # 24
 ```
 
 <details>
