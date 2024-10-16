@@ -848,6 +848,53 @@ print(canPartition([4, 4, 2, 1, 5]))
 """
 ```
 
+### [Ones and Zeroes](https://leetcode.com/problems/ones-and-zeroes/)
+By returning `-inf` when the limits are exceeded, the code effectively communicates that this path should not contribute to the maximum count of strings. This logic is needed because in **0/1 knapsack**, we try to increment the count first by picking the item however this might lead to a bug where the picked item violates the limits. Hence we either have to check limit in the new recursion call or check if limit would be valid before picking an item.
+
+```python
+def findMaxForm(strs, m, n):
+    @cache
+    def dp(idx=0, cntZero=0, cntOne=0):
+        if cntZero > m or cntOne > n:
+            return -inf
+        if idx == len(strs):
+            return 0
+        
+        zeroes = strs[idx].count("0")
+        ones = strs[idx].count("1")
+        
+        pick = 1 + dp(idx + 1, cntZero + zeroes, cntOne + ones)
+        notPick = dp(idx + 1, cntZero, cntOne)
+
+        return max(pick, notPick)
+
+    return dp()
+
+
+print(findMaxForm(["10", "0001", "111001", "1", "0"], 5, 3))  # 4
+```
+
+Checking limits before picking new item
+```python
+def findMaxForm(strs, m, n):
+    @cache
+    def dp(idx=0, cntZero=0, cntOne=0):
+        if idx == len(strs):
+            return 0
+        
+        zeroes = strs[idx].count("0")
+        ones = strs[idx].count("1")
+        
+        pick = 0
+        if cntZero + zeroes <= m and cntOne + ones <= n:
+            pick = 1 + dp(idx + 1, cntZero + zeroes, cntOne + ones)
+        notPick = dp(idx + 1, cntZero, cntOne)
+
+        return max(pick, notPick)
+
+    return dp()
+```
+
 ## Dynamic Memoization
 Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. 
 - Can be used to prevent overriding the best optimal result for sub-problems that have already been solved, which is crucial when overlapping sub-problems occur. This ensures that the most optimal result for a sub-problem is preserved and can be re-used whenever needed.
