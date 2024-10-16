@@ -539,25 +539,6 @@ At every iteration of a pair of (value and weight), we consider if there is a po
 ### [Coin Change](https://leetcode.com/problems/coin-change)
 **Top-Down**
 - **TC**: `O(N * amount)`
-- **SC**: `O(amount)`
-```python
-def coinChange(coins, amount):
-    @cache
-    def dp(remaining=amount):
-        if remaining == 0:
-            return 0
-        
-        minimumCoins = inf
-        for i, coin in enumerate(coins):
-            if coin <= remaining:
-                minimumCoins = min(minimumCoins, 1 + dp(remaining - coin))
-
-        return minimumCoins
-    
-    return dp() if dp() != inf else -1
-```
-
-- **TC**: `O(N * amount)`
 - **SC**: `O(N * amount)`
 ```python
 def coinChange(coins, amount):
@@ -573,6 +554,26 @@ def coinChange(coins, amount):
 
         return min(pick, notPick)
 
+    return dp() if dp() != inf else -1
+```
+
+**Top-Down (Space Optimized)**
+- **TC**: `O(N * amount)`
+- **SC**: `O(amount)`
+```python
+def coinChange(coins, amount):
+    @cache
+    def dp(remaining=amount):
+        if remaining == 0:
+            return 0
+        
+        minimumCoins = inf
+        for i, coin in enumerate(coins):
+            if coin <= remaining:
+                minimumCoins = min(minimumCoins, 1 + dp(remaining - coin))
+
+        return minimumCoins
+    
     return dp() if dp() != inf else -1
 ```
 
