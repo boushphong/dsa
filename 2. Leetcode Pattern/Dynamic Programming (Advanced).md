@@ -602,6 +602,28 @@ print(coinChange([1], 1))  # 1
 print(coinChange([1], 0))  # 0
 ```
 
+### [Coin Change II](https://leetcode.com/problems/coin-change-ii)
+```python
+def change(amount, coins):
+
+    @cache
+    def dp(idx=0, total=0):
+        if total == amount:
+            return 1
+        if total > amount or idx == len(coins):
+            return 0
+
+        pick = dp(idx, total + coins[idx])
+        notPick = dp(idx + 1, total)
+
+        return pick + notPick
+
+    return dp()
+
+
+print(change(5, [1, 2, 5]))  # 4
+```
+
 
 ### [Word Break](https://leetcode.com/problems/word-break/)
 **Top-Down**
