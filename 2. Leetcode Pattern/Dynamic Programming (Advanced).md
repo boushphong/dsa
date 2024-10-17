@@ -103,6 +103,29 @@ We get the left-up diagonal element because we would like to check wether the lo
 ```
 </details>
 
+### [Uncrossed Lines](https://leetcode.com/problems/uncrossed-lines)
+```python
+def maxUncrossedLines(nums1, nums2):
+    n, m = len(nums1), len(nums2)
+
+    @cache
+    def dp(i=0, j=0):
+        if i == n or j == m:
+            return 0
+
+        if nums1[i] == nums2[j]:
+            intersectionCount = (1 + dp(i + 1, j + 1))
+        else:
+            intersectionCount = max(dp(i, j + 1), dp(i + 1, j))
+        return intersectionCount
+
+    return dp()
+
+
+print(maxUncrossedLines([2, 5, 1, 2, 5], [10, 5, 2, 1, 5, 2]))  # 3
+print(maxUncrossedLines([1, 4, 2], [1, 2, 4]))  # 2
+```
+
 ### [Edit Distance](https://leetcode.com/problems/edit-distance)
 **Top-Down (Backward)**
 ```python
