@@ -985,7 +985,7 @@ def findMaxForm(strs, m, n):
 
 ## Dynamic Memoization
 Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. 
-- Can be used to prevent overriding the best optimal result for sub-problems that have already been solved, which is crucial when overlapping sub-problems occur. This ensures that the most optimal result for a sub-problem is preserved and can be re-used whenever needed.
+- Can be used to prevent overriding the best optimal result for sub-problems that have already been solved, or to override the sub-problems result if a new optimal result is found, which is crucial when overlapping sub-problems occur. This ensures that the most optimal result for a sub-problem is preserved and can be re-used whenever needed.
 - Can be used to cut TC if many similar keys are accessed repeatedly.
 
 ### [Longest Arithmetic Subsequence](https://leetcode.com/problems/longest-arithmetic-subsequence)
