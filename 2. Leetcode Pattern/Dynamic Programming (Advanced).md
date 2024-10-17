@@ -633,9 +633,9 @@ print(coinChange([1], 0))  # 0
 ```
 
 ### [Coin Change II](https://leetcode.com/problems/coin-change-ii)
+For unbounded knapsack problems that asks for the number of unique combinations, we can't optimize the space by reducing the number of state arguments (from **2 to 1**) like in Coin Change I problem. In such case, we have to use the **Pick and Not Pick** pattern (eg. Subset), because this pattern will ensure unique combinations and it will not lead to a bug in double counting.
 ```python
 def change(amount, coins):
-
     @cache
     def dp(idx=0, total=0):
         if total == amount:
