@@ -588,44 +588,6 @@ print(numSquares(12))  # 3
 print(numSquares(13))  # 2
 ```
 
-### [Domino and Tromino Tiling](https://leetcode.com/problems/domino-and-tromino-tiling)
-```python
-def numTilings(n):
-    # (2, 2) block is (0, 2) and (2, 0) being placed together, This is to avoid handling counting duplication
-    # Moving either of these blocks first will not generate more unique combinations
-    fEqualS = [(1, 1), (2, 2), (2, 1), (1, 2)]
-    fLargerS = [(0, 2), (1, 2)]
-    fSmallerS = [(2, 0), (2, 1)]
-
-    movesMap = {
-        0: fEqualS,
-        1: fLargerS,
-        -1: fSmallerS
-    }
-
-    @cache
-    def dp(f=0, s=0):
-        if f == n and s == n:
-            return 1
-        if f > n or s > n:
-            return 0
-
-        rowDiff = f - s
-        moves = movesMap[(rowDiff > 0) - (rowDiff < 0)]
-
-        cnt = 0
-        for movedByRow, movedByCol in moves:
-            cnt += dp(f + movedByRow, s + movedByCol)
-
-        return cnt
-
-    return dp() % (10 ** 9 + 7)
-
-
-print(numTilings(3))  # 5
-```
-
-
 ### [Coin Change](https://leetcode.com/problems/coin-change)
 **Top-Down**
 - **TC**: `O(N * amount)`
@@ -714,6 +676,42 @@ def change(amount, coins):
 print(change(5, [1, 2, 5]))  # 4
 ```
 
+### [Domino and Tromino Tiling](https://leetcode.com/problems/domino-and-tromino-tiling)
+```python
+def numTilings(n):
+    # (2, 2) block is (0, 2) and (2, 0) being placed together, This is to avoid handling counting duplication
+    # Moving either of these blocks first will not generate more unique combinations
+    fEqualS = [(1, 1), (2, 2), (2, 1), (1, 2)]
+    fLargerS = [(0, 2), (1, 2)]
+    fSmallerS = [(2, 0), (2, 1)]
+
+    movesMap = {
+        0: fEqualS,
+        1: fLargerS,
+        -1: fSmallerS
+    }
+
+    @cache
+    def dp(f=0, s=0):
+        if f == n and s == n:
+            return 1
+        if f > n or s > n:
+            return 0
+
+        rowDiff = f - s
+        moves = movesMap[(rowDiff > 0) - (rowDiff < 0)]
+
+        cnt = 0
+        for movedByRow, movedByCol in moves:
+            cnt += dp(f + movedByRow, s + movedByCol)
+
+        return cnt
+
+    return dp() % (10 ** 9 + 7)
+
+
+print(numTilings(3))  # 5
+```
 
 ### [Word Break](https://leetcode.com/problems/word-break/)
 **Top-Down**
