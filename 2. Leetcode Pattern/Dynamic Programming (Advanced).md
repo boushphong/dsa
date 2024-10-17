@@ -114,10 +114,10 @@ def maxUncrossedLines(nums1, nums2):
             return 0
 
         if nums1[i] == nums2[j]:
-            intersectionCount = (1 + dp(i + 1, j + 1))
+            uncrossedCnt = (1 + dp(i + 1, j + 1))
         else:
-            intersectionCount = max(dp(i, j + 1), dp(i + 1, j))
-        return intersectionCount
+            uncrossedCnt = max(dp(i, j + 1), dp(i + 1, j))
+        return uncrossedCnt
 
     return dp()
 
