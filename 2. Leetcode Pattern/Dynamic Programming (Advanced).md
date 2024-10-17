@@ -536,6 +536,36 @@ At every iteration of a pair of (value and weight), we consider if there is a po
 </details>
 
 
+### [Perfect Squares](https://leetcode.com/problems/perfect-squares)
+```python
+def numSquares(n):
+    perfectSquares = []
+    square = 1
+
+    while square ** 2 <= n:
+        perfectSquares.append(square ** 2)
+        square += 1
+
+    @cache
+    def dp(total=0):
+        if total == n:
+            return 0
+
+        minVal = inf
+        for i, aSquare in enumerate(perfectSquares):
+            if total + aSquare <= n:
+                minVal = min(minVal, 1 + dp(total + aSquare))
+
+        return minVal
+
+    return dp()
+
+
+print(numSquares(12))  # 3
+print(numSquares(13))  # 2
+```
+
+
 ### [Coin Change](https://leetcode.com/problems/coin-change)
 **Top-Down**
 - **TC**: `O(N * amount)`
