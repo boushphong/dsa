@@ -1037,6 +1037,30 @@ print(maxProfit([1, 2, 3, 0, 2]))  # 3
 | held  | -inf | -1   | -1 | -1 | 1  | 1 |
 | reset | 0    | 0    | 0  | 1  | 2  | 2 |
 
+### [Best Time to Buy and Sell Stock with Transaction Fee](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
+```python
+def maxProfit(prices, fee):
+    n = len(prices)
+
+    def dp(idx=0, canBuy=True):
+        if idx == n:
+            return 0
+
+        if canBuy:
+            buy = -prices[idx] + dp(idx + 1, not canBuy)
+            hold = dp(idx + 1)
+            return max(buy, hold)
+        else:
+            sell = prices[idx] + dp(idx + 1) - fee
+            hold = dp(idx + 1, canBuy=False)
+            return max(sell, hold)
+
+    return dp()
+
+
+print(maxProfit([1, 3, 2, 8, 13], 2))  # 10
+print(maxProfit([1, 3, 7, 5, 10, 3], 3))  # 6
+```
 
 ## Dynamic Memoization
 Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. 
