@@ -2,7 +2,7 @@
 **Greedy** algorithm is nothing but a paradigm which builds problems piece by piece. In recursion, we keep on dividing a big problem into multiple smaller chunks and solving those sub problems which is finally used to solve our actual problem. But this isn't the case for Greedy. In this, at any instant, we choose a piece of solution which will offer the most obvious and immediate benefit.
 
 # Pattern
-## Tracking Maximum Reachable Value
+## Tracking Minimum/Maximum Reachable Value
 ### [Minimum Number of Coins to be Added](https://leetcode.com/problems/minimum-number-of-coins-to-be-added/)
 Sorting would work too, but using heap is less error prone because you don't have to check wether the index is out of bound.
 ```python
@@ -28,88 +28,6 @@ print(minimumAddedCoins([15, 1, 12], 43))  # 4 (2, 4, 8)
 print(minimumAddedCoins([1, 1, 1], 20))  # (4, 8, 16)
 print(minimumAddedCoins([1, 4, 10, 5, 7, 19], 19))  # 1  (2)
 print(minimumAddedCoins([1, 4, 10], 19))  # 2 (2, 8)
-```
-
-## Tracking Minimum/Maximum
-### [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock)
-```python
-def maxProfit(prices):
-    m = 0
-    curMin = prices[0]
-    for price in prices[1:]:
-        if price > curMin:
-            m = max(m, price - curMin)
-        else:
-            curMin = price
-    return m
-
-print(maxProfit([7, 1, 5, 3, 6, 4]))
-```
-
-### [Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii)
-```python
-def maxProfit(prices):
-    boughAt = 0
-    ans = 0
-    for i, value in enumerate(prices[1:], 1):
-        if value > prices[boughAt]:
-            ans += (value - prices[boughAt])
-            boughAt = i
-        else:
-            boughAt = i
-    return ans
-
-print(maxProfit([7, 1, 5, 3, 6, 4]))
-```
-
-### [Minimum Cost for Cutting Cake I](https://leetcode.com/problems/minimum-cost-for-cutting-cake-i)
-```python
-def minimumCost(m, n, horizontalCut, verticalCut):
-    h = sorted(horizontalCut)
-    v = sorted(verticalCut)
-    sumH = sum(h)
-    sumV = sum(v)
-    res = 0
-    while h and v:
-        if h[-1] > v[-1]:
-            res += h[-1] + sumV
-            sumH -= h.pop()
-        else:
-            res += v[-1] + sumH
-            sumV -= v.pop()
-    return res + sumH + sumV
-
-
-"""
-      5   1
-    *   *   *
-1
-    *   *   *
-4
-    *   *   *
-
-Same as:
-
-      5   1
-    * | *   *
-4   - |
-    * | *   *
-1   - |
-    * | *   *
-ans = 0 + 5 + 4 + 1 = 10
-
-      5   1
-    * | *   * 
-1   - |       
-    * | *   *
-4   - | - - -
-    * | * | *
-
-ans = 10 + 4 + 1 = 15
-...
-"""
-
-print(minimumCost(3, 3, [1, 4], [5, 1]))  # 18
 ```
 
 ### [Jump Game](https://leetcode.com/problems/jump-game/)
@@ -165,6 +83,106 @@ Starting from index 0
 """
 print(jump([2, 3, 1, 1, 4]))  # 2
 print(jump([1, 2, 3]))  # 2
+```
+
+## Tracking Minimum/Maximum
+### [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock)
+```python
+def maxProfit(prices):
+    m = 0
+    curMin = prices[0]
+    for price in prices[1:]:
+        if price > curMin:
+            m = max(m, price - curMin)
+        else:
+            curMin = price
+    return m
+
+print(maxProfit([7, 1, 5, 3, 6, 4]))
+```
+
+### [Minimum Cost for Cutting Cake I](https://leetcode.com/problems/minimum-cost-for-cutting-cake-i)
+```python
+def minimumCost(m, n, horizontalCut, verticalCut):
+    h = sorted(horizontalCut)
+    v = sorted(verticalCut)
+    sumH = sum(h)
+    sumV = sum(v)
+    res = 0
+    while h and v:
+        if h[-1] > v[-1]:
+            res += h[-1] + sumV
+            sumH -= h.pop()
+        else:
+            res += v[-1] + sumH
+            sumV -= v.pop()
+    return res + sumH + sumV
+
+
+print(minimumCost(3, 3, [1, 4], [5, 1]))  # 18
+"""
+      5   1
+    *   *   *
+1
+    *   *   *
+4
+    *   *   *
+
+Same as:
+
+      5   1
+    * | *   *
+4   - |
+    * | *   *
+1   - |
+    * | *   *
+ans = 0 + 5 + 4 + 1 = 10
+
+      5   1
+    * | *   * 
+1   - |       
+    * | *   *
+4   - | - - -
+    * | * | *
+
+ans = 10 + 4 + 1 = 15
+...
+"""
+```
+
+## Tracking Minimum/Maximum (Monotonicity)
+### [Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii)
+```python
+def maxProfit(prices):
+    boughAt = 0
+    ans = 0
+    for i, value in enumerate(prices[1:], 1):
+        if value > prices[boughAt]:
+            ans += (value - prices[boughAt])
+            boughAt = i
+        else:
+            boughAt = i
+    return ans
+
+print(maxProfit([7, 1, 5, 3, 6, 4]))  # 7
+```
+
+### [Best Time to Buy and Sell Stock with Transaction Fee](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
+```python
+def maxProfit(prices, fee):
+    boughtAt = prices[0]
+    ans = 0
+    for i, value in enumerate(prices[1:], 1):
+        if value > boughtAt + fee:
+            ans += (value - boughtAt - fee)
+            boughtAt = value - fee
+        else:
+            boughtAt = min(boughtAt, prices[i])
+    return ans
+
+
+print(maxProfit(prices=[1, 3, 2, 8, 13], fee=2))  # 10
+print(maxProfit(prices=[1, 3, 7, 5, 10, 3], fee=3))  # 6
 ```
 
 #### Interval
