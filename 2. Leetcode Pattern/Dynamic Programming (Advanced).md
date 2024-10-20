@@ -5,8 +5,9 @@
    * [Interval](#interval)
    * [Unbounded Knapsack](#unbounded-knapsack)
    * [0/1 Knapsack](#01-knapsack)
-   * [Dynamic Memoization](#dynamic-memoization)
    * [State Machine](#state-machine)
+   * [Dynamic Memoization](#dynamic-memoization)
+
 
 # Patterns
 
@@ -983,6 +984,60 @@ def findMaxForm(strs, m, n):
     return dp()
 ```
 
+## State Machine
+Requires us to memoize sub-problems' most optimal results for every state. This is usually can be solved by creating a memoize dp for every possible state. 
+### [Best Time to Buy and Sell Stock with Cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
+**Top-Down**
+- TC: `O(2N)` -> `O(N)`
+  - `2N` -> `O(N)` because `canBuy` has only 2 possible states **True** and **False**, hence this can be treated as constant.
+- SC: `O(2N)` -> `O(N)`
+```python
+def maxProfit(prices):
+    n = len(prices)
+
+    def dp(idx=0, canBuy=True):
+        if idx >= n:
+            return 0
+
+        if canBuy:
+            buy = -prices[idx] + dp(idx + 1, canBuy=False)
+            hold = dp(idx + 1)
+            return max(buy, hold)
+        else:
+            sell = prices[idx] + dp(idx + 2)
+            delay = dp(idx + 1, canBuy=False)
+            return max(sell, delay)
+
+    return dp()
+
+
+print(maxProfit([1, 2, 3, 0, 2]))  # 3
+print(maxProfit([1]))  # 0
+```
+
+**Bottom-Up**
+```python
+def maxProfit(prices):
+    sold, bought, reset = 0, -prices[0], 0
+
+    for price in prices[1:]:
+        pre_sold = sold
+        sold = bought + price
+        bought = max(bought, reset - price)
+        reset = max(reset, pre_sold)
+
+    return max(sold, reset)
+
+
+print(maxProfit([1, 2, 3, 0, 2]))  # 3
+```
+| price |      | 1    | 2  | 3  | 0  | 2 |
+|-------|------|------|----|----|----|---|
+| sold  | -inf | -inf | 1  | 2  | -1 | 3 |
+| held  | -inf | -1   | -1 | -1 | 1  | 1 |
+| reset | 0    | 0    | 0  | 1  | 2  | 2 |
+
+
 ## Dynamic Memoization
 Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. 
 - Can be used to prevent overriding the best optimal result for sub-problems that have already been solved, or to override the sub-problems result if a new optimal result is found, which is crucial when overlapping sub-problems occur. This ensures that the most optimal result for a sub-problem is preserved and can be re-used whenever needed.
@@ -1047,28 +1102,3 @@ def longestIdealString(s, k):
 print(longestIdealString("acfgbd", 2))  # 4
 print(longestIdealString("pvjcci", 4))  # 2
 ```
-
-
-## State Machine
-Requires us to memoize sub-problems' most optimal results for every state. This is usually can be solved by creating a memoize dp for every possible state. 
-### [Best Time to Buy and Sell Stock with Cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
-```python
-def maxProfit(prices):
-    sold, bought, reset = 0, -prices[0], 0
-
-    for price in prices[1:]:
-        pre_sold = sold
-        sold = bought + price
-        bought = max(bought, reset - price)
-        reset = max(reset, pre_sold)
-
-    return max(sold, reset)
-
-
-print(maxProfit([1, 2, 3, 0, 2]))  # 3
-```
-| price |      | 1    | 2  | 3  | 0  | 2 |
-|-------|------|------|----|----|----|---|
-| sold  | -inf | -inf | 1  | 2  | -1 | 3 |
-| held  | -inf | -1   | -1 | -1 | 1  | 1 |
-| reset | 0    | 0    | 0  | 1  | 2  | 2 |
