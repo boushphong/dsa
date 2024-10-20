@@ -1062,6 +1062,31 @@ print(maxProfit([1, 3, 2, 8, 13], 2))  # 10
 print(maxProfit([1, 3, 7, 5, 10, 3], 3))  # 6
 ```
 
+### [Best Time to Buy and Sell Stock IV](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv)
+```python
+def maxProfit(k, prices):
+    n = len(prices)
+
+    @cache
+    def dp(idx=0, canBuy=True, limit=0):
+        if idx == n or limit == k:
+            return 0
+
+        if canBuy:
+            buy = -prices[idx] + dp(idx + 1, False, limit)
+            hold = dp(idx + 1, True, limit)
+            return max(buy, hold)
+        else:
+            sell = prices[idx] + dp(idx + 1, True, limit + 1)
+            hold = dp(idx + 1, False, limit)
+            return max(sell, hold)
+
+    return dp()
+
+
+print(maxProfit(2, [3, 2, 6, 5, 0, 3]))  # 7
+```
+
 ## Dynamic Memoization
 Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. 
 - Can be used to prevent overriding the best optimal result for sub-problems that have already been solved, or to override the sub-problems result if a new optimal result is found, which is crucial when overlapping sub-problems occur. This ensures that the most optimal result for a sub-problem is preserved and can be re-used whenever needed.
