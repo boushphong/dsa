@@ -1087,6 +1087,34 @@ def maxProfit(k, prices):
 print(maxProfit(2, [3, 2, 6, 5, 0, 3]))  # 7
 ```
 
+### [Stone Game II](https://leetcode.com/problems/stone-game-ii)
+```python
+def stoneGameII(piles: List[int]) -> int:
+    n = len(piles)
+    preSum = list(accumulate(piles, initial=0))
+
+    @cache
+    def dp(idx=0, m=1, alice=True):
+        if idx >= n:
+            return 0
+
+        pick = 0 if alice else inf
+        for i in range(1, (m * 2) + 1):
+            if alice:
+                stones = preSum[idx + i] - preSum[idx] if idx + i <= n else 0
+                pick = max(pick, stones + dp(idx + i, max(m, i), not alice))
+            else:
+                pick = min(pick, dp(idx + i, max(m, i), not alice))
+        return pick
+
+    return dp()
+
+
+print(stoneGameII([1, 2, 3, 4, 5, 100]))  # 104
+print(stoneGameII([2, 7, 9, 4, 4]))  # 10
+print(stoneGameII([1]))  # 1
+```
+
 ## Dynamic Memoization
 Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. 
 - Can be used to prevent overriding the best optimal result for sub-problems that have already been solved, or to override the sub-problems result if a new optimal result is found, which is crucial when overlapping sub-problems occur. This ensures that the most optimal result for a sub-problem is preserved and can be re-used whenever needed.
