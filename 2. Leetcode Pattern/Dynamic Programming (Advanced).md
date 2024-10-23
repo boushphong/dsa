@@ -1117,6 +1117,13 @@ print(maxProfit(2, [3, 2, 6, 5, 0, 3]))  # 7
 ```
 
 ## Game Theory
+Requires us to memoize sub-problems' optimal results for every possible state in a competitive environment where multiple players make decisions. This approach helps determine the best strategy for each player involved.
+
+In a game where two players take turns choosing numbers, Game Theory requires us to:
+- Define the state as the current total and the set of available numbers.
+- Evaluate each player's optimal move by recursively exploring all possible future states.
+- Memoize results to avoid recomputation, ultimately returning the best outcome for the player whose turn it is.
+
 ### [Can I Win](https://leetcode.com/problems/can-i-win)
 ```python
 def canIWin(maxChoosableInteger, desiredTotal):
