@@ -352,3 +352,43 @@ def subsets(nums):
 print(subsets([1, 2, 3]))
 # [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
 ```
+
+## Representing Set (Space Optimization)
+### [Can I Win](https://leetcode.com/problems/can-i-win)
+```python
+def canIWin(maxChoosableInteger, desiredTotal):
+    def getBit(x, k):
+        return (x >> k) & 1
+
+    def setBit(x, k):
+        return x | (1 << k)
+
+    if maxChoosableInteger >= desiredTotal:
+        return True
+
+    if maxChoosableInteger * (maxChoosableInteger + 1) // 2 < desiredTotal:
+        return False
+
+    @cache
+    def dp(total=0, seen=0):
+        if total >= desiredTotal:
+            return False
+
+        for num in range(maxChoosableInteger, 0, -1):
+            if getBit(seen, num - 1):
+                continue
+            newSeen = setBit(seen, num - 1)
+            if not dp(total + num, newSeen):
+                return True
+
+        return False
+
+    return dp()
+
+
+print(canIWin(maxChoosableInteger=10, desiredTotal=40))  # False
+print(canIWin(maxChoosableInteger=10, desiredTotal=0))  # True
+print(canIWin(maxChoosableInteger=10, desiredTotal=11))  # False
+print(canIWin(maxChoosableInteger=10, desiredTotal=20))  # True
+print(canIWin(maxChoosableInteger=10, desiredTotal=21))  # True
+```
