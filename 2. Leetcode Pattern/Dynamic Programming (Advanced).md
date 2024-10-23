@@ -6,6 +6,7 @@
    * [Unbounded Knapsack](#unbounded-knapsack)
    * [0/1 Knapsack](#01-knapsack)
    * [State Machine](#state-machine)
+   * [Game Theory](#game-theory)
    * [Dynamic Memoization](#dynamic-memoization)
 
 
@@ -937,6 +938,34 @@ print(canPartition([4, 4, 2, 1, 5]))
 """
 ```
 
+### [Stone Game II](https://leetcode.com/problems/stone-game-ii)
+```python
+def stoneGameII(piles: List[int]) -> int:
+    n = len(piles)
+    preSum = list(accumulate(piles, initial=0))
+
+    @cache
+    def dp(idx=0, m=1, alice=True):
+        if idx >= n:
+            return 0
+
+        pick = 0 if alice else inf
+        for i in range(1, (m * 2) + 1):
+            if alice:
+                stones = preSum[idx + i] - preSum[idx] if idx + i <= n else 0
+                pick = max(pick, stones + dp(idx + i, max(m, i), not alice))
+            else:
+                pick = min(pick, dp(idx + i, max(m, i), not alice))
+        return pick
+
+    return dp()
+
+
+print(stoneGameII([1, 2, 3, 4, 5, 100]))  # 104
+print(stoneGameII([2, 7, 9, 4, 4]))  # 10
+print(stoneGameII([1]))  # 1
+```
+
 ### [Ones and Zeroes](https://leetcode.com/problems/ones-and-zeroes/)
 By returning `-inf` when the limits are exceeded, the code effectively communicates that this path should not contribute to the maximum count of strings. This logic is needed because in **0/1 knapsack**, we try to increment the count first by picking the item however this might lead to a bug where the picked item violates the limits. Hence we either have to check limit in the new recursion call or check if limit would be valid before picking an item.
 
@@ -1087,33 +1116,69 @@ def maxProfit(k, prices):
 print(maxProfit(2, [3, 2, 6, 5, 0, 3]))  # 7
 ```
 
-### [Stone Game II](https://leetcode.com/problems/stone-game-ii)
+## Game Theory
+### [Can I Win](https://leetcode.com/problems/can-i-win)
 ```python
-def stoneGameII(piles: List[int]) -> int:
-    n = len(piles)
-    preSum = list(accumulate(piles, initial=0))
+def canIWin(maxChoosableInteger, desiredTotal):
+    def getBit(x, k):
+        return (x >> k) & 1
+
+    def setBit(x, k):
+        return x | (1 << k)
+
+    if maxChoosableInteger >= desiredTotal:
+        return True
+
+    if maxChoosableInteger * (maxChoosableInteger + 1) // 2 < desiredTotal:
+        return False
 
     @cache
-    def dp(idx=0, m=1, alice=True):
-        if idx >= n:
-            return 0
+    def dp(total=0, seen=0):
+        if total >= desiredTotal:
+            return False
 
-        pick = 0 if alice else inf
-        for i in range(1, (m * 2) + 1):
-            if alice:
-                stones = preSum[idx + i] - preSum[idx] if idx + i <= n else 0
-                pick = max(pick, stones + dp(idx + i, max(m, i), not alice))
-            else:
-                pick = min(pick, dp(idx + i, max(m, i), not alice))
-        return pick
+        for num in range(maxChoosableInteger, 0, -1):
+            if getBit(seen, num - 1):
+                continue
+            newSeen = setBit(seen, num - 1)
+            opponentCanWin = dp(total + num, newSeen)
+            if not opponentCanWin:
+                return True
+
+        return False
 
     return dp()
 
 
-print(stoneGameII([1, 2, 3, 4, 5, 100]))  # 104
-print(stoneGameII([2, 7, 9, 4, 4]))  # 10
-print(stoneGameII([1]))  # 1
+print(canIWin(3, 5))  # True
+print(canIWin(10, 0))  # True
+print(canIWin(10, 11))  # False
+print(canIWin(10, 20))  # True
+print(canIWin(10, 21))  # True
 ```
+
+<details>
+<summary>Explanation</summary>
+
+```python
+canIWin(3, 5)
+  └─ dp(0, 0)  # opponentCanWin = False -> Return True 
+      ├─ dp(0 + 3 = 3, {3})  # opponentCanWin = True
+      │   ├─ dp(3, {3})  # 3 In seen (SKIP)
+      │   └─ dp(3 + 2 = 5, {2, 3})  # opponentCanWin = False
+      │        └─ dp(5, {2, 3})  # return False (Base Case)
+      ├─ dp(0 + 2 = 2, {2})  # opponentCanWin = True
+      │   └─ dp(2 + 3 = 5, {2, 3})  # opponentCanWin = False
+      │        └─ dp(5, {3, 2})  # return False (Base Case)
+      └─ dp(0 + 1 = 2, {1})  # opponentCanWin = False  <- (FOUND CASE)
+          └─ dp(1 + 3 = 4, {1, 3})  # opponentCanWin = True  <- (FOUND CASE)
+               ├─ dp(4, {1, 3})  # 3 In seen (SKIP)
+               ├─ dp(4 + 2 = 6, {1, 2, 3})  # opponentCanWin = False
+               │    └─ dp(6, {1, 2, 3})  # return False (Base Case)  <- (FOUND CASE)
+               └─ dp(4, {1, 3})  # 1 In seen (SKIP)
+```
+</details>
+
 
 ## Dynamic Memoization
 Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. 
