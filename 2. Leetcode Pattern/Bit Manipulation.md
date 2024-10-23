@@ -353,7 +353,7 @@ print(subsets([1, 2, 3]))
 # [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
 ```
 
-## Representing Set (Space Optimization)
+## Representing Integer Set (Space Optimization)
 ### [Can I Win](https://leetcode.com/problems/can-i-win)
 ```python
 def canIWin(maxChoosableInteger, desiredTotal):
