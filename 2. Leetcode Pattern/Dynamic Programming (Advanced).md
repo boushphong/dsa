@@ -1156,22 +1156,6 @@ print(canIWin(10, 11))  # False
 print(canIWin(10, 20))  # True
 print(canIWin(10, 21))  # True
 ```
-Given `maxChoosableInteger = M` and `desiredTotal = N`
-- TC: `O(2**M) * M`
-  - **Number of States**: `O(2**M)` - Represent every possible game state (combinations set or subset).
-  - **Work per State**: `O(M)` - For each game state, the algorithm may loop over all `M` integers to check which number to pick next.
-  - Why not `O(2**M) * N`? 
-    - A game state of `M` always map to a `total`. Hence, caching just `M` is enough.
-    - `N` is also cached just for ease of use in the base case. This would work just as fine
-      - ```python
-        def dp(total=0, seen=0):
-            if seen in memo:
-                return memo[seen]
-            if total >= desiredTotal:
-                return False
-            ...
-        ```
-- SC: `O(2**M)`
 <details>
 <summary>Explanation</summary>
 
@@ -1194,6 +1178,22 @@ canIWin(3, 5)
 ```
 </details>
 
+Given `maxChoosableInteger = M` and `desiredTotal = N`
+- TC: `O(2**M) * M`
+  - **Number of States**: `O(2**M)` - Represent every possible game state (combinations set or subset).
+  - **Work per State**: `O(M)` - For each game state, the algorithm may loop over all `M` integers to check which number to pick next.
+  - Why not `O(2**M) * N`? 
+    - A game state of `M` always map to a `total`. Hence, caching just `M` is enough.
+    - `N` is also cached just for ease of use in the base case. This would work just as fine
+      - ```python
+        def dp(total=0, seen=0):
+            if seen in memo:
+                return memo[seen]
+            if total >= desiredTotal:
+                return False
+            ...
+        ```
+- SC: `O(2**M)`
 
 ## Dynamic Memoization
 Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. 
