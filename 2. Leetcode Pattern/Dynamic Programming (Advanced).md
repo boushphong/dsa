@@ -1190,7 +1190,7 @@ Given `maxChoosableInteger = M` and `desiredTotal = N`
   - **Number of States**: `O(2**M)` - Represent every possible game state (combinations set or subset).
   - **Work per State**: `O(M)` - For each game state, the algorithm may loop over all `M` integers to check which number to pick next.
   - Why not `O(2**M) * N`? 
-    - A game state of `M` always map to a `total`. Hence, caching just `M` is enough.
+    - A game state of `M` always map to a `total N`. Hence, caching just `M` is enough.
     - `N` is also cached just for ease of use in the base case. This would work just as fine
       - ```python
         def dp(total=0, seen=0):
