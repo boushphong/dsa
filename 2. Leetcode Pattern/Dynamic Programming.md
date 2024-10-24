@@ -667,3 +667,33 @@ print(uniquePathsWithObstacles([[0, 0, 0, 0],
 0 0 0 1
 """
 ```
+
+### [Dungeon Game](https://leetcode.com/problems/dungeon-game/)
+```python
+def calculateMinimumHP(dungeon):
+    m, n = len(dungeon), len(dungeon[0])
+
+    @cache
+    def dp(i=0, j=0):
+        if i == m - 1 and j == n - 1:
+            return 1 if dungeon[i][j] >= 0 else abs(dungeon[i][j]) + 1
+
+        goDown = inf
+        if i < m - 1:
+            goDown = min(goDown, max(dp(i + 1, j) - dungeon[i][j], 1))
+
+        goRight = inf
+        if j < n - 1:
+            goRight = min(goRight, max(dp(i, j + 1) - dungeon[i][j], 1))
+
+        return min(goDown, goRight)
+
+    return dp()
+
+
+print(calculateMinimumHP([[-2, -3, 3],
+                          [-5, -10, 1],
+                          [10, 30, -5]]))  # 7
+
+print(calculateMinimumHP([[0, 0]]))  # 1
+```
