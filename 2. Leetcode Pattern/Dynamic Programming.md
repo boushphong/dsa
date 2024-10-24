@@ -680,11 +680,11 @@ def calculateMinimumHP(dungeon):
 
         goDown = inf
         if i < m - 1:
-            goDown = min(goDown, max(dp(i + 1, j) - dungeon[i][j], 1))
+            goDown = max(dp(i + 1, j) - dungeon[i][j], 1)
 
         goRight = inf
         if j < n - 1:
-            goRight = min(goRight, max(dp(i, j + 1) - dungeon[i][j], 1))
+            goRight = max(dp(i, j + 1) - dungeon[i][j], 1)
 
         return min(goDown, goRight)
 
