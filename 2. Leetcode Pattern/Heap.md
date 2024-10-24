@@ -23,8 +23,8 @@ def findKthLargest(nums, k):
     return val
 ```
 
-- **TC** = `O((N - k) * LogN + N` (Average)
-- **TC** = `O(NLogN) + N` (Worst)
+- **TC** = `O((N - k) * LogN + N)` (Average)
+- **TC** = `O(NLogN + N)` (Worst)
 - **SC** = `O(1)`
 
 ### [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements)
