@@ -966,6 +966,43 @@ print(stoneGameII([2, 7, 9, 4, 4]))  # 10
 print(stoneGameII([1]))  # 1
 ```
 
+### [Stone Game III](https://leetcode.com/problems/stone-game-iii)
+```python
+def stoneGameIII(stoneValue):
+    threshold = sum(stoneValue) / 2
+    preSum = list(accumulate(stoneValue, initial=0))
+
+    @cache
+    def dp(idx=0, alice=True):
+        if idx >= len(stoneValue):
+            return 0
+
+        pick = -inf if alice else inf
+        for i in range(1, 4):
+            if idx + i >= len(preSum):
+                return pick
+            if alice:
+                stones = preSum[idx + i] - preSum[idx]
+                pick = max(pick, stones + dp(idx + i, not alice))
+            else:
+                pick = min(pick, dp(idx + i, not alice))
+
+        return pick
+
+    if dp() > threshold:
+        return "Alice"
+    elif dp() < threshold:
+        return "Bob"
+    else:
+        return "Tie"
+
+
+print(stoneGameIII([-1, -2, -3]))  # Tie
+print(stoneGameIII([1, 2, 3, 7]))  # Bob
+print(stoneGameIII([1, 2, 3, -9]))  # Alice
+print(stoneGameIII([1, 2, 3, 6]))  # Tie
+```
+
 ### [Ones and Zeroes](https://leetcode.com/problems/ones-and-zeroes/)
 By returning `-inf` when the limits are exceeded, the code effectively communicates that this path should not contribute to the maximum count of strings. This logic is needed because in **0/1 knapsack**, we try to increment the count first by picking the item however this might lead to a bug where the picked item violates the limits. Hence we either have to check limit in the new recursion call or check if limit would be valid before picking an item.
 
