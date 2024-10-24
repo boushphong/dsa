@@ -1174,8 +1174,7 @@ canIWin(3, 5)
       │   └─ dp(3 + 2 = 5, {2, 3})  # opponentCanWin = False
       │        └─ dp(5, {2, 3})  # return False (Base Case)
       ├─ dp(0 + 2 = 2, {2})  # opponentCanWin = True
-      │   └─ dp(2 + 3 = 5, {2, 3})  # opponentCanWin = False
-      │        └─ dp(5, {3, 2})  # return False (Base Case)
+      │   └─ dp(2 + 3 = 5, {2, 3})  # opponentCanWin = False (GET FROM CACHE)
       └─ dp(0 + 1 = 2, {1})  # opponentCanWin = False  <- (FOUND CASE)
           └─ dp(1 + 3 = 4, {1, 3})  # opponentCanWin = True  <- (FOUND CASE)
                ├─ dp(4, {1, 3})  # 3 In seen (SKIP)
