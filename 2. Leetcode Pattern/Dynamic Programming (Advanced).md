@@ -128,6 +128,31 @@ print(maxUncrossedLines([2, 5, 1, 2, 5], [10, 5, 2, 1, 5, 2]))  # 3
 print(maxUncrossedLines([1, 4, 2], [1, 2, 4]))  # 2
 ```
 
+### [Maximum Multiplication Score](https://leetcode.com/problems/maximum-multiplication-score)
+```python
+def maxScore(a, b):
+    n = len(b)
+
+    @cache
+    def dp(idxA=0, idxB=0):
+        if idxA == 4:
+            return 0
+        if idxB == n:
+            return -inf
+
+        product = a[idxA] * b[idxB]
+        pick = product + dp(idxA + 1, idxB + 1)
+        notPick = dp(idxA, idxB + 1)
+
+        return max(pick, notPick)
+
+    return dp()
+
+
+print(maxScore([3, 2, 5, 6], [2, -6, 4, -5, -3, 2, -7]))  # 26
+print(maxScore([-1, 4, 5, -2], [-5, -1, -3, -2, -4]))  # -1
+```
+
 ### [Edit Distance](https://leetcode.com/problems/edit-distance)
 **Top-Down (Backward)**
 ```python
