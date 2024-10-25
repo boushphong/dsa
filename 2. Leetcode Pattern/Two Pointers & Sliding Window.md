@@ -25,7 +25,7 @@ print(countSubarrays(nums=[1, 3, 1, 5, 5, 2], minK=1, maxK=5))  # 9
 ```
 
 # Patterns (Sliding Window)
-## Explading Window and Over Estimation
+## Expanding Window and Over Estimation
 ### [Frequency of the Most Frequent Element](https://leetcode.com/problems/frequency-of-the-most-frequent-element)
 ```python
 def maxFrequency(nums, k):
