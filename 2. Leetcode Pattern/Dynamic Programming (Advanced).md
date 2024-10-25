@@ -786,6 +786,29 @@ T   F   F   T   T
 """
 ```
 
+### [Extra Characters in a String](https://leetcode.com/problems/extra-characters-in-a-string)
+```python
+def minExtraChar(s, dictionary):
+    @cache
+    def dp(idx=0):
+        if idx >= len(s):
+            return 0
+
+        extraChars = inf
+        for word in dictionary:
+            if s[idx:].startswith(word):
+                extraChars = min(extraChars, dp(idx + len(word)))
+
+        extraChars = min(extraChars, 1 + dp(idx + 1))
+        return extraChars
+
+    return dp()
+
+
+print(minExtraChar("leetscode", ["leet", "code", "leetcode"]))  # 1 
+print(minExtraChar("sayhelloworld", ["hello", "world"]))  # 3
+```
+
 ## 0/1 Knapsack
 0/1 Knapsack problem resembles subset problems, as it requires making binary decisions about including or excluding items to find the optimal solution.
 ### [0/1 Knapsack](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1)
