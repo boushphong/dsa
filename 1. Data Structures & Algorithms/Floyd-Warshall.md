@@ -39,72 +39,73 @@ The shortest path of every pair of vertices will be calculated by getting the su
 The shortest path between a pair is updated only when a new minimum result is found.
 
 ## Implementation
+
 ```python
 INF = float('inf')
 
 
-def print_solution(dist):
-    print("Shortest distances between every pair of vertices:")
+def printSolution(dist):
+  print("Shortest distances between every pair of vertices:")
 
-    # Print the column indices
-    print("   ", end="")
-    for j in range(len(dist)):
-        print(f"{j:4}", end="")
+  # Print the column indices
+  print("   ", end="")
+  for j in range(len(dist)):
+    print(f"{j:4}", end="")
+  print()
+
+  # Print the rows
+  for i in range(len(dist)):
+    # Print the row index
+    print(f"{i:2} ", end="")
+    for j in range(len(dist[i])):
+      if dist[i][j] == INF:
+        print(" INF", end="")
+      else:
+        print(f"{dist[i][j]:4}", end="")
     print()
-
-    # Print the rows
-    for i in range(len(dist)):
-        # Print the row index
-        print(f"{i:2} ", end="")
-        for j in range(len(dist[i])):
-            if dist[i][j] == INF:
-                print(" INF", end="")
-            else:
-                print(f"{dist[i][j]:4}", end="")
-        print()
 
 
 class Graph:
-    def __init__(self, edges, V):
-        # Initialize the adjacency matrix
-        self.edges = edges
-        self.dist = [[INF] * V for _ in range(V)]
+  def __init__(self, edges, V):
+    # Initialize the adjacency matrix
+    self.edges = edges
+    self.dist = [[INF] * V for _ in range(V)]
 
-        for i in range(V):
-            self.dist[i][i] = 0
+    for i in range(V):
+      self.dist[i][i] = 0
 
-        # Fill the adjacency matrix with the given edges
-        for u, v, weight in edges:
-            self.dist[u][v] = weight
-            # For bidirectional graph, un-comment the line below
-            # self.dist[v][u] = weight  
+    # Fill the adjacency matrix with the given edges
+    for u, v, weight in edges:
+      self.dist[u][v] = weight
+      # For bidirectional graph, un-comment the line below
+      # self.dist[v][u] = weight  
 
-    def floyd_warshall(self):
-        # Implementing Floyd-Warshall Algorithm
-        for k in range(V):
-            for i in range(V):
-                for j in range(V):
-                    if i == k or j == k:
-                        continue
-                    self.dist[i][j] = min(self.dist[i][j], self.dist[i][k] + self.dist[k][j])
-            print_solution(self.dist)
+  def floydWarshall(self):
+    # Implementing Floyd-Warshall Algorithm
+    for k in range(V):
+      for i in range(V):
+        for j in range(V):
+          if i == k or j == k:
+            continue
+          self.dist[i][j] = min(self.dist[i][j], self.dist[i][k] + self.dist[k][j])
+      printSolution(self.dist)
 
-        return self.dist
+    return self.dist
 
 
 # Example usage:
 edges = [
-    [0, 1, 3],
-    [1, 2, 2],
-    [2, 3, 1],
-    [3, 0, 2],
-    [0, 3, 7],
-    [1, 0, 8]
+  [0, 1, 3],
+  [1, 2, 2],
+  [2, 3, 1],
+  [3, 0, 2],
+  [0, 3, 7],
+  [1, 0, 8]
 ]
 V = 4
 
 distances = Graph(edges, V)
-print_solution(distances.floyd_warshall())
+printSolution(distances.floydWarshall())
 ```
 
 ### Output

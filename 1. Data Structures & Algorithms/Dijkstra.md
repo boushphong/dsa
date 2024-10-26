@@ -114,24 +114,26 @@ Heap = [(10, 5), (11, 5)]
 
 ## Implementation
 ```python
-import heapq
+from heapq import heappop, heappush
+from math import inf
+from collections import defaultdict
 
 
 class Graph:
     def __init__(self, size):
         self.size = size
-        self.graph = {i: {} for i in range(size)}
+        self.graph = defaultdict(dict)
 
-    def add_edge(self, from_node, to_node, weight):
+    def addEdge(self, from_node, to_node, weight):
         self.graph[from_node][to_node] = weight
 
     def dijkstra(self, src):
-        dist = [float('inf')] * self.size
+        dist = [inf] * self.size
         dist[src] = 0
         heap = [(0, src)]
 
         while heap:
-            curDistance, curV = heapq.heappop(heap)
+            curDistance, curV = heappop(heap)
 
             # Skipping stale value
             if curDistance > dist[curV]:
@@ -142,7 +144,7 @@ class Graph:
 
                 if distance < dist[neighbor]:
                     dist[neighbor] = distance
-                    heapq.heappush(heap, (distance, neighbor))
+                    heappush(heap, (distance, neighbor))
 
         return dist
 
@@ -161,8 +163,8 @@ edges = [
     (4, 5, 5)
 ]
 
-for from_node, to_node, weight in edges:
-    graph.add_edge(from_node, to_node, weight)
+for fromNode, toNode, weight in edges:
+    graph.addEdge(fromNode, toNode, weight)
 
 distances = graph.dijkstra(0)
 print(distances)  # [0, 2, 3, 9, 6, 10]

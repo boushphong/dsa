@@ -121,7 +121,7 @@ edges = [
 
 g = Graph(edges, 6)
 
-g.bellman_ford(5)
+g.bellmanFord(5)
 ```
 
 ## Analyzing Complexity
@@ -142,7 +142,7 @@ class Graph:
         self.edges = edges  # List to store all edges in the graph
         self.V = V  # Number of vertices in the graph
 
-    def bellman_ford(self, src):
+    def bellmanFord(self, src):
         # Step 1: Initialize distances from src to all other vertices as INFINITE
         dist = [float('inf')] * self.V
         dist[src] = 0
@@ -174,7 +174,7 @@ edges = [
 ]
 
 g = Graph(edges, 4)
-g.bellman_ford(1)
+g.bellmanFord(1)
 ```
 
 ### Output
@@ -226,7 +226,7 @@ If there is a negative cycle in the graph, the **Bellman-Ford** algorithm will e
 class Graph:
     ...
 
-    def bellman_ford(self, src):
+    def bellmanFord(self, src):
         ...
 
         for u, v, w in self.edges:
@@ -247,7 +247,7 @@ edges = [
 ]
 
 g = Graph(edges, 5)
-g.bellman_ford(1)
+g.bellmanFord(1)
 ```
 
 | 0 | 1 | 2   | 3   | 4   |

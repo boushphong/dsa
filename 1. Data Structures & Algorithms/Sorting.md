@@ -19,19 +19,19 @@ The key idea behind bubble sort is to repeatedly compare adjacent elements in th
 5. If any swaps were made in step 2-4, repeat the process from step 1 again. Otherwise, the list is sorted. At this step, The largest element is now at the end of the list. So we only need to sort the list 1 index less.
 
 ```python
-def bubble_sort(arr):
+def bubbleSort(arr):
     n = len(arr)
     # Traverse through all array elements
     for i in range(n):
         # Last i elements are already in place
         swaps = False  # initialize a boolean flag to check if any swaps occurred
-        for j in range(0, n-i-1):
+        for j in range(0, n - i - 1):
             # Traverse the array from 0 to n-i-1
             # Swap if the element found is greater than the next element
-            if arr[j] > arr[j+1]:
-                arr[j], arr[j+1] = arr[j+1], arr[j]
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
                 swaps = True  # set the flag to True if a swap occurred
-        
+
         # If no swaps occurred in the inner loop, the array is already sorted
         if not swaps:
             break
@@ -156,7 +156,7 @@ def heapify(arr, n, i):  # (TC = O(Log(N)))
         heapify(arr, n, largest)
 
 
-def heapsort(arr):
+def heapSort(arr):
     n = len(arr)
 
     # Build a max-heap from the input array (TC = O(N))
