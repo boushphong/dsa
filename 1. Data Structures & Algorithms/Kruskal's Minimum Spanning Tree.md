@@ -68,42 +68,41 @@ graph TD
 - **Space:** `O(|V|)`
 
 ## Implementation
-
 ```python
 class UnionFind:
-  def __init__(self, size):
-    self.parent = list(range(size))
+    def __init__(self, size):
+        self.parent = list(range(size))
 
-  def find(self, x):
-    if self.parent[x] != x:
-      self.parent[x] = self.find(self.parent[x])
-    return self.parent[x]
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
 
-  def union(self, x, y):
-    rootX = self.find(x)
-    rootY = self.find(y)
-    if rootX != rootY:
-      self.parent[rootY] = rootX
+    def union(self, x, y):
+        rootX = self.find(x)
+        rootY = self.find(y)
+        if rootX != rootY:
+            self.parent[rootY] = rootX
 
 
 class KruskalMST:
-  def __init__(self, verticesCount, edges):
-    self.edges = sorted(edges, key=lambda x: x[2])
-    self.vertices = UnionFind(verticesCount)
-    self.mst = []
+    def __init__(self, verticesCount, edges):
+        self.edges = sorted(edges, key=lambda x: x[2])
+        self.vertices = UnionFind(verticesCount)
+        self.mst = []
 
-  def getMST(self):
-    cost = 0
-    for fromVertex, toVertex, weight in self.edges:
-      if self.vertices.find(fromVertex) != self.vertices.find(toVertex):
-        self.vertices.union(fromVertex, toVertex)
-        self.mst.append((fromVertex, toVertex, weight))
-        cost += weight
-
-    # Check if MST is possible
-    if len(self.mst) != len(self.vertices.parent) - 1:
-      return [], -1
-    return self.mst, cost
+    def getMST(self):
+        cost = 0
+        for fromVertex, toVertex, weight in self.edges:
+            if self.vertices.find(fromVertex) != self.vertices.find(toVertex):
+                self.vertices.union(fromVertex, toVertex)
+                self.mst.append((fromVertex, toVertex, weight))
+                cost += weight
+        
+        # Check if MST is possible
+        if len(self.mst) != len(self.vertices.parent) - 1:
+            return [], -1
+        return self.mst, cost
 
 
 kruskal = KruskalMST(5, [(0, 1, 10), (0, 2, 6), (0, 3, 5), (1, 3, 15), (2, 3, 4)])
