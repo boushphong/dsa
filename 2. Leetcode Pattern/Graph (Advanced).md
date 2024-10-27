@@ -391,3 +391,37 @@ def minimumCost(n, connections):
 print(minimumCost(3, [[1, 2, 5], [1, 3, 6], [2, 3, 1]]))  # 6
 print(minimumCost(4, [[1, 2, 3], [3, 4, 4]]))
 ```
+
+### [Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/)
+```python
+def minCostConnectPoints(points):
+    n = len(points)
+    parent = list(range(n))
+
+    def find(x):
+        if x != parent[x]:
+            parent[x] = find(parent[x])
+        return parent[x]
+
+    def union(x, y):
+        rootX = find(x)
+        rootY = find(y)
+        if rootX != rootY:
+            parent[rootY] = rootX
+
+    connections = []
+    for i, (x, y) in enumerate(points):
+        for j, (x2, y2) in enumerate(points[i + 1:], i + 1):
+            connections.append((i, j, abs(x2 - x) + abs(y2 - y)))
+
+    cost = 0
+    connections.sort(key=lambda x: x[2])
+    for fromVertex, toVertex, weight in connections:
+        if find(fromVertex) != find(toVertex):
+            union(fromVertex, toVertex)
+            cost += weight
+    return cost
+
+
+print(minCostConnectPoints([[0, 0], [2, 2], [3, 10], [5, 2], [7, 0]]))  # 20
+```
