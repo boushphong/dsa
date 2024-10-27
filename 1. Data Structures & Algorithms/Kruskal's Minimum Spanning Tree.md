@@ -98,6 +98,10 @@ class KruskalMST:
                 self.nodes.union(fromVertex, toVertex)
                 self.mst.append((fromVertex, toVertex, weight))
                 cost += weight
+        
+        # Check if MST is possible
+        if len(self.mst) != len(self.nodes.parent) - 1:
+            return [], -1
         return self.mst, cost
 
 
