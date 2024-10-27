@@ -3,54 +3,42 @@
 ## Union-Find
 ### [Similar String Groups](https://leetcode.com/problems/similar-string-groups)
 ```python
-class UnionFind:
-    def __init__(self, size):
-        self.parent = list(range(size))
-
-    def find(self, x):
-        stack = []
-        while self.parent[x] != x:
-            stack.append(x)
-            x = self.parent[x]
-
-        for idx in stack:
-            self.parent[idx] = x
-
-        return x
-
-    def union(self, x, y):
-        rootX = self.find(x)
-        rootY = self.find(y)
-
-        if rootX != rootY:
-            self.parent[rootY] = rootX
-
-
 def numSimilarGroups(strs):
     n = len(strs)
-    uf = UnionFind(n)
+    parent = list(range(n))
 
+    def find(x):
+        if x != parent[x]:
+            parent[x] = find(parent[x])
+        return parent[x]
+
+    def union(x, y):
+        rootX = find(x)
+        rootY = find(y)
+        if rootX != rootY:
+            parent[rootY] = rootX
+
+    def isSimilar(str1, str2):
+        count = 0
+        for s1, s2 in zip(str1, str2):
+            if s1 != s2:
+                count += 1
+                if count > 2:
+                    return False
+        return True
+            
     for i in range(1, n):
         for j in range(i - 1, -1, -1):
-            sml = self.isSimilar(strs[j], strs[i])
+            sml = isSimilar(strs[j], strs[i])
             if sml:
-                uf.union(j, i)
+                union(j, i)
 
     ans = 0
-    for idx, val in enumerate(uf.parent):
+    for idx, val in enumerate(parent):
         if idx == val:
             ans += 1
 
     return ans
-
-def isSimilar(str1, str2):
-    count = 0
-    for s1, s2 in zip(str1, str2):
-        if s1 != s2:
-            count += 1
-            if count > 2:
-                return False
-    return True
 
 
 print(numSimilarGroups(["tars", "rats", "arts", "star"]))  # 2
@@ -58,40 +46,26 @@ print(numSimilarGroups(["tars", "rats", "arts", "star"]))  # 2
 
 ### [The Earliest Moment When Everyone Become Friends](https://leetcode.com/problems/the-earliest-moment-when-everyone-become-friends)
 ```python
-class UnionFind:
-    def __init__(self, n):
-        self.parent = list(range(n))
-        self.count = n
-
-    def find(self, x):
-        stack = []
-        while self.parent[x] != x:
-            stack.append(x)
-            x = self.parent[x]
-
-        for idx in stack:
-            self.parent[idx] = x
-
-        return x
-
-    def union(self, x, y):
-        rootX = self.find(x)
-        rootY = self.find(y)
-
-        if rootX != rootY:
-            self.parent[rootY] = rootX
-            self.count -= 1
-
-    def get_count(self):
-        return self.count
-
-
 def earliestAcq(logs, n):
     logs.sort(key=lambda l: l[0])
-    uf = UnionFind(n)
+    parent = list(range(n))
+    count = n
+
+    def find(x):
+        if x != parent[x]:
+            parent[x] = find(parent[x])
+        return parent[x]
+
+    def union(x, y):
+        nonlocal count
+        rootX = find(x)
+        rootY = find(y)
+        if rootX != rootY:
+            parent[rootY] = rootX
+            count -= 1
+
     for ts, x, y in logs:
-        uf.union(x, y)
-        count = uf.get_count()
+        union(x, y)
         if count == 1:
             return ts
     return -1
@@ -108,38 +82,21 @@ print(earliestAcq([[9, 3, 0], [0, 2, 1], [8, 0, 1], [1, 3, 2], [2, 2, 0], [3, 3,
 
 ### [Accounts Merge](https://leetcode.com/problems/accounts-merge)
 ```python
-import collections
+def accountsMerge(accounts):
+    visited = {}
+    parent = list(range(len(accounts)))
 
+    def find(x):
+        if x != parent[x]:
+            parent[x] = find(parent[x])
+        return parent[x]
 
-class UnionFind:
-    def __init__(self, size):
-        self.parent = list(range(size))
-
-    def __repr__(self):
-        return str(self.parent)
-
-    def find(self, x):
-        stack = []
-        while self.parent[x] != x:
-            stack.append(x)
-            x = self.parent[x]
-
-        for idx in stack:
-            self.parent[idx] = x
-
-        return x
-
-    def union(self, x, y):
-        rootX = self.find(x)
-        rootY = self.find(y)
+    def union(x, y):
+        rootX = find(x)
+        rootY = find(y)
 
         if rootX != rootY:
-            self.parent[rootY] = rootX
-
-
-def accountsMerge(accounts):
-    uf = UnionFind(len(accounts))
-    visited = {}
+            parent[rootY] = rootX
 
     for i, account in enumerate(accounts):
         emails = account[1:]
@@ -147,15 +104,13 @@ def accountsMerge(accounts):
             if email not in visited:
                 visited[email] = i
             else:
-                uf.union(visited.get(email), i)
+                union(visited.get(email), i)
 
-    tmp = collections.defaultdict(list)
+    tmp = defaultdict(list)
     for email, index in visited.items():
-        tmp[uf.find(index)].append(email)
+        tmp[find(index)].append(email)
 
-    ans = [[accounts[idx][0]] + sorted(emails) for idx, emails in tmp.items()]
-
-    return ans
+    return [[accounts[idx][0]] + sorted(emails) for idx, emails in tmp.items()]
 
 
 print(accountsMerge(
@@ -171,57 +126,48 @@ print(accountsMerge([["David", "David0@m.co", "David1@m.co"],
                      ["David", "David1@m.co", "David2@m.co"],
                      ["David", "hello@m.co"]]
                     ))
-
 ```
 
 ## Union-Find (Graph)
 ### [Number of Islands II](https://leetcode.com/problems/number-of-islands-ii)
 ```python
-class UnionFind:
-    def __init__(self, n):
-        self.parent = [-1] * n
-        self.count = 0
-
-    def find(self, x):
-        if self.parent[x] == -1:
-            self.parent[x] = x
-            self.count += 1
-        elif self.parent[x] != x:
-            self.parent[x] = self.find(self.parent[x])
-        return self.parent[x]
-
-    def union(self, x, y):
-        rootX = self.find(x)
-        rootY = self.find(y)
-
-        if rootX != rootY:
-            self.parent[rootY] = rootX
-            self.count -= 1
-
-    def get_count(self):
-        return self.count
-
-
 def numIslands2(m, n, positions):
+    parent = [-1] * (m * n)
+    count = 0
+
+    def find(x):
+        nonlocal count
+        if parent[x] == -1:
+            parent[x] = x
+            count += 1
+        elif parent[x] != x:
+            parent[x] = find(parent[x])
+        return parent[x]
+
+    def union(x, y):
+        nonlocal count
+        rootX, rootY = find(x), find(y)
+        if rootX != rootY:
+            parent[rootY] = rootX
+            count -= 1
+
     directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
     visited = set()
-    uf = UnionFind(m * n)
     result = []
 
     for idx, (row, col) in enumerate(positions):
         visited.add((row, col))
         current_index = row * n + col
-        uf.find(current_index)
+        find(current_index)
 
         all_points = [(row + x, col + y) for x, y in directions if row + x not in {-1, m} and col + y not in {-1, n}]
         for nx, ny in all_points:
             neighbor_index = nx * n + ny
 
             if (nx, ny) in visited:
-                uf.union(current_index, neighbor_index)
-
-        result.append(uf.get_count())
-
+                union(current_index, neighbor_index)
+        result.append(count)
+        
     return result
 
 
@@ -411,4 +357,37 @@ def checkIfPrerequisite(numCourses, prerequisites, queries):
 
 print(checkIfPrerequisite(5, [[1, 0], [2, 3], [3, 4]], [[0, 1], [1, 0]]))
 # [False, True]
+```
+
+## Minimum Spanning Tree
+### [Connecting Cities With Minimum Cost](https://leetcode.com/problems/connecting-cities-with-minimum-cost/)
+```python
+def minimumCost(n, connections):
+    parent = list(range(n))
+
+    def find(x):
+        if x != parent[x]:
+            parent[x] = find(parent[x])
+        return parent[x]
+
+    def union(x, y):
+        rootX = find(x)
+        rootY = find(y)
+        if rootX != rootY:
+            parent[rootY] = rootX
+
+    connections.sort(key=lambda x: x[2])
+
+    cost = edgeCnt = 0
+    for fromVertex, toVertex, weight in connections:
+        if find(fromVertex - 1) != find(toVertex - 1):
+            union(fromVertex - 1, toVertex - 1)
+            edgeCnt += 1
+            cost += weight
+
+    return cost if edgeCnt == n - 1 else -1
+
+
+print(minimumCost(3, [[1, 2, 5], [1, 3, 6], [2, 3, 1]]))  # 6
+print(minimumCost(4, [[1, 2, 3], [3, 4, 4]]))
 ```
