@@ -7,8 +7,6 @@
    * [0/1 Knapsack](#01-knapsack)
    * [State Machine](#state-machine)
    * [Game Theory](#game-theory)
-   * [Dynamic Memoization](#dynamic-memoization)
-
 
 # Patterns
 
@@ -1285,68 +1283,3 @@ Given `maxChoosableInteger = M` and `desiredTotal = N`
             ...
         ```
 - SC: `O(2**M)`
-
-## Dynamic Memoization
-Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. 
-- Can be used to prevent overriding the best optimal result for sub-problems that have already been solved, or to override the sub-problems result if a new optimal result is found, which is crucial when overlapping sub-problems occur. This ensures that the most optimal result for a sub-problem is preserved and can be re-used whenever needed.
-- Can be used to cut TC if many similar keys are accessed repeatedly.
-
-### [Longest Arithmetic Subsequence](https://leetcode.com/problems/longest-arithmetic-subsequence)
-```python
-def longestArithSeqLength(nums):
-    dp = {}
-
-    for i in range(len(nums)):
-        for j in range(i - 1, -1, -1):
-            diff = nums[i] - nums[j]
-            dp[(i, diff)] = max(dp.get((i, diff), 0), dp.get((j, diff), 1) + 1)
-            # max to handle multiple identical (i, diff) when there are multiple identical nums[j]
-
-    return max(dp.values())
-
-
-print(longestArithSeqLength([2, 1, 2, 3]))  # 3
-```
-
-### [Make Array Strictly Increasing](https://leetcode.com/problems/make-array-strictly-increasing)
-```python
-def makeArrayIncreasing(arr1, arr2):
-    arr2.sort()
-    dp = {arr1[0]: 0}
-    if arr2[0] < arr1[0]:
-        dp.update({arr2[0]: 1})
-
-    for idx, val in enumerate(arr1[1:], 1):
-        tmpDp = {}
-        for prev, operations in dp.items():
-            if val > prev:
-                tmpDp[val] = min(operations, tmpDp.get(val, inf))
-            tmpIdx = bisect_right(arr2, prev)
-            if tmpIdx < len(arr2):
-                tmpDp[arr2[tmpIdx]] = min(1 + dp[prev], tmpDp.get(arr2[tmpIdx], inf))
-        dp = tmpDp
-
-    return min(dp.values()) if dp else -1
-
-
-print(makeArrayIncreasing(arr1=[1, 5, 3, 6, 7], arr2=[1, 3, 2, 4]))  # 1
-print(makeArrayIncreasing(arr1=[9, 5, 3, 6, 7], arr2=[1, 3, 2, 4]))  # 2
-```
-
-### [Longest Ideal Subsequence](https://leetcode.com/problems/longest-ideal-subsequence/)
-```python
-def longestIdealString(s, k):
-    hm = defaultdict(int)
-    for i, letter in enumerate(s):
-        ordLetter = ord(letter)
-        cur = 1
-        for letterInRange in range(ordLetter - k, ordLetter + k + 1):
-            cur = max(cur, hm.get(chr(letterInRange), 0) + 1)
-        hm[letter] = max(hm[letter], cur)
-
-    return max(hm.values())
-
-
-print(longestIdealString("acfgbd", 2))  # 4
-print(longestIdealString("pvjcci", 4))  # 2
-```
