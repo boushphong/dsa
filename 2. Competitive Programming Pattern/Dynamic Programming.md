@@ -298,43 +298,6 @@ Possible combinations
 
 ## Linear Sequences with non-constant Transition
 Requires us to solve the sub-problem on every prefix (or suffix) of the array. However, transitions may not be simple and require a linear amount of options from indices `j < i` (or `j > i`).
-
-### [Largest Sum of Averages](https://leetcode.com/problems/largest-sum-of-averages)
-```python
-def largestSumOfAverages(nums, k):
-    n = len(nums)
-    dp = [0] * (n + 1)
-    sums = [0] * (n + 1)
-
-    for i in range(1, n + 1):
-        sums[i] = sums[i - 1] + nums[i - 1]
-        dp[i] = sums[i] / i
-
-    for atK in range(2, k + 1):
-        new_dp = [0] * (n + 1)
-        for i in range(atK, n + 1):
-            for j in range(atK - 1, i):
-                new_dp[i] = max(new_dp[i], dp[j] + (sums[i] - sums[j]) / (i - j))
-        dp = new_dp
-
-    return dp[n]
-
-
-print(largestSumOfAverages([9, 1, 2, 3, 9], 3))  # 20.0
-```
-
-Explanation
-|   k\i   |   9   |   1   |   2   |   3   |   9   |
-|:-------:|:-----:|:-----:|:-----:|:-----:|:-----:|
-|   k=1   |   9   |   5   |   4   |  3.75 |  4.8  |
-|   k=2   |   -   |  9+1  | 9+1.5 | 9+2   | 9+3.75|
-|         |       |       | 5+2   | 5+2.5 | 5+4.67|
-|         |       |       |       | 4+3   | 4+6   |
-|         |       |       |       |       | 3.75+9|
-|   k=3   |   -   |   -   | 10+2  | 10+2.5| 10+4.67|
-|         |       |       |       | 10.5+3| 10.5+6|
-|         |       |       |       |       | 11+9  |
-
 #### Longest Increasing Subsequence Variation
 ### [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
 **Top-Down**
@@ -555,6 +518,42 @@ dp = [(1, 3), (1, 8), (1, 13), (2, 7), (2, 11), (2, 15), (2, 21)]
 print(bestTeamScore([4, 4, 4, 5, 6, 5, 3, 5], [2, 2, 2, 1, 2, 1, 1, 1]))  # 24
 ```
 
+### [Largest Sum of Averages](https://leetcode.com/problems/largest-sum-of-averages)
+```python
+def largestSumOfAverages(nums, k):
+    n = len(nums)
+    dp = [0] * (n + 1)
+    sums = [0] * (n + 1)
+
+    for i in range(1, n + 1):
+        sums[i] = sums[i - 1] + nums[i - 1]
+        dp[i] = sums[i] / i
+
+    for atK in range(2, k + 1):
+        new_dp = [0] * (n + 1)
+        for i in range(atK, n + 1):
+            for j in range(atK - 1, i):
+                new_dp[i] = max(new_dp[i], dp[j] + (sums[i] - sums[j]) / (i - j))
+        dp = new_dp
+
+    return dp[n]
+
+
+print(largestSumOfAverages([9, 1, 2, 3, 9], 3))  # 20.0
+```
+
+Explanation
+|   k\i   |   9   |   1   |   2   |   3   |   9   |
+|:-------:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|   k=1   |   9   |   5   |   4   |  3.75 |  4.8  |
+|   k=2   |   -   |  9+1  | 9+1.5 | 9+2   | 9+3.75|
+|         |       |       | 5+2   | 5+2.5 | 5+4.67|
+|         |       |       |       | 4+3   | 4+6   |
+|         |       |       |       |       | 3.75+9|
+|   k=3   |   -   |   -   | 10+2  | 10+2.5| 10+4.67|
+|         |       |       |       | 10.5+3| 10.5+6|
+|         |       |       |       |       | 11+9  |
+
 ## Matrix (Grid) Pattern
 Requires us to solve the sub-problem on every sub-grids.
 ### [Unique Paths](https://leetcode.com/problems/unique-paths)
@@ -719,31 +718,6 @@ def longestArithSeqLength(nums):
 
 
 print(longestArithSeqLength([2, 1, 2, 3]))  # 3
-```
-
-### [Make Array Strictly Increasing](https://leetcode.com/problems/make-array-strictly-increasing)
-```python
-def makeArrayIncreasing(arr1, arr2):
-    arr2.sort()
-    dp = {arr1[0]: 0}
-    if arr2[0] < arr1[0]:
-        dp.update({arr2[0]: 1})
-
-    for idx, val in enumerate(arr1[1:], 1):
-        tmpDp = {}
-        for prev, operations in dp.items():
-            if val > prev:
-                tmpDp[val] = min(operations, tmpDp.get(val, inf))
-            tmpIdx = bisect_right(arr2, prev)
-            if tmpIdx < len(arr2):
-                tmpDp[arr2[tmpIdx]] = min(1 + dp[prev], tmpDp.get(arr2[tmpIdx], inf))
-        dp = tmpDp
-
-    return min(dp.values()) if dp else -1
-
-
-print(makeArrayIncreasing(arr1=[1, 5, 3, 6, 7], arr2=[1, 3, 2, 4]))  # 1
-print(makeArrayIncreasing(arr1=[9, 5, 3, 6, 7], arr2=[1, 3, 2, 4]))  # 2
 ```
 
 ### [Longest Ideal Subsequence](https://leetcode.com/problems/longest-ideal-subsequence/)
