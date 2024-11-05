@@ -6,7 +6,6 @@
    * [Linear Sequences with Constant Transition (1D)](#linear-sequences-with-constant-transition-1d)
    * [Linear Sequences with non-constant Transition](#linear-sequences-with-non-constant-transition)
    * [Matrix (Grid) Pattern](#matrix-grid-pattern)
-   * [Dynamic Memoization](#dynamic-memoization)
 
 # Patterns
 ## Fibonacci Style (1D)
@@ -353,18 +352,34 @@ print(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]))
 ### [Longest Arithmetic Subsequence](https://leetcode.com/problems/longest-arithmetic-subsequence)
 ```python
 def longestArithSeqLength(nums):
-    dp = {}
-
     for i in range(len(nums)):
         for j in range(i - 1, -1, -1):
             diff = nums[i] - nums[j]
-            dp[(i, diff)] = max(dp.get((i, diff), 0), dp.get((j, diff), 1) + 1)
+            dp[(i, diff)] = max(dp[(i, diff)], dp[(j, diff)] + 1)
             # max to handle multiple identical (i, diff) when there are multiple identical nums[j]
 
     return max(dp.values())
 
 
 print(longestArithSeqLength([2, 1, 2, 3]))  # 3
+```
+
+### [Longest Ideal Subsequence](https://leetcode.com/problems/longest-ideal-subsequence/)
+```python
+def longestIdealString(s, k):
+    hm = defaultdict(int)
+    for i, letter in enumerate(s):
+        ordLetter = ord(letter)
+        cur = 1
+        for letterInRange in range(ordLetter - k, ordLetter + k + 1):
+            cur = max(cur, hm.get(chr(letterInRange), 0) + 1)
+        hm[letter] = max(hm[letter], cur)
+
+    return max(hm.values())
+
+
+print(longestIdealString("acfgbd", 2))  # 4
+print(longestIdealString("pvjcci", 4))  # 2
 ```
 
 ### [Minimum Number of Coins for Fruits](https://leetcode.com/problems/minimum-number-of-coins-for-fruits)
@@ -518,42 +533,6 @@ dp = [(1, 3), (1, 8), (1, 13), (2, 7), (2, 11), (2, 15), (2, 21)]
 print(bestTeamScore([4, 4, 4, 5, 6, 5, 3, 5], [2, 2, 2, 1, 2, 1, 1, 1]))  # 24
 ```
 
-### [Largest Sum of Averages](https://leetcode.com/problems/largest-sum-of-averages)
-```python
-def largestSumOfAverages(nums, k):
-    n = len(nums)
-    dp = [0] * (n + 1)
-    sums = [0] * (n + 1)
-
-    for i in range(1, n + 1):
-        sums[i] = sums[i - 1] + nums[i - 1]
-        dp[i] = sums[i] / i
-
-    for atK in range(2, k + 1):
-        new_dp = [0] * (n + 1)
-        for i in range(atK, n + 1):
-            for j in range(atK - 1, i):
-                new_dp[i] = max(new_dp[i], dp[j] + (sums[i] - sums[j]) / (i - j))
-        dp = new_dp
-
-    return dp[n]
-
-
-print(largestSumOfAverages([9, 1, 2, 3, 9], 3))  # 20.0
-```
-
-Explanation
-|   k\i   |   9   |   1   |   2   |   3   |   9   |
-|:-------:|:-----:|:-----:|:-----:|:-----:|:-----:|
-|   k=1   |   9   |   5   |   4   |  3.75 |  4.8  |
-|   k=2   |   -   |  9+1  | 9+1.5 | 9+2   | 9+3.75|
-|         |       |       | 5+2   | 5+2.5 | 5+4.67|
-|         |       |       |       | 4+3   | 4+6   |
-|         |       |       |       |       | 3.75+9|
-|   k=3   |   -   |   -   | 10+2  | 10+2.5| 10+4.67|
-|         |       |       |       | 10.5+3| 10.5+6|
-|         |       |       |       |       | 11+9  |
-
 ## Matrix (Grid) Pattern
 Requires us to solve the sub-problem on every sub-grids.
 ### [Unique Paths](https://leetcode.com/problems/unique-paths)
@@ -696,44 +675,4 @@ print(calculateMinimumHP([[-2, -3, 3],
                           [10, 30, -5]]))  # 7
 
 print(calculateMinimumHP([[0, 0]]))  # 1
-```
-
-## Dynamic Memoization
-Requires us to memoize sub-problems' results on a dynamic data structure (eg. HashMap) to store intermediate results of sub-problems. 
-- Can be used to prevent overriding the best optimal result for sub-problems that have already been solved, or to override the sub-problems result if a new optimal result is found.
-- Can be used to cut TC if many similar keys are accessed repeatedly.
-
-### [Longest Arithmetic Subsequence](https://leetcode.com/problems/longest-arithmetic-subsequence)
-```python
-def longestArithSeqLength(nums):
-    dp = {}
-
-    for i in range(len(nums)):
-        for j in range(i - 1, -1, -1):
-            diff = nums[i] - nums[j]
-            dp[(i, diff)] = max(dp.get((i, diff), 0), dp.get((j, diff), 1) + 1)
-            # max to handle multiple identical (i, diff) when there are multiple identical nums[j]
-
-    return max(dp.values())
-
-
-print(longestArithSeqLength([2, 1, 2, 3]))  # 3
-```
-
-### [Longest Ideal Subsequence](https://leetcode.com/problems/longest-ideal-subsequence/)
-```python
-def longestIdealString(s, k):
-    hm = defaultdict(int)
-    for i, letter in enumerate(s):
-        ordLetter = ord(letter)
-        cur = 1
-        for letterInRange in range(ordLetter - k, ordLetter + k + 1):
-            cur = max(cur, hm.get(chr(letterInRange), 0) + 1)
-        hm[letter] = max(hm[letter], cur)
-
-    return max(hm.values())
-
-
-print(longestIdealString("acfgbd", 2))  # 4
-print(longestIdealString("pvjcci", 4))  # 2
 ```
