@@ -10,6 +10,7 @@ Monotonic stacks are generally used for solving questions of the type - **next g
    * [Prefix Patterns](#prefix-patterns)
    * [Over-estimation](#over-estimation)
    * [Sorting](#sorting)
+   * [Left and Right Bound Index](#left-and-right-bound-index)
 
 ## What is monotonic stack?
 
