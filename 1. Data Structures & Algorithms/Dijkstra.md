@@ -2,7 +2,7 @@
 **Dijkstra** algorithm is used to find the shortest path from one vertex to all vertex in a weighted graph. **Dijkstra** can work on both weighted and non-weighted graph. On non-weighted graph, edges can be updated to be bidirectional between every pair.
 - Negative edges are **not allowed**.
 
-**Dijkstra** algorithm is usually implemeted with a Min-Heap. This is because the main idea of Dijkstra's algorithm is to explore the shortest paths first hence a Min-Heap allows the algorithm to always expand the vertex with the smallest tentative distance next. This ensures that the shortest path to each vertex is found in the correct order.
+**Dijkstra** algorithm is usually implemented with a Min-Heap. This is because the main idea of Dijkstra's algorithm is to explore the shortest paths first hence a Min-Heap allows the algorithm to always expand the vertex with the smallest tentative distance next. This ensures that the shortest path to each vertex is found in the correct order.
 
 ## Graph Representation:
 ```mermaid
@@ -16,15 +16,15 @@ graph TD
     4 -->|5| 5
 ```
 
-**Dijkstra** algorithm utilizes Gready Algorithm.
+**Dijkstra** algorithm utilizes Greedy Algorithm.
 
-If we want to find the shortest path between `vertex 0` to other vertices. An array of **V** vertices will be initialzed as follow:
+If we want to find the shortest path between `vertex 0` to other vertices. An array of **V** vertices will be initialized as follows:
 
 | 0 | 1 | 2 | 3 | 4 | 5 |
 |---|---|---|---|---|---|
 | 0 | ∞ | ∞ | ∞ | ∞ | ∞ |
 
-A Heap to track the next Vertex we should visit should also be initialzed. We track the shortest distance from the source vertex to a specific vertex in the Min-Heap. 
+A Heap to track the next Vertex we should visit should also be initialized. We track the shortest distance from the source vertex to a specific vertex in the Min-Heap. 
 ```python
 Heap = [(0, 0)]
 ```
@@ -50,7 +50,7 @@ Heap = [(2, 1), (4, 2)]
 Heap = [(3, 2), (4, 2), (9, 3)]
 ```
 
-- Popping the next vertex from the heap, `Vertex 2` can go to `Vertex 4`. We found a new shorter distance connecting `Vertex 4`. Hence we update.
+- Popping the next vertex from the heap, `Vertex 2` can go to `Vertex 4`. We found a new shorter distance connecting `Vertex 4`. Hence, we update.
 
 | 0 | 1 | 2 | 3 | 4 | 5 |
 |---|---|---|---|---|---|
@@ -60,7 +60,7 @@ Heap = [(3, 2), (4, 2), (9, 3)]
 Heap = [(4, 2), (9, 3), (6, 4)]
 ```
 
-- Popping the next vertex from the heap, `Vertex 2` can go to `Vertex 4`. We found a stale shorest path here at path `0 -> 2 = 4`, shortest path is `3` for path `0 -> 1 -> 2`
+- Popping the next vertex from the heap, `Vertex 2` can go to `Vertex 4`. We found a stale shortest path here at path `0 -> 2 = 4`, shortest path is `3` for path `0 -> 1 -> 2`
 
 | 0 | 1 | 2 | 3 | 4 | 5 |
 |---|---|---|---|---|---|
@@ -70,10 +70,10 @@ Heap = [(4, 2), (9, 3), (6, 4)]
 Heap = [(6, 4), (9, 3)]
 ```
 
-- Popping the next vertex from the heap, `Vertex 4` can go to `Vertex 5`. We found a new shorter distance connecting `Vertex 5`. Hence we update.
+- Popping the next vertex from the heap, `Vertex 4` can go to `Vertex 5`. We found a new shorter distance connecting `Vertex 5`. Hence, we update.
 
-| 0 | 1 | 2 | 3 | 4 | 5 |
-|---|---|---|---|---|---|
+| 0 | 1 | 2 | 3 | 4 | 5  |
+|---|---|---|---|---|----|
 | 0 | 2 | 3 | 9 | 6 | 11 |
 
 ```python
@@ -82,8 +82,8 @@ Heap = [(9, 3), (11, 5)]
 
 - Popping the next vertex from the heap, `Vertex 3` can go to `Vertex 5`. We found a new shorter distance connecting `Vertex 5`. Hence we update.
 
-| 0 | 1 | 2 | 3 | 4 | 5 |
-|---|---|---|---|---|---|
+| 0 | 1 | 2 | 3 | 4 | 5  |
+|---|---|---|---|---|----|
 | 0 | 2 | 3 | 9 | 6 | 10 |
 
 ```python
@@ -98,8 +98,8 @@ Heap = [(10, 5), (11, 5)]
 
 ## Analyzing Complexity
 - **Time:** `O((|V| + |E| * Log(|E|)` (With Min Heap)
-  - Graph Initization: `|V|`
-  - Inseration and Update: `|E| * Log(|E|)`
+  - Graph Initialization: `|V|`
+  - Insertion and Update: `|E| * Log(|E|)`
     - In the worst case, for each edge, there could be an insertion into the heap because each edge represents a potential path that could lead to a new shortest path update for a neighboring vertex.
     - The total number of insertions can be as large as `|E|` (if each edge leads to an update) plus the initial insertion of each vertex, which gives us a total of up to: `|E| * Log(|E|)`
   - Heap: `O(Log(|E|)`
@@ -110,7 +110,7 @@ Heap = [(10, 5), (11, 5)]
 
 ## Some Characteristics of Dijkstra
 - Once a node is popped out of the heap, that means we have found the shortest distance to that node. The remainder of that node in the heap are stale.
-  - This is because we always greedily choose the minimum distance to a node from the heap to process, hence the first occurance of a node would always be the shortest distance to that node.
+  - This is because we always greedily choose the minimum distance to a node from the heap to process, hence the first occurrence of a node would always be the shortest distance to that node.
 
 ## Implementation
 ```python
