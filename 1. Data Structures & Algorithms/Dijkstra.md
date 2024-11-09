@@ -80,7 +80,7 @@ Heap = [(6, 4), (9, 3)]
 Heap = [(9, 3), (11, 5)]
 ```
 
-- Popping the next vertex from the heap, `Vertex 3` can go to `Vertex 5`. We found a new shorter distance connecting `Vertex 5`. Hence we update.
+- Popping the next vertex from the heap, `Vertex 3` can go to `Vertex 5`. We found a new shorter distance connecting `Vertex 5`. Hence, we update.
 
 | 0 | 1 | 2 | 3 | 4 | 5  |
 |---|---|---|---|---|----|
@@ -90,10 +90,10 @@ Heap = [(9, 3), (11, 5)]
 Heap = [(10, 5), (11, 5)]
 ```
 
-- The last 2 items in the heap belongs to `Vertex 5`, this vertex doesn't have any outdegrees. So eventually they will be popped from the heap one by one. And return the final answer array.
+- The last 2 items in the heap belongs to `Vertex 5`, this vertex doesn't have any degrees. So eventually they will be popped from the heap one by one. And return the final answer array.
 
-| 0 | 1 | 2 | 3 | 4 | 5 |
-|---|---|---|---|---|---|
+| 0 | 1 | 2 | 3 | 4 | 5  |
+|---|---|---|---|---|----|
 | 0 | 2 | 3 | 9 | 6 | 10 |
 
 ## Analyzing Complexity

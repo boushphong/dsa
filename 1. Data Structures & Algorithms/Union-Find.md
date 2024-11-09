@@ -42,10 +42,10 @@ print(uf.find(4))   # Output: 1
 print(uf.find(5))   # Output: 5
 ```
 
-| Operation | Time Complexity | Description |
-|-----------|-----------------|-------------|
+| Operation | Time Complexity | Description                                                                                                                                                                   |
+|-----------|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `find`    | O(n)            | In the worst case (of a single `find` operation), we may need to traverse up to `n` elements to find the root. This happens when the tree is degenerated (highly unbalanced). |
-| `union`   | O(n)            | In the worst case (of a single `union` operation), each `union` operation requires finding the roots of both elements, each of which can take up to `O(n)` time. |
+| `union`   | O(n)            | In the worst case (of a single `union` operation), each `union` operation requires finding the roots of both elements, each of which can take up to `O(n)` time.              |
 
 ### Explanation:
 1. **Find Operation**:
@@ -247,17 +247,17 @@ uf.union(2, 0)  # [0, 0, 0, 2, 0, 4, 6, 6]
 """
 ```
 
-| Operation | Time Complexity | Description |
-|-----------|-----------------|-------------|
-| `find`    | O(LogN)            | In the worst case (of a single `find` operation), we may need to traverse up to `LogN` elements to find the root. This happens when there are 2 trees, each with a depth of 3 |
-| `union`   | O(LogN)            | In the worst case (of a single `union` operation), each `union` operation requires finding the roots of both elements, each of which can take up to `O(LogN)` time. |
+| Operation | Time Complexity | Description                                                                                                                                                                   |
+|-----------|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `find`    | O(LogN)         | In the worst case (of a single `find` operation), we may need to traverse up to `LogN` elements to find the root. This happens when there are 2 trees, each with a depth of 3 |
+| `union`   | O(LogN)         | In the worst case (of a single `union` operation), each `union` operation requires finding the roots of both elements, each of which can take up to `O(LogN)` time.           |
 
 ### Amortized Complexity Analysis of Both Optizations
 
-| Operation | Time Complexity    | Description |
-|-----------|--------------------|-------------|
-| `find`    | O(α(n))            | The amortized time complexity is nearly constant due to path compression, making future `find` operations more efficient. |
-| `union`   | O(α(n))            | The amortized time complexity is nearly constant due to union by rank and path compression, ensuring the tree remains shallow. |
+| Operation | Time Complexity | Description                                                                                                                    |
+|-----------|-----------------|--------------------------------------------------------------------------------------------------------------------------------|
+| `find`    | O(α(n))         | The amortized time complexity is nearly constant due to path compression, making future `find` operations more efficient.      |
+| `union`   | O(α(n))         | The amortized time complexity is nearly constant due to union by rank and path compression, ensuring the tree remains shallow. |
 
 - **Amortized Complexity:** It is the average time taken per operation, over a sequence of operations. It accounts for the fact that while some operations may be expensive (take a long time), they make subsequent operations cheaper. Thus, when we average out the time taken over a large number of operations, the cost per operation appears lower.
 
