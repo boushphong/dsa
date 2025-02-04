@@ -1107,6 +1107,7 @@ Requires us to memoize sub-problems' most optimal results for every state. This 
 def maxProfit(prices):
     n = len(prices)
 
+    @cache
     def dp(idx=0, canBuy=True):
         if idx >= n:
             return 0
@@ -1154,6 +1155,7 @@ print(maxProfit([1, 2, 3, 0, 2]))  # 3
 def maxProfit(prices, fee):
     n = len(prices)
 
+    @cache
     def dp(idx=0, canBuy=True):
         if idx == n:
             return 0
