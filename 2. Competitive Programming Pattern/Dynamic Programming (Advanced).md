@@ -443,7 +443,6 @@ def stoneGameVII(stones):
     prefix_sum = list(accumulate(stones, initial=0))
     memo = {}
 
-    @lru_cache(maxsize=3000)
     def dp(l=0, r=len(stones) - 1):
         if l == r:
             return 0
