@@ -4,6 +4,7 @@
    * [How to detect if a problem can be solved with recursion or not?](#how-to-detect-if-a-problem-can-be-solved-with-recursion-or-not)
    * [How to approach a recursion problem step by step?](#how-to-approach-a-recursion-problem-step-by-step)
    * [Type of recurrence relation](#type-of-recurrence-relation)
+   * [Complexity Analysis](#complexity-analysis)
    * [Binary Search with Recursion](#binary-search-with-recursion)
 * [Patterns](#patterns)
    * [Single Argument](#single-argument)
@@ -73,6 +74,18 @@ fib(1)   fib(0)
   - Identify and focus on the left tree call then right tree call
   - Use the debugger to see the flow (or write it down with pen and paper)
 5. See how the value is returned at each step and see where the function call will come out.
+
+## Complexity Analysis
+- The Time Complexity of a Recursion is:
+  - `Number of Decision at each State ^ Recursion Depth`
+
+- In the case of fibonacci , the number of decision at each state is 2
+  - 2 decisions (`F(n-2) and F(n-1)`)
+- Depth is `N`
+  - Since there is only 1 argument, which is `N`
+ 
+**NOTE**: In the case of multiple arguments in recursion, the depth is usually the sum of all the arguments.
+- For example: 2 arguments: `M + N`
 
 ## Type of recurrence relation
 1. Linear (Fibonacci)
