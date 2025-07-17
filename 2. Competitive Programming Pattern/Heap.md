@@ -348,7 +348,10 @@ def mostBooked(n, meetings):
 
 
 print(mostBooked(2, [[0, 10], [1, 5], [2, 7], [3, 4]]))  # 0
-print(mostBooked(4, [[18, 19], [3, 12], [17, 19], [2, 13], [7, 10]]))  # 0
+
+# Edge case where you should not include and update the start time (end, start, room) in the heap. Question asked for earlier original start time.
+# Start time could be in the heap but it should not be updated when a room is un-used.
+print(mostBooked(2, [[1, 8], [5, 10], [6,8], [8,9], [10, 100], [11,12], [12,13]]))  # 0  
 ```
 
 ### [Find Servers That Handled Most Number of Requests](https://leetcode.com/problems/find-servers-that-handled-most-number-of-requests/)
