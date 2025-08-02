@@ -164,6 +164,7 @@ print(
 def numSubarraysWithSum(nums, goal):
     l = consecutiveZeroes = total = res = 0
 
+    # The sliding window [l, r] tracks a valid subarray (without leading zeroes) whose sum is at most goal.
     for r, num in enumerate(nums):
         total += num
 
