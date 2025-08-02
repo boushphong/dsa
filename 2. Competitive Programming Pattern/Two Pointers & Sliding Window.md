@@ -158,6 +158,36 @@ print(
 )
 ```
 
+## Dynamic Window
+### [Binary Subarrays With Sum](https://leetcode.com/problems/binary-subarrays-with-sum/description/?envType=problem-list-v2&envId=apwwkhc6)
+```python
+def numSubarraysWithSum(nums, goal):
+    l = consecutiveZeroes = total = res = 0
+
+    for r, num in enumerate(nums):
+        total += num
+
+        while l < r and (nums[l] == 0 or total > goal):
+            if nums[l] == 1:
+                consecutiveZeroes = 0
+            else:
+                consecutiveZeroes += 1
+
+            total -= nums[l]
+            l += 1
+
+        if total == goal:
+            res += 1 + consecutiveZeroes
+
+    return res
+
+
+print(numSubarraysWithSum([1,0,1,0,1], 2))  # 4
+print(numSubarraysWithSum([0,0,1,0,0], 1))  # 9
+print(numSubarraysWithSum([0,0,0,0,0], 0))  # 15
+print(numSubarraysWithSum([0,0,0,0,0,0,1,0,0,0], 0))  # 27
+```
+
 ## Updating Alternating Window
 ### [Count Binary Substrings](https://leetcode.com/problems/count-binary-substrings/)
 ```python
