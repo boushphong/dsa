@@ -119,6 +119,30 @@ def minSwaps(data):
 print(minSwaps([1, 0, 0, 1, 0, 0, 1, 0, 1, 1]))  # 2
 ```
 
+### [Reschedule Meetings for Maximum Free Time I](https://leetcode.com/problems/reschedule-meetings-for-maximum-free-time-i)
+```python
+def maxFreeTime(eventTime, k, startTime, endTime):
+    startTime.extend([eventTime, 0])
+    endTime.extend([eventTime, 0])
+    res = total = 0
+    l = -1
+
+    for r, (start, end) in enumerate(zip(startTime, endTime)):
+        prevEnd = endTime[r - 1]
+        total += start - prevEnd
+        if r - (l + 1) > k:
+            lastEnd = endTime[l]
+            lastStart = startTime[l + 1]
+            total -= lastStart - lastEnd
+            l += 1
+        res = max(res, total)
+
+    return res
+
+
+print(maxFreeTime(34, 2, [0, 17], [14, 19]))  # 18
+```
+
 ### [Smallest Range Covering Elements from K Lists](https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists)
 ```python
 def smallestRange(nums):
