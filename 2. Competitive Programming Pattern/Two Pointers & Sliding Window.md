@@ -1,6 +1,7 @@
 # Two Pointers & Sliding Window
 # Patterns (Two Pointers)
 ## Three Pointers
+This approach keeps track of the minimum and maximum lengths of the window needed to solve the subarray counting problem.
 ### [Count Subarrays With Fixed Bounds](https://leetcode.com/problems/count-subarrays-with-fixed-bounds/)
 ```python
 def countSubarrays(nums, minK, maxK):
@@ -22,6 +23,38 @@ def countSubarrays(nums, minK, maxK):
 
 
 print(countSubarrays(nums=[1, 3, 1, 5, 5, 2], minK=1, maxK=5))  # 9
+```
+
+
+### [Subarrays with K Different Integers](https://leetcode.com/problems/subarrays-with-k-different-integers)
+```python
+def subarraysWithKDistinct(nums, k):
+    res = lMin = lMax = 0
+    cnt = Counter()
+
+    for r, num in enumerate(nums):
+        cnt[num] += 1
+
+        while len(cnt) > k:
+            cnt[nums[lMin]] -= 1
+            if not cnt[nums[lMin]]:
+                cnt.pop(nums[lMin])
+            lMin += 1
+            lMax = lMin
+            
+        while cnt[nums[lMin]] > 1:
+            cnt[nums[lMin]] -= 1
+            if not cnt[nums[lMin]]:
+                cnt.pop(nums[lMin])
+            lMin += 1
+
+        if len(cnt) == k:
+            res += (lMin - lMax) + 1
+
+    return res
+
+
+print(subarraysWithKDistinct([1,2,1,2,3], 2))  # 7
 ```
 
 # Patterns (Sliding Window)
