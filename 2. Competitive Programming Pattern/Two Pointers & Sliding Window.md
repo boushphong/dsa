@@ -57,6 +57,45 @@ def subarraysWithKDistinct(nums, k):
 print(subarraysWithKDistinct([1,2,1,2,3], 2))  # 7
 ```
 
+### [Count of Substrings Containing Every Vowel and K Consonants II](https://leetcode.com/problems/count-of-substrings-containing-every-vowel-and-k-consonants-ii)
+```python
+def countOfSubstrings(word, k):
+    vowels = {'a','e','i','o','u'}
+    consonants = res = lMin = lMax = 0
+    cnt = Counter()
+
+    for r, letter in enumerate(word):
+        if letter in vowels:
+            cnt[letter] += 1
+        else:
+            consonants += 1
+
+        while consonants > k:
+            if word[lMin] in vowels:
+                cnt[word[lMin]] -= 1
+                if not cnt[word[lMin]]:
+                    cnt.pop(word[lMin])
+            else:
+                consonants -= 1
+            lMin += 1
+            lMax = lMin
+        
+        while lMin < r and cnt[word[lMin]] > 1:
+            if word[lMin] in vowels and cnt[word[lMin]] - 1:
+                cnt[word[lMin]] -= 1
+                lMin += 1
+            else:
+                break
+
+        if len(cnt) == 5 and consonants == k:
+            res += (lMin - lMax) + 1
+
+    return res
+
+
+print(countOfSubstrings("iqeaouqi", 2)))  # 3
+```
+
 # Patterns (Sliding Window)
 ## Expanding Window and Over Estimation
 ### [Frequency of the Most Frequent Element](https://leetcode.com/problems/frequency-of-the-most-frequent-element)
