@@ -254,7 +254,10 @@ print(
 )
 ```
 
-## Dynamic Window
+## Dynamic Window (Shrinking Window)
+⚠️ Shrinking window pattern usually doesn’t work when negative numbers are involved. 
+- This is especially true for problems where you’re trying to find a subarray with **sum >= target**. Since negative numbers can increase the sum when shrinking the window, the logic becomes unreliable.
+- In such cases, prefer prefix sums, hash maps, or other techniques.
 ### [Binary Subarrays With Sum](https://leetcode.com/problems/binary-subarrays-with-sum/description/?envType=problem-list-v2&envId=apwwkhc6)
 ```python
 def numSubarraysWithSum(nums, goal):
