@@ -1,5 +1,5 @@
 # Monotonic Queue
-Monotonic stacks are generally used for solving questions of the type - next greater element, next smaller element, previous greater element and previous smaller element. Likewise, **Monotonic Queue** can also be used to solve these kind of questions, but it excels at Finding the maximum or minimum element in a **Sliding Window**.
+Monotonic stacks are generally used for solving questions of the type - next greater element, next smaller element, previous greater element and previous smaller element. Likewise, **Monotonic Queue** can also be used to solve these kind of questions, but it excels at Finding the maximum or minimum element in a **Sliding Window**. The maximum or minimum element can be tracked from a single end of the queue.
 
 # Patterns
 ## Tracking Maximum/Mininum Element of a Fixed Sliding Window
