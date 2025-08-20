@@ -354,3 +354,26 @@ Double the array for sliding windows
                 0   4   10  0 = 14 or (29 + 0 * 3) - (24 - 9) = 29 - 15 = 14
 """ 
 ```
+
+## [Take K of Each Character From Left and Right](https://leetcode.com/problems/take-k-of-each-character-from-left-and-right)
+```python
+def takeCharacters(s, k):
+    cnt = Counter(s)
+    matches = sum(cnt.get(_, 0) >= k for _ in "abc")
+    if matches < 3:
+        return -1
+    res = n = len(s)
+    l = 0
+
+    for r, letter in enumerate(s, n):
+        while l < n and cnt[s[l]] - 1 >= k:
+            cnt[s[l]] -= 1
+            l += 1
+
+        res = min(res, r - l)
+        cnt[letter] += 1
+    return res
+
+
+print(takeCharacters("ccbabcc", 1))  # 4
+```
