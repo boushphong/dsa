@@ -44,8 +44,6 @@ def subarraysWithKDistinct(nums, k):
             
         while cnt[nums[lMin]] > 1:
             cnt[nums[lMin]] -= 1
-            if not cnt[nums[lMin]]:
-                cnt.pop(nums[lMin])
             lMin += 1
 
         if len(cnt) == k:
