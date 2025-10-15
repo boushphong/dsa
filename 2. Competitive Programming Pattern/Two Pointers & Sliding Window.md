@@ -53,6 +53,7 @@ def subarraysWithKDistinct(nums, k):
 
 
 print(subarraysWithKDistinct([1,2,1,2,3], 2))  # 7
+print(subarraysWithKDistinct([1,1,2,2,3], 2))  # 6
 ```
 
 ### [Count of Substrings Containing Every Vowel and K Consonants II](https://leetcode.com/problems/count-of-substrings-containing-every-vowel-and-k-consonants-ii)
