@@ -10,7 +10,7 @@
 * [Patterns](#patterns)
    * [Bisecting](#bisecting-1)
    * [Rotated Array Search](#rotated-array-search)
-   * [Identifying BS (Monoticity)](#identifying-bs-monoticity)
+   * [Identifying BS (Monotonicity)](#identifying-bs-monoticity)
    * [Identifying BS (Exclusive Search and Inclusive Search)](#identifying-bs-exclusive-search-and-inclusive-search)
 
 **Binary search** is an efficient algorithm used for finding the position of a target value within a sorted array. It works by repeatedly dividing in half the portion of the list that could contain the target value, thereby reducing the search area by half each time. Binary search operates on the principle of divide and conquer.
@@ -448,7 +448,7 @@ print(findMin([5, 1, 2, 3, 4]))
 print(findMin([3, 1, 2]))
 ```
 
-## Identifying BS (Monoticity)
+## Identifying BS (Monotonicity)
 ### [Arranging Coins](https://leetcode.com/problems/arranging-coins)
 Monoticity: More coins hence more rows, less coins hence less rows and vice versa.
 ```python

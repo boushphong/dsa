@@ -49,17 +49,17 @@ Instead of: `[0, 5, 5, 5, 0, 0]` (requires updating 3 elements)
 def differenceArray(arr, updates):
     n = len(arr)
     diff = [0] * (n + 1)
-
+    
     for l, r, val in updates:
         diff[l] += val
         if r + 1 < n:
             diff[r + 1] -= val
-
+    
     for i in range(1, n):
         diff[i] += diff[i - 1]
-
+    
     for i in range(n):
         arr[i] += diff[i]
-
+    
     return arr
 ```
