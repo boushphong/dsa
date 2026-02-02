@@ -169,3 +169,14 @@ for fromNode, toNode, weight in edges:
 distances = graph.dijkstra(0)
 print(distances)  # [0, 2, 3, 9, 6, 10]
 ```
+
+## Optimizations (Skipping Stale Value)
+```python
+if curDistance > dist[curV]:
+    continue
+```
+| Condition | Result | Why? |
+| :--- | :--- | :--- |
+| **`>`** | **Optimal** | Skips paths that are strictly worse than our current "best," while allowing the first discovery to process. |
+| **`>=`** | **Bug-prone** | Would skip the very first node (where $0=0$) unless you add extra "first-visit" logic. |
+| **No check** | **Slow** | The algorithm still works, but wastes time re-relaxing edges for paths already known to be sub-optimal. |
