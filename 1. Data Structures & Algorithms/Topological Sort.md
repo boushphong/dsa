@@ -2,18 +2,21 @@
 Topological Sorting (Toposort) is an algorithm for ordering the vertices of a **directed acyclic graph** (**DAG**) such that:
 - For every directed edge ( `u → v` ), vertex ( `u` ) comes before vertex ( `v` ) in the ordering.
 
+**NOTE:** A Directed Acyclic Graph (DAG) cannot have cycles hence the algorithm will not work on graphs that have cycles.
+
 ## Analyzing Complexity
 - **Time:** `O(|V| + |E|)`
 - **Space:** `O(|V|)`
 
 ## Graph Representation
 ```mermaid
-graph TD;
-    3 --> 2 --> 1;
-    3 --> 4 --> 0;
-    4 --> 5;
-    2 --> 0;
-    1 --> 5;
+graph TD
+    1 --> 2
+    1 --> 0
+    4 --> 0
+    4 --> 5
+    2 --> 3
+    3 --> 5
 ```
 
 ## Topological Sort Graph (with DFS)
@@ -54,8 +57,20 @@ def toposort(n, edges):
 # Example usage:
 print(toposort(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5)]))
 # [4, 1, 0, 2, 3, 5]
+```
+
+| Direction | What it means | Valid in `[4, 1, 0, 2, 3, 5]`? |
+| :--- | :--- | :--- |
+| **1 → 0** | 1 must be before 0 | ✅ **Yes** (1 is 2nd, 0 is 3rd) |
+| **4 → 0** | 4 must be before 0 | ✅ **Yes** (4 is 1st, 0 is 3rd) |
+| **1 → 2** | 1 must be before 2 | ✅ **Yes** (1 is 2nd, 2 is 4th) |
+| **2 → 3** | 2 must be before 3 | ✅ **Yes** (2 is 4th, 3 is 5th) |
+| **3 → 5** | 3 must be before 5 | ✅ **Yes** (3 is 5th, 5 is 6th) |
+| **4 → 5** | 4 must be before 5 | ✅ **Yes** (4 is 1st, 5 is 6th) |
+
+```python
 print(toposort(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5), (5, 1)]))
-# []
+# [] Has Cycle
 ```
 
 ## Topological Sort Graph (with BFS)
