@@ -28,20 +28,21 @@ def toposort(n, edges):
         graph[fromNode].append(toNode)
 
     visited = set()
+    visitedPath = [False] * n
     res = []
 
-    def toposortUtil(node, visitedPath=set()):
+    def toposortUtil(node):
         visited.add(node)
-        visitedPath.add(node)
+        visitedPath[node] = True
 
         for childNode in graph.get(node, []):
             if childNode not in visited:
-                if toposortUtil(childNode, visitedPath):
+                if toposortUtil(childNode):
                     return True
-            if childNode in visitedPath:
+            elif visitedPath[childNode]:
                 return True
 
-        visitedPath.remove(node)
+        visitedPath[node] = False
         res.append(node)
         return False
 
