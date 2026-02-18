@@ -85,7 +85,7 @@ print(toposort(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5), (5, 1)]))
       - For every directed edge ( `u → v` ), vertex ( `u` ) comes before vertex ( `v` ) in the ordering.
 
 **NOTE**: `visitedPath` array is usually used in DFS approach to detect cycle in the DAG. 
-The DFS method would still work without the `visitedPath` array, but cycles must not be present else the algorithm would no work.
+The DFS method would still work without the `visitedPath` array, but cycles must not be present else the algorithm would not work.
 
 ## Topological Sort Graph (with BFS)
 Topological sorting using a **BFS** approach is often referred to as Kahn's Algorithm
