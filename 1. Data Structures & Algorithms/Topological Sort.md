@@ -85,7 +85,7 @@ print(toposort(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5), (5, 1)]))
       - For every directed edge ( `u → v` ), vertex ( `u` ) comes before vertex ( `v` ) in the ordering.
 
 **NOTE**: `visitedPath` array is usually used in DFS approach to detect cycle in the DAG. 
-The DFS method would still work without the `visitedPath` array, but cycles must not be present else the algorithm would not work.
+The DFS method would still work without the `visitedPath` array, but cycles must not be present else the algorithm would no work.
 
 ## Topological Sort Graph (with BFS)
 Topological sorting using a **BFS** approach is often referred to as Kahn's Algorithm
@@ -118,6 +118,30 @@ def toposort(n, edges):
 
 print(toposort(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5)]))
 # [1, 4, 2, 0, 3, 5]
-print(toposort(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5), (5, 1)]))
+print(toposort(4, [(0, 1), (1, 2), (2, 3), (3, 1)]))
 # []
 ```
+Building on your analysis of the DFS approach, here is the breakdown of the underlying logic for the BFS-based approach (**Kahn’s Algorithm**).
+
+While DFS relies on the call stack and post-order traversal, BFS uses a dependency-counting mechanism to "peel" the graph layer by layer.
+
+---
+
+### BFS Underlying Logic and Cycle Detection (Kahn's Algorithm)
+The core intuition behind Kahn's Algorithm is **indegree management**. The indegree of a node represents the number of incoming edges (dependencies) that must be resolved before that node can be processed.
+
+1. Identify how many incoming edges each node has.
+   - Add all nodes with an indegree of `0` to a `queue`. These are the starting points.
+2. When a node gets dequeued, Append it to the `res` array.
+   - This means that the node has resolved its dependencies.
+3. Iterate through its neighbors (children). Decrement the indegree count of each neighbor. 
+   - This effectively simulates edge removal from the graph when the node's indegree count becomes `0`.
+     - If the neighbor's indegree drops to `0`. Add it to the queue.
+4. Detect Cycles. BFS detect cycles when during the decrement operation
+   - If the indegree count of a node can never reach `0` then it would never get added to the queue.
+   - Resulting in a final `res` output size smaller than the total number of nodes. 
+
+#### Example: `(4, [(0, 1), (1, 2), (2, 3), (3, 1)])`
+* **Initial State**: Node 0 starts with an **indegree** of 0, while the cycle nodes (1, 2, and 3) have indegrees of 2, 1, and 1.
+* **The "Stuck" Indegree**: After processing node 0, node 1's **indegree** drops from 2 to 1, but it remains stuck there because it is still waiting on node 3.
+* **Detection**: Since no other node can reach an **indegree** of 0, the queue becomes empty prematurely, and the final `res` size (1) fails to match the total nodes (4), confirming a cycle.
