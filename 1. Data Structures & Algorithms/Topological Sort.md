@@ -121,11 +121,6 @@ print(toposort(6, [(1, 2), (1, 0), (4, 0), (4, 5), (2, 3), (3, 5)]))
 print(toposort(4, [(0, 1), (1, 2), (2, 3), (3, 1)]))
 # []
 ```
-Building on your analysis of the DFS approach, here is the breakdown of the underlying logic for the BFS-based approach (**Kahn’s Algorithm**).
-
-While DFS relies on the call stack and post-order traversal, BFS uses a dependency-counting mechanism to "peel" the graph layer by layer.
-
----
 
 ### BFS Underlying Logic and Cycle Detection (Kahn's Algorithm)
 The core intuition behind Kahn's Algorithm is **indegree management**. The indegree of a node represents the number of incoming edges (dependencies) that must be resolved before that node can be processed.
