@@ -34,7 +34,7 @@ fib(5)
 ```
 
 - **TC**: `O(2^N)`
-  - Everytime we down a level, we perform `2^level` operation.
+  - Everytime we go down a level, we perform `2^level` operation.
     - At level 0, we perform 2^0 = 1 operations at `fib(5)`
     - At level 1, we perform 2^1 = 2 operations at `fib(4)` and `fib(3)`
     - There are a total of `N-1` levels (1 + 2 + 4 + 8 ...) hence TC is `O(2^N)`
