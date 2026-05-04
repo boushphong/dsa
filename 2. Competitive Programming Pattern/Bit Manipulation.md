@@ -21,6 +21,49 @@ a ^ b    →  00000000 00000000 00000000 00000110
 ~a       →  11111111 11111111 11111111 11110011
 ```
 
+## Bitwise Algebra Laws
+### Commutative
+- `a & b = b & a`
+- `a | b = b | a`
+- `a ^ b = b ^ a`
+
+### Associative
+- `(a & b) & c = a & (b & c)`
+- `(a | b) | c = a | (b | c)`
+- `(a ^ b) ^ c = a ^ (b ^ c)`
+
+### Distributive
+- `a & (b | c) = (a & b) | (a & c)`
+- `a | (b & c) = (a | b) & (a | c)`
+- `a & (b ^ c) = (a & b) ^ (a & c)`
+
+### Identity / Null
+- `a & 1s = a`
+- `a & 0 = 0`
+- `a | 0 = a`
+- `a | 1s = 1s`
+- `a ^ 0 = a`
+- `a ^ a = 0`
+
+### De Morgan
+- `~(a & b) = ~a | ~b`
+- `~(a | b) = ~a & ~b`
+
+### Idempotent
+- `a & a = a`
+- `a | a = a`
+
+### Complement
+- `a & ~a = 0`
+- `a | ~a = 1s`
+
+### Involutive/Self-Inverse
+- `(a ^ b) ^ b = a`
+
+### Absorption
+- `a & (a | b) = a`
+- `a | (a & b) = a`
+
 ## Signed Numbers: 2's complement
 The sign of the binary number is determined by the leading (furthest left) digit.
 - 0 for positive
@@ -33,7 +76,7 @@ a = 12   →  00000000 00000000 00000000 00001100
 
 -a       →  11111111 11111111 11111111 11110100
 
-11110011 (0011 = 3) -> 11110100 (0100 = 4) 
+11110011 (0011 = 3) -> 11110100 (0100 = 4)
 ```
 
 ## Converting a Positive Integer to Negative
