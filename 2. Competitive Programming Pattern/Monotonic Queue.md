@@ -84,6 +84,13 @@ print(maximumRobots([3, 6, 1, 3, 4], [2, 1, 3, 4, 5], 25))  # 3
 
 ## Tracking Both Maximum and Mininum Element of a Sliding Window (Two Queues)
 This pattern can also be solved by using the **Two Heaps** pattern. But the time complexity of the **Two Queues** pattern is more efficient at `O(N)`.
+
+We maintain two deques (max and min) to track the maximum and minimum elements of the current window.
+- In `maxQ`: Any element `< num` can **never** be the max again, because `num` is larger AND enters later.
+- In `minQ`: Any element `> num` can **never** be the min again, because `num` is smaller AND enters later.
+Hence, these stale elements are not needed even when we shift the window because they can never be the max/min in any future window.
+
+  
 ### [Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/)
 ```python
 def longestSubarray(nums, limit):
