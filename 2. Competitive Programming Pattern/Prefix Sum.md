@@ -95,7 +95,7 @@ def jumpGameIX(nums):
     return ans
 ```
 
-## Difference Array (Imos / Sweep Line)
+## Difference Array
 Use this when you have many **range updates** like: "add `delta` to every index in `[l, r)`" and you want to recover the final values (or segments of constant value).
 
 Difference array idea:
@@ -105,8 +105,54 @@ Difference array idea:
   - `diff[r] -= delta`
 - The actual value at position `i` is the prefix sum: `val[i] = val[i - 1] + diff[i]`.
 
-### [Describe the Painting](https://leetcode.com/problems/describe-the-painting/)
+### [Maximum Population Year](https://leetcode.com/problems/maximum-population-year/)
+```python
+def maximumPopulation(logs):
+    earliest = 1950
+    diff = [0] * 101
 
+    for start, end in logs:
+        diff[start - earliest] += 1
+        diff[end - earliest] -= 1
+
+    mostPopulatedYear = 9999
+    cnt = runningCount = 0
+
+    for year, val in enumerate(diff):
+        runningCount += val
+        
+        if runningCount > cnt:
+            mostPopulatedYear = year
+            cnt = runningCount
+        if runningCount >= cnt:
+            mostPopulatedYear = min(year, mostPopulatedYear)
+
+    return mostPopulatedYear + earliest
+```
+
+## Difference Array with Line Sweep
+### [Divide Intervals Into Minimum Number of Groups](https://leetcode.com/problems/divide-intervals-into-minimum-number-of-groups/)
+```python
+def minGroups(intervals):
+    events = []
+
+    for interval in intervals:
+        events.append((interval[0], 1))
+        events.append((interval[1] + 1, -1))
+
+    events.sort(key=lambda x: (x[0], x[1]))
+
+    res = maxGroup = 0
+    for _, group in events:
+        maxGroup += group
+        res = max(
+            res, maxGroup
+        )
+
+    return res
+```
+
+### [Describe the Painting](https://leetcode.com/problems/describe-the-painting/)
 ```python
 def splitPainting(segments):
     mapping = defaultdict(int)
