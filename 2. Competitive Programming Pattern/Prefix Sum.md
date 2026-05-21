@@ -5,7 +5,8 @@
    * [Prefix Sum + HashMap](#prefix-sum--hashmap)
    * [Prefix Sum + Kadane](#prefix-sum--kadane)
    * [Prefix + Suffix Technique](#prefix--suffix)
-   * [Difference Array (Imos / Sweep Line)](#difference-array-with-line-sweep)
+   * [Difference Array](#difference-array)
+   * [Difference Array with Line Sweep](#difference-array-with-line-sweep)
 
 **Prefix sum** turns subarray queries into prefix-difference queries.
 
