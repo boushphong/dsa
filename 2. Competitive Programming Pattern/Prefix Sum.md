@@ -3,8 +3,9 @@
 * [Prefix Sum](#prefix-sum)
 * [Patterns](#patterns)
    * [Prefix Sum + HashMap](#prefix-sum--hashmap)
-   * [Prefix + Suffix Technique](#prefix--suffix-technique)
-   * [Difference Array (Imos / Sweep Line)](#difference-array-imos--sweep-line)
+   * [Prefix Sum + Kadane](#prefix-sum--kadane)
+   * [Prefix + Suffix Technique](#prefix--suffix)
+   * [Difference Array (Imos / Sweep Line)](#difference-array-with-line-sweep)
 
 **Prefix sum** turns subarray queries into prefix-difference queries.
 
@@ -53,6 +54,53 @@ def subarraysDivByK(nums, k):
         res += preSum[mod]
         preSum[mod] += 1
     return res
+```
+
+## Prefix Sum + Kadane
+Kadane's algorithm can be seen as a **Prefix Sum** variant.
+
+Let `preSum[i] = sum(nums[0..i])`
+
+So the maximum subarray sum for an index `i`:
+- `max(preSum[i] - preSum[j])` for all `j < i`.
+
+That means we can scan from left to right, maintaining:
+- `minPrefix = min(preSum[0..i])`
+- `ans = max(ans, preSum[i] - minPrefix)` for each `i`
+
+### [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
+```python
+def maxSubArray(nums):
+      res = -inf
+      leftMin = preSum = 0
+
+      for i, num in enumerate(nums):
+          preSum += num
+          res = max(res, preSum - leftMin)
+          leftMin = min(leftMin, preSum)
+
+      return res
+```
+
+### [Maximum Sum Circular Subarray](https://leetcode.com/problems/maximum-sum-circular-subarray/)
+Using the same idea, we can store the `maxPrefix` and `minWindow` to find the maximum sum of a circular subarray.
+
+```python
+def maxSubarraySumCircular(nums):
+      curMax = -inf
+      leftMax = minWindow = preSum = leftMin = 0
+
+      for num in nums:
+          preSum += num
+          curMax = max(curMax, preSum - leftMin)
+          leftMin = min(leftMin, preSum)
+          leftMax = max(leftMax, preSum)
+          minWindow = min(minWindow, preSum - leftMax)
+
+      if preSum == minWindow:
+          return curMax
+
+      return max(curMax, preSum - minWindow)
 ```
 
 ## Prefix + Suffix
