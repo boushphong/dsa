@@ -4,7 +4,7 @@ These problems often involve implementing a class or a set of functions that mee
 
 # Patterns
 ## Brute Force 
-When solving design problems, it is often best to begin with a brute-force solution—try every possible logic branch without overcomplicating it.
+When solving design problems, it is often best to begin with a brute-force solution, try every possible logic branch without overcomplicating it.
 ### Implement a Calendar
 ```
 Given a calendar, you can add 3 types of events
