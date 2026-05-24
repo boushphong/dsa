@@ -66,11 +66,7 @@ class Calendar:
                     and self.has_conflicts(start, end, cal_start, cal_end)
                 ):
                     return False
-                if cal_event_type == "Daily" and self.has_conflicts(
-                    start, end, cal_start, cal_end
-                ):
-                    return False
-                if cal_event_type == "Weekly" and self.has_conflicts(
+                if cal_event_type in {"Daily", "Weekly"} and self.has_conflicts(
                     start, end, cal_start, cal_end
                 ):
                     return False
